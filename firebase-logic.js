@@ -1,37 +1,34 @@
 // firebase-logic.js
-// Dies ist eine JavaScript-Datei, die Firebase initialisiert und Dienste exportiert.
+// Dieses Modul lädt die Firebase Compat-Bibliotheken und exportiert die auth- und db-Dienste.
 
-// Wichtige Änderung: Wir importieren jetzt das Haupt-Firebase-Objekt als "firebase"
-// und laden die anderen Bibliotheken nur, damit sie verfügbar sind.
-import firebase from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js";
-import "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"; // Lädt die Auth-Funktionalität
-import "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"; // Lädt die Firestore-Funktionalität
+// Wichtige Änderung: Wir verwenden KEINEN "import firebase from ..." mehr.
+// Die compat-Bibliotheken werden einfach geladen (import "...") und machen das globale 'firebase'-Objekt verfügbar.
+import "https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js";
+import "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js";
+import "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js";
 
 
-// Deine Firebase-Konfiguration hier einfügen
-// WICHTIG: Deine API-Keys etc. sind in diesem Codeausschnitt korrekt.
-// Stelle sicher, dass du diese Werte in die NEUE Version des Codes kopierst.
+// Deine Firebase-Konfiguration
+// Die Werte sind korrekt aus deinem vorherigen Beitrag übernommen.
 const firebaseConfig = {
-  apiKey: "AIzaSyDMaR8xOtpRLPIvLg45OWWD9daFzaw6drY", // Dein korrekter Key
-  authDomain: "meister-cb996.firebaseapp.com",     // Deine korrekte Domain
-  projectId: "meister-cb996",                     // Deine korrekte Project ID
+  apiKey: "AIzaSyDMaR8xOtpRLPIvLg45OWWD9daFzaw6drY",
+  authDomain: "meister-cb996.firebaseapp.com",
+  projectId: "meister-cb996",
   storageBucket: "meister-cb996.firebasestorage.app",
   messagingSenderId: "439507090690",
   appId: "1:439507090690:web:e8c504aab17d8096d5561b",
   measurementId: "G-FPYSE0QV7H"
 };
 
-// Firebase initialisieren
+// Firebase App initialisieren
+// Das 'firebase'-Objekt ist nun global verfügbar, nachdem firebase-app-compat.js geladen wurde.
 const app = firebase.initializeApp(firebaseConfig);
 
-// Dienste von der initialisierten App abrufen
-// Wichtige Änderung: Zugriff auf .auth() und .firestore() über das 'app'-Objekt
-const auth = app.auth(); 
-const db = app.firestore(); 
+// Auth- und Firestore-Dienste von der initialisierten App abrufen
+const auth = app.auth();
+const db = app.firestore();
 
-
-// Diese Dienste exportieren, damit sie in anderen Dateien verwendet werden können
-// Wichtige Änderung: Wir exportieren NUR noch die 'auth' und 'db' Objekte
+// Die 'auth' und 'db' Objekte exportieren
 export {
   auth,
   db
