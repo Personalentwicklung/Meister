@@ -1,452 +1,123 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MIKP - Personalentwicklung</title>
-  <style>
-    /* Allgemeine Einstellungen für den Body */
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
-      padding: 40px 20px;
-      background-color: #f0f2f5;
-      color: #333;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      min-height: 100vh;
-    }
-    /* Container für den gesamten Test, um ihn zu zentrieren und zu stylen */
-    .container {
-      background-color: #ffffff;
-      padding: 40px;
-      border-radius: 10px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      max-width: 900px;
-      width: 100%;
-      box-sizing: border-box;
-    }
-    h1 {
-      color: #1a4e8a;
-      text-align: center;
-      font-size: 2.2em;
-      margin-bottom: 5px; /* Abstand zum Sub-Titel */
-    }
-    h2 {
-      color: #1a4e8a;
-      text-align: center;
-      font-size: 1.5em;
-      font-weight: normal; /* Nicht-bold-Anforderung */
-      margin-top: 0;
-      margin-bottom: 30px;
-    }
-    h3 {
-      margin-top: 0;
-      color: #1a4e8a;
-    }
-    .question-navigation-bar {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 20px;
-      justify-content: center;
-    }
-    .question-navigation-bar button {
-      padding: 10px 20px;
-      font-size: 16px;
-      cursor: pointer;
-      background-color: #666;
-      color: white;
-      border: 1px solid #444;
-      border-radius: 5px;
-      transition: background-color 0.1s ease;
-    }
-    .question-navigation-bar button.active {
-      background-color: #1a4e8a;
-      color: white;
-      border-color: #1a4e8a;
-    }
-    .question-navigation-bar button:active {
-      transform: scale(0.98);
-    }
-    textarea {
-      width: 100%;
-      height: 200px;
-      font-size: 16px;
-      padding: 10px;
-      margin-top: 10px;
-      border: 1px solid #cddff5;
-      border-left: 5px solid #1a4e8a; /* Blauer Balken links */
-      border-radius: 5px;
-      font-family: inherit; /* Die Schriftart wird vom body-Element geerbt */
-    }
-    button.check-button {
-      display: block;
-      padding: 15px 20px;
-      background-color: #28a745;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      font-size: 1.2em;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      margin-top: 30px;
-      width: 100%;
-    }
-    button.check-button:hover {
-      background-color: #218838;
-    }
-    button.check-button:active {
-      transform: scale(0.98);
-    }
-    button.recheck-button {
-      background-color: #d4ac0d;
-    }
-    button.recheck-button:hover {
-      background-color: #b38e0b;
-    }
-    button.solution-button {
-      display: block;
-      padding: 15px 20px;
-      background-color: #1a4e8a;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      font-size: 1.2em;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      margin-top: 30px;
-      width: 100%;
-    }
-    button.solution-button:hover {
-      background-color: #1a3e7a;
-    }
-    button.solution-button:active {
-      transform: scale(0.98);
-    }
-    .question-section {
-      padding: 25px;
-      border: 1px solid #cddff5;
-      margin-bottom: 30px;
-      border-radius: 8px;
-      background-color: #ffffff;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    }
-    .feedback-section {
-      margin-top: 20px;
-      padding: 15px;
-      background-color: #e6eff9;
-      border-left: 5px solid #1a4e8a; /* Blauer Balken links */
-      transition: background-color 0.5s ease;
-    }
-    .feedback-section.highlight {
-        background-color: #d8e5f8;
-    }
-    .solution-section {
-      margin-top: 20px;
-      padding: 15px;
-      background-color: #e6eff9;
-      border-left: 5px solid #1a4e8a;
-    }
-    .ok { color: green; }
-    .hinweis { color: #d17b00; }
-    .error { color: red; }
-  </style>
-
-  </head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MIKP - Themen</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 20px; background-color: #f0f2f5; color: #333; }
+        .container { max-width: 800px; margin: auto; background-color: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); }
+        h1, h2 { color: #1a4e8a; text-align: center; }
+        .thema { margin-bottom: 30px; border-bottom: 2px solid #cddff5; padding-bottom: 20px; }
+        .frage { background-color: #e6eff9; padding: 20px; border-radius: 8px; margin-bottom: 15px; }
+        textarea { width: 100%; height: 100px; padding: 10px; border-radius: 5px; border: 1px solid #ccc; box-sizing: border-box; margin-top: 10px; }
+        button { background-color: #1a4e8a; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; transition: background-color 0.3s; }
+        button:hover { background-color: #1a3e7a; }
+    </style>
+</head>
 <body>
 
-  <div class="container">
-    <h1>MIKP - Personalentwicklung</h1>
-    <h2 id="thema-sub-titel"></h2>
+<div class="container" style="display:none;">
+    <h1>MIKP - Themen</h1>
 
-    <div id="thema-pe-prozess" class="thema-block">
-      <div class="question-navigation-bar">
-        <button id="nav1" onclick="zeigeFrage('pe-prozess', 1)">Frage 1</button>
-        <button id="nav2" onclick="zeigeFrage('pe-prozess', 2)">Frage 2</button>
-        <button id="nav3" onclick="zeigeFrage('pe-prozess', 3)">Frage 3</button>
-      </div>
+    <p style="text-align:center;">
+        <a href="#pe-prozess">PE-Prozess</a> | 
+        <a href="#potenzial-kompetenz">Potenzial und Kompetenz</a>
+    </p>
 
-      <div id="pe-prozess-frage1" class="question-section">
-        <h3>Frage 1:</h3>
-        <p><strong>Beschreiben Sie die fünf Phasen des Personalentwicklungsprozesses und erläutern Sie deren Bedeutung für die betriebliche Praxis.</strong></p>
-        <p>Bitte gib deine Antwort im folgenden Feld ein:</p>
-        <textarea id="pe-prozess-antwort1" placeholder="Deine Antwort hier..."></textarea>
-        <br>
-        <div id="pe-prozess-info1"></div>
-        <button id="pe-prozess-btn1" class="check-button" onclick="auswerten('pe-prozess', 1)">Antwort prüfen</button>
-
-        <div id="pe-prozess-feedback1" class="feedback-section"></div>
-        <button id="pe-prozess-showMusterBtn1" class="solution-button" onclick="zeigeMusterloesung('pe-prozess', 1)" style="display:none;">Musterlösung anzeigen</button>
-        <div id="pe-prozess-muster1" class="solution-section" style="display:none;">
-          <h3>Musterlösung:</h3>
-          <p>Der Personalentwicklungsprozess gliedert sich in fünf aufeinanderfolgende Phasen:</p>
-          <p><strong>Bedarfsanalyse:</strong> Hier wird ermittelt, welche Qualifikationen im Unternehmen fehlen oder künftig benötigt werden. Dies geschieht durch Methoden wie Befragungen, Beobachtungen oder Dokumentenanalysen.</p>
-          <p><strong>Zielplanung:</strong> In dieser Phase werden konkrete Entwicklungsziele definiert, die sowohl auf individuelle als auch auf unternehmerische Anforderungen abgestimmt sind.</p>
-          <p><strong>Maßnahmengestaltung:</strong> Es werden geeignete Entwicklungsmaßnahmen ausgewählt, die sowohl pädagogisch sinnvoll als auch wirtschaftlich tragfähig sind.</p>
-          <p><strong>Durchführung:</strong> Die geplanten Maßnahmen werden umgesetzt – z. B. durch Schulungen, Coaching oder Training-on-the-Job.</p>
-          <p><strong>Erfolgskontrolle:</strong> Abschließend wird überprüft, ob die Maßnahmen die gewünschten Effekte erzielt haben. Dies kann durch Feedback, Tests oder Leistungsbeurteilungen erfolgen.</p>
-          <p>Der strukturierte Ablauf stellt sicher, dass Personalentwicklung zielgerichtet, effizient und nachhaltig erfolgt.</p>
+    <div id="pe-prozess" class="thema">
+        <h2>Thema 1: Der PE-Prozess</h2>
+        <div class="frage" data-thema="pe-prozess" data-frage="1">
+            <p>1. Beschreibe die Phasen des PE-Prozesses in eigenen Worten.</p>
+            <textarea placeholder="Deine Antwort hier..."></textarea>
+            <button onclick="auswerten(this)">Speichern</button>
         </div>
-      </div>
-
-      <div id="pe-prozess-frage2" class="question-section" style="display:none;">
-        <h3>Frage 2:</h3>
-        <p><strong>Warum ist die Personalentwicklung ein strategisches Instrument zur Sicherung der Wettbewerbsfähigkeit?</strong></p>
-        <p>Bitte gib deine Antwort im folgenden Feld ein:</p>
-        <textarea id="pe-prozess-antwort2" placeholder="Deine Antwort hier..."></textarea>
-        <br>
-        <div id="pe-prozess-info2"></div>
-        <button id="pe-prozess-btn2" class="check-button" onclick="auswerten('pe-prozess', 2)">Antwort prüfen</button>
-
-        <div id="pe-prozess-feedback2" class="feedback-section"></div>
-        <button id="pe-prozess-showMusterBtn2" class="solution-button" onclick="zeigeMusterloesung('pe-prozess', 2)" style="display:none;">Musterlösung anzeigen</button>
-        <div id="pe-prozess-muster2" class="solution-section" style="display:none;">
-          <h3>Musterlösung:</h3>
-          <p>Personalentwicklung trägt wesentlich zur langfristigen Wettbewerbsfähigkeit eines Unternehmens bei. In Zeiten des Fachkräftemangels und des raschen technologischen Wandels ist es entscheidend, Mitarbeitende kontinuierlich weiterzubilden. Durch gezielte Entwicklung können Kompetenzen aufgebaut, Motivation gesteigert und die Mitarbeiterbindung erhöht werden. Unternehmen, die in ihre Belegschaft investieren, sichern sich nicht nur Know-how, sondern auch Innovationskraft und Anpassungsfähigkeit. Personalentwicklung ist somit kein „Nice-to-have“, sondern ein zentraler Bestandteil der Unternehmensstrategie.</p>
+        <div class="frage" data-thema="pe-prozess" data-frage="2">
+            <p>2. Warum ist die Bedarfsanalyse im PE-Prozess so wichtig?</p>
+            <textarea placeholder="Deine Antwort hier..."></textarea>
+            <button onclick="auswerten(this)">Speichern</button>
         </div>
-      </div>
-
-      <div id="pe-prozess-frage3" class="question-section" style="display:none;">
-        <h3>Frage 3:</h3>
-        <p><strong>Welche Herausforderungen können bei der Umsetzung von PE-Maßnahmen auftreten und wie lassen sich diese bewältigen?</strong></p>
-        <p>Bitte gib deine Antwort im folgenden Feld ein:</p>
-        <textarea id="pe-prozess-antwort3" placeholder="Deine Antwort hier..."></textarea>
-        <br>
-        <div id="pe-prozess-info3"></div>
-        <button id="pe-prozess-btn3" class="check-button" onclick="auswerten('pe-prozess', 3)">Antwort prüfen</button>
-
-        <div id="pe-prozess-feedback3" class="feedback-section"></div>
-        <button id="pe-prozess-showMusterBtn3" class="solution-button" onclick="zeigeMusterloesung('pe-prozess', 3)" style="display:none;">Musterlösung anzeigen</button>
-        <div id="pe-prozess-muster3" class="solution-section" style="display:none;">
-          <h3>Musterlösung:</h3>
-          <p>Herausforderungen bei PE-Maßnahmen können vielfältig sein:</p>
-          <p><strong>Fehlende Bedarfsanalyse</strong> führt zu ineffektiven Maßnahmen.</p>
-          <p><strong>Widerstand der Mitarbeitenden</strong> kann durch mangelnde Kommunikation oder fehlende Einbindung entstehen.</p>
-          <p><strong>Zeit- und Ressourcenmangel</strong> erschwert die Umsetzung.</p>
-          <p>Diese Herausforderungen lassen sich durch eine sorgfältige Planung, transparente Kommunikation und die Einbindung aller Beteiligten bewältigen. Wichtig ist auch die kontinuierliche Evaluation, um Maßnahmen bei Bedarf anzupassen.</p>
+        <div class="frage" data-thema="pe-prozess" data-frage="3">
+            <p>3. Was versteht man unter dem Begriff "Transfer" im PE-Prozess?</p>
+            <textarea placeholder="Deine Antwort hier..."></textarea>
+            <button onclick="auswerten(this)">Speichern</button>
         </div>
-      </div>
     </div>
 
-    <div id="thema-potenzial-kompetenz" class="thema-block" style="display:none;">
-      <div class="question-navigation-bar">
-        <button id="nav4" onclick="zeigeFrage('potenzial-kompetenz', 4)">Frage 1</button>
-        <button id="nav5" onclick="zeigeFrage('potenzial-kompetenz', 5)">Frage 2</button>
-        <button id="nav6" onclick="zeigeFrage('potenzial-kompetenz', 6)">Frage 3</button>
-      </div>
-
-      <div id="potenzial-kompetenz-frage4" class="question-section">
-        <h3>Frage 1:</h3>
-        <p><strong>Was versteht man unter dem Begriff „Potenzial“ im Kontext der Personalentwicklung und wie unterscheidet er sich von „Kompetenz“?</strong></p>
-        <p>Bitte gib deine Antwort im folgenden Feld ein:</p>
-        <textarea id="potenzial-kompetenz-antwort4" placeholder="Deine Antwort hier..."></textarea>
-        <br>
-        <div id="potenzial-kompetenz-info4"></div>
-        <button id="potenzial-kompetenz-btn4" class="check-button" onclick="auswerten('potenzial-kompetenz', 4)">Antwort prüfen</button>
-        <div id="potenzial-kompetenz-feedback4" class="feedback-section"></div>
-        <button id="potenzial-kompetenz-showMusterBtn4" class="solution-button" onclick="zeigeMusterloesung('potenzial-kompetenz', 4)" style="display:none;">Musterlösung anzeigen</button>
-        <div id="potenzial-kompetenz-muster4" class="solution-section" style="display:none;">
-          <h3>Musterlösung:</h3>
-          <p>Potenzial beschreibt die Fähigkeit eines Mitarbeiters, sich über das aktuell gezeigte Leistungsniveau hinaus weiterzuentwickeln. Es ist zukunftsorientiert und bezieht sich auf Eigenschaften wie Lernfähigkeit, Motivation und Entwicklungsperspektiven.</p>
-          <p>Kompetenz hingegen ist gegenwartsbezogen und beschreibt die Fähigkeit, Wissen, Können und Verhalten in konkreten beruflichen Situationen erfolgreich einzusetzen.</p>
-          <p>Während Kompetenz messbar und beobachtbar ist, basiert Potenzial stärker auf Einschätzungen und Prognosen. Beide Begriffe sind zentrale Grundlagen für eine zielgerichtete Personalentwicklung.</p>
+    <div id="potenzial-kompetenz" class="thema">
+        <h2>Thema 2: Potenzial und Kompetenz</h2>
+        <div class="frage" data-thema="potenzial-kompetenz" data-frage="1">
+            <p>1. Erkläre den Unterschied zwischen Potenzial und Kompetenz.</p>
+            <textarea placeholder="Deine Antwort hier..."></textarea>
+            <button onclick="auswerten(this)">Speichern</button>
         </div>
-      </div>
-
-      <div id="potenzial-kompetenz-frage5" class="question-section" style="display:none;">
-        <h3>Frage 2:</h3>
-        <p><strong>Welche Methoden eignen sich zur Identifikation von Entwicklungspotenzialen bei Mitarbeitenden?</strong></p>
-        <p>Bitte gib deine Antwort im folgenden Feld ein:</p>
-        <textarea id="potenzial-kompetenz-antwort5" placeholder="Deine Antwort hier..."></textarea>
-        <br>
-        <div id="potenzial-kompetenz-info5"></div>
-        <button id="potenzial-kompetenz-btn5" class="check-button" onclick="auswerten('potenzial-kompetenz', 5)">Antwort prüfen</button>
-        <div id="potenzial-kompetenz-feedback5" class="feedback-section"></div>
-        <button id="potenzial-kompetenz-showMusterBtn5" class="solution-button" onclick="zeigeMusterloesung('potenzial-kompetenz', 5)" style="display:none;">Musterlösung anzeigen</button>
-        <div id="potenzial-kompetenz-muster5" class="solution-section" style="display:none;">
-          <h3>Musterlösung:</h3>
-          <p>Zur Identifikation von Potenzialen eignen sich verschiedene Methoden:</p>
-          <p>Potenzialanalysen, die auf psychologischen Tests und Eigenschaftsprofilen basieren</p>
-          <p>Beobachtungen im Arbeitsalltag, idealerweise im Mehraugenprinzip</p>
-          <p>Assessment- oder Development-Center, mit praxisnahen Aufgabenstellungen</p>
-          <p>Talentportfolios, in denen Führungskräfte Einschätzungen dokumentieren</p>
-          <p>Feedbackgespräche, die systematisch geführt werden</p>
+        <div class="frage" data-thema="potenzial-kompetenz" data-frage="2">
+            <p>2. Wie können Potenziale im Unternehmen identifiziert werden?</p>
+            <textarea placeholder="Deine Antwort hier..."></textarea>
+            <button onclick="auswerten(this)">Speichern</button>
         </div>
-      </div>
-
-      <div id="potenzial-kompetenz-frage6" class="question-section" style="display:none;">
-        <h3>Frage 3:</h3>
-        <p><strong>Warum ist es für Unternehmen wichtig, Potenzial und Kompetenz systematisch zu erfassen und zu entwickeln?</strong></p>
-        <p>Bitte gib deine Antwort im folgenden Feld ein:</p>
-        <textarea id="potenzial-kompetenz-antwort6" placeholder="Deine Antwort hier..."></textarea>
-        <br>
-        <div id="potenzial-kompetenz-info6"></div>
-        <button id="potenzial-kompetenz-btn6" class="check-button" onclick="auswerten('potenzial-kompetenz', 6)">Antwort prüfen</button>
-        <div id="potenzial-kompetenz-feedback6" class="feedback-section"></div>
-        <button id="potenzial-kompetenz-showMusterBtn6" class="solution-button" onclick="zeigeMusterloesung('potenzial-kompetenz', 6)" style="display:none;">Musterlösung anzeigen</button>
-        <div id="potenzial-kompetenz-muster6" class="solution-section" style="display:none;">
-          <h3>Musterlösung:</h3>
-          <p>Die systematische Erfassung von Potenzial und Kompetenz ermöglicht es Unternehmen, gezielt in die Entwicklung ihrer Mitarbeitenden zu investieren.</p>
-          <p>Dadurch können Fach- und Führungskräfte frühzeitig identifiziert und aufgebaut werden, was die Nachfolgeplanung erleichtert und die Wettbewerbsfähigkeit stärkt.</p>
-          <p>Zudem fördert es die Motivation und Bindung der Mitarbeitenden, da individuelle Entwicklungsperspektiven aufgezeigt werden.</p>
+        <div class="frage" data-thema="potenzial-kompetenz" data-frage="3">
+            <p>3. Nenne die drei Kompetenzbereiche nach Weinert.</p>
+            <textarea placeholder="Deine Antwort hier..."></textarea>
+            <button onclick="auswerten(this)">Speichern</button>
         </div>
-      </div>
     </div>
-  </div>
 
-  <script>
-    let aktuelleFrage = 1;
-    let aktuellesThema = '';
-    const themen = {
-      'pe-prozess': {
-        h2Text: 'PE-Prozess',
-        fragen: [1, 2, 3],
-        keywords: {
-          1: [
-            { name: "Bedarfsanalyse", synonyme: ["bedarf", "bedarfsanalyse", "ermittlung"] },
-            { name: "Zielplanung", synonyme: ["ziel", "ziele", "zielplanung", "planung"] },
-            { name: "Maßnahmengestaltung", synonyme: ["maßnahme", "maßnahmen", "maßnahmengestaltung", "auswahl"] },
-            { name: "Durchführung", synonyme: ["durchführung", "umsetzung", "schulung", "coaching"] },
-            { name: "Erfolgskontrolle", synonyme: ["erfolgskontrolle", "kontrolle", "evaluation", "überprüfung"] }
-          ],
-          2: [
-            { name: "Wettbewerbsfähigkeit", synonyme: ["wettbewerbsfähigkeit", "wettbewerb", "strategisch"] },
-            { name: "Fachkräftemangel", synonyme: ["fachkräftemangel", "fachkräfte", "fachkräft"] },
-            { name: "Mitarbeiterbindung", synonyme: ["mitarbeiterbindung", "bindung", "loyalität"] },
-            { name: "Innovation", synonyme: ["innovation", "innovationskraft"] },
-            { name: "Know-how", synonyme: ["know-how", "wissen", "kompetenz"] }
-          ],
-          3: [
-            { name: "Bedarfsanalyse", synonyme: ["bedarfsanalyse", "bedarf", "fehlende bedarfsanalyse"] },
-            { name: "Widerstand", synonyme: ["widerstand", "ablehnung", "fehlende einbindung"] },
-            { name: "Ressourcen", synonyme: ["ressourcenmangel", "zeitmangel", "ressourcen", "zeit", "kosten"] },
-            { name: "Kommunikation", synonyme: ["kommunikation", "transparenz", "kommunizieren"] },
-            { name: "Evaluation", synonyme: ["evaluation", "kontrolle"] }
-          ]
-        }
-      },
-      'potenzial-kompetenz': {
-        h2Text: 'Potenzial und Kompetenz',
-        fragen: [4, 5, 6],
-        keywords: {
-          4: [
-            { name: "Potenzial", synonyme: ["potenzial", "zukunftsorientiert", "weiterentwickeln", "lernfähigkeit", "motivation", "entwicklungsperspektiven", "prognose"] },
-            { name: "Kompetenz", synonyme: ["kompetenz", "gegenwartsbezogen", "wissen", "können", "verhalten", "messbar", "beobachtbar"] }
-          ],
-          5: [
-            { name: "Potenzialanalysen", synonyme: ["potenzialanalysen", "psychologisch", "tests"] },
-            { name: "Beobachtungen", synonyme: ["beobachtungen", "mehraugenprinzip"] },
-            { name: "Assessment- oder Development-Center", synonyme: ["assessment-center", "development-center", "praxisnah"] },
-            { name: "Talentportfolios", synonyme: ["talentportfolios", "einschätzungen"] },
-            { name: "Feedbackgespräche", synonyme: ["feedbackgespräche", "feedback"] }
-          ],
-          6: [
-            { name: "Entwicklung", synonyme: ["entwicklung", "entwickeln", "investieren"] },
-            { name: "Nachfolgeplanung", synonyme: ["nachfolgeplanung", "nachfolge"] },
-            { name: "Wettbewerbsfähigkeit", synonyme: ["wettbewerbsfähigkeit", "wettbewerb"] },
-            { name: "Motivation und Bindung", synonyme: ["motivation", "bindung", "mitarbeiterbindung"] },
-            { name: "Strategisches Instrument", synonyme: ["strategisch", "instrument"] }
-          ]
-        }
+</div>
+
+<script type="module" src="firebase-logic.js"></script>
+
+<script type="module">
+    import { auth, db, onAuthStateChanged, doc, getDoc, setDoc } from './firebase-logic.js';
+
+    // Sicherstellen, dass der Benutzer angemeldet ist
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        window.location.href = "index.html"; // Weiterleitung, wenn nicht angemeldet
+      } else {
+        document.querySelector('.container').style.display = 'block';
       }
-    };
-    
-    function auswerten(themaID, frageNummer) {
-      const antwort = document.getElementById(`${themaID}-antwort${frageNummer}`).value.trim().toLowerCase();
-      const feedback = [];
-      const schluesselwoerter = themen[themaID].keywords[frageNummer];
-      
-      const lines = antwort.split('\n').filter(line => line.trim().length > 0);
-      
-      schluesselwoerter.forEach(k => {
-        let isKeywordFound = false;
-        
-        for (const line of lines) {
-          const wordCount = line.split(/\s+/).filter(Boolean).length;
-          const isShortAnswer = wordCount > 0 && wordCount < 5;
-          
-          if (k.synonyme.some(begriff => line.includes(begriff))) {
-            isKeywordFound = true;
-            if (isShortAnswer) {
-              feedback.push(`<p class="hinweis">⚠️ Der Begriff "${k.name}" wurde erkannt, ist aber noch nicht beschrieben.</p>`);
-            } else {
-              feedback.push(`<p class="ok">✅ Der Begriff "${k.name}" wurde beschrieben.</p>`);
-            }
-            break; 
-          }
+    });
+
+    async function auswerten(buttonElement) {
+        const userId = auth.currentUser.uid;
+        const frageDiv = buttonElement.closest('.frage');
+        const themaId = frageDiv.dataset.thema;
+        const frageId = frageDiv.dataset.frage;
+        const antwort = frageDiv.querySelector('textarea').value;
+
+        if (antwort.trim() === '') {
+            alert('Bitte gib eine Antwort ein, bevor du speicherst.');
+            return;
         }
-        
-        if (!isKeywordFound) {
-          feedback.push(`<p class="error">❌ Der Begriff "${k.name}" wurde nicht genannt.</p>`);
+
+        const userDocRef = doc(db, "users", userId);
+        const userDocSnap = await getDoc(userDocRef);
+
+        let dataToUpdate = {};
+        if (userDocSnap.exists()) {
+            dataToUpdate = userDocSnap.data();
         }
-      });
 
-      const feedbackElement = document.getElementById(`${themaID}-feedback${frageNummer}`);
-      const solutionElement = document.getElementById(`${themaID}-muster${frageNummer}`);
+        // Stelle sicher, dass das Thema-Objekt existiert
+        if (!dataToUpdate[themaId]) {
+            dataToUpdate[themaId] = {};
+        }
 
-      // Musterlösung beim erneuten Prüfen ausblenden
-      if (solutionElement) {
-          solutionElement.style.display = 'none';
-      }
+        // Speichere die Antwort
+        dataToUpdate[themaId][frageId] = antwort;
 
-      // Feedback ausblenden, dann wieder einblenden
-      feedbackElement.style.display = 'none';
-      feedbackElement.innerHTML = `<h3>Feedback:</h3>` + feedback.join("");
-      setTimeout(() => {
-        feedbackElement.style.display = 'block';
-      }, 50); // Eine kurze Verzögerung für den Blinzel-Effekt
-
-      document.getElementById(`${themaID}-showMusterBtn${frageNummer}`).style.display = "block";
-      
-      const infoTextElement = document.getElementById(`${themaID}-info${frageNummer}`);
-      const buttonElement = document.getElementById(`${themaID}-btn${frageNummer}`);
-
-      buttonElement.textContent = "Antwort erneut Prüfen";
-      buttonElement.classList.add('recheck-button');
-      infoTextElement.innerHTML = `<p>Möchtest du deine Antwort noch einmal überarbeiten und erneut Prüfen?</p>`;
+        try {
+            await setDoc(userDocRef, dataToUpdate, { merge: true });
+            buttonElement.textContent = "Gespeichert!";
+            buttonElement.disabled = true;
+            alert('Deine Antwort wurde erfolgreich gespeichert!');
+        } catch (e) {
+            console.error("Fehler beim Speichern der Antwort: ", e);
+            alert('Es gab einen Fehler beim Speichern deiner Antwort.');
+        }
     }
-    
-    function zeigeThema(themaID) {
-      document.querySelectorAll('.thema-block').forEach(block => {
-        block.style.display = 'none';
-      });
-      const themaElement = document.getElementById('thema-' + themaID);
-      if (themaElement) {
-        themaElement.style.display = 'block';
-        document.getElementById('thema-sub-titel').textContent = themen[themaID].h2Text;
-        aktuellesThema = themaID;
-        zeigeFrage(themaID, themen[themaID].fragen[0]);
-      }
-    }
-
-    function zeigeFrage(themaID, frageNummer) {
-      document.querySelectorAll(`#thema-${themaID} .question-section`).forEach(section => {
-        section.style.display = 'none';
-      });
-      document.getElementById(`${themaID}-frage${frageNummer}`).style.display = 'block';
-
-      document.querySelectorAll(`#thema-${themaID} .question-navigation-bar button`).forEach(btn => {
-        btn.classList.remove('active');
-      });
-      document.getElementById(`nav${frageNummer}`).classList.add('active');
-
-      aktuelleFrage = frageNummer;
-    }
-
-
-    function zeigeMusterloesung(themaID, frageNummer) {
-      document.getElementById(`${themaID}-muster${frageNummer}`).style.display = "block";
-    }
-
-    // Sofortige Ausführung des Codes bei Laden der Seite, um Anker zu erkennen
-    const hash = window.location.hash.substring(1);
-    if (themen[hash]) {
-      zeigeThema(hash);
-    } else {
-      zeigeThema('pe-prozess');
-    }
-  </script>
+</script>
 
 </body>
 </html>
