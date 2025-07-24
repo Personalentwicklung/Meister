@@ -8,17 +8,15 @@ import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWith
 import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js";
 
 
-// Deine Firebase-Konfiguration hier einfügen
-// DIESE WERTE MUSST DU MIT DEINEN EIGENEN AUS DER FIREBASE-KONSOLE ERSETZEN!
-// Du findest sie in deiner Firebase-Konsole unter "Projekteinstellungen" -> "Deine Apps" -> "Web-App".
 const firebaseConfig = {
-  apiKey: "DEIN_API_KEY", // <--- ERSETZE DIES!
-  authDomain: "DEIN_AUTH_DOMAIN", // <--- ERSETZE DIES!
-  projectId: "DEIN_PROJECT_ID", // <--- ERSETZE DIES!
-  storageBucket: "DEIN_STORAGE_BUCKET", // <--- ERSETZE DIES!
-  messagingSenderId: "DEIN_MESSAGING_SENDER_ID", // <--- ERSETZE DIES!
-  appId: "DEIN_APP_ID", // <--- ERSETZE DIES!
-};
+    apiKey: "AIzaSyDMaR8xOtpRLPIvLg45OWWD9daFzaw6drY",
+    authDomain: "meister-cb996.firebaseapp.com",
+    projectId: "meister-cb996",
+    storageBucket: "meister-cb996.firebasestorage.app",
+    messagingSenderId: "439507090690",
+    appId: "1:439507090690:web:e8c504aab17d8096d5561b",
+    measurementId: "G-FPYSE0QV7H"
+  };
 
 // Firebase initialisieren
 const app = initializeApp(firebaseConfig);
