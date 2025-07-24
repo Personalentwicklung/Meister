@@ -3,205 +3,139 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Meisterschule: Startseite</title>
+  <title>MIKP - Anmeldung</title>
   <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
-      padding: 40px 20px;
-      background-color: #f0f2f5;
-      color: #333;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      min-height: 100vh;
-    }
-    .container {
-      background-color: #ffffff;
-      padding: 40px;
-      border-radius: 10px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      max-width: 600px;
-      width: 100%;
-      box-sizing: border-box;
-      text-align: center;
-    }
-    h1 {
-      color: #1a4e8a;
-      font-size: 2.2em;
-      margin-bottom: 20px;
-    }
-    h2 {
-      color: #1a4e8a;
-      font-size: 1.5em;
-      margin-top: 0;
-    }
-    input[type="email"],
-    input[type="password"] {
-      width: calc(100% - 22px);
-      padding: 10px;
-      margin-bottom: 15px;
-      border: 1px solid #cddff5;
-      border-radius: 5px;
-      font-size: 16px;
-    }
-    button {
-      padding: 12px 20px;
-      border: none;
-      border-radius: 5px;
-      font-size: 1em;
-      cursor: pointer;
-      color: white;
-      transition: background-color 0.3s ease;
-      margin: 5px;
-    }
-    #register-button, #login-button {
-      background-color: #1a4e8a;
-    }
-    #logout-button {
-      background-color: #d9534f;
-    }
-    #register-button:hover, #login-button:hover {
-      background-color: #1a3e7a;
-    }
-    #logout-button:hover {
-      background-color: #c9302c;
-    }
-    .topic-list {
-      text-align: left;
-      margin-top: 30px;
-    }
-    .topic-list a {
-      display: block;
-      padding: 15px;
-      background-color: #f8f9fa;
-      border: 1px solid #e9ecef;
-      border-radius: 5px;
-      margin-bottom: 10px;
-      text-decoration: none;
-      color: #1a4e8a;
-      font-size: 1.1em;
-      transition: background-color 0.3s ease;
-    }
-    .topic-list a:hover {
-      background-color: #e2e6ea;
-    }
-    .hidden {
-      display: none;
-    }
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; background-color: #f0f2f5; }
+    .auth-container { background-color: #ffffff; padding: 40px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); width: 100%; max-width: 400px; text-align: center; }
+    h1 { color: #1a4e8a; margin-bottom: 20px; }
+    input[type="email"], input[type="password"] { width: 90%; padding: 12px; margin-bottom: 15px; border: 1px solid #cddff5; border-radius: 5px; font-size: 16px; }
+    button { width: 90%; padding: 12px; border: none; border-radius: 5px; background-color: #1a4e8a; color: white; font-size: 16px; cursor: pointer; transition: background-color 0.3s; }
+    button:hover { background-color: #1a3e7a; }
+    #message { margin-top: 15px; font-weight: bold; }
+    #forgot-password { display: block; margin-top: 15px; color: #1a4e8a; text-decoration: none; font-size: 14px; }
+    #forgot-password:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <div id="logged-out-view">
-      <h1>Willkommen zur Meisterschule!</h1>
-      <p>Bitte melde dich an oder registriere dich, um mit der Prüfungsvorbereitung zu beginnen.</p>
-      <input type="email" id="email-input" placeholder="E-Mail" required>
-      <input type="password" id="password-input" placeholder="Passwort" required>
-      <button id="register-button">Registrieren</button>
-      <button id="login-button">Anmelden</button>
-      <p id="auth-status"></p>
-    </div>
+<div class="auth-container" id="auth-container">
+  <h1>MIKP - Anmeldung</h1>
+  
+  <form id="login-form">
+    <input type="email" id="login-email" placeholder="E-Mail" required>
+    <input type="password" id="login-password" placeholder="Passwort" required>
+    <button type="submit">Anmelden</button>
+  </form>
 
-    <div id="logged-in-view" class="hidden">
-      <h1 id="welcome-message"></h1>
-      <p>Wähle ein Thema aus, um mit den Fragen zu beginnen:</p>
-      <div class="topic-list">
-        <a href="ZIP3-13.html">MIKP - Personalentwicklung</a>
-        </div>
-      <button id="logout-button">Abmelden</button>
-    </div>
-  </div>
+  <p id="message"></p>
 
-  <script type="module">
-    // Import the functions you need from the SDKs you need
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+  <a href="#" id="forgot-password">Passwort vergessen?</a>
 
- const firebaseConfig = {
-    apiKey: "AIzaSyDMaR8xOtpRLPIvLg45OWWD9daFzaw6drY",
-    authDomain: "meister-cb996.firebaseapp.com",
-    projectId: "meister-cb996",
-    storageBucket: "meister-cb996.firebasestorage.app",
-    messagingSenderId: "439507090690",
-    appId: "1:439507090690:web:e8c504aab17d8096d5561b",
-    measurementId: "G-FPYSE0QV7H"
-  };
+  <p>Noch kein Konto? <a href="#" id="show-register-form">Jetzt registrieren</a></p>
+</div>
 
-    // Firebase initialisieren
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
+<div class="auth-container" id="register-container" style="display:none;">
+  <h1>MIKP - Registrierung</h1>
+  
+  <form id="register-form">
+    <input type="email" id="register-email" placeholder="E-Mail" required>
+    <input type="password" id="register-password" placeholder="Passwort" required>
+    <button type="submit">Registrieren</button>
+  </form>
 
-    // HTML-Elemente
-    const loggedOutView = document.getElementById('logged-out-view');
-    const loggedInView = document.getElementById('logged-in-view');
-    const welcomeMessage = document.getElementById('welcome-message');
-    const emailInput = document.getElementById('email-input');
-    const passwordInput = document.getElementById('password-input');
-    const registerButton = document.getElementById('register-button');
-    const loginButton = document.getElementById('login-button');
-    const logoutButton = document.getElementById('logout-button');
-    const authStatus = document.getElementById('auth-status');
+  <p id="register-message"></p>
+  <p>Bereits ein Konto? <a href="#" id="show-login-form">Zur Anmeldung</a></p>
+</div>
 
-    // Funktion zur Aktualisierung der Benutzeroberfläche
-    function updateUI(user) {
-      if (user) {
-        // Benutzer ist angemeldet
-        loggedOutView.classList.add('hidden');
-        loggedInView.classList.remove('hidden');
-        welcomeMessage.textContent = `Hallo, ${user.email}!`;
-      } else {
-        // Benutzer ist abgemeldet
-        loggedOutView.classList.remove('hidden');
-        loggedInView.classList.add('hidden');
-      }
+<script>
+  function sendPasswordReset() {
+    const email = document.getElementById('login-email').value;
+    if (email) {
+      auth.sendPasswordResetEmail(email).then(() => {
+        alert("Eine E-Mail zum Zurücksetzen des Passworts wurde an " + email + " gesendet.");
+      }).catch((error) => {
+        alert("Fehler beim Senden der E-Mail: " + error.message);
+      });
+    } else {
+      alert("Bitte geben Sie Ihre E-Mail-Adresse ein, um eine Passwort-Reset-E-Mail zu erhalten.");
     }
+  }
 
-    // Listener für den Anmeldestatus
-    onAuthStateChanged(auth, (user) => {
-      updateUI(user);
-    });
+  document.getElementById('forgot-password').addEventListener('click', (event) => {
+    event.preventDefault();
+    sendPasswordReset();
+  });
+</script>
 
-    // Registrierung
-    registerButton.addEventListener('click', () => {
-      const email = emailInput.value;
-      const password = passwordInput.value;
-      createUserWithEmailAndPassword(auth, email, password)
-        .then(() => {
-          authStatus.textContent = 'Registrierung erfolgreich! Du bist jetzt angemeldet.';
-        })
-        .catch((error) => {
-          authStatus.textContent = `Fehler: ${error.message}`;
-        });
-    });
 
-    // Anmeldung
-    loginButton.addEventListener('click', () => {
-      const email = emailInput.value;
-      const password = passwordInput.value;
-      signInWithEmailAndPassword(auth, email, password)
-        .then(() => {
-          authStatus.textContent = 'Anmeldung erfolgreich!';
-        })
-        .catch((error) => {
-          authStatus.textContent = `Fehler: ${error.message}`;
-        });
-    });
+<script type="module">
+  // Importe aus der neuen firebase-logic.js Datei
+  import { auth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword } from './firebase-logic.js';
+  
+  // Weiterleitung, wenn der Benutzer bereits angemeldet ist
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      // Wenn angemeldet, Weiterleitung zur neuen Hauptseite
+      window.location.href = "main.html";
+    }
+  });
 
-    // Abmeldung
-    logoutButton.addEventListener('click', () => {
-      signOut(auth)
-        .then(() => {
-          authStatus.textContent = 'Du wurdest abgemeldet.';
-          emailInput.value = '';
-          passwordInput.value = '';
-        })
-        .catch((error) => {
-          authStatus.textContent = `Fehler: ${error.message}`;
-        });
-    });
-  </script>
+  // Registrierungsfunktion
+  document.getElementById('register-form').addEventListener('submit', (event) => {
+    event.preventDefault();
+    const email = document.getElementById('register-email').value;
+    const password = document.getElementById('register-password').value;
+    const messageElement = document.getElementById('register-message');
+    
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        messageElement.textContent = "Registrierung erfolgreich! Du wirst angemeldet.";
+        setTimeout(() => {
+          window.location.href = "main.html";
+        }, 1500); 
+      })
+      .catch((error) => {
+        messageElement.textContent = "Fehler bei der Registrierung: " + error.message;
+      });
+  });
+
+  // Anmeldefunktion
+  document.getElementById('login-form').addEventListener('submit', (event) => {
+    event.preventDefault();
+    const email = document.getElementById('login-email').value;
+    const password = document.getElementById('login-password').value;
+    const messageElement = document.getElementById('message');
+
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        messageElement.textContent = "Anmeldung erfolgreich!";
+        setTimeout(() => {
+          window.location.href = "main.html";
+        }, 1500); 
+      })
+      .catch((error) => {
+        messageElement.textContent = "Anmeldung fehlgeschlagen: " + error.message;
+      });
+  });
+
+  // Umschalten zwischen Anmelde- und Registrierungsformular
+  document.getElementById('show-register-form').addEventListener('click', (event) => {
+    event.preventDefault();
+    document.getElementById('login-form').style.display = 'none';
+    document.getElementById('register-form').style.display = 'block';
+    document.getElementById('auth-container').style.display = 'none';
+    document.getElementById('register-container').style.display = 'block';
+  });
+
+  document.getElementById('show-login-form').addEventListener('click', (event) => {
+    event.preventDefault();
+    document.getElementById('login-form').style.display = 'block';
+    document.getElementById('register-form').style.display = 'none';
+    document.getElementById('auth-container').style.display = 'block';
+    document.getElementById('register-container').style.display = 'none';
+  });
+
+</script>
 
 </body>
 </html>
