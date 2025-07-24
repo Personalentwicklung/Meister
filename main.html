@@ -29,10 +29,12 @@
 
   <script type="module" src="firebase-logic.js"></script>
   <script type="module">
-    import { auth, db, onAuthStateChanged, doc, getDoc } from './firebase-logic.js';
+    // Wichtige Änderung: Wir importieren nur noch die 'auth'- und 'db'-Objekte
+    import { auth, db } from './firebase-logic.js';
 
     // Prüfen, ob der Benutzer angemeldet ist
-    onAuthStateChanged(auth, (user) => {
+    // Wichtige Änderung: auth.onAuthStateChanged wird direkt aufgerufen
+    auth.onAuthStateChanged((user) => {
       if (!user) {
         // Benutzer ist nicht angemeldet, zur Landingpage weiterleiten
         window.location.href = "index.html";
@@ -49,8 +51,9 @@
       const progressListElement = document.getElementById('progress-list');
       progressListElement.innerHTML = ''; // Liste leeren
 
-      const docRef = doc(db, "users", userId);
-      const docSnap = await getDoc(docRef);
+      // Wichtige Änderung: db.doc und db.getDoc werden direkt aufgerufen
+      const docRef = db.doc(db, "users", userId);
+      const docSnap = await db.getDoc(docRef);
 
       const allTopics = {
         'pe-prozess': 'PE-Prozess',
@@ -109,30 +112,7 @@
 
     // Funktion zum Abmelden
     function signOutUser() {
-      auth.signOut().then(() => {
-        window.location.href = "index.html";
-      }).catch((error) => {
-        console.error("Fehler beim Abmelden:", error);
-      });
-    }
-  </script>
-</body>
-</html>
-    // Prüfen, ob der Benutzer angemeldet ist
-    onAuthStateChanged(auth, (user) => {
-      if (!user) {
-        // Benutzer ist nicht angemeldet, zur Landingpage weiterleiten
-        window.location.href = "index.html";
-      } else {
-        // Benutzer ist angemeldet, lade den Fortschritt
-        console.log("Benutzer ist angemeldet:", user.uid);
-        // Hier kommt später der Code zum Laden der Fortschrittsdaten
-        document.querySelector('.container').style.display = 'block';
-      }
-    });
-
-    // Funktion zum Abmelden
-    function signOutUser() {
+      // Wichtige Änderung: auth.signOut wird direkt aufgerufen
       auth.signOut().then(() => {
         window.location.href = "index.html";
       }).catch((error) => {
