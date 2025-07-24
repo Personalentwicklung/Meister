@@ -6,7 +6,7 @@
     <title>MIKP - Themen</title>
     <style>
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 20px; background-color: #f0f2f5; color: #333; }
-        .container { max-width: 800px; margin: auto; background-color: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); }
+        .container { max-width: 800px; margin: auto; background-color: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); display: none; }
         h1, h2 { color: #1a4e8a; text-align: center; }
         .thema { margin-bottom: 30px; border-bottom: 2px solid #cddff5; padding-bottom: 20px; }
         .frage { background-color: #e6eff9; padding: 20px; border-radius: 8px; margin-bottom: 15px; }
@@ -17,7 +17,7 @@
 </head>
 <body>
 
-<div class="container" style="display:none;">
+<div class="container">
     <h1>MIKP - Themen</h1>
 
     <p style="text-align:center;">
@@ -68,10 +68,12 @@
 <script type="module" src="firebase-logic.js"></script>
 
 <script type="module">
-    import { auth, db, onAuthStateChanged, doc, getDoc, setDoc } from './firebase-logic.js';
+    // Wichtige Änderung: Wir importieren nur noch die 'auth'- und 'db'-Objekte
+    import { auth, db } from './firebase-logic.js';
 
     // Sicherstellen, dass der Benutzer angemeldet ist
-    onAuthStateChanged(auth, (user) => {
+    // Wichtige Änderung: auth.onAuthStateChanged wird direkt aufgerufen
+    auth.onAuthStateChanged((user) => {
       if (!user) {
         window.location.href = "index.html"; // Weiterleitung, wenn nicht angemeldet
       } else {
@@ -80,7 +82,8 @@
     });
 
     async function auswerten(buttonElement) {
-        const userId = auth.currentUser.uid;
+        // Wichtige Änderung: auth.currentUser ist direkt verfügbar
+        const userId = auth.currentUser.uid; 
         const frageDiv = buttonElement.closest('.frage');
         const themaId = frageDiv.dataset.thema;
         const frageId = frageDiv.dataset.frage;
@@ -91,8 +94,9 @@
             return;
         }
 
-        const userDocRef = doc(db, "users", userId);
-        const userDocSnap = await getDoc(userDocRef);
+        // Wichtige Änderung: db.doc und db.getDoc werden direkt aufgerufen
+        const userDocRef = db.doc(db, "users", userId);
+        const userDocSnap = await db.getDoc(userDocRef);
 
         let dataToUpdate = {};
         if (userDocSnap.exists()) {
@@ -108,7 +112,8 @@
         dataToUpdate[themaId][frageId] = antwort;
 
         try {
-            await setDoc(userDocRef, dataToUpdate, { merge: true });
+            // Wichtige Änderung: db.setDoc wird direkt aufgerufen
+            await db.setDoc(userDocRef, dataToUpdate, { merge: true });
             buttonElement.textContent = "Gespeichert!";
             buttonElement.disabled = true;
             alert('Deine Antwort wurde erfolgreich gespeichert!');
