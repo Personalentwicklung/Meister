@@ -47,33 +47,15 @@
   <p>Bereits ein Konto? <a href="#" id="show-login-form">Zur Anmeldung</a></p>
 </div>
 
-<script>
-  function sendPasswordReset() {
-    const email = document.getElementById('login-email').value;
-    if (email) {
-      auth.sendPasswordResetEmail(email).then(() => {
-        alert("Eine E-Mail zum Zurücksetzen des Passworts wurde an " + email + " gesendet.");
-      }).catch((error) => {
-        alert("Fehler beim Senden der E-Mail: " + error.message);
-      });
-    } else {
-      alert("Bitte geben Sie Ihre E-Mail-Adresse ein, um eine Passwort-Reset-E-Mail zu erhalten.");
-    }
-  }
 
-  document.getElementById('forgot-password').addEventListener('click', (event) => {
-    event.preventDefault();
-    sendPasswordReset();
-  });
-</script>
-
-
+<script type="module" src="firebase-logic.js"></script>
 <script type="module">
-  // Importe aus der neuen firebase-logic.js Datei
-  import { auth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword } from './firebase-logic.js';
+  // Wichtige Änderung: Wir importieren nur noch das 'auth'-Objekt
+  import { auth } from './firebase-logic.js';
   
   // Weiterleitung, wenn der Benutzer bereits angemeldet ist
-  onAuthStateChanged(auth, (user) => {
+  // Wichtige Änderung: auth.onAuthStateChanged wird direkt aufgerufen
+  auth.onAuthStateChanged((user) => {
     if (user) {
       // Wenn angemeldet, Weiterleitung zur neuen Hauptseite
       window.location.href = "main.html";
@@ -87,7 +69,8 @@
     const password = document.getElementById('register-password').value;
     const messageElement = document.getElementById('register-message');
     
-    createUserWithEmailAndPassword(auth, email, password)
+    // Wichtige Änderung: auth.createUserWithEmailAndPassword wird direkt aufgerufen
+    auth.createUserWithEmailAndPassword(email, password)
       .then((userCredential) => {
         messageElement.textContent = "Registrierung erfolgreich! Du wirst angemeldet.";
         setTimeout(() => {
@@ -106,7 +89,8 @@
     const password = document.getElementById('login-password').value;
     const messageElement = document.getElementById('message');
 
-    signInWithEmailAndPassword(auth, email, password)
+    // Wichtige Änderung: auth.signInWithEmailAndPassword wird direkt aufgerufen
+    auth.signInWithEmailAndPassword(email, password)
       .then((userCredential) => {
         messageElement.textContent = "Anmeldung erfolgreich!";
         setTimeout(() => {
@@ -117,6 +101,23 @@
         messageElement.textContent = "Anmeldung fehlgeschlagen: " + error.message;
       });
   });
+  
+  // Funktion zum Senden der Passwort-Reset-E-Mail
+  // Wichtige Änderung: auth.sendPasswordResetEmail wird direkt aufgerufen
+  document.getElementById('forgot-password').addEventListener('click', (event) => {
+    event.preventDefault();
+    const email = document.getElementById('login-email').value; // E-Mail aus dem Login-Feld
+    if (email) {
+      auth.sendPasswordResetEmail(email).then(() => {
+        alert("Eine E-Mail zum Zurücksetzen des Passworts wurde an " + email + " gesendet.");
+      }).catch((error) => {
+        alert("Fehler beim Senden der E-Mail: " + error.message);
+      });
+    } else {
+      alert("Bitte geben Sie Ihre E-Mail-Adresse ein, um eine Passwort-Reset-E-Mail zu erhalten.");
+    }
+  });
+
 
   // Umschalten zwischen Anmelde- und Registrierungsformular
   document.getElementById('show-register-form').addEventListener('click', (event) => {
