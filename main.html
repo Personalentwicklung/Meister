@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MIKP - Dein Lernfortschritt</title>
+  <style>
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 40px 20px; background-color: #f0f2f5; color: #333; display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; }
+    .container { background-color: #ffffff; padding: 40px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); max-width: 900px; width: 100%; box-sizing: border-box; }
+    h1 { color: #1a4e8a; text-align: center; font-size: 2.2em; margin-bottom: 30px; }
+    .progress-list { list-style-type: none; padding: 0; }
+    .progress-item { background-color: #e6eff9; padding: 20px; border-radius: 8px; margin-bottom: 15px; border-left: 5px solid #1a4e8a; display: flex; justify-content: space-between; align-items: center; }
+    .progress-bar { width: 150px; height: 10px; background-color: #cddff5; border-radius: 5px; overflow: hidden; }
+    .progress-fill { height: 100%; background-color: #28a745; width: 0%; transition: width 0.5s ease-in-out; }
+    .progress-text { font-weight: bold; color: #1a4e8a; }
+    .topic-link { text-decoration: none; font-size: 1.1em; color: #1a4e8a; font-weight: bold; }
+    .topic-link:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Dein Lernfortschritt</h1>
+    <ul class="progress-list" id="progress-list">
+      </ul>
+    <button onclick="signOutUser()">Abmelden</button>
+  </div>
+
+  <script type="module" src="firebase-logic.js"></script>
+  <script type="module">
+    import { auth, onAuthStateChanged } from './firebase-logic.js';
+
+    // Prüfen, ob der Benutzer angemeldet ist
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        // Benutzer ist nicht angemeldet, zur Landingpage weiterleiten
+        window.location.href = "index.html";
+      } else {
+        // Benutzer ist angemeldet, lade den Fortschritt
+        console.log("Benutzer ist angemeldet:", user.uid);
+        // Hier kommt später der Code zum Laden der Fortschrittsdaten
+        document.querySelector('.container').style.display = 'block';
+      }
+    });
+
+    // Funktion zum Abmelden
+    function signOutUser() {
+      auth.signOut().then(() => {
+        window.location.href = "index.html";
+      }).catch((error) => {
+        console.error("Fehler beim Abmelden:", error);
+      });
+    }
+  </script>
+</body>
+</html>
