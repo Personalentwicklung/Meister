@@ -58,7 +58,13 @@
       background: none;
       border: none;
       cursor: pointer;
-      font-size: 1rem;
+      padding: 0;
+    }
+
+    .toggle-password svg {
+      width: 20px;
+      height: 20px;
+      fill: #333;
     }
 
     button {
@@ -78,8 +84,8 @@
     }
 
     a {
-      display: block;
-      margin-top: 0.75rem;
+      display: inline-block;
+      margin-top: 1rem;
       color: #0b3d91;
       text-decoration: underline;
       cursor: pointer;
@@ -92,6 +98,15 @@
     .hidden {
       display: none;
     }
+
+    #resetEmailContainer {
+      margin-top: 1rem;
+    }
+
+    #resetEmailContainer input {
+      margin-bottom: 0.5rem;
+    }
+
   </style>
 </head>
 <body>
@@ -103,14 +118,23 @@
     
     <div class="password-wrapper">
       <input type="password" id="password" placeholder="Passwort" />
-      <button class="toggle-password" onclick="togglePassword()">👁️</button>
+      <button class="toggle-password" onclick="togglePassword()">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 4.5C7 4.5 2.7 8 1 12c1.7 4 6 7.5 11 7.5s9.3-3.5 11-7.5c-1.7-4-6-7.5-11-7.5zm0 13a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11zm0-9a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7z"/>
+        </svg>
+      </button>
     </div>
 
     <button id="mainButton" onclick="handleAction()">Anmelden</button>
 
-    <a id="forgotPassword" onclick="handleReset()">Passwort vergessen?</a>
+    <a id="forgotPassword" onclick="showReset()">Passwort vergessen?</a>
     <a id="switchToRegister" onclick="switchMode('register')">Noch kein Konto? Jetzt registrieren</a>
     <a class="hidden" id="backToLogin" onclick="switchMode('login')">Zurück zur Anmeldung</a>
+
+    <div class="hidden" id="resetEmailContainer">
+      <input type="email" id="resetEmail" placeholder="E-Mail für Passwort-Reset" />
+      <button onclick="sendResetEmail()">Zurücksetzen</button>
+    </div>
   </div>
 
   <!-- Firebase CDN -->
@@ -118,14 +142,12 @@
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 
   <script>
-    // 🔧 Firebase config
     const firebaseConfig = {
-  apiKey: "AIzaSyDMaR8xOtpRLPIvLg45OWWD9daFzaw6drY",
-  authDomain: "meister-cb996.firebaseapp.com",
-  projectId: "meister-cb996",
-};
+      apiKey: "AIzaSyDMaR8xOtpRLPIvLg45OWWD9daFzaw6drY",
+      authDomain: "meister-cb996.firebaseapp.com",
+      projectId: "meister-cb996"
+    };
 
-    // 🔌 Init Firebase
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
 
@@ -139,17 +161,15 @@
     function switchMode(newMode) {
       mode = newMode;
 
-      document.getElementById("formTitle").innerText = mode === "login"
-        ? "Anmelden"
-        : "Registrieren";
-
-      document.getElementById("mainButton").innerText = mode === "login"
-        ? "Anmelden"
-        : "Konto erstellen";
-
+      document.getElementById("formTitle").innerText = mode === "login" ? "Anmelden" : "Registrieren";
+      document.getElementById("mainButton").innerText = mode === "login" ? "Anmelden" : "Konto erstellen";
       document.getElementById("forgotPassword").classList.toggle("hidden", mode !== "login");
       document.getElementById("switchToRegister").classList.toggle("hidden", mode !== "login");
       document.getElementById("backToLogin").classList.toggle("hidden", mode === "login");
+      document.getElementById("resetEmailContainer").classList.add("hidden");
+
+      document.getElementById("email").value = "";
+      document.getElementById("password").value = "";
     }
 
     function handleAction() {
@@ -175,16 +195,19 @@
       }
     }
 
-    function handleReset() {
-      const email = prompt("Gib deine E-Mail-Adresse ein:");
-      if (!email) return;
+    function showReset() {
+      document.getElementById("resetEmailContainer").classList.remove("hidden");
+    }
+
+    function sendResetEmail() {
+      const email = document.getElementById("resetEmail").value.trim();
+      if (!email) return alert("Bitte E-Mail eingeben.");
 
       auth.sendPasswordResetEmail(email)
-        .then(() => alert("E-Mail zum Zurücksetzen gesendet."))
+        .then(() => alert("E-Mail zum Zurücksetzen wurde gesendet."))
         .catch(err => alert("Fehler: " + err.message));
     }
 
-    // Initiale Ansicht
     document.addEventListener("DOMContentLoaded", () => switchMode("login"));
   </script>
 </body>
