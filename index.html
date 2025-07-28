@@ -1,104 +1,113 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Meisterschule – Anmeldung</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prüfungsvorbereitung – Meisterschule</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #eef2f7;
+      background-color: #f2f4f8;
       display: flex;
-      align-items: center;
       justify-content: center;
+      align-items: center;
       height: 100vh;
       margin: 0;
     }
 
     .container {
       background-color: #fff;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+      padding: 2.5rem;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
       width: 100%;
       max-width: 400px;
       box-sizing: border-box;
+    }
+
+    h1, h2 {
       text-align: center;
+      margin-bottom: 1rem;
+      color: #0b3d91;
     }
 
     h1 {
-      margin-bottom: 5px;
-      font-size: 16px;
+      font-size: 1.1rem;
       color: #333;
+      font-weight: normal;
     }
 
     h2 {
-      color: #164a96;
-      margin-top: 5px;
-      margin-bottom: 20px;
+      font-size: 1.5rem;
+      font-weight: bold;
     }
 
     input {
       width: 100%;
       padding: 12px;
-      margin-bottom: 15px;
+      margin-bottom: 1rem;
       border: 1px solid #ccc;
       border-radius: 6px;
-      font-size: 14px;
       box-sizing: border-box;
+      font-size: 1rem;
     }
 
     .password-wrapper {
       position: relative;
     }
 
-    .password-wrapper svg {
+    .password-wrapper input {
+      padding-right: 2.5rem;
+    }
+
+    .toggle-password {
       position: absolute;
       top: 50%;
-      right: 12px;
+      right: 0.75rem;
       transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .toggle-password svg {
       width: 20px;
       height: 20px;
-      cursor: pointer;
       fill: #444;
     }
 
     button {
       width: 100%;
       padding: 12px;
-      background-color: #164a96;
-      color: #fff;
+      background-color: #164b9a;
+      color: white;
       border: none;
       border-radius: 6px;
-      font-size: 16px;
+      font-size: 1rem;
       cursor: pointer;
+      margin-top: 0.5rem;
     }
 
     button:hover {
-      background-color: #133d7d;
+      background-color: #123c7a;
     }
 
-    .switch-links {
-      margin-top: 15px;
+    .link {
+      text-align: center;
+      margin-top: 1rem;
     }
 
-    .switch-links a {
-      color: #164a96;
+    .link a {
+      display: inline-block;
+      margin: 0.25rem 0;
       text-decoration: underline;
+      color: #0b3d91;
       cursor: pointer;
-      display: block;
-      margin-top: 8px;
-      font-size: 14px;
     }
 
-    .switch-links a:hover {
-      color: #0e3260;
-    }
-
-    #message {
-      color: red;
-      min-height: 18px;
-      margin-bottom: 10px;
+    .link a:hover {
+      color: #062c6a;
     }
 
     .hidden {
@@ -109,113 +118,106 @@
 <body>
   <div class="container">
     <h1>Prüfungsvorbereitung – Meisterschule</h1>
-    <h2 id="form-title">Anmelden</h2>
-
-    <div id="message"></div>
+    <h2 id="formTitle">Anmelden</h2>
 
     <input type="email" id="email" placeholder="E-Mail" />
 
-    <div class="password-wrapper" id="password-wrapper">
+    <div class="password-wrapper">
       <input type="password" id="password" placeholder="Passwort" />
-      <svg id="togglePassword" viewBox="0 0 24 24">
-        <path d="M12 4.5C7 4.5 2.7 7.6 1 12c1.7 4.4 6 7.5 11 7.5s9.3-3.1 11-7.5c-1.7-4.4-6-7.5-11-7.5zm0 13a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11z"/>
-        <circle cx="12" cy="12" r="2.5"/>
-      </svg>
+      <button class="toggle-password" onclick="togglePassword()" aria-label="Passwort anzeigen">
+        <svg viewBox="0 0 24 24"><path d="M12 5c-7 0-11 7-11 7s4 7 11 7 11-7 11-7-4-7-11-7zm0 12c-2.8 0-5-2.2-5-5s2.2-5 5-5 5 2.2 5 5-2.2 5-5 5zm0-8c-1.7 0-3 1.3-3 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"/></svg>
+      </button>
     </div>
 
-    <button id="submitBtn" onclick="handleSubmit()">Anmelden</button>
+    <button id="mainButton" onclick="handleAuth()">Anmelden</button>
 
-    <div class="switch-links">
-      <a onclick="switchMode('forgot')">Passwort vergessen?</a>
-      <a onclick="switchMode('register')">Noch kein Konto? Jetzt registrieren</a>
+    <div class="link">
+      <a id="forgotPassword" onclick="switchMode('reset')">Passwort vergessen?</a>
+      <a id="switchToRegister" onclick="switchMode('register')">Noch kein Konto? Jetzt registrieren</a>
       <a class="hidden" id="backToLogin" onclick="switchMode('login')">Zurück zur Anmeldung</a>
     </div>
   </div>
 
-  <!-- Firebase -->
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
-  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyDMaR8xOtpRLPIvLg45OWWD9daFzaw6drY",
-      authDomain: "meister-cb996.firebaseapp.com",
-      projectId: "meister-cb996",
-      storageBucket: "meister-cb996.appspot.com",
-      messagingSenderId: "439507090690",
-      appId: "1:439507090690:web:e8c504aab17d8096d5561b"
-    };
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-  </script>
+  <script type="module">
+    import { auth } from './firebase-logic.js';
+    import {
+      signInWithEmailAndPassword,
+      createUserWithEmailAndPassword,
+      sendPasswordResetEmail
+    } from "firebase/auth";
 
-  <script>
     let mode = "login";
+
+    window.onload = () => {
+      switchMode("login");
+    };
 
     function switchMode(newMode) {
       mode = newMode;
-      const title = document.getElementById("form-title");
-      const btn = document.getElementById("submitBtn");
-      const passwordWrap = document.getElementById("password-wrapper");
-      const backLink = document.getElementById("backToLogin");
 
-      document.getElementById("message").textContent = "";
+      const title = document.getElementById('formTitle');
+      const button = document.getElementById('mainButton');
+      const forgot = document.getElementById('forgotPassword');
+      const register = document.getElementById('switchToRegister');
+      const back = document.getElementById('backToLogin');
+      const passwordField = document.getElementById('password');
+
+      passwordField.type = "password";
 
       if (mode === "login") {
         title.textContent = "Anmelden";
-        btn.textContent = "Anmelden";
-        passwordWrap.classList.remove("hidden");
-        backLink.classList.add("hidden");
+        button.textContent = "Anmelden";
+        passwordField.classList.remove("hidden");
+        forgot.classList.remove("hidden");
+        register.classList.remove("hidden");
+        back.classList.add("hidden");
       } else if (mode === "register") {
         title.textContent = "Registrieren";
-        btn.textContent = "Konto erstellen";
-        passwordWrap.classList.remove("hidden");
-        backLink.classList.remove("hidden");
-      } else if (mode === "forgot") {
+        button.textContent = "Konto erstellen";
+        passwordField.classList.remove("hidden");
+        forgot.classList.add("hidden");
+        register.classList.add("hidden");
+        back.classList.remove("hidden");
+      } else if (mode === "reset") {
         title.textContent = "Passwort zurücksetzen";
-        btn.textContent = "Zurücksetzen senden";
-        passwordWrap.classList.add("hidden");
-        backLink.classList.remove("hidden");
+        button.textContent = "Passwort zurücksetzen";
+        passwordField.classList.add("hidden");
+        forgot.classList.add("hidden");
+        register.classList.add("hidden");
+        back.classList.remove("hidden");
       }
     }
 
-    function handleSubmit() {
+    function togglePassword() {
+      const password = document.getElementById("password");
+      password.type = password.type === "password" ? "text" : "password";
+    }
+
+    async function handleAuth() {
       const email = document.getElementById("email").value.trim();
-      const password = document.getElementById("password").value;
-      const msg = document.getElementById("message");
+      const password = document.getElementById("password").value.trim();
 
-      if (!email) {
-        msg.textContent = "Bitte E-Mail eingeben.";
-        return;
-      }
-
-      if ((mode === "login" || mode === "register") && password.length < 6) {
-        msg.textContent = "Passwort muss mindestens 6 Zeichen haben.";
-        return;
-      }
-
-      msg.textContent = "";
-
-      if (mode === "login") {
-        auth.signInWithEmailAndPassword(email, password)
-          .then(() => window.location.href = "main.html")
-          .catch(err => msg.textContent = err.message);
-      } else if (mode === "register") {
-        auth.createUserWithEmailAndPassword(email, password)
-          .then(() => window.location.href = "main.html")
-          .catch(err => msg.textContent = err.message);
-      } else if (mode === "forgot") {
-        auth.sendPasswordResetEmail(email)
-          .then(() => msg.textContent = "Zurücksetzungslink gesendet.")
-          .catch(err => msg.textContent = err.message);
+      try {
+        if (mode === "login") {
+          await signInWithEmailAndPassword(auth, email, password);
+          window.location.href = "main.html";
+        } else if (mode === "register") {
+          if (password.length < 6) {
+            alert("Passwort muss mindestens 6 Zeichen lang sein.");
+            return;
+          }
+          await createUserWithEmailAndPassword(auth, email, password);
+          alert("Registrierung erfolgreich! Du kannst dich jetzt anmelden.");
+          switchMode("login");
+        } else if (mode === "reset") {
+          await sendPasswordResetEmail(auth, email);
+          alert("Passwort-Reset gesendet. Bitte überprüfe dein Postfach.");
+          switchMode("login");
+        }
+      } catch (error) {
+        alert("Fehler: " + error.message);
       }
     }
-
-    // Passwort anzeigen / verstecken
-    document.getElementById("togglePassword").addEventListener("click", () => {
-      const pwField = document.getElementById("password");
-      pwField.type = pwField.type === "password" ? "text" : "password";
-    });
   </script>
 </body>
 </html>
-
