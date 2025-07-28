@@ -69,18 +69,18 @@
       cursor: not-allowed;
     }
 
-    .toggle-link {
-      text-align: center;
-      margin-top: 15px;
-    }
-
-    .toggle-link a {
+    .link-btn {
+      background: none;
+      border: none;
       color: #1a4e8a;
-      text-decoration: none;
+      cursor: pointer;
       font-size: 14px;
+      margin-top: 10px;
+      display: block;
+      text-align: center;
     }
 
-    .toggle-link a:hover {
+    .link-btn:hover {
       text-decoration: underline;
     }
 
@@ -102,14 +102,11 @@
     <label class="show-password">
       <input type="checkbox" id="toggle-login-password" /> Passwort anzeigen
     </label>
-    <div class="hint">Passwort muss mindestens 6 Zeichen lang sein.</div>
     <button type="submit" id="login-btn">Anmelden</button>
     <p id="message"></p>
   </form>
-  <div class="toggle-link">
-    <a href="#" id="forgot-password">Passwort vergessen?</a><br>
-    <a href="#" id="show-register-form">Noch kein Konto? Jetzt registrieren</a>
-  </div>
+  <button type="button" class="link-btn" id="forgot-password">Passwort vergessen?</button>
+  <button type="button" class="link-btn" id="show-register-form">Noch kein Konto? Jetzt registrieren</button>
 </div>
 
 <div class="container" id="register-container" style="display: none;">
@@ -124,9 +121,7 @@
     <button type="submit" id="register-btn">Registrieren</button>
     <p id="register-message"></p>
   </form>
-  <div class="toggle-link">
-    <a href="#" id="show-login-form">Zurück zur Anmeldung</a>
-  </div>
+  <button type="button" class="link-btn" id="show-login-form">Zurück zur Anmeldung</button>
 </div>
 
 <script type="module">
@@ -140,7 +135,6 @@
     setDoc
   } from './firebase-logic.js';
 
-  // Login
   const loginForm = document.getElementById('login-form');
   const loginBtn = document.getElementById('login-btn');
   const loginMsg = document.getElementById('message');
@@ -176,7 +170,6 @@
     }
   });
 
-  // Registrierung
   const registerForm = document.getElementById('register-form');
   const registerBtn = document.getElementById('register-btn');
   const registerMsg = document.getElementById('register-message');
@@ -213,7 +206,6 @@
     }
   });
 
-  // Passwort anzeigen/ausblenden
   document.getElementById('toggle-login-password').addEventListener('change', (e) => {
     document.getElementById('login-password').type = e.target.checked ? 'text' : 'password';
   });
@@ -222,9 +214,7 @@
     document.getElementById('register-password').type = e.target.checked ? 'text' : 'password';
   });
 
-  // Passwort vergessen
-  document.getElementById('forgot-password').addEventListener('click', async (e) => {
-    e.preventDefault();
+  document.getElementById('forgot-password').addEventListener('click', async () => {
     const email = document.getElementById('login-email').value;
     if (!email) {
       alert("Bitte E-Mail-Adresse eingeben.");
@@ -238,15 +228,12 @@
     }
   });
 
-  // Formular-Umschaltung
-  document.getElementById('show-register-form').addEventListener('click', (e) => {
-    e.preventDefault();
+  document.getElementById('show-register-form').addEventListener('click', () => {
     document.getElementById('login-container').style.display = 'none';
     document.getElementById('register-container').style.display = 'block';
   });
 
-  document.getElementById('show-login-form').addEventListener('click', (e) => {
-    e.preventDefault();
+  document.getElementById('show-login-form').addEventListener('click', () => {
     document.getElementById('register-container').style.display = 'none';
     document.getElementById('login-container').style.display = 'block';
   });
