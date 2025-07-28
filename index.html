@@ -2,26 +2,27 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Login | Meisterschule</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Anmeldung</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f2f4f8;
+      background-color: #f1f3f8;
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
+      height: 100vh;
       margin: 0;
     }
 
     .container {
-      background: white;
+      background-color: #fff;
       padding: 30px;
       border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
       width: 100%;
       max-width: 400px;
+      box-sizing: border-box;
     }
 
     .subtitle {
@@ -33,236 +34,177 @@
 
     h2 {
       text-align: center;
-      color: #1a4e8a;
-      margin-top: 0;
+      color: #14457b;
+      margin: 10px 0 20px;
     }
 
-    .input-wrapper {
-      position: relative;
-    }
-
-    input[type="email"],
-    input[type="password"] {
+    input {
       width: 100%;
-      padding: 12px 40px 12px 12px;
-      margin: 10px 0 4px 0;
+      padding: 12px;
+      margin-bottom: 15px;
       border: 1px solid #ccc;
       border-radius: 5px;
       box-sizing: border-box;
       font-size: 14px;
     }
 
-    .eye-icon {
+    .input-wrapper {
+      position: relative;
+    }
+
+    .input-wrapper input {
+      padding-right: 40px;
+    }
+
+    .toggle-password {
       position: absolute;
-      right: 12px;
       top: 50%;
+      right: 12px;
       transform: translateY(-50%);
+      background: none;
+      border: none;
       cursor: pointer;
+      padding: 0;
+    }
+
+    .eye-icon {
       width: 20px;
       height: 20px;
       fill: #555;
+      pointer-events: none;
     }
 
     button {
       width: 100%;
       padding: 12px;
-      background-color: #1a4e8a;
-      color: white;
+      background-color: #14457b;
+      color: #fff;
       border: none;
       border-radius: 5px;
+      font-size: 16px;
       cursor: pointer;
-      margin-top: 10px;
-      font-size: 15px;
     }
 
     button:disabled {
-      background-color: #b0c4de;
+      background-color: #999;
       cursor: not-allowed;
     }
 
-    .link-actions {
+    .text-links {
       text-align: center;
       margin-top: 15px;
     }
 
-    .link-actions a {
-      color: #1a4e8a;
-      text-decoration: underline;
-      display: block;
-      margin: 6px 0;
+    .text-links a {
+      display: inline-block;
+      color: #14457b;
+      text-decoration: none;
       font-size: 14px;
+      margin: 5px 0;
       cursor: pointer;
-      transition: color 0.2s ease;
     }
 
-    .link-actions a:hover {
-      color: #003f7f;
+    .text-links a:hover {
+      text-decoration: underline;
+      color: #0e3260;
     }
 
-    #message, #register-message {
-      margin-top: 10px;
-      font-size: 14px;
-      color: #e53935;
+    #message {
       text-align: center;
+      color: red;
+      margin-bottom: 10px;
+      min-height: 18px;
     }
   </style>
 </head>
 <body>
-
-<div class="container" id="login-container">
-  <p class="subtitle">Prüfungsvorbereitung – Meisterschule</p>
-  <h2>Anmelden</h2>
-  <form id="login-form">
+  <div class="container">
+    <p class="subtitle">Prüfungsvorbereitung – Meisterschule</p>
+    <h2>Anmelden</h2>
+    <div id="message"></div>
     <input type="email" id="login-email" placeholder="E-Mail" required />
-    
+
     <div class="input-wrapper">
-  <input type="password" id="login-password" placeholder="Passwort" required />
-  <button type="button" class="toggle-password" id="toggle-login-password" aria-label="Passwort anzeigen/verstecken">
-    <svg viewBox="0 0 24 24" class="eye-icon" xmlns="http://www.w3.org/2000/svg">
-      <path d="M12 4.5C7 4.5 2.73 8.11 1 12c1.73 3.89 6 7.5 11 7.5s9.27-3.61 11-7.5c-1.73-3.89-6-7.5-11-7.5zm0 13a5.5 5.5 0 110-11 5.5 5.5 0 010 11z"/>
-      <circle cx="12" cy="12" r="2.5"/>
-    </svg>
-  </button>
-</div>
-    
-    <button type="submit" id="login-btn">Anmelden</button>
-    <p id="message"></p>
-  </form>
-  <div class="link-actions">
-    <a id="forgot-password">Passwort vergessen?</a>
-    <a id="show-register-form">Noch kein Konto? Jetzt registrieren</a>
-  </div>
-</div>
-
-<div class="container" id="register-container" style="display: none;">
-  <p class="subtitle">Prüfungsvorbereitung – Meisterschule</p>
-  <h2>Registrieren</h2>
-  <form id="register-form">
-    <input type="email" id="register-email" placeholder="E-Mail" required />
-    <div class="input-wrapper">
-      <input type="password" id="register-password" placeholder="Passwort" required />
-      <svg class="eye-icon" id="toggle-register-password" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-        <path d="M12 4.5C7 4.5 2.73 8.11 1 12c1.73 3.89 6 7.5 11 7.5s9.27-3.61 11-7.5c-1.73-3.89-6-7.5-11-7.5zm0 13c-3.03 0-5.5-2.47-5.5-5.5S8.97 6.5 12 6.5s5.5 2.47 5.5 5.5-2.47 5.5-5.5 5.5zm0-9a3.5 3.5 0 100 7 3.5 3.5 0 000-7z"/>
-      </svg>
+      <input type="password" id="login-password" placeholder="Passwort" required />
+      <button type="button" class="toggle-password" id="toggle-password">
+        <svg class="eye-icon" viewBox="0 0 24 24">
+          <path d="M12 4.5C7 4.5 2.73 8.11 1 12c1.73 3.89 6 7.5 11 7.5s9.27-3.61 11-7.5c-1.73-3.89-6-7.5-11-7.5zm0 13a5.5 5.5 0 110-11 5.5 5.5 0 010 11z"/>
+          <circle cx="12" cy="12" r="2.5"/>
+        </svg>
+      </button>
     </div>
-    <div style="font-size: 12px; color: #666; margin-top: 4px;">
-      Passwort muss mindestens 6 Zeichen lang sein.
+
+    <button id="login-btn">Anmelden</button>
+
+    <div class="text-links">
+      <a id="reset-password">Passwort vergessen?</a><br>
+      <a id="show-register-form">Noch kein Konto? Jetzt registrieren</a>
     </div>
-    <button type="submit" id="register-btn">Registrieren</button>
-    <p id="register-message"></p>
-  </form>
-  <div class="link-actions">
-    <a id="show-login-form">Zurück zur Anmeldung</a>
   </div>
-</div>
 
-<script type="module">
-  import {
-    auth,
-    db,
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword,
-    sendPasswordResetEmail,
-    doc,
-    setDoc
-  } from './firebase-logic.js';
+  <script type="module">
+    import { auth } from './firebase-logic.js';
+    import { signInWithEmailAndPassword, sendPasswordResetEmail, onAuthStateChanged } from 'firebase/auth';
 
-  const loginForm = document.getElementById('login-form');
-  const loginBtn = document.getElementById('login-btn');
-  const loginMsg = document.getElementById('message');
+    const loginBtn = document.getElementById('login-btn');
+    const emailField = document.getElementById('login-email');
+    const passwordField = document.getElementById('login-password');
+    const message = document.getElementById('message');
 
-  loginForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    loginBtn.disabled = true;
-    loginMsg.style.color = 'black';
-    loginMsg.textContent = 'Bitte warten...';
+    // Passwort anzeigen/verstecken
+    document.getElementById('toggle-password').addEventListener('click', () => {
+      const type = passwordField.type === 'password' ? 'text' : 'password';
+      passwordField.type = type;
+    });
 
-    const email = document.getElementById('login-email').value;
-    const password = document.getElementById('login-password').value;
+    // Anmeldung
+    loginBtn.addEventListener('click', async () => {
+      loginBtn.disabled = true;
+      message.textContent = 'Bitte warten...';
+      try {
+        const email = emailField.value.trim();
+        const password = passwordField.value;
 
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-      loginMsg.style.color = 'green';
-      loginMsg.textContent = 'Anmeldung erfolgreich. Weiterleitung...';
-      loginForm.reset();
-      setTimeout(() => {
-        window.location.href = 'main.html';
-      }, 1000);
-    } catch (error) {
-      loginMsg.style.color = 'red';
-      loginMsg.textContent = 'Fehler: ' + error.message;
-    } finally {
-      loginBtn.disabled = false;
-    }
-  });
+        if (!email || !password) {
+          throw new Error("Bitte E-Mail und Passwort eingeben.");
+        }
 
-  const registerForm = document.getElementById('register-form');
-  const registerBtn = document.getElementById('register-btn');
-  const registerMsg = document.getElementById('register-message');
+        await signInWithEmailAndPassword(auth, email, password);
+        window.location.href = "main.html";
+      } catch (error) {
+        message.textContent = error.message;
+      } finally {
+        loginBtn.disabled = false;
+      }
+    });
 
-  registerForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    registerBtn.disabled = true;
-    registerMsg.style.color = 'black';
-    registerMsg.textContent = 'Bitte warten...';
+    // Passwort vergessen
+    document.getElementById('reset-password').addEventListener('click', async () => {
+      const email = emailField.value.trim();
+      if (!email) {
+        message.textContent = "Bitte zuerst deine E-Mail-Adresse eingeben.";
+        return;
+      }
 
-    const email = document.getElementById('register-email').value;
-    const password = document.getElementById('register-password').value;
+      try {
+        await sendPasswordResetEmail(auth, email);
+        message.textContent = "E-Mail zum Zurücksetzen gesendet.";
+      } catch (error) {
+        message.textContent = error.message;
+      }
+    });
 
-    try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      await setDoc(doc(db, 'users', userCredential.user.uid), {});
-      registerMsg.style.color = 'green';
-      registerMsg.textContent = 'Registrierung erfolgreich. Weiterleitung...';
-      registerForm.reset();
-      setTimeout(() => {
-        window.location.href = 'main.html';
-      }, 1000);
-    } catch (error) {
-      registerMsg.style.color = 'red';
-      registerMsg.textContent = 'Fehler: ' + error.message;
-    } finally {
-      registerBtn.disabled = false;
-    }
-  });
+    // Weiterleitung wenn bereits angemeldet
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        window.location.href = "main.html";
+      }
+    });
 
-  // Passwort sichtbar/unsichtbar
-  document.getElementById('toggle-login-password').addEventListener('click', () => {
-    const pw = document.getElementById('login-password');
-    pw.type = pw.type === 'password' ? 'text' : 'password';
-  });
-
-  document.getElementById('toggle-register-password').addEventListener('click', () => {
-    const pw = document.getElementById('register-password');
-    pw.type = pw.type === 'password' ? 'text' : 'password';
-  });
-
-  // Passwort vergessen
-  document.getElementById('forgot-password').addEventListener('click', async () => {
-    const email = document.getElementById('login-email').value;
-    if (!email) {
-      alert("Bitte E-Mail-Adresse eingeben.");
-      return;
-    }
-    try {
-      await sendPasswordResetEmail(auth, email);
-      alert("E-Mail zum Zurücksetzen wurde gesendet.");
-    } catch (error) {
-      alert("Fehler beim Zurücksetzen: " + error.message);
-    }
-  });
-
-  // Ansicht wechseln
-  document.getElementById('show-register-form').addEventListener('click', () => {
-    document.getElementById('login-container').style.display = 'none';
-    document.getElementById('register-container').style.display = 'block';
-  });
-
-  document.getElementById('show-login-form').addEventListener('click', () => {
-    document.getElementById('register-container').style.display = 'none';
-    document.getElementById('login-container').style.display = 'block';
-  });
-</script>
-
+    // Registrierung anzeigen
+    document.getElementById('show-register-form').addEventListener('click', () => {
+      window.location.href = "register.html"; // Oder ersetze durch deine Logik
+    });
+  </script>
 </body>
 </html>
