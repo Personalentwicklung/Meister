@@ -3,122 +3,144 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MIKP - Dein Lernfortschritt</title>
+  <title>Lernfortschritt – Übersicht</title>
   <style>
-    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 40px 20px; background-color: #f0f2f5; color: #333; display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; }
-    .container { background-color: #ffffff; padding: 40px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); max-width: 900px; width: 100%; box-sizing: border-box; display: none; }
-    h1 { color: #1a4e8a; text-align: center; font-size: 2.2em; margin-bottom: 30px; }
-    .progress-list { list-style-type: none; padding: 0; }
-    .progress-item { background-color: #e6eff9; padding: 20px; border-radius: 8px; margin-bottom: 15px; border-left: 5px solid #1a4e8a; display: flex; justify-content: space-between; align-items: center; }
-    .progress-bar { width: 150px; height: 10px; background-color: #cddff5; border-radius: 5px; overflow: hidden; }
-    .progress-fill { height: 100%; background-color: #28a745; width: 0%; transition: width 0.5s ease-in-out; }
-    .progress-text { font-weight: bold; color: #1a4e8a; }
-    .topic-link { text-decoration: none; font-size: 1.1em; color: #1a4e8a; font-weight: bold; }
-    .topic-link:hover { text-decoration: underline; }
-    .logout-button { background-color: #e74c3c; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin-top: 20px; float: right; }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f7f9fc;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #1a4e8a;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    .container {
+      padding: 20px;
+      display: none;
+    }
+    .progress-item {
+      background-color: white;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 15px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    .progress-bar {
+      background-color: #eee;
+      border-radius: 5px;
+      height: 10px;
+      width: 100%;
+      margin-top: 8px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background-color: #1a4e8a;
+      width: 0%;
+    }
+    .topic-link {
+      text-decoration: none;
+      color: #1a4e8a;
+      font-weight: bold;
+    }
+    .logout-btn {
+      background-color: #e53935;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      float: right;
+      margin-top: -40px;
+      margin-right: 20px;
+    }
+    .logout-btn:hover {
+      background-color: #c62828;
+    }
   </style>
 </head>
 <body>
 
-  <div class="container">
+  <header>
     <h1>Dein Lernfortschritt</h1>
-    <ul class="progress-list" id="progress-list">
-      </ul>
-    <button onclick="signOutUser()" class="logout-button">Abmelden</button>
+    <button class="logout-btn" onclick="signOutUser()">Abmelden</button>
+  </header>
+
+  <div class="container">
+    <ul id="progress-list"></ul>
   </div>
 
-  <script type="module" src="firebase-logic.js"></script>
   <script type="module">
-    // Wichtige Änderung: Wir importieren nur noch die 'auth'- und 'db'-Objekte
-    import { auth, db } from './firebase-logic.js';
+    import {
+      auth,
+      db,
+      doc,
+      getDoc,
+      onAuthStateChanged,
+      signOut
+    } from './firebase-logic.js';
 
-    // Prüfen, ob der Benutzer angemeldet ist
-    // Wichtige Änderung: auth.onAuthStateChanged wird direkt aufgerufen
-    auth.onAuthStateChanged((user) => {
+    onAuthStateChanged(auth, (user) => {
       if (!user) {
-        // Benutzer ist nicht angemeldet, zur Landingpage weiterleiten
         window.location.href = "index.html";
       } else {
-        // Benutzer ist angemeldet, lade den Fortschritt
-        const userId = user.uid;
-        loadProgress(userId);
+        loadProgress(user.uid);
         document.querySelector('.container').style.display = 'block';
       }
     });
 
-    // Funktion zum Laden des Fortschritts aus Firestore
     async function loadProgress(userId) {
       const progressListElement = document.getElementById('progress-list');
-      progressListElement.innerHTML = ''; // Liste leeren
+      progressListElement.innerHTML = '';
 
-      // Wichtige Änderung: db.doc und db.getDoc werden direkt aufgerufen
-      const docRef = db.doc(db, "users", userId);
-      const docSnap = await db.getDoc(docRef);
+      const docRef = doc(db, "users", userId);
+      const docSnap = await getDoc(docRef);
 
       const allTopics = {
         'pe-prozess': 'PE-Prozess',
         'potenzial-kompetenz': 'Potenzial und Kompetenz'
       };
 
-      if (docSnap.exists()) {
-        const data = docSnap.data();
-        
-        for (const topicId in allTopics) {
-          const topicName = allTopics[topicId];
-          const answers = data[topicId] || {};
-          const totalQuestions = 3;
-          let answeredCount = 0;
-          
-          for (let i = 1; i <= totalQuestions; i++) {
-            if (answers[i]) {
-              answeredCount++;
-            }
-          }
-          
-          const progressPercentage = (answeredCount / totalQuestions) * 100;
+      for (const topicId in allTopics) {
+        const topicName = allTopics[topicId];
+        let answeredCount = 0;
 
-          const progressItem = document.createElement('li');
-          progressItem.className = 'progress-item';
-          progressItem.innerHTML = `
-            <a href="inhalt1.html#${topicId}" class="topic-link">${topicName}</a>
-            <div>
-              <p class="progress-text">${answeredCount} von ${totalQuestions} Fragen beantwortet</p>
-              <div class="progress-bar">
-                <div class="progress-fill" style="width: ${progressPercentage}%;"></div>
-              </div>
-            </div>
-          `;
-          progressListElement.appendChild(progressItem);
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          const answers = data[topicId] || {};
+          for (let i = 1; i <= 3; i++) {
+            if (answers[i.toString()]) answeredCount++;
+          }
         }
-      } else {
-        // Wenn keine Daten vorhanden sind, zeige alle Themen mit 0% Fortschritt
-        for (const topicId in allTopics) {
-          const topicName = allTopics[topicId];
-          const progressItem = document.createElement('li');
-          progressItem.className = 'progress-item';
-          progressItem.innerHTML = `
-            <a href="inhalt1.html#${topicId}" class="topic-link">${topicName}</a>
-            <div>
-              <p class="progress-text">0 von 3 Fragen beantwortet</p>
-              <div class="progress-bar">
-                <div class="progress-fill" style="width: 0%;"></div>
-              </div>
+
+        const progressPercentage = (answeredCount / 3) * 100;
+        const progressItem = document.createElement('li');
+        progressItem.className = 'progress-item';
+        progressItem.innerHTML = `
+          <a href="inhalt1.html#${topicId}" class="topic-link">${topicName}</a>
+          <div>
+            <p class="progress-text">${answeredCount} von 3 Fragen beantwortet</p>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: ${progressPercentage}%;"></div>
             </div>
-          `;
-          progressListElement.appendChild(progressItem);
-        }
+          </div>
+        `;
+        progressListElement.appendChild(progressItem);
       }
     }
 
-    // Funktion zum Abmelden
     function signOutUser() {
-      // Wichtige Änderung: auth.signOut wird direkt aufgerufen
-      auth.signOut().then(() => {
+      signOut(auth).then(() => {
         window.location.href = "index.html";
       }).catch((error) => {
         console.error("Fehler beim Abmelden:", error);
       });
     }
   </script>
+
 </body>
 </html>
