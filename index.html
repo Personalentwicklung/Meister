@@ -3,49 +3,56 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Anmelden – Meisterschule</title>
+  <title>Meisterschule – Anmeldung</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f0f2f5;
+      background-color: #eef2f7;
       display: flex;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
       height: 100vh;
       margin: 0;
     }
+
     .container {
-      background: #fff;
+      background-color: #fff;
       padding: 30px;
       border-radius: 10px;
-      box-shadow: 0 0 12px rgba(0,0,0,0.1);
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
       width: 100%;
       max-width: 400px;
       box-sizing: border-box;
       text-align: center;
     }
+
     h1 {
-      font-size: 18px;
+      margin-bottom: 5px;
+      font-size: 16px;
       color: #333;
-      margin-bottom: 10px;
     }
+
     h2 {
-      margin: 0 0 20px;
-      color: #14457b;
+      color: #164a96;
+      margin-top: 5px;
+      margin-bottom: 20px;
     }
+
     input {
       width: 100%;
       padding: 12px;
       margin-bottom: 15px;
       border: 1px solid #ccc;
-      border-radius: 5px;
+      border-radius: 6px;
       font-size: 14px;
       box-sizing: border-box;
     }
-    .input-wrapper {
+
+    .password-wrapper {
       position: relative;
     }
-    .input-wrapper img {
+
+    .password-wrapper svg {
       position: absolute;
       top: 50%;
       right: 12px;
@@ -53,60 +60,79 @@
       width: 20px;
       height: 20px;
       cursor: pointer;
-      filter: grayscale(100%);
+      fill: #444;
     }
+
     button {
       width: 100%;
       padding: 12px;
-      background-color: #14457b;
+      background-color: #164a96;
       color: #fff;
       border: none;
-      border-radius: 5px;
+      border-radius: 6px;
       font-size: 16px;
       cursor: pointer;
     }
+
     button:hover {
-      background-color: #0e3260;
+      background-color: #133d7d;
     }
-    .links {
+
+    .switch-links {
       margin-top: 15px;
     }
-    .links a {
-      display: block;
-      margin: 6px 0;
-      color: #14457b;
+
+    .switch-links a {
+      color: #164a96;
       text-decoration: underline;
-      font-size: 14px;
       cursor: pointer;
+      display: block;
+      margin-top: 8px;
+      font-size: 14px;
     }
-    .links a:hover {
+
+    .switch-links a:hover {
       color: #0e3260;
     }
+
     #message {
       color: red;
       min-height: 18px;
       margin-bottom: 10px;
+    }
+
+    .hidden {
+      display: none;
     }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>Prüfungsvorbereitung – Meisterschule</h1>
-    <h2>Anmelden</h2>
+    <h2 id="form-title">Anmelden</h2>
+
     <div id="message"></div>
+
     <input type="email" id="email" placeholder="E-Mail" />
-    <div class="input-wrapper">
+
+    <div class="password-wrapper" id="password-wrapper">
       <input type="password" id="password" placeholder="Passwort" />
-      <img src="https://upload.wikimedia.org/wikipedia/commons/2/2e/OOjs_UI_icon_eye.svg" id="togglePassword" alt="Passwort anzeigen">
+      <svg id="togglePassword" viewBox="0 0 24 24">
+        <path d="M12 4.5C7 4.5 2.7 7.6 1 12c1.7 4.4 6 7.5 11 7.5s9.3-3.1 11-7.5c-1.7-4.4-6-7.5-11-7.5zm0 13a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11z"/>
+        <circle cx="12" cy="12" r="2.5"/>
+      </svg>
     </div>
-    <button onclick="login()">Anmelden</button>
-    <div class="links">
-      <a onclick="resetPassword()">Passwort vergessen?</a>
-      <a href="register.html">Noch kein Konto? Jetzt registrieren</a>
+
+    <button id="submitBtn" onclick="handleSubmit()">Anmelden</button>
+
+    <div class="switch-links">
+      <a onclick="switchMode('forgot')">Passwort vergessen?</a>
+      <a onclick="switchMode('register')">Noch kein Konto? Jetzt registrieren</a>
+      <a class="hidden" id="backToLogin" onclick="switchMode('login')">Zurück zur Anmeldung</a>
     </div>
   </div>
 
-  <!-- Firebase via CDN -->
+  <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
   <script>
@@ -120,40 +146,76 @@
     };
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
+  </script>
 
-    function login() {
+  <script>
+    let mode = "login";
+
+    function switchMode(newMode) {
+      mode = newMode;
+      const title = document.getElementById("form-title");
+      const btn = document.getElementById("submitBtn");
+      const passwordWrap = document.getElementById("password-wrapper");
+      const backLink = document.getElementById("backToLogin");
+
+      document.getElementById("message").textContent = "";
+
+      if (mode === "login") {
+        title.textContent = "Anmelden";
+        btn.textContent = "Anmelden";
+        passwordWrap.classList.remove("hidden");
+        backLink.classList.add("hidden");
+      } else if (mode === "register") {
+        title.textContent = "Registrieren";
+        btn.textContent = "Konto erstellen";
+        passwordWrap.classList.remove("hidden");
+        backLink.classList.remove("hidden");
+      } else if (mode === "forgot") {
+        title.textContent = "Passwort zurücksetzen";
+        btn.textContent = "Zurücksetzen senden";
+        passwordWrap.classList.add("hidden");
+        backLink.classList.remove("hidden");
+      }
+    }
+
+    function handleSubmit() {
       const email = document.getElementById("email").value.trim();
       const password = document.getElementById("password").value;
       const msg = document.getElementById("message");
 
-      if (!email || !password) {
-        msg.textContent = "Bitte E-Mail und Passwort eingeben.";
-        return;
-      }
-
-      auth.signInWithEmailAndPassword(email, password)
-        .then(() => window.location.href = "main.html")
-        .catch(err => msg.textContent = err.message);
-    }
-
-    function resetPassword() {
-      const email = document.getElementById("email").value.trim();
-      const msg = document.getElementById("message");
-
       if (!email) {
-        msg.textContent = "Bitte E-Mail-Adresse eingeben.";
+        msg.textContent = "Bitte E-Mail eingeben.";
         return;
       }
 
-      auth.sendPasswordResetEmail(email)
-        .then(() => msg.textContent = "Zurücksetzungslink wurde gesendet.")
-        .catch(err => msg.textContent = err.message);
+      if ((mode === "login" || mode === "register") && password.length < 6) {
+        msg.textContent = "Passwort muss mindestens 6 Zeichen haben.";
+        return;
+      }
+
+      msg.textContent = "";
+
+      if (mode === "login") {
+        auth.signInWithEmailAndPassword(email, password)
+          .then(() => window.location.href = "main.html")
+          .catch(err => msg.textContent = err.message);
+      } else if (mode === "register") {
+        auth.createUserWithEmailAndPassword(email, password)
+          .then(() => window.location.href = "main.html")
+          .catch(err => msg.textContent = err.message);
+      } else if (mode === "forgot") {
+        auth.sendPasswordResetEmail(email)
+          .then(() => msg.textContent = "Zurücksetzungslink gesendet.")
+          .catch(err => msg.textContent = err.message);
+      }
     }
 
+    // Passwort anzeigen / verstecken
     document.getElementById("togglePassword").addEventListener("click", () => {
-      const pw = document.getElementById("password");
-      pw.type = pw.type === "password" ? "text" : "password";
+      const pwField = document.getElementById("password");
+      pwField.type = pwField.type === "password" ? "text" : "password";
     });
   </script>
 </body>
 </html>
+
