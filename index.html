@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -5,181 +6,102 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Meisterschule Prüfungsvorbereitung (ZIP/MIKP)</title>
   <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      background-color: #f0f2f5;
-    }
-    .auth-container {
-      background-color: #ffffff;
-      padding: 40px;
-      border-radius: 10px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      width: 100%;
-      max-width: 400px;
-      text-align: center;
-    }
-    h1 {
-      color: #1a4e8a;
-      margin-bottom: 20px;
-    }
-    input[type="email"], input[type="password"] {
-      width: 90%;
-      padding: 12px;
-      margin-bottom: 15px;
-      border: 1px solid #cddff5;
-      border-radius: 5px;
-      font-size: 16px;
-    }
-    button {
-      width: 90%;
-      padding: 12px;
-      border: none;
-      border-radius: 5px;
-      background-color: #1a4e8a;
-      color: white;
-      font-size: 16px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-    button:hover {
-      background-color: #1a3e7a;
-    }
-    #message {
-      margin-top: 15px;
-      font-weight: bold;
-    }
-    #forgot-password {
-      display: block;
-      margin-top: 15px;
-      color: #1a4e8a;
-      text-decoration: none;
-      font-size: 14px;
-    }
-    #forgot-password:hover {
-      text-decoration: underline;
-    }
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; background-color: #f0f2f5; }
+    .auth-container { background-color: #ffffff; padding: 40px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); width: 100%; max-width: 400px; text-align: center; }
+    h1 { color: #1a4e8a; margin-bottom: 20px; }
+    input[type="email"], input[type="password"] { width: 90%; padding: 12px; margin-bottom: 15px; border: 1px solid #cddff5; border-radius: 5px; font-size: 16px; }
+    button { width: 90%; padding: 12px; border: none; border-radius: 5px; background-color: #1a4e8a; color: white; font-size: 16px; cursor: pointer; transition: background-color 0.3s; }
+    button:hover { background-color: #1a3e7a; }
+    #message { margin-top: 15px; font-weight: bold; }
+    #forgot-password { display: block; margin-top: 15px; color: #1a4e8a; text-decoration: none; font-size: 14px; }
+    #forgot-password:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
-
 <div class="auth-container" id="auth-container">
   <h1>Meisterschule Prüfungsvorbereitung (ZIP/MIKP)</h1>
-
   <form id="login-form">
     <input type="email" id="login-email" placeholder="E-Mail" required>
     <input type="password" id="login-password" placeholder="Passwort" required>
     <button type="submit">Anmelden</button>
   </form>
-
   <p id="message"></p>
-
   <a href="#" id="forgot-password">Passwort vergessen?</a>
-
   <p>Noch kein Konto? <a href="#" id="show-register-form">Jetzt registrieren</a></p>
 </div>
-
 <div class="auth-container" id="register-container" style="display:none;">
   <h1>MIKP - Registrierung</h1>
-
   <form id="register-form">
     <input type="email" id="register-email" placeholder="E-Mail" required>
     <input type="password" id="register-password" placeholder="Passwort" required>
     <button type="submit">Registrieren</button>
   </form>
-
   <p id="register-message"></p>
   <p>Bereits ein Konto? <a href="#" id="show-login-form">Zur Anmeldung</a></p>
 </div>
-
-<script type="module" src="firebase-logic.js"></script>
 <script type="module">
-  import { auth, db } from './firebase-logic.js';
-  import { doc, setDoc } from "firebase/firestore";
+  import {
+    auth, db, createUserWithEmailAndPassword, signInWithEmailAndPassword,
+    sendPasswordResetEmail, onAuthStateChanged, doc, setDoc
+  } from './firebase-logic.js';
 
-  // Benutzerstatus prüfen
-  auth.onAuthStateChanged((user) => {
+  onAuthStateChanged(auth, (user) => {
     if (user) {
       window.location.href = "main.html";
     }
   });
 
-  // Registrierung
   document.getElementById('register-form').addEventListener('submit', async (event) => {
     event.preventDefault();
     const email = document.getElementById('register-email').value;
     const password = document.getElementById('register-password').value;
     const messageElement = document.getElementById('register-message');
-
     try {
-      const userCredential = await auth.createUserWithEmailAndPassword(email, password);
-      const user = userCredential.user;
-
-      // 🆕 Firestore-Dokument für den Benutzer anlegen
-      await setDoc(doc(db, "users", user.uid), {});
-
-      messageElement.textContent = "Registrierung erfolgreich! Du wirst angemeldet.";
-      setTimeout(() => {
-        window.location.href = "main.html";
-      }, 1500);
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      await setDoc(doc(db, "users", userCredential.user.uid), {});
+      messageElement.textContent = "Registrierung erfolgreich!";
+      setTimeout(() => window.location.href = "main.html", 1500);
     } catch (error) {
       messageElement.textContent = "Fehler bei der Registrierung: " + error.message;
     }
   });
 
-  // Anmeldung
-  document.getElementById('login-form').addEventListener('submit', (event) => {
+  document.getElementById('login-form').addEventListener('submit', async (event) => {
     event.preventDefault();
     const email = document.getElementById('login-email').value;
     const password = document.getElementById('login-password').value;
     const messageElement = document.getElementById('message');
-
-    auth.signInWithEmailAndPassword(email, password)
-      .then(() => {
-        messageElement.textContent = "Anmeldung erfolgreich!";
-        setTimeout(() => {
-          window.location.href = "main.html";
-        }, 1500);
-      })
-      .catch((error) => {
-        messageElement.textContent = "Anmeldung fehlgeschlagen: " + error.message;
-      });
-  });
-
-  // Passwort vergessen
-  document.getElementById('forgot-password').addEventListener('click', (event) => {
-    event.preventDefault();
-    const email = document.getElementById('login-email').value;
-    if (email) {
-      auth.sendPasswordResetEmail(email).then(() => {
-        alert("Eine E-Mail zum Zurücksetzen des Passworts wurde an " + email + " gesendet.");
-      }).catch((error) => {
-        alert("Fehler beim Senden der E-Mail: " + error.message);
-      });
-    } else {
-      alert("Bitte geben Sie Ihre E-Mail-Adresse ein.");
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      messageElement.textContent = "Anmeldung erfolgreich!";
+      setTimeout(() => window.location.href = "main.html", 1500);
+    } catch (error) {
+      messageElement.textContent = "Anmeldung fehlgeschlagen: " + error.message;
     }
   });
 
-  // Umschalten zwischen Formularen
-  document.getElementById('show-register-form').addEventListener('click', (event) => {
+  document.getElementById('forgot-password').addEventListener('click', async (event) => {
     event.preventDefault();
+    const email = document.getElementById('login-email').value;
+    if (!email) return alert("Bitte E-Mail-Adresse eingeben.");
+    try {
+      await sendPasswordResetEmail(auth, email);
+      alert("E-Mail zum Zurücksetzen wurde gesendet.");
+    } catch (error) {
+      alert("Fehler beim Zurücksetzen: " + error.message);
+    }
+  });
+
+  document.getElementById('show-register-form').addEventListener('click', (e) => {
+    e.preventDefault();
     document.getElementById('auth-container').style.display = 'none';
     document.getElementById('register-container').style.display = 'block';
   });
-
-  document.getElementById('show-login-form').addEventListener('click', (event) => {
-    event.preventDefault();
+  document.getElementById('show-login-form').addEventListener('click', (e) => {
+    e.preventDefault();
     document.getElementById('auth-container').style.display = 'block';
     document.getElementById('register-container').style.display = 'none';
   });
 </script>
-
 </body>
 </html>
-
