@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Login - Meisterschule</title>
+  <title>Login – Meisterschule</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -62,6 +62,7 @@
       cursor: pointer;
       font-size: 16px;
       padding: 0;
+      color: #444;
     }
 
     button {
@@ -85,8 +86,9 @@
       color: #14457b;
       text-decoration: underline;
       font-size: 14px;
-      margin: 4px 0;
+      margin: 6px 0;
       cursor: pointer;
+      transition: color 0.2s ease;
     }
 
     .text-links a:hover {
@@ -112,7 +114,7 @@
 
     <div class="input-wrapper">
       <input type="password" id="password" placeholder="Passwort" />
-      <button class="toggle-password" id="togglePassword">👁️</button>
+      <button class="toggle-password" id="togglePassword" aria-label="Passwort anzeigen">👁️</button>
     </div>
 
     <button id="loginBtn">Anmelden</button>
@@ -128,7 +130,6 @@
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 
   <script>
-    // Deine Firebase-Konfiguration
     const firebaseConfig = {
       apiKey: "AIzaSyDMaR8xOtpRLPIvLg45OWWD9daFzaw6drY",
       authDomain: "meister-cb996.firebaseapp.com",
@@ -138,23 +139,23 @@
       appId: "1:439507090690:web:e8c504aab17d8096d5561b"
     };
 
-    // Initialisieren
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
 
-    // Passwortanzeige umschalten
+    // Passwort anzeigen/ausblenden
     document.getElementById("togglePassword").addEventListener("click", function () {
       const pw = document.getElementById("password");
       pw.type = pw.type === "password" ? "text" : "password";
     });
 
-    // Login
+    // Login-Button
     document.getElementById("loginBtn").addEventListener("click", function () {
       const email = document.getElementById("email").value.trim();
       const password = document.getElementById("password").value;
+      const msg = document.getElementById("message");
 
       if (!email || !password) {
-        document.getElementById("message").textContent = "Bitte E-Mail und Passwort eingeben.";
+        msg.textContent = "Bitte E-Mail und Passwort eingeben.";
         return;
       }
 
@@ -163,32 +164,27 @@
           window.location.href = "main.html";
         })
         .catch((error) => {
-          document.getElementById("message").textContent = error.message;
+          msg.textContent = error.message;
         });
     });
 
-    // Passwort vergessen
+    // Passwort zurücksetzen
     document.getElementById("forgotPassword").addEventListener("click", function () {
       const email = document.getElementById("email").value.trim();
+      const msg = document.getElementById("message");
+
       if (!email) {
-        document.getElementById("message").textContent = "Bitte E-Mail eingeben.";
+        msg.textContent = "Bitte E-Mail eingeben.";
         return;
       }
 
       auth.sendPasswordResetEmail(email)
         .then(() => {
-          document.getElementById("message").textContent = "Zurücksetzungslink gesendet.";
+          msg.textContent = "Zurücksetzungslink wurde gesendet.";
         })
         .catch((error) => {
-          document.getElementById("message").textContent = error.message;
+          msg.textContent = error.message;
         });
-    });
-
-    // Automatische Weiterleitung, wenn schon eingeloggt
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        window.location.href = "main.html";
-      }
     });
   </script>
 </body>
