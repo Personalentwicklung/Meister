@@ -2,12 +2,12 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Anmeldung</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login - Meisterschule</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f1f3f8;
+      background-color: #f0f2f5;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -19,7 +19,7 @@
       background-color: #fff;
       padding: 30px;
       border-radius: 10px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      box-shadow: 0 0 12px rgba(0,0,0,0.1);
       width: 100%;
       max-width: 400px;
       box-sizing: border-box;
@@ -34,8 +34,8 @@
 
     h2 {
       text-align: center;
+      margin: 0 0 20px;
       color: #14457b;
-      margin: 10px 0 20px;
     }
 
     input {
@@ -44,16 +44,12 @@
       margin-bottom: 15px;
       border: 1px solid #ccc;
       border-radius: 5px;
-      box-sizing: border-box;
       font-size: 14px;
+      box-sizing: border-box;
     }
 
     .input-wrapper {
       position: relative;
-    }
-
-    .input-wrapper input {
-      padding-right: 40px;
     }
 
     .toggle-password {
@@ -64,14 +60,8 @@
       background: none;
       border: none;
       cursor: pointer;
+      font-size: 16px;
       padding: 0;
-    }
-
-    .eye-icon {
-      width: 20px;
-      height: 20px;
-      fill: #555;
-      pointer-events: none;
     }
 
     button {
@@ -85,11 +75,6 @@
       cursor: pointer;
     }
 
-    button:disabled {
-      background-color: #999;
-      cursor: not-allowed;
-    }
-
     .text-links {
       text-align: center;
       margin-top: 15px;
@@ -98,14 +83,13 @@
     .text-links a {
       display: inline-block;
       color: #14457b;
-      text-decoration: none;
+      text-decoration: underline;
       font-size: 14px;
-      margin: 5px 0;
+      margin: 4px 0;
       cursor: pointer;
     }
 
     .text-links a:hover {
-      text-decoration: underline;
       color: #0e3260;
     }
 
@@ -121,89 +105,90 @@
   <div class="container">
     <p class="subtitle">Prüfungsvorbereitung – Meisterschule</p>
     <h2>Anmelden</h2>
+
     <div id="message"></div>
-    <input type="email" id="login-email" placeholder="E-Mail" required />
+
+    <input type="email" id="email" placeholder="E-Mail" />
 
     <div class="input-wrapper">
-      <input type="password" id="login-password" placeholder="Passwort" required />
-      <button type="button" class="toggle-password" id="toggle-password">
-        <svg class="eye-icon" viewBox="0 0 24 24">
-          <path d="M12 4.5C7 4.5 2.73 8.11 1 12c1.73 3.89 6 7.5 11 7.5s9.27-3.61 11-7.5c-1.73-3.89-6-7.5-11-7.5zm0 13a5.5 5.5 0 110-11 5.5 5.5 0 010 11z"/>
-          <circle cx="12" cy="12" r="2.5"/>
-        </svg>
-      </button>
+      <input type="password" id="password" placeholder="Passwort" />
+      <button class="toggle-password" id="togglePassword">👁️</button>
     </div>
 
-    <button id="login-btn">Anmelden</button>
+    <button id="loginBtn">Anmelden</button>
 
     <div class="text-links">
-      <a id="reset-password">Passwort vergessen?</a><br>
-      <a id="show-register-form">Noch kein Konto? Jetzt registrieren</a>
+      <a href="#" id="forgotPassword">Passwort vergessen?</a><br>
+      <a href="register.html">Noch kein Konto? Jetzt registrieren</a>
     </div>
   </div>
 
-  <script type="module">
-    import { auth } from './firebase-logic.js';
-    import { signInWithEmailAndPassword, sendPasswordResetEmail, onAuthStateChanged } from 'firebase/auth';
+  <!-- ✅ Firebase via CDN -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 
-    const loginBtn = document.getElementById('login-btn');
-    const emailField = document.getElementById('login-email');
-    const passwordField = document.getElementById('login-password');
-    const message = document.getElementById('message');
+  <script>
+    // Deine Firebase-Konfiguration
+    const firebaseConfig = {
+      apiKey: "AIzaSyDMaR8xOtpRLPIvLg45OWWD9daFzaw6drY",
+      authDomain: "meister-cb996.firebaseapp.com",
+      projectId: "meister-cb996",
+      storageBucket: "meister-cb996.appspot.com",
+      messagingSenderId: "439507090690",
+      appId: "1:439507090690:web:e8c504aab17d8096d5561b"
+    };
 
-    // Passwort anzeigen/verstecken
-    document.getElementById('toggle-password').addEventListener('click', () => {
-      const type = passwordField.type === 'password' ? 'text' : 'password';
-      passwordField.type = type;
+    // Initialisieren
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    // Passwortanzeige umschalten
+    document.getElementById("togglePassword").addEventListener("click", function () {
+      const pw = document.getElementById("password");
+      pw.type = pw.type === "password" ? "text" : "password";
     });
 
-    // Anmeldung
-    loginBtn.addEventListener('click', async () => {
-      loginBtn.disabled = true;
-      message.textContent = 'Bitte warten...';
-      try {
-        const email = emailField.value.trim();
-        const password = passwordField.value;
+    // Login
+    document.getElementById("loginBtn").addEventListener("click", function () {
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
 
-        if (!email || !password) {
-          throw new Error("Bitte E-Mail und Passwort eingeben.");
-        }
-
-        await signInWithEmailAndPassword(auth, email, password);
-        window.location.href = "main.html";
-      } catch (error) {
-        message.textContent = error.message;
-      } finally {
-        loginBtn.disabled = false;
-      }
-    });
-
-    // Passwort vergessen
-    document.getElementById('reset-password').addEventListener('click', async () => {
-      const email = emailField.value.trim();
-      if (!email) {
-        message.textContent = "Bitte zuerst deine E-Mail-Adresse eingeben.";
+      if (!email || !password) {
+        document.getElementById("message").textContent = "Bitte E-Mail und Passwort eingeben.";
         return;
       }
 
-      try {
-        await sendPasswordResetEmail(auth, email);
-        message.textContent = "E-Mail zum Zurücksetzen gesendet.";
-      } catch (error) {
-        message.textContent = error.message;
-      }
+      auth.signInWithEmailAndPassword(email, password)
+        .then(() => {
+          window.location.href = "main.html";
+        })
+        .catch((error) => {
+          document.getElementById("message").textContent = error.message;
+        });
     });
 
-    // Weiterleitung wenn bereits angemeldet
-    onAuthStateChanged(auth, (user) => {
+    // Passwort vergessen
+    document.getElementById("forgotPassword").addEventListener("click", function () {
+      const email = document.getElementById("email").value.trim();
+      if (!email) {
+        document.getElementById("message").textContent = "Bitte E-Mail eingeben.";
+        return;
+      }
+
+      auth.sendPasswordResetEmail(email)
+        .then(() => {
+          document.getElementById("message").textContent = "Zurücksetzungslink gesendet.";
+        })
+        .catch((error) => {
+          document.getElementById("message").textContent = error.message;
+        });
+    });
+
+    // Automatische Weiterleitung, wenn schon eingeloggt
+    auth.onAuthStateChanged((user) => {
       if (user) {
         window.location.href = "main.html";
       }
-    });
-
-    // Registrierung anzeigen
-    document.getElementById('show-register-form').addEventListener('click', () => {
-      window.location.href = "register.html"; // Oder ersetze durch deine Logik
     });
   </script>
 </body>
