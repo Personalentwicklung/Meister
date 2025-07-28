@@ -2,197 +2,158 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Login | Meisterschule</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Anmelden – Meisterschule</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f2f4f8;
+      background-color: #f0f2f5;
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
+      height: 100vh;
       margin: 0;
     }
-
     .container {
-      background: white;
+      background: #fff;
       padding: 30px;
       border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      box-shadow: 0 0 12px rgba(0,0,0,0.1);
       width: 100%;
       max-width: 400px;
-    }
-
-    h2 {
+      box-sizing: border-box;
       text-align: center;
-      color: #1a4e8a;
     }
-
-    input[type="email"],
-    input[type="password"] {
+    h1 {
+      font-size: 18px;
+      color: #333;
+      margin-bottom: 10px;
+    }
+    h2 {
+      margin: 0 0 20px;
+      color: #14457b;
+    }
+    input {
       width: 100%;
       padding: 12px;
-      margin: 10px 0 4px 0;
+      margin-bottom: 15px;
       border: 1px solid #ccc;
       border-radius: 5px;
+      font-size: 14px;
+      box-sizing: border-box;
     }
-
-    .hint {
-      font-size: 12px;
-      color: #666;
-      margin-bottom: 10px;
-      text-align: left;
+    .input-wrapper {
+      position: relative;
     }
-
+    .input-wrapper img {
+      position: absolute;
+      top: 50%;
+      right: 12px;
+      transform: translateY(-50%);
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+      filter: grayscale(100%);
+    }
     button {
       width: 100%;
       padding: 12px;
-      background-color: #1a4e8a;
-      color: white;
+      background-color: #14457b;
+      color: #fff;
       border: none;
       border-radius: 5px;
+      font-size: 16px;
       cursor: pointer;
-      margin-top: 10px;
     }
-
     button:hover {
-      background-color: #163c6c;
+      background-color: #0e3260;
     }
-
-    .toggle-link {
-      text-align: center;
+    .links {
       margin-top: 15px;
     }
-
-    .toggle-link a {
-      color: #1a4e8a;
-      text-decoration: none;
-      font-size: 14px;
-    }
-
-    .toggle-link a:hover {
+    .links a {
+      display: block;
+      margin: 6px 0;
+      color: #14457b;
       text-decoration: underline;
-    }
-
-    #message, #register-message {
-      margin-top: 10px;
       font-size: 14px;
-      color: #e53935;
-      text-align: center;
+      cursor: pointer;
+    }
+    .links a:hover {
+      color: #0e3260;
+    }
+    #message {
+      color: red;
+      min-height: 18px;
+      margin-bottom: 10px;
     }
   </style>
 </head>
 <body>
-
-<div class="container" id="login-container">
-  <h2>Anmelden</h2>
-  <form id="login-form">
-    <input type="email" id="login-email" placeholder="E-Mail" required />
-    <input type="password" id="login-password" placeholder="Passwort" required />
-    <div class="hint">Passwort muss mindestens 6 Zeichen lang sein.</div>
-    <button type="submit">Anmelden</button>
-    <p id="message"></p>
-  </form>
-  <div class="toggle-link">
-    <a href="#" id="forgot-password">Passwort vergessen?</a><br>
-    <a href="#" id="show-register-form">Noch kein Konto? Jetzt registrieren</a>
+  <div class="container">
+    <h1>Prüfungsvorbereitung – Meisterschule</h1>
+    <h2>Anmelden</h2>
+    <div id="message"></div>
+    <input type="email" id="email" placeholder="E-Mail" />
+    <div class="input-wrapper">
+      <input type="password" id="password" placeholder="Passwort" />
+      <img src="https://upload.wikimedia.org/wikipedia/commons/2/2e/OOjs_UI_icon_eye.svg" id="togglePassword" alt="Passwort anzeigen">
+    </div>
+    <button onclick="login()">Anmelden</button>
+    <div class="links">
+      <a onclick="resetPassword()">Passwort vergessen?</a>
+      <a href="register.html">Noch kein Konto? Jetzt registrieren</a>
+    </div>
   </div>
-</div>
 
-<div class="container" id="register-container" style="display: none;">
-  <h2>Registrieren</h2>
-  <form id="register-form">
-    <input type="email" id="register-email" placeholder="E-Mail" required />
-    <input type="password" id="register-password" placeholder="Passwort" required />
-    <div class="hint">Passwort muss mindestens 6 Zeichen lang sein.</div>
-    <button type="submit">Registrieren</button>
-    <p id="register-message"></p>
-  </form>
-  <div class="toggle-link">
-    <a href="#" id="show-login-form">Zurück zur Anmeldung</a>
-  </div>
-</div>
+  <!-- Firebase via CDN -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyDMaR8xOtpRLPIvLg45OWWD9daFzaw6drY",
+      authDomain: "meister-cb996.firebaseapp.com",
+      projectId: "meister-cb996",
+      storageBucket: "meister-cb996.appspot.com",
+      messagingSenderId: "439507090690",
+      appId: "1:439507090690:web:e8c504aab17d8096d5561b"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
 
-<script type="module">
-  import {
-    auth,
-    db,
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword,
-    sendPasswordResetEmail,
-    doc,
-    setDoc
-  } from './firebase-logic.js';
+    function login() {
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+      const msg = document.getElementById("message");
 
-  // Login
-  document.getElementById('login-form').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const email = document.getElementById('login-email').value;
-    const password = document.getElementById('login-password').value;
-    const message = document.getElementById('message');
+      if (!email || !password) {
+        msg.textContent = "Bitte E-Mail und Passwort eingeben.";
+        return;
+      }
 
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-      message.style.color = 'green';
-      message.textContent = 'Anmeldung erfolgreich. Weiterleitung...';
-      setTimeout(() => {
-        window.location.href = 'main.html';
-      }, 1000);
-    } catch (error) {
-      message.style.color = 'red';
-      message.textContent = 'Fehler: ' + error.message;
+      auth.signInWithEmailAndPassword(email, password)
+        .then(() => window.location.href = "main.html")
+        .catch(err => msg.textContent = err.message);
     }
-  });
 
-  // Registrierung
-  document.getElementById('register-form').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const email = document.getElementById('register-email').value;
-    const password = document.getElementById('register-password').value;
-    const message = document.getElementById('register-message');
+    function resetPassword() {
+      const email = document.getElementById("email").value.trim();
+      const msg = document.getElementById("message");
 
-    try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
-      await setDoc(doc(db, 'users', user.uid), {});
-      message.style.color = 'green';
-      message.textContent = 'Registrierung erfolgreich. Weiterleitung...';
-      setTimeout(() => {
-        window.location.href = 'main.html';
-      }, 1000);
-    } catch (error) {
-      message.style.color = 'red';
-      message.textContent = 'Fehler: ' + error.message;
+      if (!email) {
+        msg.textContent = "Bitte E-Mail-Adresse eingeben.";
+        return;
+      }
+
+      auth.sendPasswordResetEmail(email)
+        .then(() => msg.textContent = "Zurücksetzungslink wurde gesendet.")
+        .catch(err => msg.textContent = err.message);
     }
-  });
 
-  // Passwort vergessen
-  document.getElementById('forgot-password').addEventListener('click', async (e) => {
-    e.preventDefault();
-    const email = document.getElementById('login-email').value;
-    if (!email) return alert("Bitte E-Mail-Adresse eingeben.");
-    try {
-      await sendPasswordResetEmail(auth, email);
-      alert("E-Mail zum Zurücksetzen wurde gesendet.");
-    } catch (error) {
-      alert("Fehler beim Zurücksetzen: " + error.message);
-    }
-  });
-
-  // Formular-Umschaltung
-  document.getElementById('show-register-form').addEventListener('click', (e) => {
-    e.preventDefault();
-    document.getElementById('login-container').style.display = 'none';
-    document.getElementById('register-container').style.display = 'block';
-  });
-
-  document.getElementById('show-login-form').addEventListener('click', (e) => {
-    e.preventDefault();
-    document.getElementById('register-container').style.display = 'none';
-    document.getElementById('login-container').style.display = 'block';
-  });
-</script>
-
+    document.getElementById("togglePassword").addEventListener("click", () => {
+      const pw = document.getElementById("password");
+      pw.type = pw.type === "password" ? "text" : "password";
+    });
+  </script>
 </body>
 </html>
