@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Registrieren – Meisterschule</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f2f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 400px;
+      box-sizing: border-box;
+      text-align: center;
+    }
+    h1 {
+      font-size: 18px;
+      color: #333;
+      margin-bottom: 10px;
+    }
+    h2 {
+      margin: 0 0 20px;
+      color: #14457b;
+    }
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #14457b;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0e3260;
+    }
+    .link {
+      margin-top: 15px;
+      font-size: 14px;
+    }
+    .link a {
+      color: #14457b;
+      text-decoration: underline;
+    }
+    #message {
+      color: red;
+      min-height: 18px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Prüfungsvorbereitung – Meisterschule</h1>
+    <h2>Konto erstellen</h2>
+    <div id="message"></div>
+    <input type="email" id="email" placeholder="E-Mail" />
+    <input type="password" id="password" placeholder="Passwort (mind. 6 Zeichen)" />
+    <button onclick="register()">Registrieren</button>
+    <div class="link">
+      <a href="index.html">Zurück zur Anmeldung</a>
+    </div>
+  </div>
+
+  <!-- Firebase via CDN -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyDMaR8xOtpRLPIvLg45OWWD9daFzaw6drY",
+      authDomain: "meister-cb996.firebaseapp.com",
+      projectId: "meister-cb996",
+      storageBucket: "meister-cb996.appspot.com",
+      messagingSenderId: "439507090690",
+      appId: "1:439507090690:web:e8c504aab17d8096d5561b"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    function register() {
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+      const msg = document.getElementById("message");
+
+      if (!email || !password) {
+        msg.textContent = "Bitte E-Mail und Passwort eingeben.";
+        return;
+      }
+
+      if (password.length < 6) {
+        msg.textContent = "Das Passwort muss mindestens 6 Zeichen lang sein.";
+        return;
+      }
+
+      auth.createUserWithEmailAndPassword(email, password)
+        .then(() => window.location.href = "main.html")
+        .catch(err => msg.textContent = err.message);
+    }
+  </script>
+</body>
+</html>
