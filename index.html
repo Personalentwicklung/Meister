@@ -45,14 +45,6 @@
       text-align: left;
     }
 
-    .show-password {
-      font-size: 12px;
-      display: block;
-      margin-bottom: 10px;
-      color: #444;
-      cursor: pointer;
-    }
-
     button {
       width: 100%;
       padding: 12px;
@@ -64,23 +56,22 @@
       margin-top: 10px;
     }
 
-    button:disabled {
-      background-color: #b0c4de;
-      cursor: not-allowed;
+    button:hover {
+      background-color: #163c6c;
     }
 
-    .link-btn {
-      background: none;
-      border: none;
-      color: #1a4e8a;
-      cursor: pointer;
-      font-size: 14px;
-      margin-top: 10px;
-      display: block;
+    .toggle-link {
       text-align: center;
+      margin-top: 15px;
     }
 
-    .link-btn:hover {
+    .toggle-link a {
+      color: #1a4e8a;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .toggle-link a:hover {
       text-decoration: underline;
     }
 
@@ -99,14 +90,14 @@
   <form id="login-form">
     <input type="email" id="login-email" placeholder="E-Mail" required />
     <input type="password" id="login-password" placeholder="Passwort" required />
-    <label class="show-password">
-      <input type="checkbox" id="toggle-login-password" /> Passwort anzeigen
-    </label>
-    <button type="submit" id="login-btn">Anmelden</button>
+    <div class="hint">Passwort muss mindestens 6 Zeichen lang sein.</div>
+    <button type="submit">Anmelden</button>
     <p id="message"></p>
   </form>
-  <button type="button" class="link-btn" id="forgot-password">Passwort vergessen?</button>
-  <button type="button" class="link-btn" id="show-register-form">Noch kein Konto? Jetzt registrieren</button>
+  <div class="toggle-link">
+    <a href="#" id="forgot-password">Passwort vergessen?</a><br>
+    <a href="#" id="show-register-form">Noch kein Konto? Jetzt registrieren</a>
+  </div>
 </div>
 
 <div class="container" id="register-container" style="display: none;">
@@ -114,14 +105,13 @@
   <form id="register-form">
     <input type="email" id="register-email" placeholder="E-Mail" required />
     <input type="password" id="register-password" placeholder="Passwort" required />
-    <label class="show-password">
-      <input type="checkbox" id="toggle-register-password" /> Passwort anzeigen
-    </label>
     <div class="hint">Passwort muss mindestens 6 Zeichen lang sein.</div>
-    <button type="submit" id="register-btn">Registrieren</button>
+    <button type="submit">Registrieren</button>
     <p id="register-message"></p>
   </form>
-  <button type="button" class="link-btn" id="show-login-form">Zurück zur Anmeldung</button>
+  <div class="toggle-link">
+    <a href="#" id="show-login-form">Zurück zur Anmeldung</a>
+  </div>
 </div>
 
 <script type="module">
@@ -135,91 +125,53 @@
     setDoc
   } from './firebase-logic.js';
 
-  const loginForm = document.getElementById('login-form');
-  const loginBtn = document.getElementById('login-btn');
-  const loginMsg = document.getElementById('message');
-
-  loginForm.addEventListener('submit', async (e) => {
+  // Login
+  document.getElementById('login-form').addEventListener('submit', async (e) => {
     e.preventDefault();
-    loginBtn.disabled = true;
-    loginMsg.style.color = 'black';
-    loginMsg.textContent = 'Bitte warten...';
-
     const email = document.getElementById('login-email').value;
     const password = document.getElementById('login-password').value;
+    const message = document.getElementById('message');
 
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      loginMsg.style.color = 'green';
-      loginMsg.textContent = 'Anmeldung erfolgreich. Weiterleitung...';
-      loginForm.reset();
+      message.style.color = 'green';
+      message.textContent = 'Anmeldung erfolgreich. Weiterleitung...';
       setTimeout(() => {
         window.location.href = 'main.html';
       }, 1000);
     } catch (error) {
-      loginMsg.style.color = 'red';
-      if (error.code === 'auth/wrong-password') {
-        loginMsg.textContent = 'Falsches Passwort.';
-      } else if (error.code === 'auth/user-not-found') {
-        loginMsg.textContent = 'Benutzer existiert nicht.';
-      } else {
-        loginMsg.textContent = 'Fehler: ' + error.message;
-      }
-    } finally {
-      loginBtn.disabled = false;
+      message.style.color = 'red';
+      message.textContent = 'Fehler: ' + error.message;
     }
   });
 
-  const registerForm = document.getElementById('register-form');
-  const registerBtn = document.getElementById('register-btn');
-  const registerMsg = document.getElementById('register-message');
-
-  registerForm.addEventListener('submit', async (e) => {
+  // Registrierung
+  document.getElementById('register-form').addEventListener('submit', async (e) => {
     e.preventDefault();
-    registerBtn.disabled = true;
-    registerMsg.style.color = 'black';
-    registerMsg.textContent = 'Bitte warten...';
-
     const email = document.getElementById('register-email').value;
     const password = document.getElementById('register-password').value;
+    const message = document.getElementById('register-message');
 
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      await setDoc(doc(db, 'users', userCredential.user.uid), {});
-      registerMsg.style.color = 'green';
-      registerMsg.textContent = 'Registrierung erfolgreich. Weiterleitung...';
-      registerForm.reset();
+      const user = userCredential.user;
+      await setDoc(doc(db, 'users', user.uid), {});
+      message.style.color = 'green';
+      message.textContent = 'Registrierung erfolgreich. Weiterleitung...';
       setTimeout(() => {
         window.location.href = 'main.html';
       }, 1000);
     } catch (error) {
-      registerMsg.style.color = 'red';
-      if (error.code === 'auth/email-already-in-use') {
-        registerMsg.textContent = 'E-Mail wird bereits verwendet.';
-      } else if (error.code === 'auth/weak-password') {
-        registerMsg.textContent = 'Passwort ist zu schwach.';
-      } else {
-        registerMsg.textContent = 'Fehler: ' + error.message;
-      }
-    } finally {
-      registerBtn.disabled = false;
+      message.style.color = 'red';
+      message.textContent = 'Fehler: ' + error.message;
     }
   });
 
-  document.getElementById('toggle-login-password').addEventListener('change', (e) => {
-    document.getElementById('login-password').type = e.target.checked ? 'text' : 'password';
-  });
-
-  document.getElementById('toggle-register-password').addEventListener('change', (e) => {
-    document.getElementById('register-password').type = e.target.checked ? 'text' : 'password';
-  });
-
-  document.getElementById('forgot-password').addEventListener('click', async () => {
+  // Passwort vergessen
+  document.getElementById('forgot-password').addEventListener('click', async (e) => {
+    e.preventDefault();
     const email = document.getElementById('login-email').value;
-    if (!email) {
-      alert("Bitte E-Mail-Adresse eingeben.");
-      return;
-    }
+    if (!email) return alert("Bitte E-Mail-Adresse eingeben.");
     try {
       await sendPasswordResetEmail(auth, email);
       alert("E-Mail zum Zurücksetzen wurde gesendet.");
@@ -228,12 +180,15 @@
     }
   });
 
-  document.getElementById('show-register-form').addEventListener('click', () => {
+  // Formular-Umschaltung
+  document.getElementById('show-register-form').addEventListener('click', (e) => {
+    e.preventDefault();
     document.getElementById('login-container').style.display = 'none';
     document.getElementById('register-container').style.display = 'block';
   });
 
-  document.getElementById('show-login-form').addEventListener('click', () => {
+  document.getElementById('show-login-form').addEventListener('click', (e) => {
+    e.preventDefault();
     document.getElementById('register-container').style.display = 'none';
     document.getElementById('login-container').style.display = 'block';
   });
