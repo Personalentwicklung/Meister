@@ -2,12 +2,12 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Login – Meisterschule</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f0f2f5;
+      background-color: #f1f3f8;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -16,39 +16,39 @@
     }
 
     .container {
-      background-color: #fff;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 0 12px rgba(0,0,0,0.1);
+      background-color: white;
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
       width: 100%;
       max-width: 400px;
       box-sizing: border-box;
-    }
-
-    .subtitle {
       text-align: center;
-      font-size: 16px;
-      color: #444;
-      margin-bottom: 6px;
     }
 
     h2 {
-      text-align: center;
-      margin: 0 0 20px;
-      color: #14457b;
+      margin: 0 0 10px;
+      color: #1b3f79;
     }
 
-    input {
+    .title {
+      font-size: 16px;
+      margin-bottom: 5px;
+      color: #333;
+    }
+
+    input[type="email"],
+    input[type="password"] {
       width: 100%;
       padding: 12px;
       margin-bottom: 15px;
       border: 1px solid #ccc;
-      border-radius: 5px;
+      border-radius: 6px;
       font-size: 14px;
       box-sizing: border-box;
     }
 
-    .input-wrapper {
+    .password-wrapper {
       position: relative;
     }
 
@@ -60,76 +60,70 @@
       background: none;
       border: none;
       cursor: pointer;
-      font-size: 16px;
-      padding: 0;
-      color: #444;
+    }
+
+    .toggle-password img {
+      width: 20px;
+      height: 20px;
+      filter: grayscale(100%);
     }
 
     button {
-      width: 100%;
-      padding: 12px;
-      background-color: #14457b;
-      color: #fff;
+      background-color: #164a96;
+      color: white;
       border: none;
-      border-radius: 5px;
+      padding: 12px;
+      width: 100%;
       font-size: 16px;
+      border-radius: 6px;
       cursor: pointer;
     }
 
-    .text-links {
-      text-align: center;
+    button:hover {
+      background-color: #133d7d;
+    }
+
+    .link {
+      display: block;
       margin-top: 15px;
-    }
-
-    .text-links a {
-      display: inline-block;
-      color: #14457b;
-      text-decoration: underline;
       font-size: 14px;
-      margin: 6px 0;
-      cursor: pointer;
-      transition: color 0.2s ease;
     }
 
-    .text-links a:hover {
-      color: #0e3260;
+    .link a {
+      color: #164a96;
+      text-decoration: underline;
     }
 
-    #message {
-      text-align: center;
-      color: red;
-      margin-bottom: 10px;
-      min-height: 18px;
+    .link a:hover {
+      color: #0d2d5e;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <p class="subtitle">Prüfungsvorbereitung – Meisterschule</p>
+    <div class="title">Prüfungsvorbereitung – Meisterschule</div>
     <h2>Anmelden</h2>
-
-    <div id="message"></div>
-
-    <input type="email" id="email" placeholder="E-Mail" />
-
-    <div class="input-wrapper">
-      <input type="password" id="password" placeholder="Passwort" />
-      <button class="toggle-password" id="togglePassword" aria-label="Passwort anzeigen">👁️</button>
+    <input type="email" id="email" placeholder="E-Mail" required />
+    <div class="password-wrapper">
+      <input type="password" id="password" placeholder="Passwort" required />
+      <button class="toggle-password" onclick="togglePassword()" tabindex="-1">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/2/2e/OOjs_UI_icon_eye.svg" alt="Auge" />
+      </button>
     </div>
+    <button onclick="login()">Anmelden</button>
 
-    <button id="loginBtn">Anmelden</button>
-
-    <div class="text-links">
-      <a href="#" id="forgotPassword">Passwort vergessen?</a><br>
-      <a href="register.html">Noch kein Konto? Jetzt registrieren</a>
+    <div class="link">
+      <a href="#">Passwort vergessen?</a>
+    </div>
+    <div class="link">
+      <a href="index.html">Noch kein Konto? Jetzt registrieren</a>
     </div>
   </div>
 
-  <!-- ✅ Firebase via CDN -->
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script type="module">
+    import { initializeApp } from "./firebase/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword } from "./firebase/firebase-auth.js";
 
-  <script>
     const firebaseConfig = {
       apiKey: "AIzaSyDMaR8xOtpRLPIvLg45OWWD9daFzaw6drY",
       authDomain: "meister-cb996.firebaseapp.com",
@@ -139,53 +133,33 @@
       appId: "1:439507090690:web:e8c504aab17d8096d5561b"
     };
 
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
 
-    // Passwort anzeigen/ausblenden
-    document.getElementById("togglePassword").addEventListener("click", function () {
-      const pw = document.getElementById("password");
-      pw.type = pw.type === "password" ? "text" : "password";
-    });
-
-    // Login-Button
-    document.getElementById("loginBtn").addEventListener("click", function () {
-      const email = document.getElementById("email").value.trim();
+    window.login = () => {
+      const email = document.getElementById("email").value;
       const password = document.getElementById("password").value;
-      const msg = document.getElementById("message");
 
       if (!email || !password) {
-        msg.textContent = "Bitte E-Mail und Passwort eingeben.";
+        alert("Bitte E-Mail und Passwort eingeben.");
         return;
       }
 
-      auth.signInWithEmailAndPassword(email, password)
+      signInWithEmailAndPassword(auth, email, password)
         .then(() => {
           window.location.href = "main.html";
         })
         .catch((error) => {
-          msg.textContent = error.message;
+          alert("Fehler: " + error.message);
         });
-    });
+    };
+  </script>
 
-    // Passwort zurücksetzen
-    document.getElementById("forgotPassword").addEventListener("click", function () {
-      const email = document.getElementById("email").value.trim();
-      const msg = document.getElementById("message");
-
-      if (!email) {
-        msg.textContent = "Bitte E-Mail eingeben.";
-        return;
-      }
-
-      auth.sendPasswordResetEmail(email)
-        .then(() => {
-          msg.textContent = "Zurücksetzungslink wurde gesendet.";
-        })
-        .catch((error) => {
-          msg.textContent = error.message;
-        });
-    });
+  <script>
+    function togglePassword() {
+      const pwField = document.getElementById("password");
+      pwField.type = pwField.type === "password" ? "text" : "password";
+    }
   </script>
 </body>
 </html>
