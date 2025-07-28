@@ -1,34 +1,56 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lernfortschritt – Übersicht</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dein Lernfortschritt</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f7f9fc;
+      background-color: #f5f7fa;
       margin: 0;
       padding: 0;
     }
+
     header {
       background-color: #1a4e8a;
       color: white;
       padding: 20px;
       text-align: center;
+      position: relative;
     }
+
+    .logout-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background-color: #e53935;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .logout-btn:hover {
+      background-color: #c62828;
+    }
+
     .container {
       padding: 20px;
-      display: none;
+      max-width: 800px;
+      margin: auto;
     }
+
     .progress-item {
-      background-color: white;
+      background-color: #fff;
       border: 1px solid #ddd;
       border-radius: 8px;
       padding: 15px;
       margin-bottom: 15px;
       box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     }
+
     .progress-bar {
       background-color: #eee;
       border-radius: 5px;
@@ -37,110 +59,110 @@
       margin-top: 8px;
       overflow: hidden;
     }
+
     .progress-fill {
       height: 100%;
       background-color: #1a4e8a;
       width: 0%;
     }
+
     .topic-link {
       text-decoration: none;
       color: #1a4e8a;
       font-weight: bold;
+      font-size: 18px;
     }
-    .logout-btn {
-      background-color: #e53935;
-      color: white;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 5px;
-      cursor: pointer;
-      float: right;
-      margin-top: -40px;
-      margin-right: 20px;
-    }
-    .logout-btn:hover {
-      background-color: #c62828;
+
+    .progress-text {
+      margin-top: 5px;
+      font-size: 14px;
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <h1>Dein Lernfortschritt</h1>
-    <button class="logout-btn" onclick="signOutUser()">Abmelden</button>
-  </header>
+<header>
+  <h1>Dein Lernfortschritt</h1>
+  <button class="logout-btn" id="logout-btn">Abmelden</button>
+</header>
 
-  <div class="container">
-    <ul id="progress-list"></ul>
-  </div>
+<div class="container" id="content-container" style="display: none;">
+  <ul id="progress-list" style="list-style: none; padding: 0;"></ul>
+</div>
 
-  <script type="module">
-    import {
-      auth,
-      db,
-      doc,
-      getDoc,
-      onAuthStateChanged,
-      signOut
-    } from './firebase-logic.js';
+<script type="module">
+  import {
+    auth,
+    db,
+    doc,
+    getDoc,
+    onAuthStateChanged,
+    signOut
+  } from './firebase-logic.js';
 
-    onAuthStateChanged(auth, (user) => {
-      if (!user) {
-        window.location.href = "index.html";
-      } else {
-        loadProgress(user.uid);
-        document.querySelector('.container').style.display = 'block';
-      }
-    });
+  const contentContainer = document.getElementById('content-container');
+  const logoutButton = document.getElementById('logout-btn');
 
-    async function loadProgress(userId) {
-      const progressListElement = document.getElementById('progress-list');
-      progressListElement.innerHTML = '';
+  // Benutzerüberprüfung
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "index.html";
+    } else {
+      loadProgress(user.uid);
+      contentContainer.style.display = 'block';
+    }
+  });
 
-      const docRef = doc(db, "users", userId);
-      const docSnap = await getDoc(docRef);
+  // Fortschrittsanzeige laden
+  async function loadProgress(userId) {
+    const progressListElement = document.getElementById('progress-list');
+    progressListElement.innerHTML = '';
 
-      const allTopics = {
-        'pe-prozess': 'PE-Prozess',
-        'potenzial-kompetenz': 'Potenzial und Kompetenz'
-      };
+    const docRef = doc(db, "users", userId);
+    const docSnap = await getDoc(docRef);
 
-      for (const topicId in allTopics) {
-        const topicName = allTopics[topicId];
-        let answeredCount = 0;
+    const allTopics = {
+      'pe-prozess': 'PE-Prozess',
+      'potenzial-kompetenz': 'Potenzial und Kompetenz'
+    };
 
-        if (docSnap.exists()) {
-          const data = docSnap.data();
-          const answers = data[topicId] || {};
-          for (let i = 1; i <= 3; i++) {
-            if (answers[i.toString()]) answeredCount++;
-          }
+    for (const topicId in allTopics) {
+      const topicName = allTopics[topicId];
+      let answeredCount = 0;
+
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        const answers = data[topicId] || {};
+        for (let i = 1; i <= 3; i++) {
+          if (answers[i.toString()]) answeredCount++;
         }
-
-        const progressPercentage = (answeredCount / 3) * 100;
-        const progressItem = document.createElement('li');
-        progressItem.className = 'progress-item';
-        progressItem.innerHTML = `
-          <a href="inhalt1.html#${topicId}" class="topic-link">${topicName}</a>
-          <div>
-            <p class="progress-text">${answeredCount} von 3 Fragen beantwortet</p>
-            <div class="progress-bar">
-              <div class="progress-fill" style="width: ${progressPercentage}%;"></div>
-            </div>
-          </div>
-        `;
-        progressListElement.appendChild(progressItem);
       }
-    }
 
-    function signOutUser() {
-      signOut(auth).then(() => {
-        window.location.href = "index.html";
-      }).catch((error) => {
-        console.error("Fehler beim Abmelden:", error);
-      });
+      const progressPercentage = (answeredCount / 3) * 100;
+      const progressItem = document.createElement('li');
+      progressItem.className = 'progress-item';
+      progressItem.innerHTML = `
+        <a href="inhalt1.html#${topicId}" class="topic-link">${topicName}</a>
+        <div>
+          <p class="progress-text">${answeredCount} von 3 Fragen beantwortet</p>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: ${progressPercentage}%;"></div>
+          </div>
+        </div>
+      `;
+      progressListElement.appendChild(progressItem);
     }
-  </script>
+  }
+
+  // Abmeldung
+  logoutButton.addEventListener('click', () => {
+    signOut(auth).then(() => {
+      window.location.href = "index.html";
+    }).catch((error) => {
+      alert("Fehler beim Abmelden: " + error.message);
+    });
+  });
+</script>
 
 </body>
 </html>
