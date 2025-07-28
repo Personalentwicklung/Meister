@@ -1,11 +1,9 @@
 // firebase-logic.js
-// Dieses Modul lädt die Firebase Compat-Bibliotheken und exportiert die auth- und db-Dienste.
 
-// Wichtige Änderung: Wir verwenden KEINEN "import firebase from ..." mehr.
-// Die compat-Bibliotheken werden einfach geladen (import "...") und machen das globale 'firebase'-Objekt verfügbar.
-import "https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js";
-import "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js";
-import "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js";
+// Firebase SDK von CDN (funktioniert direkt im Browser)
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
 
 
 // Deine Firebase-Konfiguration
@@ -20,16 +18,44 @@ const firebaseConfig = {
   measurementId: "G-FPYSE0QV7H"
 };
 
-// Firebase App initialisieren
-// Das 'firebase'-Objekt ist nun global verfügbar, nachdem firebase-app-compat.js geladen wurde.
-const app = firebase.initializeApp(firebaseConfig);
+// Firebase initialisieren
+const app = initializeApp(firebaseConfig);
 
-// Auth- und Firestore-Dienste von der initialisierten App abrufen
-const auth = app.auth();
-const db = app.firestore();
+// Firebase-Dienste initialisieren
+const auth = getAuth(app);
+const db = getFirestore(app);
 
-// Die 'auth' und 'db' Objekte exportieren
+// Optional: Auth-Funktionen direkt exportieren (falls du willst)
 export {
   auth,
-  db
+  db,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  sendPasswordResetEmail,
+  onAuthStateChanged,
+  signOut,
+  doc,
+  getDoc,
+  setDoc
+};
+
+// Firebase initialisieren
+const app = initializeApp(firebaseConfig);
+
+// Firebase-Dienste initialisieren
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+// Optional: Auth-Funktionen direkt exportieren (falls du willst)
+export {
+  auth,
+  db,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  sendPasswordResetEmail,
+  onAuthStateChanged,
+  signOut,
+  doc,
+  getDoc,
+  setDoc
 };
