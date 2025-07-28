@@ -24,9 +24,17 @@
       max-width: 400px;
     }
 
+    .subtitle {
+      text-align: center;
+      font-size: 16px;
+      color: #444;
+      margin-bottom: 6px;
+    }
+
     h2 {
       text-align: center;
       color: #1a4e8a;
+      margin-top: 0;
     }
 
     .input-wrapper {
@@ -36,11 +44,12 @@
     input[type="email"],
     input[type="password"] {
       width: 100%;
-      padding: 12px;
+      padding: 12px 40px 12px 12px;
       margin: 10px 0 4px 0;
       border: 1px solid #ccc;
       border-radius: 5px;
       box-sizing: border-box;
+      font-size: 14px;
     }
 
     .eye-icon {
@@ -49,15 +58,9 @@
       top: 50%;
       transform: translateY(-50%);
       cursor: pointer;
-      font-size: 18px;
-      color: #555;
-    }
-
-    .hint {
-      font-size: 12px;
-      color: #666;
-      margin-bottom: 10px;
-      text-align: left;
+      width: 20px;
+      height: 20px;
+      fill: #555;
     }
 
     button {
@@ -69,6 +72,7 @@
       border-radius: 5px;
       cursor: pointer;
       margin-top: 10px;
+      font-size: 15px;
     }
 
     button:disabled {
@@ -85,9 +89,14 @@
       color: #1a4e8a;
       text-decoration: underline;
       display: block;
-      margin: 8px 0;
+      margin: 6px 0;
       font-size: 14px;
       cursor: pointer;
+      transition: color 0.2s ease;
+    }
+
+    .link-actions a:hover {
+      color: #003f7f;
     }
 
     #message, #register-message {
@@ -101,12 +110,15 @@
 <body>
 
 <div class="container" id="login-container">
+  <p class="subtitle">Prüfungsvorbereitung – Meisterschule</p>
   <h2>Anmelden</h2>
   <form id="login-form">
     <input type="email" id="login-email" placeholder="E-Mail" required />
     <div class="input-wrapper">
       <input type="password" id="login-password" placeholder="Passwort" required />
-      <span class="eye-icon" id="toggle-login-password">👁️</span>
+      <svg class="eye-icon" id="toggle-login-password" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path d="M12 4.5C7 4.5 2.73 8.11 1 12c1.73 3.89 6 7.5 11 7.5s9.27-3.61 11-7.5c-1.73-3.89-6-7.5-11-7.5zm0 13c-3.03 0-5.5-2.47-5.5-5.5S8.97 6.5 12 6.5s5.5 2.47 5.5 5.5-2.47 5.5-5.5 5.5zm0-9a3.5 3.5 0 100 7 3.5 3.5 0 000-7z"/>
+      </svg>
     </div>
     <button type="submit" id="login-btn">Anmelden</button>
     <p id="message"></p>
@@ -118,14 +130,19 @@
 </div>
 
 <div class="container" id="register-container" style="display: none;">
+  <p class="subtitle">Prüfungsvorbereitung – Meisterschule</p>
   <h2>Registrieren</h2>
   <form id="register-form">
     <input type="email" id="register-email" placeholder="E-Mail" required />
     <div class="input-wrapper">
       <input type="password" id="register-password" placeholder="Passwort" required />
-      <span class="eye-icon" id="toggle-register-password">👁️</span>
+      <svg class="eye-icon" id="toggle-register-password" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path d="M12 4.5C7 4.5 2.73 8.11 1 12c1.73 3.89 6 7.5 11 7.5s9.27-3.61 11-7.5c-1.73-3.89-6-7.5-11-7.5zm0 13c-3.03 0-5.5-2.47-5.5-5.5S8.97 6.5 12 6.5s5.5 2.47 5.5 5.5-2.47 5.5-5.5 5.5zm0-9a3.5 3.5 0 100 7 3.5 3.5 0 000-7z"/>
+      </svg>
     </div>
-    <div class="hint">Passwort muss mindestens 6 Zeichen lang sein.</div>
+    <div style="font-size: 12px; color: #666; margin-top: 4px;">
+      Passwort muss mindestens 6 Zeichen lang sein.
+    </div>
     <button type="submit" id="register-btn">Registrieren</button>
     <p id="register-message"></p>
   </form>
@@ -168,13 +185,7 @@
       }, 1000);
     } catch (error) {
       loginMsg.style.color = 'red';
-      if (error.code === 'auth/wrong-password') {
-        loginMsg.textContent = 'Falsches Passwort.';
-      } else if (error.code === 'auth/user-not-found') {
-        loginMsg.textContent = 'Benutzer existiert nicht.';
-      } else {
-        loginMsg.textContent = 'Fehler: ' + error.message;
-      }
+      loginMsg.textContent = 'Fehler: ' + error.message;
     } finally {
       loginBtn.disabled = false;
     }
@@ -204,19 +215,13 @@
       }, 1000);
     } catch (error) {
       registerMsg.style.color = 'red';
-      if (error.code === 'auth/email-already-in-use') {
-        registerMsg.textContent = 'E-Mail wird bereits verwendet.';
-      } else if (error.code === 'auth/weak-password') {
-        registerMsg.textContent = 'Passwort ist zu schwach.';
-      } else {
-        registerMsg.textContent = 'Fehler: ' + error.message;
-      }
+      registerMsg.textContent = 'Fehler: ' + error.message;
     } finally {
       registerBtn.disabled = false;
     }
   });
 
-  // Passwort anzeigen/ausblenden
+  // Passwort sichtbar/unsichtbar
   document.getElementById('toggle-login-password').addEventListener('click', () => {
     const pw = document.getElementById('login-password');
     pw.type = pw.type === 'password' ? 'text' : 'password';
@@ -242,7 +247,7 @@
     }
   });
 
-  // Formular wechseln
+  // Ansicht wechseln
   document.getElementById('show-register-form').addEventListener('click', () => {
     document.getElementById('login-container').style.display = 'none';
     document.getElementById('register-container').style.display = 'block';
