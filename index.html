@@ -1,113 +1,84 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Prüfungsvorbereitung – Meisterschule</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter&display=swap" />
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f2f4f8;
+      font-family: 'Inter', sans-serif;
+      background: #f0f2f5;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
-      margin: 0;
     }
 
     .container {
-      background-color: #fff;
-      padding: 2.5rem;
+      background: white;
+      padding: 2rem;
       border-radius: 12px;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
       width: 100%;
       max-width: 400px;
-      box-sizing: border-box;
-    }
-
-    h1, h2 {
       text-align: center;
-      margin-bottom: 1rem;
-      color: #0b3d91;
     }
 
     h1 {
-      font-size: 1.1rem;
-      color: #333;
+      font-size: 1rem;
       font-weight: normal;
+      margin-bottom: 0.5rem;
     }
 
     h2 {
-      font-size: 1.5rem;
-      font-weight: bold;
+      margin-top: 0;
+      color: #123c7b;
     }
 
-    input {
+    input[type="email"],
+    input[type="password"] {
       width: 100%;
-      padding: 12px;
-      margin-bottom: 1rem;
-      border: 1px solid #ccc;
+      padding: 0.75rem;
+      margin: 0.5rem 0;
       border-radius: 6px;
-      box-sizing: border-box;
+      border: 1px solid #ccc;
       font-size: 1rem;
+      box-sizing: border-box;
     }
 
-    .password-wrapper {
+    .password-container {
       position: relative;
-    }
-
-    .password-wrapper input {
-      padding-right: 2.5rem;
     }
 
     .toggle-password {
       position: absolute;
+      right: 12px;
       top: 50%;
-      right: 0.75rem;
       transform: translateY(-50%);
-      background: none;
-      border: none;
       cursor: pointer;
-      padding: 0;
-    }
-
-    .toggle-password svg {
-      width: 20px;
-      height: 20px;
-      fill: #444;
+      border: none;
+      background: none;
     }
 
     button {
-      width: 100%;
-      padding: 12px;
-      background-color: #164b9a;
+      background: #123c7b;
       color: white;
+      padding: 0.75rem;
+      width: 100%;
+      font-size: 1rem;
       border: none;
       border-radius: 6px;
-      font-size: 1rem;
       cursor: pointer;
-      margin-top: 0.5rem;
-    }
-
-    button:hover {
-      background-color: #123c7a;
-    }
-
-    .link {
-      text-align: center;
       margin-top: 1rem;
     }
 
-    .link a {
+    a {
       display: inline-block;
-      margin: 0.25rem 0;
+      margin-top: 1rem;
+      color: #123c7b;
       text-decoration: underline;
-      color: #0b3d91;
       cursor: pointer;
-    }
-
-    .link a:hover {
-      color: #062c6a;
     }
 
     .hidden {
@@ -120,103 +91,118 @@
     <h1>Prüfungsvorbereitung – Meisterschule</h1>
     <h2 id="formTitle">Anmelden</h2>
 
-    <input type="email" id="email" placeholder="E-Mail" />
+    <input type="email" id="email" placeholder="E-Mail" required />
 
-    <div class="password-wrapper">
-      <input type="password" id="password" placeholder="Passwort" />
-      <button class="toggle-password" onclick="togglePassword()" aria-label="Passwort anzeigen">
-        <svg viewBox="0 0 24 24"><path d="M12 5c-7 0-11 7-11 7s4 7 11 7 11-7 11-7-4-7-11-7zm0 12c-2.8 0-5-2.2-5-5s2.2-5 5-5 5 2.2 5 5-2.2 5-5 5zm0-8c-1.7 0-3 1.3-3 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"/></svg>
+    <div class="password-container">
+      <input type="password" id="password" placeholder="Passwort" required />
+      <button type="button" class="toggle-password" onclick="togglePasswordVisibility()">
+        👁️
       </button>
     </div>
 
-    <button id="mainButton" onclick="handleAuth()">Anmelden</button>
+    <button id="submitButton" onclick="login()">Anmelden</button>
 
-    <div class="link">
-      <a id="forgotPassword" onclick="switchMode('reset')">Passwort vergessen?</a>
-      <a id="switchToRegister" onclick="switchMode('register')">Noch kein Konto? Jetzt registrieren</a>
-      <a class="hidden" id="backToLogin" onclick="switchMode('login')">Zurück zur Anmeldung</a>
-    </div>
+    <a id="forgotPasswordLink" onclick="resetPassword()">Passwort vergessen?</a>
+    <a id="switchToRegister" onclick="switchMode('register')">Noch kein Konto? Jetzt registrieren</a>
+    <a id="backToLogin" class="hidden" onclick="switchMode('login')">Zurück zur Anmeldung</a>
   </div>
 
-  <script type="module">
-    import { auth } from './firebase-logic.js';
-    import {
-      signInWithEmailAndPassword,
-      createUserWithEmailAndPassword,
-      sendPasswordResetEmail
-    } from "firebase/auth";
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js"></script>
 
-    let mode = "login";
-
-    window.onload = () => {
-      switchMode("login");
+  <script>
+    // Firebase config
+    const firebaseConfig = {
+      apiKey: "DEINE_API_KEY",
+      authDomain: "DEIN_PROJECT.firebaseapp.com",
+      projectId: "DEIN_PROJECT_ID"
     };
+
+    // Init Firebase
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    let mode = "login"; // login oder register
+
+    document.addEventListener("DOMContentLoaded", () => {
+      switchMode("login");
+    });
 
     function switchMode(newMode) {
       mode = newMode;
-
-      const title = document.getElementById('formTitle');
-      const button = document.getElementById('mainButton');
-      const forgot = document.getElementById('forgotPassword');
-      const register = document.getElementById('switchToRegister');
-      const back = document.getElementById('backToLogin');
-      const passwordField = document.getElementById('password');
-
-      passwordField.type = "password";
+      const formTitle = document.getElementById("formTitle");
+      const submitBtn = document.getElementById("submitButton");
+      const forgotPasswordLink = document.getElementById("forgotPasswordLink");
+      const registerLink = document.getElementById("switchToRegister");
+      const backLink = document.getElementById("backToLogin");
 
       if (mode === "login") {
-        title.textContent = "Anmelden";
-        button.textContent = "Anmelden";
-        passwordField.classList.remove("hidden");
-        forgot.classList.remove("hidden");
-        register.classList.remove("hidden");
-        back.classList.add("hidden");
-      } else if (mode === "register") {
-        title.textContent = "Registrieren";
-        button.textContent = "Konto erstellen";
-        passwordField.classList.remove("hidden");
-        forgot.classList.add("hidden");
-        register.classList.add("hidden");
-        back.classList.remove("hidden");
-      } else if (mode === "reset") {
-        title.textContent = "Passwort zurücksetzen";
-        button.textContent = "Passwort zurücksetzen";
-        passwordField.classList.add("hidden");
-        forgot.classList.add("hidden");
-        register.classList.add("hidden");
-        back.classList.remove("hidden");
+        formTitle.innerText = "Anmelden";
+        submitBtn.innerText = "Anmelden";
+        forgotPasswordLink.classList.remove("hidden");
+        registerLink.classList.remove("hidden");
+        backLink.classList.add("hidden");
+        submitBtn.onclick = login;
+      } else {
+        formTitle.innerText = "Registrieren";
+        submitBtn.innerText = "Konto erstellen";
+        forgotPasswordLink.classList.add("hidden");
+        registerLink.classList.add("hidden");
+        backLink.classList.remove("hidden");
+        submitBtn.onclick = register;
       }
     }
 
-    function togglePassword() {
-      const password = document.getElementById("password");
-      password.type = password.type === "password" ? "text" : "password";
-    }
-
-    async function handleAuth() {
+    function login() {
       const email = document.getElementById("email").value.trim();
-      const password = document.getElementById("password").value.trim();
+      const password = document.getElementById("password").value;
 
-      try {
-        if (mode === "login") {
-          await signInWithEmailAndPassword(auth, email, password);
-          window.location.href = "main.html";
-        } else if (mode === "register") {
-          if (password.length < 6) {
-            alert("Passwort muss mindestens 6 Zeichen lang sein.");
-            return;
-          }
-          await createUserWithEmailAndPassword(auth, email, password);
-          alert("Registrierung erfolgreich! Du kannst dich jetzt anmelden.");
-          switchMode("login");
-        } else if (mode === "reset") {
-          await sendPasswordResetEmail(auth, email);
-          alert("Passwort-Reset gesendet. Bitte überprüfe dein Postfach.");
-          switchMode("login");
-        }
-      } catch (error) {
-        alert("Fehler: " + error.message);
+      if (email === "" || password === "") {
+        alert("Bitte E-Mail und Passwort eingeben.");
+        return;
       }
+
+      auth.signInWithEmailAndPassword(email, password)
+        .then(() => {
+          window.location.href = "main.html";
+        })
+        .catch((error) => {
+          alert("Fehler beim Anmelden: " + error.message);
+        });
+    }
+
+    function register() {
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+
+      if (email === "" || password.length < 6) {
+        alert("Bitte gültige E-Mail und ein Passwort mit mindestens 6 Zeichen eingeben.");
+        return;
+      }
+
+      auth.createUserWithEmailAndPassword(email, password)
+        .then(() => {
+          alert("Konto erfolgreich erstellt.");
+          switchMode("login");
+        })
+        .catch((error) => {
+          alert("Registrierung fehlgeschlagen: " + error.message);
+        });
+    }
+
+    function resetPassword() {
+      const email = prompt("Bitte gib deine E-Mail-Adresse für den Passwort-Reset ein:");
+      if (email) {
+        auth.sendPasswordResetEmail(email)
+          .then(() => alert("E-Mail zum Zurücksetzen des Passworts wurde gesendet."))
+          .catch((error) => alert("Fehler: " + error.message));
+      }
+    }
+
+    function togglePasswordVisibility() {
+      const pw = document.getElementById("password");
+      pw.type = pw.type === "password" ? "text" : "password";
     }
   </script>
 </body>
