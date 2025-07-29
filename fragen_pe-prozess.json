@@ -6,41 +6,41 @@
     "titel": "Frage 1:",
     "frageText": "Beschreiben Sie die fünf Phasen des Personalentwicklungsprozesses und erläutern Sie deren Bedeutung für die betriebliche Praxis.",
     "musterloesung": "Der Personalentwicklungsprozess gliedert sich in fünf aufeinanderfolgende Phasen:\n\n**Bedarfsanalyse:** Hier wird ermittelt, welche Qualifikationen im Unternehmen fehlen oder künftig benötigt werden. Dies geschieht durch Methoden wie Befragungen, Beobachtungen oder Dokumentenanalysen.\n\n**Zielplanung:** In dieser Phase werden konkrete Entwicklungsziele definiert, die sowohl auf individuelle als auch auf unternehmerische Anforderungen abgestimmt sind.\n\n**Maßnahmengestaltung:** Es werden geeignete Entwicklungsmaßnahmen ausgewählt, die sowohl pädagogisch sinnvoll als auch wirtschaftlich tragfähig sind.\n\n**Durchführung:** Die geplanten Maßnahmen werden umgesetzt – z. B. durch Schulungen, Coaching oder Training-on-the-Job.\n\n**Erfolgskontrolle:** Abschließend wird überprüft, ob die Maßnahmen die gewünschten Effekte erzielt haben. Dies kann durch Feedback, Tests oder Leistungsbeurteilungen erfolgen.\n\nDer strukturierte Ablauf stellt sicher, dass Personalentwicklung zielgerichtet, effizient und nachhaltig erfolgt.",
-    "bewertungskriterien": [
+"bewertungskriterien": [
       {
         "name": "Bedarfsanalyse",
-        "keywords": ["bedarf", "bedarfsanalyse", "ermittlung"],
-        "minWoerterFuerBeschreibung": 20,
-        "feedback_kurz": "Der Begriff 'Bedarfsanalyse' wurde erkannt, ist aber noch nicht ausreichend beschrieben. Achten Sie auf eine detailliertere Erklärung der Ermittlung von Qualifikationen."
+        "keywords": ["bedarf", "bedarfsanalyse", "ermittlung", "qualifikationen fehlen", "benötigt", "befragungen", "beobachtungen", "dokumentenanalysen"],
+        "minWoerterFuerBeschreibung": 25,
+        "feedback_kurz": "Der Begriff 'Bedarfsanalyse' wurde erkannt, ist aber noch nicht ausreichend beschrieben. Achten Sie auf eine detailliertere Erklärung der Ermittlung von Qualifikationen und Methoden."
       },
       {
         "name": "Zielplanung",
-        "keywords": ["ziel", "ziele", "zielplanung", "planung"],
-        "minWoerterFuerBeschreibung": 20,
+        "keywords": ["ziel", "ziele", "zielplanung", "planung", "entwicklungsziele", "individuelle", "unternehmerische anforderungen"],
+        "minWoerterFuerBeschreibung": 18,
         "feedback_kurz": "Der Begriff 'Zielplanung' wurde erkannt, ist aber noch nicht ausreichend beschrieben. Erläutern Sie die Formulierung von individuellen und unternehmerischen Zielen."
       },
       {
         "name": "Maßnahmengestaltung",
-        "keywords": ["maßnahme", "maßnahmen", "maßnahmengestaltung", "auswahl"],
-        "minWoerterFuerBeschreibung": 20,
+        "keywords": ["maßnahme", "maßnahmen", "maßnahmengestaltung", "auswahl", "entwicklungsmaßnahmen", "pädagogisch", "wirtschaftlich tragfähig"],
+        "minWoerterFuerBeschreibung": 18,
         "feedback_kurz": "Der Begriff 'Maßnahmengestaltung' wurde erkannt, ist aber noch nicht ausreichend beschrieben. Gehen Sie auf die Auswahl geeigneter und wirtschaftlicher Maßnahmen ein."
       },
       {
         "name": "Durchführung",
-        "keywords": ["durchführung", "umsetzung", "schulung", "coaching"],
-        "minWoerterFuerBeschreibung": 20,
-        "feedback_kurz": "Der Begriff 'Durchführung' wurde erkannt, ist aber noch nicht ausreichend beschrieben. Nennen Sie Beispiele wie Schulungen oder Coaching."
+        "keywords": ["durchführung", "umsetzung", "schulung", "coaching", "training-on-the-job", "umgesetzt"],
+        "minWoerterFuerBeschreibung": 15,
+        "feedback_kurz": "Der Begriff 'Durchführung' wurde erkannt, ist aber noch nicht ausreichend beschrieben. Nennen Sie Beispiele wie Schulungen, Coaching oder Training-on-the-Job."
       },
       {
         "name": "Erfolgskontrolle",
-        "keywords": ["erfolgskontrolle", "kontrolle", "evaluation", "überprüfung"],
+        "keywords": ["erfolgskontrolle", "kontrolle", "evaluation", "überprüfung", "effekte erzielt", "feedback", "tests", "leistungsbeurteilungen"],
         "minWoerterFuerBeschreibung": 20,
         "feedback_kurz": "Der Begriff 'Erfolgskontrolle' wurde erkannt, ist aber noch nicht ausreichend beschrieben. Beschreiben Sie die Methoden der Überprüfung der Wirksamkeit."
       },
       {
         "name": "Bedeutung",
-        "keywords": ["strategisch", "effizient", "nachhaltig", "zielgerichtet", "wettbewerbsfähigkeit", "zukunftsfähigkeit"],
-        "minWoerterFuerBeschreibung": 30,
+        "keywords": ["strategisch", "effizient", "nachhaltig", "zielgerichtet", "wettbewerbsfähigkeit", "zukunftsfähigkeit", "strukturierter ablauf", "sichert", "immens"],
+        "minWoerterFuerBeschreibung": 25,
         "feedback_kurz": "Die Bedeutung für die betriebliche Praxis wurde erkannt, aber noch nicht ausreichend erläutert. Gehen Sie auf die umfassenderen Vorteile des strukturierten Ablaufs ein."
       }
     ]
