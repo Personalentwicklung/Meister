@@ -152,7 +152,9 @@
     .hinweis { color: #d17b00; }
     .error { color: red; }
   </style>
-  </head>
+  <script src="https://unpkg.com/snowball-stemmer.jsx@0.2.3/dest/german-stemmer.global.min.js"></script>
+  
+</head>
 <body>
 
   <div class="container">
@@ -168,16 +170,15 @@
     let alleGeladeneFragen = {}; // Speichert geladene Fragen pro Thema
     let aktuelleFrageIndex = 0; // Index der aktuell angezeigten Frage im Array
 
-    // --- Platzhalter für die Stemming-Funktion ---
-    // Diese Funktion muss durch die tatsächliche Stemming-Funktion Ihrer Bibliothek ersetzt werden.
-    // Beispiel: Wenn Ihre Bibliothek eine Funktion 'snowballStemmer.stem(word)' bereitstellt,
-    //           dann ersetzen Sie 'word' durch 'snowballStemmer.stem(word)'.
+    // --- Stemming-Funktion mit der geladenen Bibliothek (CDN-Version) ---
+    // Die GermanStemmer-Klasse sollte jetzt global verfügbar sein, sobald das CDN geladen ist.
+    const germanStemmerInstanz = new GermanStemmer(); 
+
     function stemWord(word) {
-      // Vorläufige Implementierung: Nur Kleinbuchstaben zurückgeben.
-      // DIES MUSS DURCH ECHTE STEMMING-LOGIK ERSETZT WERDEN!
-      return word.toLowerCase();
+      // Nutzen Sie die stem-Methode der Stemmer-Instanz
+      return germanStemmerInstanz.stem(word);
     }
-    // --- Ende Platzhalter ---
+    // --- Ende Stemming-Funktion ---
 
 
     // Funktion zum Laden einer JSON-Datei für ein bestimmtes Thema
