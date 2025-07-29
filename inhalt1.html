@@ -152,7 +152,7 @@
     .hinweis { color: #d17b00; }
     .error { color: red; }
   </style>
-</head>
+  </head>
 <body>
 
   <div class="container">
@@ -165,23 +165,33 @@
 
   <script>
     let aktuellesThemaID = 'pe-prozess'; // Standardthema
-    let alleGeladenenFragen = {}; // Speichert geladene Fragen pro Thema
+    let alleGeladeneFragen = {}; // Speichert geladene Fragen pro Thema
     let aktuelleFrageIndex = 0; // Index der aktuell angezeigten Frage im Array
+
+    // --- Platzhalter für die Stemming-Funktion ---
+    // Diese Funktion muss durch die tatsächliche Stemming-Funktion Ihrer Bibliothek ersetzt werden.
+    // Beispiel: Wenn Ihre Bibliothek eine Funktion 'snowballStemmer.stem(word)' bereitstellt,
+    //           dann ersetzen Sie 'word' durch 'snowballStemmer.stem(word)'.
+    function stemWord(word) {
+      // Vorläufige Implementierung: Nur Kleinbuchstaben zurückgeben.
+      // DIES MUSS DURCH ECHTE STEMMING-LOGIK ERSETZT WERDEN!
+      return word.toLowerCase();
+    }
+    // --- Ende Platzhalter ---
+
 
     // Funktion zum Laden einer JSON-Datei für ein bestimmtes Thema
     async function ladeThemaDaten(themaID) {
-      if (alleGeladenenFragen[themaID]) {
-        return alleGeladenenFragen[themaID]; // Fragen bereits geladen
+      if (alleGeladeneFragen[themaID]) {
+        return alleGeladeneFragen[themaID]; // Fragen bereits geladen
       }
       try {
-        // Annahme: JSON-Dateien liegen im selben Ordner wie die HTML-Datei
-        // Oder im Ordner 'fragen' wie zuvor besprochen, falls Sie eine Ordnerstruktur nutzen
         const response = await fetch(`./fragen_${themaID}.json`); 
         if (!response.ok) {
           throw new Error(`HTTP-Fehler! Status: ${response.status}`);
         }
         const fragenDaten = await response.json();
-        alleGeladenenFragen[themaID] = fragenDaten; // Fragen speichern
+        alleGeladeneFragen[themaID] = fragenDaten; // Fragen speichern
         return fragenDaten;
       } catch (error) {
         console.error(`Fehler beim Laden der Fragen für Thema ${themaID}:`, error);
@@ -197,12 +207,12 @@
             .replace(/ö/g, 'oe')
             .replace(/ü/g, 'ue')
             .replace(/ß/g, 'ss')
-            .replace(/[^a-z0-9\s]/g, ''); // Entfernt alle Zeichen außer Buchstaben, Zahlen und Leerzeichen
+            .replace(/[^a-z0-9\s]/g, ' '); // Ersetzt alles außer a-z, 0-9, Leerzeichen durch Leerzeichen
     }
 
     // Funktion zur Bewertung der Antwort
     function auswerten(benutzerAntwort) {
-      const frage = alleGeladenenFragen[aktuellesThemaID][aktuelleFrageIndex];
+      const frage = alleGeladeneFragen[aktuellesThemaID][aktuelleFrageIndex];
       const feedbackDiv = document.getElementById(`feedback-${frage.id}`);
       const solutionElement = document.getElementById(`muster-${frage.id}`);
       const infoTextElement = document.getElementById(`info-${frage.id}`);
@@ -210,6 +220,9 @@
       const showMusterBtn = document.getElementById(`showMusterBtn-${frage.id}`);
 
       const normalisierteAntwort = normalisiereText(benutzerAntwort);
+      // Die Antwort in einzelne Wörter zerlegen und jedes Wort stemmen
+      const gestemmteAntwortWoerter = normalisierteAntwort.split(/\s+/).filter(Boolean).map(word => stemWord(word));
+
       const antwortZeilen = benutzerAntwort.split('\n').filter(line => line.trim().length > 0); // Originalzeilen für Wortzählung
 
       let htmlFeedback = '';
@@ -219,23 +232,34 @@
         let gefunden = false;
         let istBeschrieben = false;
         
-        // Hier würde die Wortstammerkennung (Stemming) angewendet, sobald implementiert
-        // Vorläufig nur normalisiereText für Keywords
-        const normalisierteKeywords = kriterium.keywords.map(kw => normalisiereText(kw));
+        // Stemmen Sie die Keywords nur einmal für jedes Kriterium und Normalisieren
+        const gestemmteKriteriumKeywords = kriterium.keywords.map(kw => stemWord(normalisiereText(kw)));
 
-        for (const zeile of antwortZeilen) {
-          const normalisierteZeile = normalisiereText(zeile);
-          const wordCountInLine = zeile.split(/\s+/).filter(Boolean).length;
+        // Prüfen, ob irgendein gestemmtes Keyword in den gestemmten Wörtern der Antwort vorkommt
+        const keywordInAntwortGefunden = gestemmteKriteriumKeywords.some(stemmedKw => {
+            return gestemmteAntwortWoerter.some(stemmedAntwortWort => stemmedAntwortWort.includes(stemmedKw));
+        });
 
-          if (normalisierteKeywords.some(kw => normalisierteZeile.includes(kw))) {
+        if (keywordInAntwortGefunden) {
             gefunden = true;
-            if (wordCountInLine >= kriterium.minWoerterFuerBeschreibung) {
-              istBeschrieben = true;
-              break; 
-            }
-          }
-        }
+            // Jetzt prüfen, ob die Beschreibung ausreichend ist (mit Wortzählung der Originalzeilen)
+            for (const zeile of antwortZeilen) {
+                const normalisierteZeileFuerStem = normalisiereText(zeile);
+                const gestemmteZeileWoerter = normalisierteZeileFuerStem.split(/\s+/).filter(Boolean).map(word => stemWord(word));
+                const wordCountInLine = zeile.split(/\s+/).filter(Boolean).length;
+                
+                // Überprüfen, ob ein gestemmtes Keyword in dieser gestemmten Zeile ist
+                const keywordInZeileGefunden = gestemmteKriteriumKeywords.some(stemmedKw => {
+                    return gestemmteZeileWoerter.some(stemmedZeilenWort => stemmedZeilenWort.includes(stemmedKw));
+                });
 
+                if (keywordInZeileGefunden && wordCountInLine >= kriterium.minWoerterFuerBeschreibung) {
+                    istBeschrieben = true;
+                    break; 
+                }
+            }
+        }
+        
         if (istBeschrieben) {
           htmlFeedback += `<p class="feedback-item ok">✅ Der Begriff "${kriterium.name}" wurde beschrieben.</p>`;
           interneBewertungStatus[kriterium.name] = 'beschrieben';
@@ -318,7 +342,7 @@
 
     // Zeigt eine spezifische Frage innerhalb des aktuellen Themas an
     function zeigeFrage(themaID, frageIndex) {
-      const fragenArray = alleGeladenenFragen[themaID];
+      const fragenArray = alleGeladeneFragen[themaID];
       if (!fragenArray || fragenArray.length <= frageIndex) {
         console.error(`Frage mit Index ${frageIndex} für Thema ${themaID} nicht gefunden.`);
         return;
