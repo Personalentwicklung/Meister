@@ -1,535 +1,197 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MIKP - Personalentwicklung</title>
-  <style>
-    /* CSS aus ZIP3-13.html übernommen und angepasst */
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
-      padding: 40px 20px;
-      background-color: #f0f2f5;
-      color: #333;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      min-height: 100vh;
-    }
-    .container {
-      background-color: #ffffff;
-      padding: 40px;
-      border-radius: 10px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      max-width: 900px;
-      width: 100%;
-      box-sizing: border-box;
-    }
-    h1 {
-      color: #1a4e8a;
-      text-align: center;
-      font-size: 2.2em;
-      margin-bottom: 5px;
-    }
-    h2 {
-      color: #1a4e8a;
-      font-size: 1.8em;
-      margin-top: 20px;
-      margin-bottom: 20px;
-      text-align: center;
-    }
-    h3 {
-      color: #333;
-      font-size: 1.4em;
-      margin-top: 15px;
-      margin-bottom: 10px;
-    }
-    p {
-      line-height: 1.6;
-      margin-bottom: 10px;
-    }
-    textarea {
-      width: 100%;
-      padding: 12px;
-      margin-top: 8px;
-      margin-bottom: 20px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      font-size: 1em;
-      box-sizing: border-box;
-      min-height: 150px;
-      resize: vertical;
-    }
-    button {
-      background-color: #007bff;
-      color: white;
-      border: none;
-      padding: 12px 25px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 1.1em;
-      transition: background-color 0.3s ease;
-      margin-right: 10px;
-    }
-    button:hover {
-      background-color: #0056b3;
-    }
-    button.active {
-      background-color: #0056b3;
-      border: 2px solid #0056b3;
-    }
-    .btn-secondary {
-      background-color: #6c757d;
-    }
-    .btn-secondary:hover {
-      background-color: #5a6268;
-    }
-    .btn-info {
-      background-color: #17a2b8;
-    }
-    .btn-info:hover {
-      background-color: #138496;
-    }
-    .feedback-section {
-      margin-top: 30px;
-      padding: 20px;
-      background-color: #e9ecef;
-      border-radius: 8px;
-      border-left: 5px solid #007bff;
-      display: none;
-    }
-    .feedback-section h4 {
-      color: #0056b3;
-      margin-top: 0;
-      margin-bottom: 15px;
-      font-size: 1.3em;
-    }
-    .feedback-item {
-      padding: 10px 15px;
-      margin-bottom: 10px;
-      border-radius: 5px;
-      font-size: 0.95em;
-      line-height: 1.5;
-    }
-    .feedback-item strong {
-      color: #333;
-    }
-    .feedback-item.positive {
-      background-color: #d4edda;
-      color: #155724;
-      border-left: 5px solid #28a745;
-    }
-    .feedback-item.neutral {
-      background-color: #fff3cd;
-      color: #856404;
-      border-left: 5px solid #ffc107;
-    }
-    .feedback-item.negative {
-      background-color: #f8d7da;
-      color: #721c24;
-      border-left: 5px solid #dc3545;
-    }
-    .score-display {
-      font-size: 1.2em;
-      font-weight: bold;
-      margin-top: 20px;
-      text-align: right;
-      color: #1a4e8a;
-    }
-    .correct-answer-content {
-      margin-top: 20px;
-      padding: 15px;
-      background-color: #f8f9fa;
-      border: 1px dashed #ced4da;
-      border-radius: 8px;
-      display: none;
-      white-space: pre-wrap;
-      word-wrap: break-word;
-    }
-    .thema-navigation {
-      text-align: center;
-      margin-bottom: 30px;
-      border-bottom: 1px solid #eee;
-      padding-bottom: 15px;
-    }
-    .thema-navigation button {
-      background-color: #007bff;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      margin: 0 5px;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 1em;
-    }
-    .thema-navigation button:hover {
-      background-color: #0056b3;
-    }
-    .thema-navigation button.active {
-      background-color: #0056b3;
-      box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
-    }
-    .main-content {
-      display: flex;
-      gap: 30px;
-    }
-    .left-panel {
-      flex: 1;
-      padding-right: 20px;
-      border-right: 1px solid #eee;
-    }
-    .right-panel {
-      flex: 2;
-    }
-    .thema-block {
-      display: none;
-    }
-    .question-navigation-bar {
-      margin-top: 20px;
-      margin-bottom: 20px;
-      text-align: center;
-    }
-    .question-navigation-bar button {
-      background-color: #6c757d;
-      color: white;
-      border: none;
-      padding: 8px 15px;
-      margin: 0 3px;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 0.9em;
-    }
-    .question-navigation-bar button:hover {
-      background-color: #5a6268;
-    }
-    .question-navigation-bar button.active {
-      background-color: #007bff;
-      box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
-    }
-    .thema-title {
-      font-size: 1.5em;
-      margin-bottom: 20px;
-      color: #1a4e8a;
-      text-align: center;
-      padding-bottom: 10px;
-      border-bottom: 1px solid #eee;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personalentwicklungsprozess Bewertung</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { font-family: sans-serif; line-height: 1.6; color: #333; margin: 20px; background-color: #f4f4f4; }
+        .container { background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        h1, h2, h3 { color: #0056b3; }
+        .question-section { margin-bottom: 30px; padding: 20px; border: 1px solid #ddd; border-radius: 5px; background-color: #f9f9f9; }
+        .form-label { font-weight: bold; }
+        .feedback-section { margin-top: 20px; padding: 15px; border-radius: 5px; }
+        .feedback-item { margin-bottom: 10px; padding: 10px; border-left: 5px solid; border-radius: 3px; }
+        .feedback-item.positive { border-color: #28a745; background-color: #e6ffe6; }
+        .feedback-item.neutral { border-color: #ffc107; background-color: #fff8e6; }
+        .feedback-item.negative { border-color: #dc3545; background-color: #ffe6e6; }
+        .score-display { font-size: 1.2em; font-weight: bold; margin-top: 20px; }
+        .correct-answer-toggle { margin-top: 20px; }
+        .correct-answer-content { background-color: #e9ecef; padding: 15px; border-radius: 5px; border: 1px dashed #ccc; margin-top: 10px; white-space: pre-wrap; word-wrap: break-word; }
+        .btn-check-answer { background-color: #007bff; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; }
+        .btn-check-answer:hover { background-color: #0056b3; }
+    </style>
 </head>
 <body>
-
-  <div class="container">
-    <header>
-      <h1>MIKP – Personalentwicklung</h1>
-      <div class="thema-navigation" id="thema-buttons">
-        </div>
-    </header>
-
-    <div class="main-content">
-      <div class="left-panel">
-        <h2 id="thema-sub-titel">Wählen Sie ein Thema aus der Navigation</h2>
-        <div id="thema-inhalt">
-          </div>
-      </div>
-
-      <div class="right-panel">
-        <h2 class="thema-title">Fragenbereich</h2>
-        <div id="questions-container">
-          </div>
-      </div>
-    </div>
-  </div>
-
-  <template id="questionTemplate">
-    <div class="question-section" data-question-id="">
-      <h3 class="question-title"></h3>
-      <p class="question-text"></p>
-      <div>
-        <label for="" class="form-label">Ihre Antwort:</label>
-        <textarea class="user-answer" rows="8"></textarea>
-      </div>
-      <button class="btn-check-answer">Antwort überprüfen</button>
-      
-      <div class="feedback-section" style="display:none;">
-        <h4>Bewertung:</h4>
-        <div class="criteria-feedback"></div>
-        <div class="score-display">Gesamterreichung: <span class="score-percentage"></span>%</div>
-      </div>
-
-      <div class="correct-answer-toggle" style="margin-top: 20px;">
-        <button class="btn-info btn-toggle-musterloesung">Musterlösung anzeigen</button>
-        <div class="correct-answer-content" style="display:none;"></div>
-      </div>
-    </div>
-  </template>
-
-  <script src="./index.js"></script>
-
-  <script>
-    let alleGeladeneFragen = {}; // Speichert alle Fragen nach ThemaID
-    let aktuellesThema = ''; // Speichert das aktuell ausgewählte Thema
-    let aktuelleFrageIndex = 0; // Speichert den Index der aktuell angezeigten Frage im Thema
-
-    // Definition der Themen und ihrer Fragen (aus ZIP3-13.html, angepasst um Fragen-IDs zu speichern)
-    const themen = {
-      'pe-prozess': {
-        h2Text: 'Personalentwicklungsprozess',
-        fragen: [] // Wird nach dem Laden der JSON-Fragen dynamisch gefüllt
-      }
-      // Weitere Themen könnten hier hinzugefügt werden
-    };
-
-    let stemWordFunc; // Variable für die Stemming-Funktion
-
-    document.addEventListener('DOMContentLoaded', async () => {
-      // Initialisiere den Stemmer
-      if (typeof snowballFactory !== 'undefined') {
-        const germanStemmer = snowballFactory.newStemmer('German');
-        stemWordFunc = (word) => germanStemmer.stem(word);
-      } else {
-        console.error('Snowball Stemmer (index.js) wurde nicht korrekt geladen oder snowballFactory ist nicht verfügbar. Stemming wird deaktiviert.');
-        stemWordFunc = (word) => word; // Fallback: gebe das Wort unverändert zurück
-      }
-
-      await ladeFragen(); // Lade alle Fragen aus der JSON-Datei
-      erstelleThemaNavigation(); // Erstelle die Navigationsbuttons für Themen
-      initialisiereApp(); // Initialisiere die Anwendung basierend auf URL-Hash oder Standard
-    });
-
-    function erstelleThemaNavigation() {
-      const themaButtonsContainer = document.getElementById('thema-buttons');
-      themaButtonsContainer.innerHTML = ''; // Vorherige Buttons entfernen, falls vorhanden
-      for (const themaID in themen) {
-        const button = document.createElement('button');
-        button.textContent = themen[themaID].h2Text;
-        button.onclick = () => zeigeThema(themaID);
-        themaButtonsContainer.appendChild(button);
-      }
-    }
-
-    async function ladeFragen() {
-      try {
-        const response = await fetch('./fragen_pe-prozess.json');
-        if (!response.ok) {
-          throw new Error(`HTTP-Fehler! Status: ${response.status}`);
-        }
-        const data = await response.json();
+    <div class="container">
+        <h1 class="mb-4">Bewertung der Personalentwicklungsprozess-Fragen</h1>
         
-        // Gruppiere Fragen nach ihrer themaID und fülle das themen-Objekt
-        data.forEach(frage => {
-          if (!alleGeladeneFragen[frage.themaID]) {
-            alleGeladeneFragen[frage.themaID] = [];
-          }
-          alleGeladeneFragen[frage.themaID].push(frage);
-          // Stelle sicher, dass themen[themaID].fragen die IDs der Fragen enthält
-          if (!themen[frage.themaID].fragen.includes(frage.id)) {
-            themen[frage.themaID].fragen.push(frage.id);
-          }
+        <div id="questionsContainer">
+            </div>
+
+        <template id="questionTemplate">
+            <div class="question-section" data-question-id="">
+                <h3 class="question-title"></h3>
+                <p class="question-text"></p>
+                <div class="mb-3">
+                    <label for="answerText" class="form-label">Ihre Antwort:</label>
+                    <textarea class="form-control user-answer" rows="8"></textarea>
+                </div>
+                <button class="btn btn-primary mt-2 btn-check-answer">Antwort überprüfen</button>
+                
+                <div class="feedback-section" style="display:none;">
+                    <h4>Bewertung:</h4>
+                    <div class="criteria-feedback"></div>
+                    <div class="score-display">Gesamterreichung: <span class="score-percentage"></span>%</div>
+                </div>
+
+                <div class="correct-answer-toggle">
+                    <button class="btn btn-info btn-toggle-musterloesung">Musterlösung anzeigen</button>
+                    <div class="correct-answer-content" style="display:none;"></div>
+                </div>
+            </div>
+        </template>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./index.js"></script> <script>
+        let questionsData = [];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadQuestions();
         });
 
-        // Fragen innerhalb jedes Themas nach frageNummer sortieren
-        for (const themaID in alleGeladeneFragen) {
-          alleGeladeneFragen[themaID].sort((a, b) => a.frageNummer - b.frageNummer);
-          // Aktualisiere die Reihenfolge der Fragen-IDs im themen-Objekt basierend auf Sortierung
-          themen[themaID].fragen = alleGeladeneFragen[themaID].map(f => f.id);
+        async function loadQuestions() {
+            try {
+                const response = await fetch('./fragen_pe-prozess.json');
+                questionsData = await response.json();
+                displayQuestions(questionsData);
+            } catch (error) {
+                console.error('Fehler beim Laden der Fragen:', error);
+                document.getElementById('questionsContainer').innerHTML = '<p class="text-danger">Fragen konnten nicht geladen werden.</p>';
+            }
         }
 
-      } catch (error) {
-        console.error("Fehler beim Laden der Fragen-JSON-Datei:", error);
-      }
-    }
+        function displayQuestions(questions) {
+            const container = document.getElementById('questionsContainer');
+            const template = document.getElementById('questionTemplate');
 
-    // Zeigt ein spezifisches Thema an und erstellt dessen Fragen-UI
-    function zeigeThema(themaID) {
-      document.querySelectorAll('.thema-block').forEach(block => {
-        block.style.display = 'none'; // Alle Themenblöcke ausblenden
-      });
+            questions.forEach(question => {
+                const clone = document.importNode(template.content, true);
+                const section = clone.querySelector('.question-section');
+                section.dataset.questionId = question.id;
+                clone.querySelector('.question-title').textContent = question.titel;
+                clone.querySelector('.question-text').textContent = question.frageText;
+                clone.querySelector('.correct-answer-content').textContent = question.musterloesung;
 
-      // Erstelle den Themenblock, falls nicht vorhanden (oder verwende das Haupt-questions-container)
-      // Für dieses Design nutzen wir #questions-container als Hauptbereich für Fragen
-      const questionsContainer = document.getElementById('questions-container');
-      questionsContainer.innerHTML = ''; // Vorherige Fragen entfernen
+                const checkButton = clone.querySelector('.btn-check-answer');
+                checkButton.addEventListener('click', () => evaluateAnswer(question.id, section));
 
-      document.getElementById('thema-sub-titel').textContent = themen[themaID].h2Text;
-      aktuellesThema = themaID;
+                const toggleMusterloesungButton = clone.querySelector('.btn-toggle-musterloesung');
+                toggleMusterloesungButton.addEventListener('click', () => {
+                    const content = section.querySelector('.correct-answer-content');
+                    content.style.display = content.style.display === 'none' ? 'block' : 'none';
+                    toggleMusterloesungButton.textContent = content.style.display === 'none' ? 'Musterlösung anzeigen' : 'Musterlösung ausblenden';
+                });
 
-      // Aktualisiere aktive Thema-Buttons
-      document.querySelectorAll('#thema-buttons button').forEach(btn => {
-        btn.classList.remove('active');
-      });
-      document.querySelector(`#thema-buttons button[onclick="zeigeThema('${themaID}')"]`).classList.add('active');
-
-      erstelleFragenUI(themaID); // Fragen-UI für das Thema erstellen
-
-      // Zeige die erste Frage des Themas
-      if (alleGeladeneFragen[themaID] && alleGeladeneFragen[themaID].length > 0) {
-        zeigeFrage(themaID, 0); // Zeige die erste Frage (Index 0)
-      } else {
-        questionsContainer.innerHTML += '<p>Keine Fragen für dieses Thema gefunden.</p>';
-      }
-    }
-
-    // Erstellt die UI für alle Fragen eines Themas mit dem Template
-    function erstelleFragenUI(themaID) {
-        const questionsContainer = document.getElementById('questions-container');
-        const questionTemplate = document.getElementById('questionTemplate');
-        questionsContainer.innerHTML = ''; // Inhalt leeren, um neue Fragen zu laden
-
-        const fragenDesThemas = alleGeladeneFragen[themaID];
-        if (!fragenDesThemas) return;
-
-        // Fragen-Navigation (oben im questions-container)
-        const questionNavBar = document.createElement('div');
-        questionNavBar.classList.add('question-navigation-bar');
-        fragenDesThemas.forEach((frage, index) => {
-            const navButton = document.createElement('button');
-            navButton.id = `nav-${frage.id}`;
-            navButton.textContent = `Frage ${frage.frageNummer}`;
-            navButton.onclick = () => zeigeFrage(themaID, index);
-            questionNavBar.appendChild(navButton);
-        });
-        questionsContainer.appendChild(questionNavBar);
-
-        // Füge die Fragen mit dem Template hinzu
-        fragenDesThemas.forEach((frage, index) => {
-            const clone = document.importNode(questionTemplate.content, true);
-            const questionSection = clone.querySelector('.question-section');
-            questionSection.id = frage.id; // Eindeutige ID für die Frage-Sektion
-
-            clone.querySelector('.question-title').textContent = frage.titel;
-            clone.querySelector('.question-text').textContent = frage.frageText;
-            
-            const userAnswerTextarea = clone.querySelector('.user-answer');
-            userAnswerTextarea.id = `user-answer-${frage.id}`; // Eindeutige ID für die Textarea
-            clone.querySelector('label').setAttribute('for', userAnswerTextarea.id);
-
-            clone.querySelector('.btn-check-answer').addEventListener('click', () => {
-                evaluateAnswer(frage.id, questionSection, frage);
+                container.appendChild(clone);
             });
+        }
 
-            clone.querySelector('.correct-answer-content').innerHTML = frage.musterloesung.replace(/\n/g, '<br>');
-            
-            const toggleMusterloesungBtn = clone.querySelector('.btn-toggle-musterloesung');
-            toggleMusterloesungBtn.addEventListener('click', (event) => {
-                const musterloesungDiv = questionSection.querySelector('.correct-answer-content');
-                if (musterloesungDiv.style.display === 'none') {
-                    musterloesungDiv.style.display = 'block';
-                    event.target.textContent = 'Musterlösung ausblenden';
+        function evaluateAnswer(questionId, sectionElement) {
+            const question = questionsData.find(q => q.id === questionId);
+            const userAnswer = sectionElement.querySelector('.user-answer').value;
+            const feedbackSection = sectionElement.querySelector('.feedback-section');
+            const criteriaFeedbackDiv = sectionElement.querySelector('.criteria-feedback');
+            const scorePercentageSpan = sectionElement.querySelector('.score-percentage');
+
+            criteriaFeedbackDiv.innerHTML = ''; // Alten Feedback löschen
+            feedbackSection.style.display = 'block';
+
+            let totalCriteria = question.bewertungskriterien.length;
+            let achievedCriteria = 0;
+            let totalPossibleScore = 0; // Each criterion gives 1 point for presence and 1 for good description
+            let userAchievedScore = 0;
+
+            const userWords = cleanAndStemText(userAnswer);
+
+            question.bewertungskriterien.forEach(criterion => {
+                const feedbackItem = document.createElement('div');
+                feedbackItem.classList.add('feedback-item');
+                let criterionScore = 0;
+                let keywordFound = false;
+                let descriptionAdequate = false;
+
+                // Check for keywords
+                for (const keyword of criterion.keywords) {
+                    const stemmedKeyword = stemWord(keyword.toLowerCase());
+                    if (userWords.includes(stemmedKeyword)) {
+                        keywordFound = true;
+                        break;
+                    }
+                }
+
+                if (keywordFound) {
+                    criterionScore += 1; // 1 point for mentioning the criterion
+                    totalPossibleScore += 1;
+
+                    // Check word count for description adequacy (a very basic proxy)
+                    // This is a simplified check. A more robust solution would involve NLP.
+                    const wordsInUserAnswer = userAnswer.split(/\s+/).filter(word => word.length > 0);
+                    if (wordsInUserAnswer.length >= criterion.minWoerterFuerBeschreibung) {
+                        descriptionAdequate = true;
+                        criterionScore += 1; // 1 point for adequate description
+                        totalPossibleScore += 1;
+                    }
                 } else {
-                    musterloesungDiv.style.display = 'none';
-                    event.target.textContent = 'Musterlösung anzeigen';
+                     // Even if keyword not found, still contribute to totalPossibleScore for criteria not met
+                    totalPossibleScore += 2; // Each criterion has potential for 2 points (mention + description)
                 }
+
+                userAchievedScore += criterionScore;
+
+                if (criterionScore === 2) {
+                    feedbackItem.classList.add('positive');
+                    feedbackItem.innerHTML = `<strong>${criterion.name}:</strong> Sehr gut! Der Punkt wurde genannt und ausreichend beschrieben.`;
+                    achievedCriteria++;
+                } else if (criterionScore === 1) {
+                    feedbackItem.classList.add('neutral');
+                    feedbackItem.innerHTML = `<strong>${criterion.name}:</strong> ${criterion.feedback_kurz || 'Der Punkt wurde genannt, aber die Beschreibung ist noch nicht ausreichend.'}`;
+                } else {
+                    feedbackItem.classList.add('negative');
+                    feedbackItem.innerHTML = `<strong>${criterion.name}:</strong> Nicht gefunden. Ihre Antwort sollte diesen Punkt behandeln.`;
+                }
+                criteriaFeedbackDiv.appendChild(feedbackItem);
             });
 
-            // Feedback-Bereich anpassen
-            const feedbackSection = clone.querySelector('.feedback-section');
-            feedbackSection.id = `feedback-${frage.id}`;
+            const overallPercentage = totalPossibleScore > 0 ? ((userAchievedScore / totalPossibleScore) * 100).toFixed(0) : 0;
+            scorePercentageSpan.textContent = overallPercentage;
+        }
 
-            questionsContainer.appendChild(clone);
-        });
-    }
+        // Hilfsfunktion zum Bereinigen und Stemmen des Textes
+        function cleanAndStemText(text) {
+            // Text in Kleinbuchstaben umwandeln und Satzzeichen entfernen
+            const cleanedText = text.toLowerCase().replace(/[.,!?;:()"]/g, '');
+            // Wörter aufsplitten und jedes Wort stemmen
+            return cleanedText.split(/\s+/).map(word => stemWord(word));
+        }
 
-    // Zeigt eine spezifische Frage innerhalb eines Themas an
-    function zeigeFrage(themaID, frageIndex) {
-      const fragenArray = alleGeladeneFragen[themaID];
-      if (!fragenArray || fragenArray.length <= frageIndex) {
-        console.error(`Frage mit Index ${frageIndex} für Thema ${themaID} nicht gefunden.`);
-        return;
-      }
+        // Die stemWord Funktion wird von der inkludierten index.js bereitgestellt
+        // Stellen Sie sicher, dass index.js die Funktion snowballFactory() und den deutschen Stemmer enthält.
+        // Die Funktion muss global verfügbar sein oder entsprechend importiert werden.
+        // Da die SnowballFactory in index.js ein Objekt zurückgibt, muss die stemWord Funktion daraus extrahiert werden.
+        let stemWord;
+        if (typeof snowballFactory !== 'undefined') {
+            const germanStemmer = snowballFactory.newStemmer('German');
+            stemWord = (word) => germanStemmer.stem(word);
+        } else {
+            console.error('Snowball Stemmer (index.js) wurde nicht korrekt geladen oder snowballFactory ist nicht verfügbar.');
+            // Fallback: Wenn der Stemmer nicht geladen wird, geben wir das Wort unverändert zurück.
+            // Dies beeinflusst die Qualität der Bewertung, verhindert aber einen Absturz.
+            stemWord = (word) => word;
+        }
 
-      const frageID = fragenArray[frageIndex].id; // Die eindeutige ID der Frage
-
-      // Alle Fragen im aktuellen Thema ausblenden
-      document.querySelectorAll(`#questions-container .question-section`).forEach(section => {
-        section.style.display = 'none';
-      });
-      // Die gewünschte Frage anzeigen
-      document.getElementById(frageID).style.display = 'block';
-
-      // Aktiven Navigations-Button hervorheben
-      document.querySelectorAll(`#questions-container .question-navigation-bar button`).forEach(btn => {
-        btn.classList.remove('active');
-      });
-      document.getElementById(`nav-${frageID}`).classList.add('active');
-
-      aktuelleFrageIndex = frageIndex; // Aktualisiere den globalen Index
-    }
-
-    // Bewertungslogik
-    function evaluateAnswer(frageId, sectionElement, frageData) {
-        const userAnswer = sectionElement.querySelector(`#user-answer-${frageId}`).value;
-        const feedbackSection = sectionElement.querySelector(`#feedback-${frageId}`);
-        const criteriaFeedbackDiv = feedbackSection.querySelector('.criteria-feedback');
-        const scorePercentageSpan = feedbackSection.querySelector('.score-percentage');
-
-        criteriaFeedbackDiv.innerHTML = ''; // Alten Feedback löschen
-        feedbackSection.style.display = 'block';
-
-        let totalPossibleScore = 0;
-        let userAchievedScore = 0;
-
-        const userWords = cleanAndStemText(userAnswer, stemWordFunc);
-
-        frageData.bewertungskriterien.forEach(criterion => {
-            const feedbackItem = document.createElement('div');
-            feedbackItem.classList.add('feedback-item');
-            let criterionScore = 0;
-            let keywordFound = false;
-            
-            // Check for keywords
-            for (const keyword of criterion.keywords) {
-                const stemmedKeyword = stemWordFunc(keyword.toLowerCase());
-                if (userWords.includes(stemmedKeyword)) {
-                    keywordFound = true;
-                    break;
-                }
-            }
-
-            if (keywordFound) {
-                criterionScore += 1; // 1 point for mentioning the criterion
-                
-                // Check word count for description adequacy (a very basic proxy)
-                const wordsInUserAnswer = userAnswer.split(/\s+/).filter(word => word.length > 0);
-                if (wordsInUserAnswer.length >= criterion.minWoerterFuerBeschreibung) {
-                    criterionScore += 1; // 1 point for adequate description
-                }
-            }
-            
-            totalPossibleScore += 2; // Each criterion gives 1 point for presence and 1 for good description (max 2 points per criterion)
-            userAchievedScore += criterionScore;
-
-            if (criterionScore === 2) {
-                feedbackItem.classList.add('positive');
-                feedbackItem.innerHTML = `<strong>${criterion.name}:</strong> Sehr gut! Der Punkt wurde genannt und ausreichend beschrieben.`;
-            } else if (criterionScore === 1) {
-                feedbackItem.classList.add('neutral');
-                feedbackItem.innerHTML = `<strong>${criterion.name}:</strong> ${criterion.feedback_kurz || 'Der Punkt wurde genannt, aber die Beschreibung ist noch nicht ausreichend.'}`;
-            } else {
-                feedbackItem.classList.add('negative');
-                feedbackItem.innerHTML = `<strong>${criterion.name}:</strong> Nicht gefunden. Ihre Antwort sollte diesen Punkt behandeln.`;
-            }
-            criteriaFeedbackDiv.appendChild(feedbackItem);
-        });
-
-        const overallPercentage = totalPossibleScore > 0 ? ((userAchievedScore / totalPossibleScore) * 100).toFixed(0) : 0;
-        scorePercentageSpan.textContent = overallPercentage;
-    }
-
-    // Hilfsfunktion zum Bereinigen und Stemmen des Textes
-    function cleanAndStemText(text, stemmer) {
-        const cleanedText = text.toLowerCase().replace(/[.,!?;:()"]/g, '');
-        return cleanedText.split(/\s+/).filter(word => word.length > 0).map(word => stemmer(word));
-    }
-
-    // Initialisierung beim Laden der Seite
-    async function initialisiereApp() {
-      const hash = window.location.hash.substring(1);
-      const startThemaID = hash || 'pe-prozess'; // Standardthema oder aus URL-Hash
-      zeigeThema(startThemaID); // Zeige das Startthema an
-    }
-
-  </script>
-
+    </script>
 </body>
 </html>
