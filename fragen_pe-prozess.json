@@ -1,0 +1,123 @@
+
+[
+  {
+    "id": "pep1",
+    "themaID": "pe-prozess",
+    "frageNummer": 1,
+    "titel": "Frage 1:",
+    "frageText": "Beschreiben Sie die fünf Phasen des Personalentwicklungsprozesses und erläutern Sie deren Bedeutung für die betriebliche Praxis.",
+    "musterloesung": "Der Personalentwicklungsprozess gliedert sich in fünf aufeinanderfolgende Phasen:\n\n**Bedarfsanalyse:** Hier wird ermittelt, welche Qualifikationen im Unternehmen fehlen oder künftig benötigt werden. Dies geschieht durch Methoden wie Befragungen, Beobachtungen oder Dokumentenanalysen.\n\n**Zielplanung:** In dieser Phase werden konkrete Entwicklungsziele definiert, die sowohl auf individuelle als auch auf unternehmerische Anforderungen abgestimmt sind.\n\n**Maßnahmengestaltung:** Es werden geeignete Entwicklungsmaßnahmen ausgewählt, die sowohl pädagogisch sinnvoll als auch wirtschaftlich tragfähig sind.\n\n**Durchführung:** Die geplanten Maßnahmen werden umgesetzt – z. B. durch Schulungen, Coaching oder Training-on-the-Job.\n\n**Erfolgskontrolle:** Abschließend wird überprüft, ob die Maßnahmen die gewünschten Effekte erzielt haben. Dies kann durch Feedback, Tests oder Leistungsbeurteilungen erfolgen.\n\nDer strukturierte Ablauf stellt sicher, dass Personalentwicklung zielgerichtet, effizient und nachhaltig erfolgt.",
+    "bewertungskriterien": [
+      {
+        "name": "Bedarfsanalyse",
+        "keywords": ["bedarf", "bedarfsanalyse", "ermittlung"],
+        "minWoerterFuerBeschreibung": 20,
+        "feedback_kurz": "Der Begriff 'Bedarfsanalyse' wurde erkannt, ist aber noch nicht ausreichend beschrieben. Achten Sie auf eine detailliertere Erklärung der Ermittlung von Qualifikationen."
+      },
+      {
+        "name": "Zielplanung",
+        "keywords": ["ziel", "ziele", "zielplanung", "planung"],
+        "minWoerterFuerBeschreibung": 20,
+        "feedback_kurz": "Der Begriff 'Zielplanung' wurde erkannt, ist aber noch nicht ausreichend beschrieben. Erläutern Sie die Formulierung von individuellen und unternehmerischen Zielen."
+      },
+      {
+        "name": "Maßnahmengestaltung",
+        "keywords": ["maßnahme", "maßnahmen", "maßnahmengestaltung", "auswahl"],
+        "minWoerterFuerBeschreibung": 20,
+        "feedback_kurz": "Der Begriff 'Maßnahmengestaltung' wurde erkannt, ist aber noch nicht ausreichend beschrieben. Gehen Sie auf die Auswahl geeigneter und wirtschaftlicher Maßnahmen ein."
+      },
+      {
+        "name": "Durchführung",
+        "keywords": ["durchführung", "umsetzung", "schulung", "coaching"],
+        "minWoerterFuerBeschreibung": 20,
+        "feedback_kurz": "Der Begriff 'Durchführung' wurde erkannt, ist aber noch nicht ausreichend beschrieben. Nennen Sie Beispiele wie Schulungen oder Coaching."
+      },
+      {
+        "name": "Erfolgskontrolle",
+        "keywords": ["erfolgskontrolle", "kontrolle", "evaluation", "überprüfung"],
+        "minWoerterFuerBeschreibung": 20,
+        "feedback_kurz": "Der Begriff 'Erfolgskontrolle' wurde erkannt, ist aber noch nicht ausreichend beschrieben. Beschreiben Sie die Methoden der Überprüfung der Wirksamkeit."
+      },
+      {
+        "name": "Bedeutung",
+        "keywords": ["strategisch", "effizient", "nachhaltig", "zielgerichtet", "wettbewerbsfähigkeit", "zukunftsfähigkeit"],
+        "minWoerterFuerBeschreibung": 30,
+        "feedback_kurz": "Die Bedeutung für die betriebliche Praxis wurde erkannt, aber noch nicht ausreichend erläutert. Gehen Sie auf die umfassenderen Vorteile des strukturierten Ablaufs ein."
+      }
+    ]
+  },
+  {
+    "id": "pep2",
+    "themaID": "pe-prozess",
+    "frageNummer": 2,
+    "titel": "Frage 2:",
+    "frageText": "Warum ist die Personalentwicklung ein strategisches Instrument zur Sicherung der Wettbewerbsfähigkeit?",
+    "musterloesung": "Personalentwicklung trägt wesentlich zur langfristigen Wettbewerbsfähigkeit eines Unternehmens bei. In Zeiten des Fachkräftemangels und des raschen technologischen Wandels ist es entscheidend, Mitarbeitende kontinuierlich weiterzubilden. Durch gezielte Entwicklung können Kompetenzen aufgebaut, Motivation gesteigert und die Mitarbeiterbindung erhöht werden. Unternehmen, die in ihre Belegschaft investieren, sichern sich nicht nur Know-how, sondern auch Innovationskraft und Anpassungsfähigkeit. Personalentwicklung ist somit kein „Nice-to-have“, sondern ein zentraler Bestandteil der Unternehmensstrategie.",
+    "bewertungskriterien": [
+      {
+        "name": "Wettbewerbsfähigkeit",
+        "keywords": ["wettbewerbsfähigkeit", "wettbewerb", "strategisch"],
+        "minWoerterFuerBeschreibung": 20,
+        "feedback_kurz": "Der Begriff 'Wettbewerbsfähigkeit' wurde erkannt, ist aber noch nicht ausreichend beschrieben. Erläutern Sie, wie PE dazu beiträgt."
+      },
+      {
+        "name": "Fachkräftemangel / Technologischer Wandel",
+        "keywords": ["fachkräftemangel", "fachkräfte", "technologisch", "wandel", "weiterbilden"],
+        "minWoerterFuerBeschreibung": 20,
+        "feedback_kurz": "Aspekte wie Fachkräftemangel oder technologischer Wandel wurden erkannt, sind aber noch nicht ausreichend beschrieben. Vertiefen Sie die Rolle der PE in diesem Kontext."
+      },
+      {
+        "name": "Kompetenzaufbau / Motivation / Mitarbeiterbindung",
+        "keywords": ["kompetenz", "motivation", "mitarbeiterbindung", "bindung", "loyalität", "aufbau", "steigerung"],
+        "minWoerterFuerBeschreibung": 30,
+        "feedback_kurz": "Die Rolle von Kompetenzaufbau, Motivation oder Mitarbeiterbindung wurde erkannt, ist aber noch nicht ausreichend beschrieben. Gehen Sie detaillierter darauf ein."
+      },
+      {
+        "name": "Know-how / Innovationskraft / Anpassungsfähigkeit",
+        "keywords": ["know-how", "wissen", "kompetenz", "innovation", "innovationskraft", "anpassungsfähigkeit"],
+        "minWoerterFuerBeschreibung": 30,
+        "feedback_kurz": "Die Sicherung von Know-how, Innovationskraft oder Anpassungsfähigkeit wurde erkannt, ist aber noch nicht ausreichend beschrieben. Erklären Sie deren Bedeutung."
+      }
+    ]
+  },
+  {
+    "id": "pep3",
+    "themaID": "pe-prozess",
+    "frageNummer": 3,
+    "titel": "Frage 3:",
+    "frageText": "Welche Herausforderungen können bei der Umsetzung von PE-Maßnahmen auftreten und wie lassen sich diese bewältigen?",
+    "musterloesung": "Herausforderungen bei PE-Maßnahmen können vielfältig sein:\n\n**Fehlende Bedarfsanalyse** führt zu ineffektiven Maßnahmen.\n\n**Widerstand der Mitarbeitenden** kann durch mangelnde Kommunikation oder fehlende Einbindung entstehen.\n\n**Zeit- und Ressourcenmangel** erschwert die Umsetzung.\n\nDiese Herausforderungen lassen sich durch eine sorgfältige Planung, transparente Kommunikation und die Einbindung aller Beteiligten bewältigen. Wichtig ist auch die kontinuierliche Evaluation, um Maßnahmen bei Bedarf anzupassen.",
+    "bewertungskriterien": [
+      {
+        "name": "Fehlende Bedarfsanalyse",
+        "keywords": ["bedarfsanalyse", "bedarf", "ineffektiv", "falsch"],
+        "minWoerterFuerBeschreibung": 15,
+        "feedback_kurz": "Die Herausforderung der fehlenden Bedarfsanalyse wurde erkannt, ist aber noch nicht ausreichend beschrieben."
+      },
+      {
+        "name": "Widerstand der Mitarbeitenden",
+        "keywords": ["widerstand", "ablehnung", "mangelnde kommunikation", "fehlende einbindung"],
+        "minWoerterFuerBeschreibung": 15,
+        "feedback_kurz": "Die Herausforderung des Widerstands der Mitarbeitenden wurde erkannt, ist aber noch nicht ausreichend beschrieben."
+      },
+      {
+        "name": "Zeit- und Ressourcenmangel",
+        "keywords": ["ressourcenmangel", "zeitmangel", "ressourcen", "zeit", "kosten"],
+        "minWoerterFuerBeschreibung": 15,
+        "feedback_kurz": "Die Herausforderung des Zeit- und Ressourcenmangels wurde erkannt, ist aber noch nicht ausreichend beschrieben."
+      },
+      {
+        "name": "Bewältigung: Planung/Kommunikation/Einbindung",
+        "keywords": ["planung", "kommunikation", "transparenz", "einbindung", "bewältigung"],
+        "minWoerterFuerBeschreibung": 25,
+        "feedback_kurz": "Die Ansätze zur Bewältigung (Planung, Kommunikation, Einbindung) wurden erkannt, sind aber noch nicht ausreichend beschrieben."
+      },
+      {
+        "name": "Bewältigung: Kontinuierliche Evaluation",
+        "keywords": ["evaluation", "kontrolle", "anpassen", "kontinuierlich"],
+        "minWoerterFuerBeschreibung": 15,
+        "feedback_kurz": "Der Aspekt der kontinuierlichen Evaluation zur Bewältigung wurde erkannt, ist aber noch nicht ausreichend beschrieben."
+      }
+    ]
+  }
+]
