@@ -165,20 +165,27 @@
       </div>
   </div>
 
-  <script>
+ <script>
     let aktuellesThemaID = 'pe-prozess'; // Standardthema
     let alleGeladeneFragen = {}; // Speichert geladene Fragen pro Thema
     let aktuelleFrageIndex = 0; // Index der aktuell angezeigten Frage im Array
 
     // --- Stemming-Funktion mit der geladenen Bibliothek (CDN-Version) ---
-    // Die GermanStemmer-Klasse sollte jetzt global verfügbar sein, sobald das CDN geladen ist.
-    const germanStemmerInstanz = new GermanStemmer(); 
-
-   function stemWord(word) {
-  const stemmedResult = germanStemmerInstanz.stem(word);
-  console.log(`Stemming-Input: "${word}", Stemming-Output: "${stemmedResult}", Typ: ${typeof stemmedResult}`); // <-- NEU
-  return stemmedResult;
-}
+    // Die GermanStemmer-Funktion sollte jetzt global verfügbar sein.
+    // Direkter Aufruf der Stemmer-Funktion, die vom CDN global bereitgestellt wird.
+    function stemWord(word) {
+      // Stellen Sie sicher, dass 'GermanStemmer' global verfügbar ist.
+      // Der CDN-Link sollte 'GermanStemmer' direkt als Funktion bereitstellen,
+      // die ein Wort stemmt, nicht als Klasse, die instanziiert werden muss.
+      if (typeof GermanStemmer === 'function') {
+        const stemmedResult = GermanStemmer(word); // Direktaufruf der globalen Funktion
+        // console.log(`Stemming-Input: "${word}", Stemming-Output: "${stemmedResult}", Typ: ${typeof stemmedResult}`);
+        return stemmedResult;
+      } else {
+        console.error("GermanStemmer Funktion ist nicht global verfügbar.");
+        return word; // Fallback: ungestemmtes Wort zurückgeben
+      }
+    }
     // --- Ende Stemming-Funktion ---
 
 
@@ -224,7 +231,7 @@
       const normalisierteAntwort = normalisiereText(benutzerAntwort);
       // Die Antwort in einzelne Wörter zerlegen und jedes Wort stemmen
       const gestemmteAntwortWoerter = normalisierteAntwort.split(/\s+/).filter(Boolean).map(word => stemWord(word));
-      console.log("Gestemmte Antwort Wörter:", gestemmteAntwortWoerter); // <-- DIESE NEUE ZEILE
+      // console.log("Gestemmte Antwort Wörter:", gestemmteAntwortWoerter); // <-- Temporärer Log, kann entfernt werden
       
       const antwortZeilen = benutzerAntwort.split('\n').filter(line => line.trim().length > 0); // Originalzeilen für Wortzählung
 
@@ -240,7 +247,7 @@
 
         // Prüfen, ob irgendein gestemmtes Keyword in den gestemmten Wörtern der Antwort vorkommt
         const keywordInAntwortGefunden = gestemmteKriteriumKeywords.some(stemmedKw => {
-            return gestemmteAntwortWoerter.some(stemmedAntwortWort => stemmedAntwortWort.includes(stemmedKw));
+            return gestemmteAntwortWoerter.some(stemmedAntwortWort => stemmedAntwortWort && typeof stemmedAntwortWort === 'string' && stemmedAntwortWort.includes(stemmedKw));
         });
 
         if (keywordInAntwortGefunden) {
@@ -253,7 +260,7 @@
                 
                 // Überprüfen, ob ein gestemmtes Keyword in dieser gestemmten Zeile ist
                 const keywordInZeileGefunden = gestemmteKriteriumKeywords.some(stemmedKw => {
-                    return gestemmteZeileWoerter.some(stemmedZeilenWort => stemmedZeilenWort.includes(stemmedKw));
+                    return gestemmteZeileWoerter.some(stemmedZeilenWort => stemmedZeilenWort && typeof stemmedZeilenWort === 'string' && stemmedZeilenWort.includes(stemmedKw));
                 });
 
                 if (keywordInZeileGefunden && wordCountInLine >= kriterium.minWoerterFuerBeschreibung) {
@@ -334,8 +341,8 @@
 
       const fragenDaten = await ladeThemaDaten(themaID);
       if (fragenDaten.length > 0) {
-        document.getElementById('dynamic-content').innerHTML = generiereFragenHTML(themaID, fragenDaten);
         document.getElementById('thema-sub-titel').textContent = themaID.replace(/-/g, ' ').split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' '); // Einfacher Titel aus ID
+        document.getElementById('dynamic-content').innerHTML = generiereFragenHTML(themaID, fragenDaten);
         aktuellesThemaID = themaID;
         zeigeFrage(themaID, 0); // Erste Frage des Themas anzeigen (Index 0)
       } else {
