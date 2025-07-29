@@ -1,197 +1,264 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personalentwicklungsprozess Bewertung</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body { font-family: sans-serif; line-height: 1.6; color: #333; margin: 20px; background-color: #f4f4f4; }
-        .container { background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        h1, h2, h3 { color: #0056b3; }
-        .question-section { margin-bottom: 30px; padding: 20px; border: 1px solid #ddd; border-radius: 5px; background-color: #f9f9f9; }
-        .form-label { font-weight: bold; }
-        .feedback-section { margin-top: 20px; padding: 15px; border-radius: 5px; }
-        .feedback-item { margin-bottom: 10px; padding: 10px; border-left: 5px solid; border-radius: 3px; }
-        .feedback-item.positive { border-color: #28a745; background-color: #e6ffe6; }
-        .feedback-item.neutral { border-color: #ffc107; background-color: #fff8e6; }
-        .feedback-item.negative { border-color: #dc3545; background-color: #ffe6e6; }
-        .score-display { font-size: 1.2em; font-weight: bold; margin-top: 20px; }
-        .correct-answer-toggle { margin-top: 20px; }
-        .correct-answer-content { background-color: #e9ecef; padding: 15px; border-radius: 5px; border: 1px dashed #ccc; margin-top: 10px; white-space: pre-wrap; word-wrap: break-word; }
-        .btn-check-answer { background-color: #007bff; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; }
-        .btn-check-answer:hover { background-color: #0056b3; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MIKP - Personalentwicklung</title>
+  <style>
+    /* CSS von ZIP3-13.html, angepasst für Konsistenz mit inhalt1.html's JS-Elementen */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 40px 20px;
+      background-color: #f0f2f5;
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+    }
+    .container {
+      background-color: #ffffff;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      max-width: 900px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    h1 {
+      color: #1a4e8a;
+      text-align: center;
+      font-size: 2.2em;
+      margin-bottom: 5px;
+    }
+    h2 {
+      color: #1a4e8a;
+      font-size: 1.8em;
+      margin-top: 20px;
+      border-bottom: 2px solid #e0e0e0;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+    .thema-navigation-bar,
+    .question-navigation-bar {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .thema-navigation-bar button,
+    .question-navigation-bar button {
+      padding: 8px 15px;
+      background-color: #e0e0e0;
+      color: #555;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 0.9em;
+      transition: background-color 0.3s ease;
+    }
+    .thema-navigation-bar button.active,
+    .question-navigation-bar button.active {
+      background-color: #007bff;
+      color: white;
+    }
+    textarea {
+      width: 100%;
+      height: 150px;
+      font-size: 16px;
+      padding: 10px;
+      margin-top: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    .button { /* Allgemeiner Button-Stil, ähnlich ZIP3-13, aber für Aktions-Buttons */
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 15px;
+      transition: background-color 0.2s ease;
+    }
+    .button:hover {
+      background-color: #0056b3;
+    }
+
+    /* Feedback- und Musterlösung-Sektionen (an ZIP3-13-Styling angepasst, aber inhalt1.html's Klassennamen beibehalten) */
+    .feedback-section {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #f9f9f9;
+      border-left: 5px solid #007bff;
+      border-radius: 4px;
+      display: none; /* Standardmäßig ausgeblendet */
+    }
+    .feedback-section h3 {
+      color: #1a4e8a;
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+    .feedback-section ul {
+      list-style: none;
+      padding: 0;
+    }
+    .feedback-section li {
+      margin-bottom: 8px;
+      font-size: 15px;
+      line-height: 1.4;
+    }
+    .feedback-ok { color: green; }
+    .feedback-hinweis { color: orange; }
+    .feedback-fehler { color: red; }
+
+    .musterloesung-section {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #f0f8ff;
+      border-left: 5px solid #28a745;
+      border-radius: 4px;
+      display: none; /* Standardmäßig ausgeblendet */
+    }
+    .musterloesung-section h3 {
+      color: #28a745;
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1 class="mb-4">Bewertung der Personalentwicklungsprozess-Fragen</h1>
-        
-        <div id="questionsContainer">
-            </div>
 
-        <template id="questionTemplate">
-            <div class="question-section" data-question-id="">
-                <h3 class="question-title"></h3>
-                <p class="question-text"></p>
-                <div class="mb-3">
-                    <label for="answerText" class="form-label">Ihre Antwort:</label>
-                    <textarea class="form-control user-answer" rows="8"></textarea>
-                </div>
-                <button class="btn btn-primary mt-2 btn-check-answer">Antwort überprüfen</button>
-                
-                <div class="feedback-section" style="display:none;">
-                    <h4>Bewertung:</h4>
-                    <div class="criteria-feedback"></div>
-                    <div class="score-display">Gesamterreichung: <span class="score-percentage"></span>%</div>
-                </div>
+  <div class="container">
+    <h1>MIKP Prüfungsvorbereitung</h1>
+    <h2>Thema: Personalentwicklungsprozess</h2>
+    
+    <div id="pe-prozess-frage1" class="question-section" style="display: block;">
+      <p id="mainQuestionText" style="font-weight: bold;"></p>
+      <textarea id="antwort" placeholder="Gib hier deine Antwort ein..."></textarea>
+      <br>
+      <button class="button" onclick="bewerteAntwort()">Antwort prüfen</button>
+      <button id="showMusterloesungBtn" class="button" style="display:none;" onclick="zeigeMusterloesung()">Musterlösung anzeigen</button>
 
-                <div class="correct-answer-toggle">
-                    <button class="btn btn-info btn-toggle-musterloesung">Musterlösung anzeigen</button>
-                    <div class="correct-answer-content" style="display:none;"></div>
-                </div>
-            </div>
-        </template>
+      <div id="feedbackSection" class="feedback-section"></div>
+      <div id="musterloesungSection" class="musterloesung-section"></div>
     </div>
+  </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="./index.js"></script> <script>
-        let questionsData = [];
+  <script src="index.js"></script> 
+  <script>
+    let aktuelleFrageDaten = null;
+    let alleGeladeneFragen = {}; 
 
-        document.addEventListener('DOMContentLoaded', () => {
-            loadQuestions();
-        });
+    function stemWord(word) {
+      if (typeof snowballFactory !== 'function') {
+        console.error("Snowball stemmer factory not found. Make sure index.js is loaded correctly.");
+        return word;
+      }
+      const stemmer = snowballFactory('German');
+      stemmer.setCurrent(word);
+      stemmer.stem();
+      return stemmer.getCurrent();
+    }
 
-        async function loadQuestions() {
-            try {
-                const response = await fetch('./fragen_pe-prozess.json');
-                questionsData = await response.json();
-                displayQuestions(questionsData);
-            } catch (error) {
-                console.error('Fehler beim Laden der Fragen:', error);
-                document.getElementById('questionsContainer').innerHTML = '<p class="text-danger">Fragen konnten nicht geladen werden.</p>';
-            }
+    function normalizeText(text) {
+      return text.toLowerCase()
+                 .replace(/ä/g, 'ae')
+                 .replace(/ö/g, 'oe')
+                 .replace(/ü/g, 'ue')
+                 .replace(/ß/g, 'ss')
+                 .replace(/[^a-z0-9\s]/g, ' ')
+                 .trim();
+    }
+
+    async function bewerteAntwort() {
+      if (!aktuelleFrageDaten) {
+        console.error("Keine Frage geladen.");
+        return;
+      }
+
+      const antwortText = document.getElementById("antwort").value;
+      const normalisierteAntwort = normalizeText(antwortText);
+      const gestemmteAntwortWoerter = normalisierteAntwort.split(/\s+/).map(word => stemWord(word)).filter(word => word);
+
+      const feedbackSection = document.getElementById("feedbackSection");
+      feedbackSection.style.display = "block";
+      document.getElementById("showMusterloesungBtn").style.display = "block";
+
+      let feedbackHTML = "<h3>Feedback:</h3><ul>";
+      let totalPoints = 0;
+      let maxPoints = 0;
+
+      aktuelleFrageDaten.bewertungskriterien.forEach(kriterium => {
+        const gestemmteKeywords = kriterium.keywords.map(word => stemWord(normalizeText(word)));
+        const kriteriumNameStemmed = stemWord(normalizeText(kriterium.name));
+
+        let feedbackMessage = `<li class='feedback-fehler'>✘ Der Begriff "${kriterium.name}" wurde nicht genannt.</li>`;
+
+        const keywordOrNameFound = gestemmteKeywords.some(kw => gestemmteAntwortWoerter.includes(kw)) || gestemmteAntwortWoerter.includes(kriteriumNameStemmed);
+        
+        if (keywordOrNameFound) {
+          let relevantSentenceWords = 0;
+          const firstMatchedKeyword = kriterium.keywords.find(kw => antwortText.toLowerCase().includes(normalizeText(kw))) || kriterium.name;
+          const keywordIndex = antwortText.toLowerCase().indexOf(normalizeText(firstMatchedKeyword));
+
+          if (keywordIndex !== -1) {
+              const contextStart = Math.max(0, keywordIndex - 30);
+              const contextEnd = Math.min(antwortText.length, keywordIndex + normalizeText(firstMatchedKeyword).length + 70);
+              const contextSnippet = antwortText.substring(contextStart, contextEnd);
+              relevantSentenceWords = contextSnippet.split(/\s+/).filter(word => word).length;
+          } else {
+              relevantSentenceWords = antwortText.split(/\s+/).filter(word => word).length;
+          }
+
+          if (relevantSentenceWords >= kriterium.minWoerterFuerBeschreibung) {
+            feedbackMessage = `<li class='feedback-ok'>✅ Der Begriff "${kriterium.name}" wurde ausreichend beschrieben.</li>`;
+            totalPoints += 2;
+          } else {
+            feedbackMessage = `<li class='feedback-hinweis'>⚠️ ${kriterium.feedback_kurz}</li>`;
+            totalPoints += 1;
+          }
         }
 
-        function displayQuestions(questions) {
-            const container = document.getElementById('questionsContainer');
-            const template = document.getElementById('questionTemplate');
+        feedbackHTML += feedbackMessage;
+        maxPoints += 2;
+      });
 
-            questions.forEach(question => {
-                const clone = document.importNode(template.content, true);
-                const section = clone.querySelector('.question-section');
-                section.dataset.questionId = question.id;
-                clone.querySelector('.question-title').textContent = question.titel;
-                clone.querySelector('.question-text').textContent = question.frageText;
-                clone.querySelector('.correct-answer-content').textContent = question.musterloesung;
+      feedbackHTML += `</ul><p><strong>Gesamtpunktzahl: ${totalPoints} / ${maxPoints}</strong></p>`;
+      feedbackSection.innerHTML = feedbackHTML;
+    }
 
-                const checkButton = clone.querySelector('.btn-check-answer');
-                checkButton.addEventListener('click', () => evaluateAnswer(question.id, section));
-
-                const toggleMusterloesungButton = clone.querySelector('.btn-toggle-musterloesung');
-                toggleMusterloesungButton.addEventListener('click', () => {
-                    const content = section.querySelector('.correct-answer-content');
-                    content.style.display = content.style.display === 'none' ? 'block' : 'none';
-                    toggleMusterloesungButton.textContent = content.style.display === 'none' ? 'Musterlösung anzeigen' : 'Musterlösung ausblenden';
-                });
-
-                container.appendChild(clone);
-            });
+    async function ladeFragen() {
+      try {
+        const response = await fetch('fragen_pe-prozess.json');
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
         }
+        alleGeladeneFragen = await response.json();
+        // Gehen wir davon aus, dass 'pep1' die relevante Frage für diese Seite ist
+        aktuelleFrageDaten = alleGeladeneFragen.find(q => q.id === 'pep1');
 
-        function evaluateAnswer(questionId, sectionElement) {
-            const question = questionsData.find(q => q.id === questionId);
-            const userAnswer = sectionElement.querySelector('.user-answer').value;
-            const feedbackSection = sectionElement.querySelector('.feedback-section');
-            const criteriaFeedbackDiv = sectionElement.querySelector('.criteria-feedback');
-            const scorePercentageSpan = sectionElement.querySelector('.score-percentage');
-
-            criteriaFeedbackDiv.innerHTML = ''; // Alten Feedback löschen
-            feedbackSection.style.display = 'block';
-
-            let totalCriteria = question.bewertungskriterien.length;
-            let achievedCriteria = 0;
-            let totalPossibleScore = 0; // Each criterion gives 1 point for presence and 1 for good description
-            let userAchievedScore = 0;
-
-            const userWords = cleanAndStemText(userAnswer);
-
-            question.bewertungskriterien.forEach(criterion => {
-                const feedbackItem = document.createElement('div');
-                feedbackItem.classList.add('feedback-item');
-                let criterionScore = 0;
-                let keywordFound = false;
-                let descriptionAdequate = false;
-
-                // Check for keywords
-                for (const keyword of criterion.keywords) {
-                    const stemmedKeyword = stemWord(keyword.toLowerCase());
-                    if (userWords.includes(stemmedKeyword)) {
-                        keywordFound = true;
-                        break;
-                    }
-                }
-
-                if (keywordFound) {
-                    criterionScore += 1; // 1 point for mentioning the criterion
-                    totalPossibleScore += 1;
-
-                    // Check word count for description adequacy (a very basic proxy)
-                    // This is a simplified check. A more robust solution would involve NLP.
-                    const wordsInUserAnswer = userAnswer.split(/\s+/).filter(word => word.length > 0);
-                    if (wordsInUserAnswer.length >= criterion.minWoerterFuerBeschreibung) {
-                        descriptionAdequate = true;
-                        criterionScore += 1; // 1 point for adequate description
-                        totalPossibleScore += 1;
-                    }
-                } else {
-                     // Even if keyword not found, still contribute to totalPossibleScore for criteria not met
-                    totalPossibleScore += 2; // Each criterion has potential for 2 points (mention + description)
-                }
-
-                userAchievedScore += criterionScore;
-
-                if (criterionScore === 2) {
-                    feedbackItem.classList.add('positive');
-                    feedbackItem.innerHTML = `<strong>${criterion.name}:</strong> Sehr gut! Der Punkt wurde genannt und ausreichend beschrieben.`;
-                    achievedCriteria++;
-                } else if (criterionScore === 1) {
-                    feedbackItem.classList.add('neutral');
-                    feedbackItem.innerHTML = `<strong>${criterion.name}:</strong> ${criterion.feedback_kurz || 'Der Punkt wurde genannt, aber die Beschreibung ist noch nicht ausreichend.'}`;
-                } else {
-                    feedbackItem.classList.add('negative');
-                    feedbackItem.innerHTML = `<strong>${criterion.name}:</strong> Nicht gefunden. Ihre Antwort sollte diesen Punkt behandeln.`;
-                }
-                criteriaFeedbackDiv.appendChild(feedbackItem);
-            });
-
-            const overallPercentage = totalPossibleScore > 0 ? ((userAchievedScore / totalPossibleScore) * 100).toFixed(0) : 0;
-            scorePercentageSpan.textContent = overallPercentage;
-        }
-
-        // Hilfsfunktion zum Bereinigen und Stemmen des Textes
-        function cleanAndStemText(text) {
-            // Text in Kleinbuchstaben umwandeln und Satzzeichen entfernen
-            const cleanedText = text.toLowerCase().replace(/[.,!?;:()"]/g, '');
-            // Wörter aufsplitten und jedes Wort stemmen
-            return cleanedText.split(/\s+/).map(word => stemWord(word));
-        }
-
-        // Die stemWord Funktion wird von der inkludierten index.js bereitgestellt
-        // Stellen Sie sicher, dass index.js die Funktion snowballFactory() und den deutschen Stemmer enthält.
-        // Die Funktion muss global verfügbar sein oder entsprechend importiert werden.
-        // Da die SnowballFactory in index.js ein Objekt zurückgibt, muss die stemWord Funktion daraus extrahiert werden.
-        let stemWord;
-        if (typeof snowballFactory !== 'undefined') {
-            const germanStemmer = snowballFactory.newStemmer('German');
-            stemWord = (word) => germanStemmer.stem(word);
+        if (aktuelleFrageDaten) {
+          document.getElementById('mainQuestionText').innerHTML = `<strong>Frage:</strong> ${aktuelleFrageDaten.frageText}`;
+          document.getElementById('musterloesungSection').innerHTML = `<h3>Musterlösung:</h3><p>${aktuelleFrageDaten.musterloesung.replace(/\n/g, '<br>')}</p>`;
         } else {
-            console.error('Snowball Stemmer (index.js) wurde nicht korrekt geladen oder snowballFactory ist nicht verfügbar.');
-            // Fallback: Wenn der Stemmer nicht geladen wird, geben wir das Wort unverändert zurück.
-            // Dies beeinflusst die Qualität der Bewertung, verhindert aber einen Absturz.
-            stemWord = (word) => word;
+          console.error("Frage 'pep1' nicht im JSON gefunden.");
+          document.getElementById('mainQuestionText').textContent = "Fehler beim Laden der Frage.";
         }
+      } catch (e) {
+        console.error("Fehler beim Laden der Fragen aus JSON:", e);
+        document.getElementById('mainQuestionText').textContent = "Fehler beim Laden der Frage. Bitte stellen Sie sicher, dass 'fragen_pe-prozess.json' korrekt im selben Verzeichnis liegt.";
+      }
+    }
 
-    </script>
+    function zeigeMusterloesung() {
+      document.getElementById("musterloesungSection").style.display = "block";
+    }
+
+    document.addEventListener('DOMContentLoaded', ladeFragen);
+  </script>
 </body>
 </html>
