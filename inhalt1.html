@@ -1,128 +1,360 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MIKP - Themen</title>
-    <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 20px; background-color: #f0f2f5; color: #333; }
-        .container { max-width: 800px; margin: auto; background-color: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); display: none; }
-        h1, h2 { color: #1a4e8a; text-align: center; }
-        .thema { margin-bottom: 30px; border-bottom: 2px solid #cddff5; padding-bottom: 20px; }
-        .frage { background-color: #e6eff9; padding: 20px; border-radius: 8px; margin-bottom: 15px; }
-        textarea { width: 100%; height: 100px; padding: 10px; border-radius: 5px; border: 1px solid #ccc; box-sizing: border-box; margin-top: 10px; }
-        button { background-color: #1a4e8a; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; transition: background-color 0.3s; }
-        button:hover { background-color: #1a3e7a; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MIKP - Personalentwicklung</title>
+  <style>
+    /* Allgemeine Einstellungen für den Body */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 40px 20px;
+      background-color: #f0f2f5;
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+    }
+    /* Container für den gesamten Test, um ihn zu zentrieren und zu stylen */
+    .container {
+      background-color: #ffffff;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      max-width: 900px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    h1 {
+      color: #1a4e8a;
+      text-align: center;
+      font-size: 2.2em;
+      margin-bottom: 5px; /* Abstand zum Sub-Titel */
+    }
+    h2 {
+      color: #1a4e8a;
+      text-align: center;
+      font-size: 1.5em;
+      font-weight: normal; /* Nicht-bold-Anforderung */
+      margin-top: 0;
+      margin-bottom: 30px;
+    }
+    h3 {
+      margin-top: 0;
+      color: #1a4e8a;
+    }
+    .question-navigation-bar {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      justify-content: center;
+    }
+    .question-navigation-bar button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #666;
+      color: white;
+      border: 1px solid #444;
+      border-radius: 5px;
+      transition: background-color 0.1s ease;
+    }
+    .question-navigation-bar button.active {
+      background-color: #1a4e8a;
+      color: white;
+      border-color: #1a4e8a;
+    }
+    .question-navigation-bar button:active {
+      transform: scale(0.98);
+    }
+    textarea {
+      width: 100%;
+      height: 200px;
+      font-size: 16px;
+      padding: 10px;
+      margin-top: 10px;
+      border: 1px solid #cddff5;
+      border-left: 5px solid #1a4e8a; /* Blauer Balken links */
+      border-radius: 5px;
+      font-family: inherit; /* Die Schriftart wird vom body-Element geerbt */
+    }
+    button.check-button {
+      display: block;
+      padding: 15px 20px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1.2em;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin-top: 30px;
+      width: 100%;
+    }
+    button.check-button:hover {
+      background-color: #218838;
+    }
+    button.check-button:active {
+      transform: scale(0.98);
+    }
+    button.recheck-button {
+      background-color: #d4ac0d;
+    }
+    button.recheck-button:hover {
+      background-color: #b38e0b;
+    }
+    button.solution-button {
+      display: block;
+      padding: 15px 20px;
+      background-color: #1a4e8a;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1.2em;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin-top: 30px;
+      width: 100%;
+    }
+    button.solution-button:hover {
+      background-color: #1a3e7a;
+    }
+    button.solution-button:active {
+      transform: scale(0.98);
+    }
+    .question-section {
+      padding: 25px;
+      border: 1px solid #cddff5;
+      margin-bottom: 30px;
+      border-radius: 8px;
+      background-color: #ffffff;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+    .feedback-section {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #e6eff9;
+      border-left: 5px solid #1a4e8a; /* Blauer Balken links */
+      transition: background-color 0.5s ease;
+    }
+    .feedback-section.highlight {
+        background-color: #d8e5f8;
+    }
+    .solution-section {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #e6eff9;
+      border-left: 5px solid #1a4e8a;
+    }
+    .ok { color: green; }
+    .hinweis { color: #d17b00; }
+    .error { color: red; }
+  </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>MIKP - Themen</h1>
+  <div class="container">
+    <h1>MIKP - Personalentwicklung</h1>
+    <h2 id="thema-sub-titel"></h2>
 
-    <p style="text-align:center;">
-        <a href="#pe-prozess">PE-Prozess</a> | 
-        <a href="#potenzial-kompetenz">Potenzial und Kompetenz</a>
-    </p>
+    <div id="dynamic-content">
+      </div>
+  </div>
 
-    <div id="pe-prozess" class="thema">
-        <h2>Thema 1: Der PE-Prozess</h2>
-        <div class="frage" data-thema="pe-prozess" data-frage="1">
-            <p>1. Beschreibe die Phasen des PE-Prozesses in eigenen Worten.</p>
-            <textarea placeholder="Deine Antwort hier..."></textarea>
-            <button onclick="auswerten(this)">Speichern</button>
-        </div>
-        <div class="frage" data-thema="pe-prozess" data-frage="2">
-            <p>2. Warum ist die Bedarfsanalyse im PE-Prozess so wichtig?</p>
-            <textarea placeholder="Deine Antwort hier..."></textarea>
-            <button onclick="auswerten(this)">Speichern</button>
-        </div>
-        <div class="frage" data-thema="pe-prozess" data-frage="3">
-            <p>3. Was versteht man unter dem Begriff "Transfer" im PE-Prozess?</p>
-            <textarea placeholder="Deine Antwort hier..."></textarea>
-            <button onclick="auswerten(this)">Speichern</button>
-        </div>
-    </div>
+  <script>
+    let aktuellesThemaID = 'pe-prozess'; // Standardthema
+    let alleGeladenenFragen = {}; // Speichert geladene Fragen pro Thema
+    let aktuelleFrageIndex = 0; // Index der aktuell angezeigten Frage im Array
 
-    <div id="potenzial-kompetenz" class="thema">
-        <h2>Thema 2: Potenzial und Kompetenz</h2>
-        <div class="frage" data-thema="potenzial-kompetenz" data-frage="1">
-            <p>1. Erkläre den Unterschied zwischen Potenzial und Kompetenz.</p>
-            <textarea placeholder="Deine Antwort hier..."></textarea>
-            <button onclick="auswerten(this)">Speichern</button>
-        </div>
-        <div class="frage" data-thema="potenzial-kompetenz" data-frage="2">
-            <p>2. Wie können Potenziale im Unternehmen identifiziert werden?</p>
-            <textarea placeholder="Deine Antwort hier..."></textarea>
-            <button onclick="auswerten(this)">Speichern</button>
-        </div>
-        <div class="frage" data-thema="potenzial-kompetenz" data-frage="3">
-            <p>3. Nenne die drei Kompetenzbereiche nach Weinert.</p>
-            <textarea placeholder="Deine Antwort hier..."></textarea>
-            <button onclick="auswerten(this)">Speichern</button>
-        </div>
-    </div>
-
-</div>
-
-<script type="module" src="firebase-logic.js"></script>
-
-<script type="module">
-    // Wichtige Änderung: Wir importieren nur noch die 'auth'- und 'db'-Objekte
-    import { auth, db } from './firebase-logic.js';
-
-    // Sicherstellen, dass der Benutzer angemeldet ist
-    // Wichtige Änderung: auth.onAuthStateChanged wird direkt aufgerufen
-    auth.onAuthStateChanged((user) => {
-      if (!user) {
-        window.location.href = "index.html"; // Weiterleitung, wenn nicht angemeldet
-      } else {
-        document.querySelector('.container').style.display = 'block';
+    // Funktion zum Laden einer JSON-Datei für ein bestimmtes Thema
+    async function ladeThemaDaten(themaID) {
+      if (alleGeladenenFragen[themaID]) {
+        return alleGeladenenFragen[themaID]; // Fragen bereits geladen
       }
-    });
-
-    async function auswerten(buttonElement) {
-        // Wichtige Änderung: auth.currentUser ist direkt verfügbar
-        const userId = auth.currentUser.uid; 
-        const frageDiv = buttonElement.closest('.frage');
-        const themaId = frageDiv.dataset.thema;
-        const frageId = frageDiv.dataset.frage;
-        const antwort = frageDiv.querySelector('textarea').value;
-
-        if (antwort.trim() === '') {
-            alert('Bitte gib eine Antwort ein, bevor du speicherst.');
-            return;
+      try {
+        // Annahme: JSON-Dateien liegen im selben Ordner wie die HTML-Datei
+        // Oder im Ordner 'fragen' wie zuvor besprochen, falls Sie eine Ordnerstruktur nutzen
+        const response = await fetch(`./fragen_${themaID}.json`); 
+        if (!response.ok) {
+          throw new Error(`HTTP-Fehler! Status: ${response.status}`);
         }
-
-        // Wichtige Änderung: db.doc und db.getDoc werden direkt aufgerufen
-        const userDocRef = db.doc(db, "users", userId);
-        const userDocSnap = await db.getDoc(userDocRef);
-
-        let dataToUpdate = {};
-        if (userDocSnap.exists()) {
-            dataToUpdate = userDocSnap.data();
-        }
-
-        // Stelle sicher, dass das Thema-Objekt existiert
-        if (!dataToUpdate[themaId]) {
-            dataToUpdate[themaId] = {};
-        }
-
-        // Speichere die Antwort
-        dataToUpdate[themaId][frageId] = antwort;
-
-        try {
-            // Wichtige Änderung: db.setDoc wird direkt aufgerufen
-            await db.setDoc(userDocRef, dataToUpdate, { merge: true });
-            buttonElement.textContent = "Gespeichert!";
-            buttonElement.disabled = true;
-            alert('Deine Antwort wurde erfolgreich gespeichert!');
-        } catch (e) {
-            console.error("Fehler beim Speichern der Antwort: ", e);
-            alert('Es gab einen Fehler beim Speichern deiner Antwort.');
-        }
+        const fragenDaten = await response.json();
+        alleGeladenenFragen[themaID] = fragenDaten; // Fragen speichern
+        return fragenDaten;
+      } catch (error) {
+        console.error(`Fehler beim Laden der Fragen für Thema ${themaID}:`, error);
+        return []; 
+      }
     }
-</script>
+
+    // Hilfsfunktion zum Normalisieren von Text (Umlaute, Sonderzeichen)
+    function normalisiereText(text) {
+        return text
+            .toLowerCase()
+            .replace(/ä/g, 'ae')
+            .replace(/ö/g, 'oe')
+            .replace(/ü/g, 'ue')
+            .replace(/ß/g, 'ss')
+            .replace(/[^a-z0-9\s]/g, ''); // Entfernt alle Zeichen außer Buchstaben, Zahlen und Leerzeichen
+    }
+
+    // Funktion zur Bewertung der Antwort
+    function auswerten(benutzerAntwort) {
+      const frage = alleGeladenenFragen[aktuellesThemaID][aktuelleFrageIndex];
+      const feedbackDiv = document.getElementById(`feedback-${frage.id}`);
+      const solutionElement = document.getElementById(`muster-${frage.id}`);
+      const infoTextElement = document.getElementById(`info-${frage.id}`);
+      const buttonElement = document.getElementById(`btn-${frage.id}`);
+      const showMusterBtn = document.getElementById(`showMusterBtn-${frage.id}`);
+
+      const normalisierteAntwort = normalisiereText(benutzerAntwort);
+      const antwortZeilen = benutzerAntwort.split('\n').filter(line => line.trim().length > 0); // Originalzeilen für Wortzählung
+
+      let htmlFeedback = '';
+      let interneBewertungStatus = {}; // Für Firebase-Speicherung
+
+      frage.bewertungskriterien.forEach(kriterium => {
+        let gefunden = false;
+        let istBeschrieben = false;
+        
+        // Hier würde die Wortstammerkennung (Stemming) angewendet, sobald implementiert
+        // Vorläufig nur normalisiereText für Keywords
+        const normalisierteKeywords = kriterium.keywords.map(kw => normalisiereText(kw));
+
+        for (const zeile of antwortZeilen) {
+          const normalisierteZeile = normalisiereText(zeile);
+          const wordCountInLine = zeile.split(/\s+/).filter(Boolean).length;
+
+          if (normalisierteKeywords.some(kw => normalisierteZeile.includes(kw))) {
+            gefunden = true;
+            if (wordCountInLine >= kriterium.minWoerterFuerBeschreibung) {
+              istBeschrieben = true;
+              break; 
+            }
+          }
+        }
+
+        if (istBeschrieben) {
+          htmlFeedback += `<p class="feedback-item ok">✅ Der Begriff "${kriterium.name}" wurde beschrieben.</p>`;
+          interneBewertungStatus[kriterium.name] = 'beschrieben';
+        } else if (gefunden) {
+          htmlFeedback += `<p class="feedback-item hinweis">⚠️ Der Begriff "${kriterium.name}" wurde erkannt, ist aber noch nicht ausreichend beschrieben. ${kriterium.feedback_kurz || ''}</p>`;
+          interneBewertungStatus[kriterium.name] = 'erkannt_kurz';
+        } else {
+          htmlFeedback += `<p class="feedback-item error">❌ Der Begriff "${kriterium.name}" wurde nicht genannt.</p>`;
+          interneBewertungStatus[kriterium.name] = 'nicht_genannt';
+        }
+      });
+
+      // Musterlösung beim erneuten Prüfen ausblenden
+      if (solutionElement) {
+          solutionElement.style.display = 'none';
+      }
+
+      // Feedback ausblenden, dann wieder einblenden
+      feedbackDiv.style.display = 'none';
+      feedbackDiv.innerHTML = `<h3>Feedback:</h3>` + htmlFeedback;
+      setTimeout(() => {
+        feedbackDiv.style.display = 'block';
+      }, 50); 
+
+      showMusterBtn.style.display = "block";
+      
+      buttonElement.textContent = "Antwort erneut Prüfen";
+      buttonElement.classList.add('recheck-button');
+      infoTextElement.innerHTML = `<p>Möchtest du deine Antwort noch einmal überarbeiten und erneut Prüfen?</p>`;
+      
+      // TODO: Hier später die Buttons "Frage verstanden" / "Frage wiederholen" und Firebase-Speicherung integrieren
+    }
+    
+    // Generiert die HTML-Struktur für die Fragen eines Themas
+    function generiereFragenHTML(themaID, fragenArray) {
+        let html = `<div id="thema-${themaID}" class="thema-block">`;
+        html += `<div class="question-navigation-bar">`;
+        fragenArray.forEach((frage, index) => {
+            html += `<button id="nav-${frage.id}" onclick="zeigeFrage('${themaID}', ${index})">Frage ${index + 1}</button>`;
+        });
+        html += `</div>`;
+
+        fragenArray.forEach((frage, index) => {
+            html += `
+            <div id="${frage.id}" class="question-section" style="display:${index === 0 ? 'block' : 'none'};">
+                <h3>${frage.titel}</h3>
+                <p><strong>${frage.frageText}</strong></p>
+                <p>Bitte gib deine Antwort im folgenden Feld ein:</p>
+                <textarea id="antwort-${frage.id}" placeholder="Deine Antwort hier..."></textarea>
+                <br>
+                <div id="info-${frage.id}"></div>
+                <button id="btn-${frage.id}" class="check-button" onclick="auswerten(document.getElementById('antwort-${frage.id}').value)">Antwort prüfen</button>
+
+                <div id="feedback-${frage.id}" class="feedback-section"></div>
+                <button id="showMusterBtn-${frage.id}" class="solution-button" onclick="zeigeMusterloesung('${frage.id}')" style="display:none;">Musterlösung anzeigen</button>
+                <div id="muster-${frage.id}" class="solution-section" style="display:none;">
+                    <h3>Musterlösung:</h3>
+                    ${frage.musterloesung.split('\n').map(p => `<p>${p}</p>`).join('')}
+                </div>
+            </div>`;
+        });
+        html += `</div>`;
+        return html;
+    }
+
+    // Zeigt ein bestimmtes Thema und seine erste Frage an
+    async function zeigeThema(themaID) {
+      document.getElementById('dynamic-content').innerHTML = ''; // Alten Inhalt leeren
+
+      const fragenDaten = await ladeThemaDaten(themaID);
+      if (fragenDaten.length > 0) {
+        document.getElementById('dynamic-content').innerHTML = generiereFragenHTML(themaID, fragenDaten);
+        document.getElementById('thema-sub-titel').textContent = themaID.replace(/-/g, ' ').split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' '); // Einfacher Titel aus ID
+        aktuellesThemaID = themaID;
+        zeigeFrage(themaID, 0); // Erste Frage des Themas anzeigen (Index 0)
+      } else {
+        document.getElementById('thema-sub-titel').textContent = 'Fehler beim Laden des Themas';
+      }
+    }
+
+    // Zeigt eine spezifische Frage innerhalb des aktuellen Themas an
+    function zeigeFrage(themaID, frageIndex) {
+      const fragenArray = alleGeladenenFragen[themaID];
+      if (!fragenArray || fragenArray.length <= frageIndex) {
+        console.error(`Frage mit Index ${frageIndex} für Thema ${themaID} nicht gefunden.`);
+        return;
+      }
+
+      const frageID = fragenArray[frageIndex].id; // Die eindeutige ID der Frage
+
+      document.querySelectorAll(`#thema-${themaID} .question-section`).forEach(section => {
+        section.style.display = 'none';
+      });
+      document.getElementById(frageID).style.display = 'block'; // Zeige die Frage anhand ihrer eindeutigen ID
+
+      document.querySelectorAll(`#thema-${themaID} .question-navigation-bar button`).forEach(btn => {
+        btn.classList.remove('active');
+      });
+      document.getElementById(`nav-${frageID}`).classList.add('active'); // Aktiviere den richtigen Nav-Button
+
+      aktuelleFrageIndex = frageIndex; // Aktualisiere den globalen Index
+    }
+
+    // Zeigt die Musterlösung an
+    function zeigeMusterloesung(frageID) {
+      document.getElementById(`muster-${frageID}`).style.display = "block";
+    }
+
+    // Initialisierung beim Laden der Seite
+    async function initialisiereApp() {
+      const hash = window.location.hash.substring(1);
+      const startThemaID = hash || 'pe-prozess'; // Standardthema oder aus URL-Hash
+      await zeigeThema(startThemaID); // Lade und zeige das Thema
+    }
+
+    // App starten
+    initialisiereApp();
+
+  </script>
 
 </body>
 </html>
