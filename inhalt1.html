@@ -5,32 +5,63 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MIKP - Personalentwicklung</title>
   <style>
-    /* Allgemeine Einstellungen für den Body */
+    /* CSS von ZIP3-13.html, angepasst für Konsistenz mit inhalt1.html's JS-Elementen */
     body {
-      font-family: Arial, sans-serif;
-      margin: 2rem;
-      background-color: #f9f9f9;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 40px 20px;
+      background-color: #f0f2f5;
       color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
     }
-    /* Container for the main content to center and style */
     .container {
       background-color: #ffffff;
-      padding: 30px;
-      border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      max-width: 800px;
-      margin: 20px auto;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      max-width: 900px;
+      width: 100%;
       box-sizing: border-box;
     }
     h1 {
-      color: #0a3069;
-      text-align: left;
+      color: #1a4e8a;
+      text-align: center;
+      font-size: 2.2em;
+      margin-bottom: 5px;
+    }
+    h2 {
+      color: #1a4e8a;
       font-size: 1.8em;
+      margin-top: 20px;
+      border-bottom: 2px solid #e0e0e0;
+      padding-bottom: 10px;
       margin-bottom: 20px;
     }
-    p {
-      line-height: 1.6;
-      margin-bottom: 10px;
+    .thema-navigation-bar,
+    .question-navigation-bar {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .thema-navigation-bar button,
+    .question-navigation-bar button {
+      padding: 8px 15px;
+      background-color: #e0e0e0;
+      color: #555;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 0.9em;
+      transition: background-color 0.3s ease;
+    }
+    .thema-navigation-bar button.active,
+    .question-navigation-bar button.active {
+      background-color: #007bff;
+      color: white;
     }
     textarea {
       width: 100%;
@@ -42,7 +73,7 @@
       border-radius: 4px;
       box-sizing: border-box;
     }
-    .button {
+    .button { /* Allgemeiner Button-Stil, ähnlich ZIP3-13, aber für Aktions-Buttons */
       padding: 10px 20px;
       font-size: 16px;
       background-color: #007BFF;
@@ -56,16 +87,18 @@
     .button:hover {
       background-color: #0056b3;
     }
+
+    /* Feedback- und Musterlösung-Sektionen (an ZIP3-13-Styling angepasst, aber inhalt1.html's Klassennamen beibehalten) */
     .feedback-section {
       margin-top: 20px;
       padding: 15px;
-      background-color: #eef4ff;
-      border-left: 5px solid #007BFF;
+      background-color: #f9f9f9;
+      border-left: 5px solid #007bff;
       border-radius: 4px;
-      display: none; /* Hidden by default */
+      display: none; /* Standardmäßig ausgeblendet */
     }
     .feedback-section h3 {
-      color: #0a3069;
+      color: #1a4e8a;
       margin-top: 0;
       margin-bottom: 10px;
     }
@@ -81,13 +114,14 @@
     .feedback-ok { color: green; }
     .feedback-hinweis { color: orange; }
     .feedback-fehler { color: red; }
+
     .musterloesung-section {
       margin-top: 20px;
       padding: 15px;
       background-color: #f0f8ff;
       border-left: 5px solid #28a745;
       border-radius: 4px;
-      display: none; /* Hidden by default */
+      display: none; /* Standardmäßig ausgeblendet */
     }
     .musterloesung-section h3 {
       color: #28a745;
@@ -99,28 +133,30 @@
 <body>
 
   <div class="container">
-    <h1 id="mainQuestionTitle"></h1>
-    <p id="mainQuestionText"></p>
-    <textarea id="antwort" placeholder="Gib hier deine Antwort ein..."></textarea>
-    <br>
-    <button class="button" onclick="bewerteAntwort()">Antwort prüfen</button>
-    <button id="showMusterloesungBtn" class="button" style="display:none;" onclick="zeigeMusterloesung()">Musterlösung anzeigen</button>
+    <h1>MIKP Prüfungsvorbereitung</h1>
+    <h2>Thema: Personalentwicklungsprozess</h2>
+    
+    <div id="pe-prozess-frage1" class="question-section" style="display: block;">
+      <p id="mainQuestionText" style="font-weight: bold;"></p>
+      <textarea id="antwort" placeholder="Gib hier deine Antwort ein..."></textarea>
+      <br>
+      <button class="button" onclick="bewerteAntwort()">Antwort prüfen</button>
+      <button id="showMusterloesungBtn" class="button" style="display:none;" onclick="zeigeMusterloesung()">Musterlösung anzeigen</button>
 
-    <div id="feedbackSection" class="feedback-section"></div>
-    <div id="musterloesungSection" class="musterloesung-section"></div>
+      <div id="feedbackSection" class="feedback-section"></div>
+      <div id="musterloesungSection" class="musterloesung-section"></div>
+    </div>
   </div>
 
   <script src="index.js"></script> 
   <script>
-    // Global variables for the current question and loaded data
     let aktuelleFrageDaten = null;
-    let alleGeladeneFragen = {}; // To store all questions loaded from JSON
+    let alleGeladeneFragen = {}; 
 
-    // Helper for Stemming (using Snowball German)
     function stemWord(word) {
       if (typeof snowballFactory !== 'function') {
         console.error("Snowball stemmer factory not found. Make sure index.js is loaded correctly.");
-        return word; // Fallback to original word
+        return word;
       }
       const stemmer = snowballFactory('German');
       stemmer.setCurrent(word);
@@ -128,7 +164,6 @@
       return stemmer.getCurrent();
     }
 
-    // Normalization function
     function normalizeText(text) {
       return text.toLowerCase()
                  .replace(/ä/g, 'ae')
@@ -139,7 +174,6 @@
                  .trim();
     }
 
-    // Main evaluation function
     async function bewerteAntwort() {
       if (!aktuelleFrageDaten) {
         console.error("Keine Frage geladen.");
@@ -148,12 +182,11 @@
 
       const antwortText = document.getElementById("antwort").value;
       const normalisierteAntwort = normalizeText(antwortText);
-      // Split by one or more spaces, filter out empty strings
-      const gestemmteAntwortWoerter = normalisierteAntwort.split(/\s+/).map(word => stemWord(word)).filter(word => word); 
+      const gestemmteAntwortWoerter = normalisierteAntwort.split(/\s+/).map(word => stemWord(word)).filter(word => word);
 
       const feedbackSection = document.getElementById("feedbackSection");
       feedbackSection.style.display = "block";
-      document.getElementById("showMusterloesungBtn").style.display = "block"; // Show Musterlösung button
+      document.getElementById("showMusterloesungBtn").style.display = "block";
 
       let feedbackHTML = "<h3>Feedback:</h3><ul>";
       let totalPoints = 0;
@@ -163,60 +196,41 @@
         const gestemmteKeywords = kriterium.keywords.map(word => stemWord(normalizeText(word)));
         const kriteriumNameStemmed = stemWord(normalizeText(kriterium.name));
 
-        let status = 'nicht_erkannt';
         let feedbackMessage = `<li class='feedback-fehler'>✘ Der Begriff "${kriterium.name}" wurde nicht genannt.</li>`;
 
-        // Check for direct keyword match or criterion name match (stemmed)
         const keywordOrNameFound = gestemmteKeywords.some(kw => gestemmteAntwortWoerter.includes(kw)) || gestemmteAntwortWoerter.includes(kriteriumNameStemmed);
         
         if (keywordOrNameFound) {
-          // Count words in the answer text (not stemmed words)
-          const wordCount = antwortText.split(/\s+/).filter(word => word).length;
-
-          // Simple heuristic: count words in the *entire* answer
-          // For a more precise "sentence around keyword" count, a more advanced NLP approach would be needed.
-          // For now, we compare total word count to minWoerterFuerBeschreibung.
-          // This ensures that "erkannt_ausreichend_beschrieben" needs a substantial overall answer.
-          // This heuristic might need further refinement based on user testing.
-          
-          // Alternative heuristic: Attempt to find words around the first matched keyword
           let relevantSentenceWords = 0;
           const firstMatchedKeyword = kriterium.keywords.find(kw => antwortText.toLowerCase().includes(normalizeText(kw))) || kriterium.name;
           const keywordIndex = antwortText.toLowerCase().indexOf(normalizeText(firstMatchedKeyword));
 
           if (keywordIndex !== -1) {
-              // Extract a segment around the keyword to estimate relevant description length
-              const contextStart = Math.max(0, keywordIndex - 30); // 30 chars before
-              const contextEnd = Math.min(antwortText.length, keywordIndex + normalizeText(firstMatchedKeyword).length + 70); // 70 chars after
+              const contextStart = Math.max(0, keywordIndex - 30);
+              const contextEnd = Math.min(antwortText.length, keywordIndex + normalizeText(firstMatchedKeyword).length + 70);
               const contextSnippet = antwortText.substring(contextStart, contextEnd);
               relevantSentenceWords = contextSnippet.split(/\s+/).filter(word => word).length;
           } else {
-              // Fallback to total word count if no specific keyword context can be found
-              relevantSentenceWords = wordCount;
+              relevantSentenceWords = antwortText.split(/\s+/).filter(word => word).length;
           }
 
-
           if (relevantSentenceWords >= kriterium.minWoerterFuerBeschreibung) {
-            status = 'erkannt_ausreichend_beschrieben';
             feedbackMessage = `<li class='feedback-ok'>✅ Der Begriff "${kriterium.name}" wurde ausreichend beschrieben.</li>`;
-            totalPoints += 2; // Full points
+            totalPoints += 2;
           } else {
-            status = 'erkannt_kurz';
-            // Corrected: use only feedback_kurz directly
             feedbackMessage = `<li class='feedback-hinweis'>⚠️ ${kriterium.feedback_kurz}</li>`;
-            totalPoints += 1; // Half points
+            totalPoints += 1;
           }
         }
 
         feedbackHTML += feedbackMessage;
-        maxPoints += 2; // Each criterion is worth 2 points if fully described
+        maxPoints += 2;
       });
 
       feedbackHTML += `</ul><p><strong>Gesamtpunktzahl: ${totalPoints} / ${maxPoints}</strong></p>`;
       feedbackSection.innerHTML = feedbackHTML;
     }
 
-    // Function to load questions from the JSON file
     async function ladeFragen() {
       try {
         const response = await fetch('fragen_pe-prozess.json');
@@ -224,29 +238,26 @@
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         alleGeladeneFragen = await response.json();
-        // Assuming we are always working with 'pep1' for now, based on the context
+        // Gehen wir davon aus, dass 'pep1' die relevante Frage für diese Seite ist
         aktuelleFrageDaten = alleGeladeneFragen.find(q => q.id === 'pep1');
 
         if (aktuelleFrageDaten) {
-          document.getElementById('mainQuestionTitle').textContent = aktuelleFrageDaten.titel;
           document.getElementById('mainQuestionText').innerHTML = `<strong>Frage:</strong> ${aktuelleFrageDaten.frageText}`;
           document.getElementById('musterloesungSection').innerHTML = `<h3>Musterlösung:</h3><p>${aktuelleFrageDaten.musterloesung.replace(/\n/g, '<br>')}</p>`;
         } else {
           console.error("Frage 'pep1' nicht im JSON gefunden.");
+          document.getElementById('mainQuestionText').textContent = "Fehler beim Laden der Frage.";
         }
       } catch (e) {
         console.error("Fehler beim Laden der Fragen aus JSON:", e);
-        document.getElementById('mainQuestionTitle').textContent = "Fehler beim Laden der Frage.";
-        document.getElementById('mainQuestionText').textContent = "Bitte stellen Sie sicher, dass 'fragen_pe-prozess.json' korrekt im selben Verzeichnis liegt.";
+        document.getElementById('mainQuestionText').textContent = "Fehler beim Laden der Frage. Bitte stellen Sie sicher, dass 'fragen_pe-prozess.json' korrekt im selben Verzeichnis liegt.";
       }
     }
 
-    // Function to show the model answer
     function zeigeMusterloesung() {
       document.getElementById("musterloesungSection").style.display = "block";
     }
 
-    // Initialize the application when the DOM is fully loaded
     document.addEventListener('DOMContentLoaded', ladeFragen);
   </script>
 </body>
