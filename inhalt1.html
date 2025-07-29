@@ -174,10 +174,11 @@
     // Die GermanStemmer-Klasse sollte jetzt global verfügbar sein, sobald das CDN geladen ist.
     const germanStemmerInstanz = new GermanStemmer(); 
 
-    function stemWord(word) {
-      // Nutzen Sie die stem-Methode der Stemmer-Instanz
-      return germanStemmerInstanz.stem(word);
-    }
+   function stemWord(word) {
+  const stemmedResult = germanStemmerInstanz.stem(word);
+  console.log(`Stemming-Input: "${word}", Stemming-Output: "${stemmedResult}", Typ: ${typeof stemmedResult}`); // <-- NEU
+  return stemmedResult;
+}
     // --- Ende Stemming-Funktion ---
 
 
@@ -223,7 +224,8 @@
       const normalisierteAntwort = normalisiereText(benutzerAntwort);
       // Die Antwort in einzelne Wörter zerlegen und jedes Wort stemmen
       const gestemmteAntwortWoerter = normalisierteAntwort.split(/\s+/).filter(Boolean).map(word => stemWord(word));
-
+      console.log("Gestemmte Antwort Wörter:", gestemmteAntwortWoerter); // <-- DIESE NEUE ZEILE
+      
       const antwortZeilen = benutzerAntwort.split('\n').filter(line => line.trim().length > 0); // Originalzeilen für Wortzählung
 
       let htmlFeedback = '';
