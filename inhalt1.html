@@ -169,23 +169,40 @@
     let alleGeladeneFragen = {}; // Speichert geladene Fragen pro Thema
     let aktuelleFrageIndex = 0; // Index der aktuell angezeigten Frage im Array
 
-    // --- Start: Eigene, einfache Stemming-Funktion ---
+    // --- Eigene, einfache Stemming-Funktion (intern, keine externen Abhängigkeiten) ---
     function stemWord(word) {
       word = word.toLowerCase();
-      // Entferne gängige deutsche Endungen
-      if (word.length > 3) {
-          if (word.endsWith('keit')) return word.slice(0, -4);
-          if (word.endsWith('ung')) return word.slice(0, -3);
-          if (word.endsWith('lich')) return word.slice(0, -4);
-          if (word.endsWith('heit')) return word.slice(0, -4);
-          if (word.endsWith('schaft')) return word.slice(0, -6);
-          // Pluralendungen und Verbendungen
-          if (word.endsWith('en')) return word.slice(0, -2);
-          if (word.endsWith('er')) return word.slice(0, -2);
-          if (word.endsWith('e')) return word.slice(0, -1);
-          if (word.endsWith('s')) return word.slice(0, -1); // Genitiv oder Plural
-          if (word.endsWith('t')) return word.slice(0, -1);
-          if (word.endsWith('st')) return word.slice(0, -2); // Superlativ-Endung oder Verb-Endung
+      // Eine einfache Liste von Suffixen, die entfernt werden können
+      const suffixes = [
+          'keiten', 'keit', // -igkeit, -lichkeit
+          'ungen', 'ung',
+          'lichen', 'lich',
+          'heiten', 'heit',
+          'schaften', 'schaft',
+          'tionen', 'tion', 'tioniert', // Funktioniert -> Funktion
+          'ungen', 'ung',
+          'end', 'enden',
+          'ern', 'er',
+          'est',
+          'sten', 'st',
+          'bar',
+          'haft',
+          'los',
+          'sam',
+          'voll',
+          // Plural- und Verbendungen
+          'est', // gehst
+          'nst', // kannst
+          'ier', 'iert', // studiert
+          'e', 'en', 'es', 'et', // Gehe, gehen, geht
+          's', // Autos
+          't' // Geht
+      ];
+
+      for (const suffix of suffixes) {
+          if (word.endsWith(suffix) && word.length > suffix.length) { // Überprüfen, ob das Wort länger ist als das Suffix
+              return word.slice(0, -suffix.length);
+          }
       }
       return word;
     }
@@ -211,7 +228,7 @@
       }
     }
 
-    // Hilfsfunktion zum Normalisieren von Text (Umlaute, Sonderzeichen)
+    // Hilfsfunktion zum Normalisieren von Text (Umlaute, Sonderzeichen, kleinschreiben)
     function normalisiereText(text) {
         return text
             .toLowerCase()
@@ -231,39 +248,39 @@
       const buttonElement = document.getElementById(`btn-${frage.id}`);
       const showMusterBtn = document.getElementById(`showMusterBtn-${frage.id}`);
 
-      const normalisierteAntwort = normalisiereText(benutzerAntwort);
-      // Die Antwort in einzelne Wörter zerlegen und jedes Wort stemmen
-      const gestemmteAntwortWoerter = normalisierteAntwort.split(/\s+/).filter(Boolean).map(word => stemWord(word));
-      
+      // Normalisieren und Stemmen der gesamten Benutzerantwort für einen robusten Abgleich
+      const normalisierteAntwortText = normalisiereText(benutzerAntwort);
+      // Hier erzeugen wir gestemmte Wörter, aber wir nutzen auch den normalen Text für den Abgleich
+      const gestemmteAntwortWoerter = normalisierteAntwortText.split(/\s+/).filter(Boolean).map(word => stemWord(word));
+
       const antwortZeilen = benutzerAntwort.split('\n').filter(line => line.trim().length > 0); // Originalzeilen für Wortzählung
 
       let htmlFeedback = '';
-      let interneBewertungStatus = {}; // Für Firebase-Speicherung
+      let interneBewertungStatus = {}; 
 
       frage.bewertungskriterien.forEach(kriterium => {
         let gefunden = false;
         let istBeschrieben = false;
         
-        // Stemmen Sie die Keywords nur einmal für jedes Kriterium und Normalisieren
+        // Normalisieren und Stemmen der Kriterium-Keywords
+        const normalisierteKriteriumKeywords = kriterium.keywords.map(kw => normalisiereText(kw));
         const gestemmteKriteriumKeywords = kriterium.keywords.map(kw => stemWord(normalisiereText(kw)));
 
-        // Prüfen, ob irgendein gestemmtes Keyword in den gestemmten Wörtern der Antwort vorkommt
-        const keywordInAntwortGefunden = gestemmteKriteriumKeywords.some(stemmedKw => {
-            return gestemmteAntwortWoerter.some(stemmedAntwortWort => stemmedAntwortWort.includes(stemmedKw));
-        });
+        // Prüfen, ob ein Keyword (entweder normalisiert oder gestemmt) in der Antwort vorkommt
+        const keywordInAntwortGefunden = normalisierteKriteriumKeywords.some(normKw => normalisierteAntwortText.includes(normKw)) || // Direkter Abgleich
+                                         gestemmteKriteriumKeywords.some(stemmedKw => gestemmteAntwortWoerter.some(stemmedAntwortWort => stemmedAntwortWort.includes(stemmedKw))); // Stemming-Abgleich
 
         if (keywordInAntwortGefunden) {
             gefunden = true;
             // Jetzt prüfen, ob die Beschreibung ausreichend ist (mit Wortzählung der Originalzeilen)
             for (const zeile of antwortZeilen) {
-                const normalisierteZeileFuerStem = normalisiereText(zeile);
-                const gestemmteZeileWoerter = normalisierteZeileFuerStem.split(/\s+/).filter(Boolean).map(word => stemWord(word));
+                const normalisierteZeile = normalisiereText(zeile);
+                const gestemmteZeileWoerter = normalisierteZeile.split(/\s+/).filter(Boolean).map(word => stemWord(word));
                 const wordCountInLine = zeile.split(/\s+/).filter(Boolean).length;
                 
-                // Überprüfen, ob ein gestemmtes Keyword in dieser gestemmten Zeile ist
-                const keywordInZeileGefunden = gestemmteKriteriumKeywords.some(stemmedKw => {
-                    return gestemmteZeileWoerter.some(stemmedZeilenWort => stemmedZeilenWort.includes(stemmedKw));
-                });
+                // Prüfen, ob Keyword (normalisiert oder gestemmt) in der Zeile ist
+                const keywordInZeileGefunden = normalisierteKriteriumKeywords.some(normKw => normalisierteZeile.includes(normKw)) ||
+                                               gestemmteKriteriumKeywords.some(stemmedKw => gestemmteZeileWoerter.some(stemmedZeilenWort => stemmedZeilenWort.includes(stemmedKw)));
 
                 if (keywordInZeileGefunden && wordCountInLine >= kriterium.minWoerterFuerBeschreibung) {
                     istBeschrieben = true;
