@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MIKP - Personalentwicklung</title>
   <style>
-    /* CSS von ZIP3-13.html, angepasst für Konsistenz mit inhalt1.html's JS-Elementen */
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       margin: 0;
@@ -34,231 +33,405 @@
     }
     h2 {
       color: #1a4e8a;
-      font-size: 1.8em;
-      margin-top: 20px;
+      font-size: 1.6em;
       border-bottom: 2px solid #e0e0e0;
       padding-bottom: 10px;
-      margin-bottom: 20px;
+      margin-top: 30px;
     }
-    .thema-navigation-bar,
+    .thema-selector {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .thema-selector button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      margin: 0 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1.1em;
+      transition: background-color 0.3s ease;
+    }
+    .thema-selector button:hover {
+      background-color: #0056b3;
+    }
+    .thema-block {
+      display: none;
+    }
+    .question-section {
+      background-color: #f9f9f9;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 25px;
+      margin-bottom: 20px;
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
     .question-navigation-bar {
       display: flex;
-      gap: 10px;
+      justify-content: center;
+      margin-top: 20px;
       margin-bottom: 20px;
-      flex-wrap: wrap;
     }
-    .thema-navigation-bar button,
     .question-navigation-bar button {
-      padding: 8px 15px;
       background-color: #e0e0e0;
-      color: #555;
+      color: #333;
       border: none;
+      padding: 8px 15px;
+      margin: 0 5px;
       border-radius: 5px;
       cursor: pointer;
       font-size: 0.9em;
       transition: background-color 0.3s ease;
     }
-    .thema-navigation-bar button.active,
     .question-navigation-bar button.active {
       background-color: #007bff;
       color: white;
     }
+    .question-navigation-bar button:hover:not(.active) {
+      background-color: #c0c0c0;
+    }
     textarea {
       width: 100%;
-      height: 150px;
-      font-size: 16px;
-      padding: 10px;
-      margin-top: 10px;
+      padding: 15px;
       border: 1px solid #ccc;
-      border-radius: 4px;
+      border-radius: 8px;
+      font-size: 1em;
+      min-height: 180px;
+      margin-bottom: 15px;
       box-sizing: border-box;
     }
-    .button { /* Allgemeiner Button-Stil, ähnlich ZIP3-13, aber für Aktions-Buttons */
-      padding: 10px 20px;
-      font-size: 16px;
-      background-color: #007BFF;
+    .button-group {
+      text-align: right;
+    }
+    .button-group button {
+      background-color: #28a745;
       color: white;
       border: none;
-      border-radius: 4px;
+      padding: 10px 20px;
+      border-radius: 8px;
       cursor: pointer;
-      margin-top: 15px;
-      transition: background-color 0.2s ease;
+      font-size: 1em;
+      transition: background-color 0.3s ease;
+      margin-left: 10px;
     }
-    .button:hover {
-      background-color: #0056b3;
+    .button-group button:hover {
+      background-color: #218838;
     }
-
-    /* Feedback- und Musterlösung-Sektionen (an ZIP3-13-Styling angepasst, aber inhalt1.html's Klassennamen beibehalten) */
-    .feedback-section {
-      margin-top: 20px;
-      padding: 15px;
-      background-color: #f9f9f9;
-      border-left: 5px solid #007bff;
-      border-radius: 4px;
-      display: none; /* Standardmäßig ausgeblendet */
+    #feedback {
+      background-color: #e6f7ff;
+      border: 1px solid #91d5ff;
+      border-radius: 8px;
+      padding: 20px;
+      margin-top: 30px;
+      display: none;
+      font-size: 1em;
     }
-    .feedback-section h3 {
-      color: #1a4e8a;
-      margin-top: 0;
-      margin-bottom: 10px;
-    }
-    .feedback-section ul {
-      list-style: none;
+    #feedback ul {
+      list-style-type: none;
       padding: 0;
     }
-    .feedback-section li {
+    #feedback li {
       margin-bottom: 8px;
-      font-size: 15px;
-      line-height: 1.4;
+      display: flex;
+      align-items: center;
     }
-    .feedback-ok { color: green; }
-    .feedback-hinweis { color: orange; }
-    .feedback-fehler { color: red; }
-
-    .musterloesung-section {
-      margin-top: 20px;
-      padding: 15px;
-      background-color: #f0f8ff;
-      border-left: 5px solid #28a745;
-      border-radius: 4px;
-      display: none; /* Standardmäßig ausgeblendet */
-    }
-    .musterloesung-section h3 {
+    #feedback li.correct {
       color: #28a745;
+    }
+    #feedback li.partial {
+      color: #ffc107;
+    }
+    #feedback li.incorrect {
+      color: #dc3545;
+    }
+    #feedback li::before {
+      font-weight: bold;
+      margin-right: 8px;
+    }
+    #feedback li.correct::before {
+      content: '✅';
+    }
+    #feedback li.partial::before {
+      content: '⚠️';
+    }
+    #feedback li.incorrect::before {
+      content: '❌';
+    }
+    .musterloesung-section {
+      background-color: #f0faff;
+      border: 1px solid #bfdbff;
+      border-radius: 8px;
+      padding: 20px;
+      margin-top: 20px;
+      display: none;
+      font-size: 0.95em;
+      line-height: 1.6;
+    }
+    .musterloesung-section h4 {
+      color: #0056b3;
       margin-top: 0;
-      margin-bottom: 10px;
+      margin-bottom: 15px;
+      border-bottom: 1px dashed #bfdbff;
+      padding-bottom: 8px;
     }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <h1>MIKP Prüfungsvorbereitung</h1>
-    <h2>Thema: Personalentwicklungsprozess</h2>
-    
-    <div id="pe-prozess-frage1" class="question-section" style="display: block;">
-      <p id="mainQuestionText" style="font-weight: bold;"></p>
-      <textarea id="antwort" placeholder="Gib hier deine Antwort ein..."></textarea>
-      <br>
-      <button class="button" onclick="bewerteAntwort()">Antwort prüfen</button>
-      <button id="showMusterloesungBtn" class="button" style="display:none;" onclick="zeigeMusterloesung()">Musterlösung anzeigen</button>
-
-      <div id="feedbackSection" class="feedback-section"></div>
-      <div id="musterloesungSection" class="musterloesung-section"></div>
+<div class="container">
+  <h1>MIKP - Lern-App: Personalentwicklung</h1>
+  <div class="thema-selector">
+    <button onclick="zeigeThema('pe-prozess')">Personalentwicklungsprozess</button>
     </div>
-  </div>
 
-  <script src="index.js"></script> 
-  <script>
-    let aktuelleFrageDaten = null;
-    let alleGeladeneFragen = {}; 
+  <h2 id="thema-sub-titel"></h2>
 
-    function stemWord(word) {
-      if (typeof snowballFactory !== 'function') {
-        console.error("Snowball stemmer factory not found. Make sure index.js is loaded correctly.");
-        return word;
+  <div id="thema-pe-prozess" class="thema-block">
+    </div>
+</div>
+
+<script>
+  let alleGeladeneFragen = {}; // Globales Objekt zum Speichern aller geladenen Fragen
+  let aktuellesThema = '';
+  let aktuelleFrageIndex = 0;
+
+  const themen = {
+    'pe-prozess': {
+      h2Text: 'Personalentwicklungsprozess',
+      fragen: ['pep1', 'pep2', 'pep3'] // IDs der Fragen in der JSON
+    }
+    // Weitere Themen können hier hinzugefügt werden
+  };
+
+  // Hilfsfunktion zur Normalisierung von Text (Kleinbuchstaben, Umlaute, Sonderzeichen entfernen)
+  function normalisiereText(text) {
+    if (typeof text !== 'string') {
+      return '';
+    }
+    return text.toLowerCase()
+      .replace(/ä/g, 'ae')
+      .replace(/ö/g, 'oe')
+      .replace(/ü/g, 'ue')
+      .replace(/ß/g, 'ss')
+      .replace(/[^a-z0-9\s]/g, '') // Nur Buchstaben, Zahlen und Leerzeichen behalten
+      .replace(/\s+/g, ' ') // Mehrere Leerzeichen durch eines ersetzen
+      .trim();
+  }
+
+  // Hilfsfunktion für einfaches Stemming (optional, kann bei Bedarf erweitert werden)
+  function stemWord(word) {
+      // Sehr einfaches Stemming: Entfernt häufige Endungen. Kann erweitert werden.
+      if (word.length > 3) {
+          if (word.endsWith('en')) return word.slice(0, -2);
+          if (word.endsWith('ung')) return word.slice(0, -3);
+          if (word.endsWith('keit')) return word.slice(0, -4);
+          if (word.endsWith('tion')) return word.slice(0, -4);
+          if (word.endsWith('ion')) return word.slice(0, -3);
+          if (word.endsWith('e')) return word.slice(0, -1);
       }
-      const stemmer = snowballFactory('German');
-      stemmer.setCurrent(word);
-      stemmer.stem();
-      return stemmer.getCurrent();
+      return word;
+  }
+
+  // Hauptfunktion zur Bewertung der Antwort
+  function bewerteAntwort(frageID) {
+    const frage = alleGeladeneFragen[aktuellesThema].find(f => f.id === frageID);
+    if (!frage) {
+      console.error('Frage nicht gefunden für Bewertung:', frageID);
+      return;
     }
 
-    function normalizeText(text) {
-      return text.toLowerCase()
-                 .replace(/ä/g, 'ae')
-                 .replace(/ö/g, 'oe')
-                 .replace(/ü/g, 'ue')
-                 .replace(/ß/g, 'ss')
-                 .replace(/[^a-z0-9\s]/g, ' ')
-                 .trim();
-    }
+    const antwortText = document.getElementById(`antwort-${frageID}`).value;
+    const feedbackDiv = document.getElementById(`feedback-${frageID}`);
+    feedbackDiv.innerHTML = '<h3>Bewertung:</h3><ul></ul>'; // Zurücksetzen des Feedbacks
+    feedbackDiv.style.display = 'block';
 
-    async function bewerteAntwort() {
-      if (!aktuelleFrageDaten) {
-        console.error("Keine Frage geladen.");
-        return;
+    const feedbackList = feedbackDiv.querySelector('ul');
+    let gesamtStatus = {}; // 'beschrieben', 'erkannt_kurz', 'nicht_genannt'
+
+    // Normalisieren und Stemmen der gesamten Antwort
+    const normalisierteAntwortText = normalisiereText(antwortText);
+    const gestemmteAntwortWoerter = normalisierteAntwortText.split(' ').map(stemWord);
+
+    frage.bewertungskriterien.forEach(kriterium => {
+      let status = 'nicht_genannt'; // Standardstatus
+      let begriffErkannt = false;
+      let beschriebenDurchZeile = false;
+
+      // Normalisierte und gestemmte Keywords des Kriteriums
+      const normalisierteKriteriumKeywords = kriterium.keywords.map(kw => normalisiereText(kw));
+      const gestemmteKriteriumKeywords = kriterium.keywords.map(kw => stemWord(normalisiereText(kw)));
+
+      // Überprüfen, ob das Kriterium im gesamten Text erkannt wird
+      if (normalisierteKriteriumKeywords.some(kw => normalisierteAntwortText.includes(kw)) ||
+          gestemmteKriteriumKeywords.some(skw => gestemmteAntwortWoerter.includes(skw))) {
+        begriffErkannt = true;
       }
 
-      const antwortText = document.getElementById("antwort").value;
-      const normalisierteAntwort = normalizeText(antwortText);
-      const gestemmteAntwortWoerter = normalisierteAntwort.split(/\s+/).map(word => stemWord(word)).filter(word => word);
+      if (begriffErkannt) {
+        // Wenn der Begriff erkannt wurde, suchen wir nach Zeilen, die ihn beschreiben
+        const zeilen = antwortText.split(/[.!?\n]/).filter(line => line.trim().length > 0);
+        for (const zeile of zeilen) {
+          const normalisierteZeile = normalisiereText(zeile);
+          const gestemmteZeileWoerter = normalisierteZeile.split(' ').map(stemWord);
+          const wordCountInLine = zeile.split(/\s+/).filter(word => word.length > 0).length;
 
-      const feedbackSection = document.getElementById("feedbackSection");
-      feedbackSection.style.display = "block";
-      document.getElementById("showMusterloesungBtn").style.display = "block";
-
-      let feedbackHTML = "<h3>Feedback:</h3><ul>";
-      let totalPoints = 0;
-      let maxPoints = 0;
-
-      aktuelleFrageDaten.bewertungskriterien.forEach(kriterium => {
-        const gestemmteKeywords = kriterium.keywords.map(word => stemWord(normalizeText(word)));
-        const kriteriumNameStemmed = stemWord(normalizeText(kriterium.name));
-
-        let feedbackMessage = `<li class='feedback-fehler'>✘ Der Begriff "${kriterium.name}" wurde nicht genannt.</li>`;
-
-        const keywordOrNameFound = gestemmteKeywords.some(kw => gestemmteAntwortWoerter.includes(kw)) || gestemmteAntwortWoerter.includes(kriteriumNameStemmed);
-        
-        if (keywordOrNameFound) {
-          let relevantSentenceWords = 0;
-          const firstMatchedKeyword = kriterium.keywords.find(kw => antwortText.toLowerCase().includes(normalizeText(kw))) || kriterium.name;
-          const keywordIndex = antwortText.toLowerCase().indexOf(normalizeText(firstMatchedKeyword));
-
-          if (keywordIndex !== -1) {
-              const contextStart = Math.max(0, keywordIndex - 30);
-              const contextEnd = Math.min(antwortText.length, keywordIndex + normalizeText(firstMatchedKeyword).length + 70);
-              const contextSnippet = antwortText.substring(contextStart, contextEnd);
-              relevantSentenceWords = contextSnippet.split(/\s+/).filter(word => word).length;
-          } else {
-              relevantSentenceWords = antwortText.split(/\s+/).filter(word => word).length;
-          }
-
-          if (relevantSentenceWords >= kriterium.minWoerterFuerBeschreibung) {
-            feedbackMessage = `<li class='feedback-ok'>✅ Der Begriff "${kriterium.name}" wurde ausreichend beschrieben.</li>`;
-            totalPoints += 2;
-          } else {
-            feedbackMessage = `<li class='feedback-hinweis'>⚠️ ${kriterium.feedback_kurz}</li>`;
-            totalPoints += 1;
+          // Prüfen, ob ein Keyword in dieser Zeile vorkommt UND die Wortanzahl ausreicht
+          if ((normalisierteKriteriumKeywords.some(kw => normalisierteZeile.includes(kw)) ||
+               gestemmteKriteriumKeywords.some(skw => gestemmteZeileWoerter.includes(skw))) &&
+              (wordCountInLine >= kriterium.minWoerterFuerBeschreibung)) {
+            beschriebenDurchZeile = true;
+            break; // Eine ausreichende Beschreibung genügt
           }
         }
+      }
 
-        feedbackHTML += feedbackMessage;
-        maxPoints += 2;
+      if (beschriebenDurchZeile) {
+        status = 'beschrieben';
+      } else if (begriffErkannt) {
+        status = 'erkannt_kurz';
+      }
+
+      gesamtStatus[kriterium.name] = status;
+
+      const listItem = document.createElement('li');
+      if (status === 'beschrieben') {
+        listItem.className = 'correct';
+        listItem.textContent = `✅ Der Begriff "${kriterium.name}" wurde beschrieben.`;
+      } else if (status === 'erkannt_kurz') {
+        listItem.className = 'partial';
+        listItem.textContent = `⚠️ Der Begriff "${kriterium.name}" wurde erkannt, ist aber noch nicht ausreichend beschrieben. ${kriterium.feedback_kurz}`;
+      } else {
+        listItem.className = 'incorrect';
+        listItem.textContent = `❌ Der Begriff "${kriterium.name}" wurde nicht genannt.`;
+      }
+      feedbackList.appendChild(listItem);
+    });
+  }
+
+  // Fragen und Themen dynamisch laden
+  async function ladeFragen() {
+    try {
+      const response = await fetch('fragen_pe-prozess.json'); // Pfad zur JSON-Datei
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const fragenData = await response.json();
+      fragenData.forEach(frage => {
+        if (!alleGeladeneFragen[frage.themaID]) {
+          alleGeladeneFragen[frage.themaID] = [];
+        }
+        alleGeladeneFragen[frage.themaID].push(frage);
       });
+      initialisiereApp();
+    } catch (error) {
+      console.error('Fehler beim Laden der Fragen:', error);
+      document.getElementById('thema-pe-prozess').innerHTML = '<p>Fehler beim Laden der Fragen. Bitte stellen Sie sicher, dass die "fragen_pe-prozess.json" korrekt im selben Verzeichnis liegt.</p>';
+    }
+  }
 
-      feedbackHTML += `</ul><p><strong>Gesamtpunktzahl: ${totalPoints} / ${maxPoints}</strong></p>`;
-      feedbackSection.innerHTML = feedbackHTML;
+  function erstelleFragenUI(themaID) {
+    const themaBlock = document.getElementById(`thema-${themaID}`);
+    themaBlock.innerHTML = ''; // Vorherige Inhalte leeren
+
+    const fragenArray = alleGeladeneFragen[themaID];
+    if (!fragenArray || fragenArray.length === 0) {
+      themaBlock.innerHTML = '<p>Keine Fragen für dieses Thema gefunden.</p>';
+      return;
     }
 
-    async function ladeFragen() {
-      try {
-        const response = await fetch('fragen_pe-prozess.json');
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        alleGeladeneFragen = await response.json();
-        // Gehen wir davon aus, dass 'pep1' die relevante Frage für diese Seite ist
-        aktuelleFrageDaten = alleGeladeneFragen.find(q => q.id === 'pep1');
+    // Navigationsleiste für Fragen
+    const navBar = document.createElement('div');
+    navBar.className = 'question-navigation-bar';
+    fragenArray.forEach((frage, index) => {
+      const navButton = document.createElement('button');
+      navButton.id = `nav-${frage.id}`;
+      navButton.textContent = `Frage ${frage.frageNummer}`;
+      navButton.onclick = () => zeigeFrage(themaID, index);
+      navBar.appendChild(navButton);
+    });
+    themaBlock.appendChild(navBar);
 
-        if (aktuelleFrageDaten) {
-          document.getElementById('mainQuestionText').innerHTML = `<strong>Frage:</strong> ${aktuelleFrageDaten.frageText}`;
-          document.getElementById('musterloesungSection').innerHTML = `<h3>Musterlösung:</h3><p>${aktuelleFrageDaten.musterloesung.replace(/\n/g, '<br>')}</p>`;
-        } else {
-          console.error("Frage 'pep1' nicht im JSON gefunden.");
-          document.getElementById('mainQuestionText').textContent = "Fehler beim Laden der Frage.";
-        }
-      } catch (e) {
-        console.error("Fehler beim Laden der Fragen aus JSON:", e);
-        document.getElementById('mainQuestionText').textContent = "Fehler beim Laden der Frage. Bitte stellen Sie sicher, dass 'fragen_pe-prozess.json' korrekt im selben Verzeichnis liegt.";
-      }
+    // Fragen-Container
+    fragenArray.forEach(frage => {
+      const questionSection = document.createElement('div');
+      questionSection.id = frage.id;
+      questionSection.className = 'question-section';
+      questionSection.style.display = 'none'; // Standardmäßig versteckt
+
+      questionSection.innerHTML = `
+        <h3>${frage.titel}</h3>
+        <p><strong>Frage:</strong> ${frage.frageText}</p>
+        <textarea id="antwort-${frage.id}" placeholder="Ihre Antwort hier..."></textarea>
+        <div class="button-group">
+          <button onclick="bewerteAntwort('${frage.id}')">Antwort prüfen</button>
+          <button onclick="zeigeMusterloesung('${frage.id}')">Musterlösung anzeigen</button>
+        </div>
+        <div id="feedback-${frage.id}" class="feedback"></div>
+        <div id="muster-${frage.id}" class="musterloesung-section">
+          <h4>Musterlösung:</h4>
+          <p>${frage.musterloesung.replace(/\n/g, '<br>')}</p>
+        </div>
+      `;
+      themaBlock.appendChild(questionSection);
+    });
+  }
+
+  // Zeigt ein bestimmtes Thema an (erste Frage dieses Themas)
+  function zeigeThema(themaID) {
+    document.querySelectorAll('.thema-block').forEach(block => {
+      block.style.display = 'none';
+    });
+    const themaElement = document.getElementById('thema-' + themaID);
+    if (themaElement) {
+      themaElement.style.display = 'block';
+      document.getElementById('thema-sub-titel').textContent = themen[themaID].h2Text;
+      aktuellesThema = themaID;
+      // Erstelle UI und zeige die erste Frage
+      erstelleFragenUI(themaID);
+      zeigeFrage(themaID, 0); // Zeige die erste Frage nach dem Laden
+    }
+  }
+
+  // Zeigt eine spezifische Frage innerhalb eines Themas an
+  function zeigeFrage(themaID, frageIndex) {
+    const fragenArray = alleGeladeneFragen[themaID];
+    if (!fragenArray || fragenArray.length <= frageIndex) {
+      console.error(`Frage mit Index ${frageIndex} für Thema ${themaID} nicht gefunden.`);
+      return;
     }
 
-    function zeigeMusterloesung() {
-      document.getElementById("musterloesungSection").style.display = "block";
-    }
+    const frageID = fragenArray[frageIndex].id; // Die eindeutige ID der Frage
 
-    document.addEventListener('DOMContentLoaded', ladeFragen);
-  </script>
+    document.querySelectorAll(`#thema-${themaID} .question-section`).forEach(section => {
+      section.style.display = 'none';
+    });
+    document.getElementById(frageID).style.display = 'block'; // Zeige die Frage anhand ihrer eindeutigen ID
+
+    document.querySelectorAll(`#thema-${themaID} .question-navigation-bar button`).forEach(btn => {
+      btn.classList.remove('active');
+    });
+    document.getElementById(`nav-${frageID}`).classList.add('active'); // Aktiviere den richtigen Nav-Button
+
+    aktuelleFrageIndex = frageIndex; // Aktualisiere den globalen Index
+  }
+
+  // Zeigt die Musterlösung an
+  function zeigeMusterloesung(frageID) {
+    document.getElementById(`muster-${frageID}`).style.display = "block";
+  }
+
+  // Initialisierung beim Laden der Seite
+  async function initialisiereApp() {
+    const hash = window.location.hash.substring(1);
+    const startThemaID = hash || 'pe-prozess'; // Standardthema oder aus URL-Hash
+    zeigeThema(startThemaID);
+  }
+
+  // App starten
+  ladeFragen();
+
+</script>
+
 </body>
 </html>
