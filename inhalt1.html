@@ -152,7 +152,6 @@
     .hinweis { color: #d17b00; }
     .error { color: red; }
   </style>
-  <script src="https://unpkg.com/snowball-stemmer.jsx@0.2.3/dest/german-stemmer.global.min.js"></script>
   
 </head>
 <body>
@@ -165,28 +164,32 @@
       </div>
   </div>
 
- <script>
+  <script>
     let aktuellesThemaID = 'pe-prozess'; // Standardthema
     let alleGeladeneFragen = {}; // Speichert geladene Fragen pro Thema
     let aktuelleFrageIndex = 0; // Index der aktuell angezeigten Frage im Array
 
-    // --- Stemming-Funktion mit der geladenen Bibliothek (CDN-Version) ---
-    // Die GermanStemmer-Funktion sollte jetzt global verfügbar sein.
-    // Direkter Aufruf der Stemmer-Funktion, die vom CDN global bereitgestellt wird.
+    // --- Start: Eigene, einfache Stemming-Funktion ---
     function stemWord(word) {
-      // Stellen Sie sicher, dass 'GermanStemmer' global verfügbar ist.
-      // Der CDN-Link sollte 'GermanStemmer' direkt als Funktion bereitstellen,
-      // die ein Wort stemmt, nicht als Klasse, die instanziiert werden muss.
-      if (typeof GermanStemmer === 'function') {
-        const stemmedResult = GermanStemmer(word); // Direktaufruf der globalen Funktion
-        // console.log(`Stemming-Input: "${word}", Stemming-Output: "${stemmedResult}", Typ: ${typeof stemmedResult}`);
-        return stemmedResult;
-      } else {
-        console.error("GermanStemmer Funktion ist nicht global verfügbar.");
-        return word; // Fallback: ungestemmtes Wort zurückgeben
+      word = word.toLowerCase();
+      // Entferne gängige deutsche Endungen
+      if (word.length > 3) {
+          if (word.endsWith('keit')) return word.slice(0, -4);
+          if (word.endsWith('ung')) return word.slice(0, -3);
+          if (word.endsWith('lich')) return word.slice(0, -4);
+          if (word.endsWith('heit')) return word.slice(0, -4);
+          if (word.endsWith('schaft')) return word.slice(0, -6);
+          // Pluralendungen und Verbendungen
+          if (word.endsWith('en')) return word.slice(0, -2);
+          if (word.endsWith('er')) return word.slice(0, -2);
+          if (word.endsWith('e')) return word.slice(0, -1);
+          if (word.endsWith('s')) return word.slice(0, -1); // Genitiv oder Plural
+          if (word.endsWith('t')) return word.slice(0, -1);
+          if (word.endsWith('st')) return word.slice(0, -2); // Superlativ-Endung oder Verb-Endung
       }
+      return word;
     }
-    // --- Ende Stemming-Funktion ---
+    // --- Ende: Eigene, einfache Stemming-Funktion ---
 
 
     // Funktion zum Laden einer JSON-Datei für ein bestimmtes Thema
@@ -231,7 +234,6 @@
       const normalisierteAntwort = normalisiereText(benutzerAntwort);
       // Die Antwort in einzelne Wörter zerlegen und jedes Wort stemmen
       const gestemmteAntwortWoerter = normalisierteAntwort.split(/\s+/).filter(Boolean).map(word => stemWord(word));
-      // console.log("Gestemmte Antwort Wörter:", gestemmteAntwortWoerter); // <-- Temporärer Log, kann entfernt werden
       
       const antwortZeilen = benutzerAntwort.split('\n').filter(line => line.trim().length > 0); // Originalzeilen für Wortzählung
 
@@ -247,7 +249,7 @@
 
         // Prüfen, ob irgendein gestemmtes Keyword in den gestemmten Wörtern der Antwort vorkommt
         const keywordInAntwortGefunden = gestemmteKriteriumKeywords.some(stemmedKw => {
-            return gestemmteAntwortWoerter.some(stemmedAntwortWort => stemmedAntwortWort && typeof stemmedAntwortWort === 'string' && stemmedAntwortWort.includes(stemmedKw));
+            return gestemmteAntwortWoerter.some(stemmedAntwortWort => stemmedAntwortWort.includes(stemmedKw));
         });
 
         if (keywordInAntwortGefunden) {
@@ -260,7 +262,7 @@
                 
                 // Überprüfen, ob ein gestemmtes Keyword in dieser gestemmten Zeile ist
                 const keywordInZeileGefunden = gestemmteKriteriumKeywords.some(stemmedKw => {
-                    return gestemmteZeileWoerter.some(stemmedZeilenWort => stemmedZeilenWort && typeof stemmedZeilenWort === 'string' && stemmedZeilenWort.includes(stemmedKw));
+                    return gestemmteZeileWoerter.some(stemmedZeilenWort => stemmedZeilenWort.includes(stemmedKw));
                 });
 
                 if (keywordInZeileGefunden && wordCountInLine >= kriterium.minWoerterFuerBeschreibung) {
@@ -389,6 +391,5 @@
     initialisiereApp();
 
   </script>
-
 </body>
 </html>
