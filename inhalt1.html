@@ -82,7 +82,7 @@
       font-family: inherit; /* Die Schriftart wird vom body-Element geerbt */
       box-sizing: border-box; /* Stellt sicher, dass Padding und Border in der Breite enthalten sind */
     }
-    button.check-button { /* Legacy-Klasse, wird durch btn-check-answer ersetzt */
+    .btn-check-answer { /* Style for the check answer button from the template */
       display: block;
       padding: 15px 20px;
       background-color: #28a745;
@@ -92,40 +92,20 @@
       font-size: 1.2em;
       cursor: pointer;
       transition: background-color 0.3s ease;
-      margin-top: 30px;
+      margin-top: 20px; /* Adjusted margin-top for consistency */
       width: 100%;
+      box-sizing: border-box;
     }
-    button.check-button:hover {
+    .btn-check-answer:hover {
       background-color: #218838;
     }
-    button.check-button:active {
-      transform: scale(0.98);
+    .btn-check-answer.recheck-button { /* Gelb für "Antwort erneut prüfen" */
+        background-color: #d4ac0d;
     }
-    button.recheck-button {
-      background-color: #d4ac0d;
+    .btn-check-answer.recheck-button:hover {
+        background-color: #b38e0b;
     }
-    button.recheck-button:hover {
-      background-color: #b38e0b;
-    }
-    button.solution-button { /* Legacy-Klasse, wird durch btn-toggle-musterloesung ersetzt */
-      display: block;
-      padding: 15px 20px;
-      background-color: #1a4e8a;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      font-size: 1.2em;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      margin-top: 30px;
-      width: 100%;
-    }
-    button.solution-button:hover {
-      background-color: #1a3e7a;
-    }
-    button.solution-button:active {
-      transform: scale(0.98);
-    }
+
     .question-section {
       padding: 25px;
       border: 1px solid #cddff5;
@@ -145,17 +125,14 @@
     .feedback-section.highlight {
         background-color: #d8e5f8;
     }
-    .solution-section { /* Für Musterlösung, wird durch correct-answer-content ersetzt */
+    .correct-answer-content-container { /* Neues Styling für Musterlösung */
       margin-top: 20px;
       padding: 15px;
       background-color: #e6eff9;
       border-left: 5px solid #1a4e8a;
       border-radius: 5px;
     }
-    .ok { color: green; }
-    .hinweis { color: #d17b00; }
-    .error { color: red; }
-
+    
     /* New styles for feedback criteria */
     .criteria-feedback {
       margin-top: 10px;
@@ -202,24 +179,7 @@
     .btn-toggle-musterloesung:hover {
         background-color: #0056b3;
     }
-    .btn-check-answer { /* Style for the check answer button from the template */
-      display: block;
-      padding: 15px 20px;
-      background-color: #28a745;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      font-size: 1.2em;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      margin-top: 20px; /* Adjusted margin-top for consistency */
-      width: 100%;
-      box-sizing: border-box;
-    }
-    .btn-check-answer:hover {
-      background-color: #218838;
-    }
-
+    
     /* Responsive adjustments */
     @media (max-width: 768px) {
         body {
@@ -274,14 +234,15 @@
       <button class="btn-check-answer">Antwort überprüfen</button>
       
       <div class="feedback-section" style="display:none;">
-        <h4>Bewertung:</h4>
-        <div class="criteria-feedback"></div>
+        <h4>Feedback:</h4> <div class="criteria-feedback"></div>
         <div class="score-display">Gesamterreichung: <span class="score-percentage"></span>%</div>
       </div>
 
       <div class="correct-answer-toggle" style="margin-top: 20px;">
-        <button class="btn-info btn-toggle-musterloesung">Musterlösung anzeigen</button>
-        <div class="correct-answer-content" style="display:none;"></div>
+        <button class="btn-info btn-toggle-musterloesung" style="display:none;">Musterlösung anzeigen</button>
+        <div class="correct-answer-content-container" style="display:none;">
+            <div class="correct-answer-content"></div>
+        </div>
       </div>
     </div>
   </template>
@@ -343,7 +304,7 @@
           }
           alleGeladeneFragen[frage.themaID].push(frage);
           
-          // Stelle sicher, dass themen[themaID].fragen die IDs der Fragen enthält,
+          // Stelle sicher, dass themen[frage.themaID].fragen die IDs der Fragen enthält,
           // aber nur wenn das Thema bereits im 'themen'-Objekt existiert.
           if (themen[frage.themaID] && !themen[frage.themaID].fragen.includes(frage.id)) {
             themen[frage.themaID].fragen.push(frage.id);
@@ -422,19 +383,28 @@
             userAnswerTextarea.id = `user-answer-${frage.id}`; // Eindeutige ID für die Textarea
             clone.querySelector('label').setAttribute('for', userAnswerTextarea.id);
 
-            clone.querySelector('.btn-check-answer').addEventListener('click', () => {
+            const checkAnswerButton = clone.querySelector('.btn-check-answer'); // Punkt 3: Button referenzieren
+            checkAnswerButton.addEventListener('click', () => {
                 evaluateAnswer(frage.id, questionSection, frage);
+                // Punkt 3: Button-Text und -Farbe nach Überprüfung ändern
+                checkAnswerButton.textContent = 'Antwort erneut prüfen';
+                checkAnswerButton.classList.add('recheck-button');
+                // Punkt 2: Musterlösungs-Button einblenden
+                clone.querySelector('.btn-toggle-musterloesung').style.display = 'block';
             });
 
-            const correctAnswerContentDiv = clone.querySelector('.correct-answer-content');
-            correctAnswerContentDiv.innerHTML = frage.musterloesung.replace(/\n/g, '<br>');
+            // Punkt 5: Asterisken aus Musterlösung entfernen
+            const cleanedMusterloesung = frage.musterloesung.replace(/\*/g, '').replace(/\n/g, '<br>');
+            clone.querySelector('.correct-answer-content').innerHTML = cleanedMusterloesung;
+            
             const toggleMusterloesungBtn = clone.querySelector('.btn-toggle-musterloesung');
+            const correctAnswerContentContainer = clone.querySelector('.correct-answer-content-container'); // Punkt 4: Neuer Container
             toggleMusterloesungBtn.addEventListener('click', (event) => {
-                if (correctAnswerContentDiv.style.display === 'none') {
-                    correctAnswerContentDiv.style.display = 'block';
+                if (correctAnswerContentContainer.style.display === 'none') {
+                    correctAnswerContentContainer.style.display = 'block'; // Punkt 4: Container anzeigen
                     event.target.textContent = 'Musterlösung ausblenden';
                 } else {
-                    correctAnswerContentDiv.style.display = 'none';
+                    correctAnswerContentContainer.style.display = 'none'; // Punkt 4: Container ausblenden
                     event.target.textContent = 'Musterlösung anzeigen';
                 }
             });
@@ -507,35 +477,30 @@
             }
 
             if (keywordFound) {
-                // Check word count for sufficient description
                 const cleanUserAnswer = userAnswer.toLowerCase().replace(/[.,!?;:()"]/g, '');
-                // Split by spaces and filter out empty strings to count words
                 const wordsInUserAnswer = cleanUserAnswer.split(/\s+/).filter(word => word.length > 0);
                 let sufficientlyDescribed = false;
 
-                // Simple check for sufficient description: total words in answer
                 if (wordsInUserAnswer.length >= criterion.minWoerterFuerBeschreibung) {
                     sufficientlyDescribed = true;
                 }
                 
-                // Refined check: Ensure a keyword is within a sufficient sentence context
-                // Iterate through sentences if a more granular check is needed.
-                // For now, we'll stick to overall word count if a keyword is found.
-                // This part could be made more sophisticated if needed.
-
                 if (sufficientlyDescribed) {
                     criterionScore = 2; // Full points
                     feedbackItem.classList.add('positive');
-                    feedbackItem.innerHTML = `<strong>${criterion.name}:</strong> Sehr gut! Der Punkt wurde genannt und ausreichend beschrieben.`;
+                    // Punkt 6: Logo hinzugefügt
+                    feedbackItem.innerHTML = `✔️ <strong>${criterion.name}:</strong> Sehr gut! Der Punkt wurde genannt und ausreichend beschrieben.`;
                 } else {
                     criterionScore = 1; // Partial points
                     feedbackItem.classList.add('neutral');
-                    feedbackItem.innerHTML = `<strong>${criterion.name}:</strong> ${criterion.feedback_kurz || 'Der Punkt wurde genannt, aber die Beschreibung ist noch nicht ausreichend.'}`;
+                    // Punkt 6: Logo hinzugefügt
+                    feedbackItem.innerHTML = `⚠️ <strong>${criterion.name}:</strong> ${criterion.feedback_kurz || 'Der Punkt wurde genannt, aber die Beschreibung ist noch nicht ausreichend.'}`;
                 }
             } else {
                 criterionScore = 0; // No points
                 feedbackItem.classList.add('negative');
-                feedbackItem.innerHTML = `<strong>${criterion.name}:</strong> Nicht gefunden. Ihre Antwort sollte diesen Punkt behandeln.`;
+                // Punkt 6: Logo hinzugefügt
+                feedbackItem.innerHTML = `❌ <strong>${criterion.name}:</strong> Nicht gefunden. Ihre Antwort sollte diesen Punkt behandeln.`;
             }
             userAchievedScore += criterionScore;
             criteriaFeedbackDiv.appendChild(feedbackItem);
