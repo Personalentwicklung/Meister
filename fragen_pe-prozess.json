@@ -9,7 +9,7 @@
     "bewertungskriterien": [
       {
         "name": "Bedarfsanalyse",
-        "keywords": ["bedarf", "bedarfsanalyse", "ermittlung", "qualifikationen", "befragung", "beobachtung", "dokumentenanalyse", "ermittelt", "fähigkeiten", "benötigt"],
+        "keywords": ["bedarf", "bedarfsanalyse", "ermittlung", "qualifikationen", "befragung", "beobachtung", "dokumentenanalyse", "ermittelt", "fähigkeiten", "benötigt", "können", "brauchen"],
         "minWoerterFuerBeschreibung": 25,
         "feedback_kurz": {
           "positiv": "Sehr gut! Die Bedarfsanalyse wurde präzise benannt und ausführlich beschrieben.",
@@ -19,7 +19,7 @@
       },
       {
         "name": "Zielplanung",
-        "keywords": ["ziel", "ziele", "zielplanung", "entwicklungsziele", "individuell", "unternehmerisch", "abstimmung", "lernziele", "richtung", "festgelegt", "erreicht"],
+        "keywords": ["ziel", "ziele", "zielplanung", "entwicklungsziele", "individuell", "unternehmerisch", "abstimmung", "lernziele", "richtung", "festgelegt", "erreicht", "definiert"],
         "minWoerterFuerBeschreibung": 18,
         "feedback_kurz": {
           "positiv": "Ausgezeichnet! Die Zielplanung wurde korrekt identifiziert und deren Bedeutung für die Zieldefinition erläutert.",
@@ -29,7 +29,7 @@
       },
       {
         "name": "Maßnahmengestaltung",
-        "keywords": ["maßnahme", "maßnahmen", "gestaltung", "gestalten", "auswählen", "pädagogisch", "wirtschaftlich", "planen", "fortbildungen", "angebote", "vorbereitet"],
+        "keywords": ["maßnahme", "maßnahmen", "gestaltung", "gestalten", "auswählen", "pädagogisch", "wirtschaftlich", "planen", "fortbildungen", "angebote", "vorbereitet", "lernmaßnahmen", "massnahmen"],
         "minWoerterFuerBeschreibung": 18,
         "feedback_kurz": {
           "positiv": "Sehr gut! Sie haben die Maßnahmengestaltung treffend beschrieben und auf die Auswahlkriterien hingewiesen.",
@@ -39,7 +39,7 @@
       },
       {
         "name": "Durchführung",
-        "keywords": ["durchführung", "umsetzung", "umsetzen", "schulung", "coaching", "training-on-the-job", "durchgeführt", "umgesetzt", "implementiert"],
+        "keywords": ["durchführung", "umsetzung", "umsetzen", "schulung", "coaching", "training-on-the-job", "durchgeführt", "umgesetzt", "implementiert", "betrieb", "umgesetzt"],
         "minWoerterFuerBeschreibung": 15,
         "feedback_kurz": {
           "positiv": "Perfekt! Die Durchführung wurde klar benannt und mit passenden Beispielen untermauert.",
@@ -49,7 +49,7 @@
       },
       {
         "name": "Erfolgskontrolle",
-        "keywords": ["erfolgskontrolle", "kontrolle", "überprüfung", "feedback", "tests", "leistungsbeurteilung", "erfolg erzielt", "überprüft", "wirksamkeit", "gebracht", "beurteilt"],
+        "keywords": ["erfolgskontrolle", "kontrolle", "überprüfung", "feedback", "tests", "leistungsbeurteilung", "erfolg erzielt", "überprüft", "wirksamkeit", "gebracht", "beurteilt", "schaut"],
         "minWoerterFuerBeschreibung": 20,
         "feedback_kurz": {
           "positiv": "Sehr gut! Sie haben die Bedeutung der Erfolgskontrolle und deren Methoden umfassend dargestellt.",
