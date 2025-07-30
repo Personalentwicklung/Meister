@@ -25,243 +25,359 @@
             padding: 40px;
             border-radius: 10px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Schatten wie in ZIP-13 */
-            max-width: 900px; /* Max-Breite für bessere Lesbarkeit */
-            width: 100%; /* Breite anpassen */
-            margin-top: 20px; /* Abstand nach oben */
+            max-width: 900px; /* Max-Breite wie in ZIP-13 */
+            width: 100%;
+            box-sizing: border-box;
         }
 
-        /* Titel des Tests (direkt aus ZIP-13.html übernommen) */
+        /* Überschriftenstile (direkt aus ZIP-13.html übernommen) */
         h1 {
-            color: #2c3e50;
+            color: #1a4e8a; /* Dunkelblau, wie in ZIP-13 */
             text-align: center;
-            margin-bottom: 30px;
             font-size: 2.2em;
-        }
-
-        /* Styling für einzelne Fragen-Sektionen */
-        .question-section {
-            background-color: #ffffff;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 25px;
-            margin-bottom: 30px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-        }
-
-        .question-section h2 {
-            color: #34495e;
             margin-top: 0;
-            font-size: 1.6em;
-            margin-bottom: 15px;
+            margin-bottom: 5px;
+            font-weight: bold; /* Explizit bold wie in ZIP-13 */
         }
 
-        .question-section p {
-            line-height: 1.8;
-            margin-bottom: 20px;
-            font-size: 1.1em;
-            color: #555;
-        }
-
-        /* Textarea für die Antwort */
-        textarea {
-            width: calc(100% - 20px);
-            padding: 15px;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-family: inherit;
-            font-size: 1.05em;
-            min-height: 150px;
-            resize: vertical; /* Ermöglicht vertikales Resizing */
-            box-sizing: border-box; /* Padding und Border sind Teil der Gesamtbreite */
-        }
-
-        /* Buttons */
-        .btn {
-            display: inline-block;
-            padding: 12px 25px;
-            font-size: 1.1em;
-            font-weight: bold;
+        h2 {
+            color: #1a4e8a; /* Konsistent mit H1, wie in ZIP-13 */
             text-align: center;
-            text-decoration: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            white-space: nowrap; /* Verhindert Zeilenumbruch bei langen Texten */
-        }
-
-        .btn-check-answer {
-            background-color: #28a745; /* Grün für "Antwort überprüfen" */
-            color: white;
-            border: none;
-        }
-
-        .btn-check-answer:hover {
-            background-color: #218838;
-            transform: translateY(-2px);
-        }
-
-        .recheck-button {
-            background-color: #ffc107; /* Orange für "Antwort erneut prüfen" */
-            color: #333;
-            border: none;
-        }
-
-        .recheck-button:hover {
-            background-color: #e0a800;
-            transform: translateY(-2px);
-        }
-
-        .btn-solution {
-            background-color: #007bff; /* Blau für "Musterlösung anzeigen" */
-            color: white;
-            border: none;
-            margin-left: 15px; /* Abstand zum Check-Button */
-        }
-
-        .btn-solution:hover {
-            background-color: #0056b3;
-            transform: translateY(-2px);
-        }
-
-        /* Feedback Sektion */
-        .feedback-section {
-            background-color: #e9f7ef; /* Helles Grün */
-            border: 1px solid #c3e6cb;
-            border-radius: 8px;
-            padding: 20px;
-            margin-top: 25px;
-            display: none; /* Standardmäßig versteckt */
-        }
-
-        .feedback-section h3 {
-            color: #28a745; /* Dunkelgrün */
+            font-size: 1.5em; /* Wie in ZIP-13 */
+            font-weight: normal; /* Normal für Subtitel wie in ZIP-13 */
             margin-top: 0;
-            margin-bottom: 15px;
-            font-size: 1.4em;
+            margin-bottom: 30px; /* Wie in ZIP-13 */
         }
 
-        .feedback-section ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .feedback-section ul li {
+        h3 {
+            color: #1a4e8a; /* Farbe wie in ZIP-13 */
+            font-size: 1.2em;
+            margin-top: 0;
             margin-bottom: 10px;
-            font-size: 1.05em;
+            font-weight: bold; /* Standardmäßig fett für H3 wie in ZIP-13 */
+        }
+
+        /* Fragen-Navigationsleiste */
+        .question-navigation-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px; /* Abstand wie in ZIP-13 */
+            margin-bottom: 30px; /* Abstand nach unten wie in ZIP-13 */
+            justify-content: center;
+        }
+
+        .question-navigation-bar button {
+            /* Exakte Maße und Farben aus ZIP-13.html */
+            padding: 10px 20px; /* Einheitliche Höhe durch Padding wie in ZIP-13 */
+            font-size: 14px; /* Reduzierte Font-Size für feineren Look */
+            cursor: pointer;
+            background-color: #666; /* Standardfarbe wie in ZIP-13 */
+            color: white;
+            border: 1px solid #444; /* Rahmenfarbe wie in ZIP-13 */
+            border-radius: 5px;
+            transition: background-color 0.2s ease, border-color 0.2s ease;
+            line-height: 1; /* Wichtig für konsistente Button-Höhen */
+            box-sizing: border-box;
+            min-width: 80px;
+            font-weight: normal; /* "Filigraner" Font-Weight */
+        }
+
+        .question-navigation-bar button:hover:not(.active) {
+            background-color: #555; /* Leichte Abdunklung beim Hover */
+            border-color: #333;
+        }
+
+        .question-navigation-bar button.active {
+            /* Exakte Maße und Farben aus ZIP-13.html */
+            background-color: #1a4e8a; /* Aktive Farbe wie in ZIP-13 */
+            color: white;
+            border-color: #1a4e8a;
+            box-shadow: none; /* Kein Schatten im aktiven Zustand wie in ZIP-13 */
+        }
+
+        .question-navigation-bar button.active:hover {
+            background-color: #1a3e7a; /* Dunklerer Ton beim Hover im aktiven Zustand */
+            border-color: #1a3e7a;
+        }
+
+        /* Fragen-Sektion */
+        .question-section {
+            padding: 25px;
+            border: 1px solid #cddff5; /* Rahmenfarbe wie in ZIP-13 */
+            margin-bottom: 30px;
+            border-radius: 8px;
+            background-color: #ffffff; /* Hintergrundfarbe wie in ZIP-13 */
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Schatten wie in ZIP-13 */
+        }
+
+        .question-text {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            font-weight: bold; /* Frage in Bold, wie gewünscht */
+        }
+
+        /* Hinweis-Text über der Textarea */
+        .input-hint-text {
+            font-size: 0.95em;
+            color: #555;
+            margin-top: -10px; /* Etwas näher an die Frage rücken */
+            margin-bottom: 10px; /* Abstand zur Textarea */
+        }
+
+        /* Textarea für Benutzerantwort */
+        textarea.user-answer {
+            width: 100%;
+            height: 200px; /* Höhe wie in ZIP-13 */
+            font-size: 1.05em; /* Leicht erhöhte Font-Size */
+            padding: 15px;
+            margin-bottom: 20px; /* Abstand zum nächsten Element */
+            border: 1px solid #cddff5; /* Rahmenfarbe wie in ZIP-13 */
+            border-left: 5px solid #1a4e8a; /* Blauer Balken links wie in ZIP-13 */
+            border-radius: 5px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Schriftart wie Body */
+            box-sizing: border-box;
+            resize: vertical; /* Nur vertikal skalierbar */
+            transition: border-color 0.3s;
+        }
+
+        textarea.user-answer:focus {
+            border-color: #1a4e8a;
+            outline: none;
+        }
+
+        /* Button-Gruppe für Überprüfen */
+        .button-group {
+            display: flex;
+            flex-direction: column; /* Buttons untereinander */
+            gap: 15px; /* Abstand zwischen den Buttons */
+            align-items: center; /* Zentrierung */
+            margin-bottom: 20px; /* Abstand zum dynamischen Text */
+        }
+
+        /* "Antwort überprüfen" Button */
+        button.btn-check-answer {
+            /* Exakte Maße und Farben aus ZIP-13.html */
+            padding: 15px 20px; /* Padding wie in ZIP-13 */
+            background-color: #28a745; /* Grüne Farbe wie in ZIP-13 */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px; /* Reduzierte Font-Size für feineren Look */
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+            max-width: 300px; /* Max-Breite für Buttons */
+            box-sizing: border-box;
+            font-weight: normal; /* "Filigraner" Font-Weight */
+        }
+
+        button.btn-check-answer:hover {
+            background-color: #218838;
+        }
+
+        button.btn-check-answer.recheck-button {
+            /* Exakte Maße und Farben aus ZIP-13.html */
+            background-color: #d4ac0d; /* Gelbe Farbe wie in ZIP-13 */
+        }
+
+        button.btn-check-answer.recheck-button:hover {
+            background-color: #c0980e; /* Dunkleres Gelb beim Hover */
+        }
+
+        /* Dynamischer Text "Möchtest du..." */
+        .recheck-info-text {
+            text-align: center;
+            font-style: italic;
+            color: #555;
+            margin-top: -10px; /* Etwas näher an Textarea rücken */
+            margin-bottom: 20px; /* Abstand zum Button */
+            display: none; /* Standardmäßig ausgeblendet */
+        }
+
+        /* Feedback-Bereich (direkt aus ZIP-13.html's .feedback-section) */
+        .feedback-section {
+            margin-top: 20px; /* Wie in ZIP-13 */
+            padding: 15px; /* Wie in ZIP-13 */
+            background-color: #e6eff9; /* Hintergrundfarbe wie in ZIP-13 */
+            border-left: 5px solid #1a4e8a; /* Blauer Balken links wie in ZIP-13 */
+            border-radius: 5px; /* Leichte Rundung */
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05); /* Leichter Schatten */
+            display: none; /* Initial ausgeblendet */
+        }
+
+        .feedback-header {
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+            color: #1a4e8a;
+        }
+
+        .feedback-details {
+            margin-top: 10px;
+        }
+
+        .feedback-item {
+            margin-bottom: 8px;
+            padding: 2px 0;
             display: flex;
             align-items: flex-start;
+            line-height: 1.4;
         }
 
-        .feedback-section ul li .icon {
+        .feedback-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .feedback-icon {
+            font-size: 1.2em;
             margin-right: 10px;
-            font-size: 1.2em;
-            min-width: 20px; /* Für konsistente Ausrichtung */
+            flex-shrink: 0;
+            padding-top: 1px;
         }
 
-        .feedback-section ul li .text {
-            flex-grow: 1;
-        }
-
-        .total-score {
+        .feedback-item strong {
             font-weight: bold;
-            margin-top: 15px;
-            font-size: 1.2em;
-            color: #34495e;
-            text-align: right;
-            border-top: 1px solid #eee;
-            padding-top: 15px;
         }
 
-        /* Musterlösung Sektion */
-        .solution-section {
-            background-color: #f0f8ff; /* Helles Blau */
-            border: 1px solid #b3d9ff;
-            border-radius: 8px;
-            padding: 20px;
+        /* Farben für Feedback-Icons und Text */
+        .feedback-item.ok { color: green; } /* Exakt Grün wie in ZIP-13 */
+        .feedback-item.hinweis { color: #d17b00; } /* Orange wie in ZIP-13 */
+        .feedback-item.error { color: red; } /* Rot wie in ZIP-13 */
+
+        /* Punktestand-Anzeige */
+        .score {
             margin-top: 20px;
-            display: none; /* Standardmäßig versteckt */
+            font-weight: bold;
+            font-size: 1.1em;
+            color: #1a4e8a;
+            border-top: 1px solid #dcdcdc;
+            padding-top: 12px;
+            text-align: right; /* Rechtsbündig für den Score */
         }
 
-        .solution-section h3 {
-            color: #007bff; /* Dunkelblau */
-            margin-top: 0;
-            margin-bottom: 15px;
-            font-size: 1.4em;
+        /* Musterlösung-Anzeige Button (unter dem Feedback-Feld platziert) */
+        button.btn-toggle-musterloesung {
+            /* Exakte Maße und Farben aus ZIP-13.html */
+            background-color: #1a4e8a; /* Blaue Farbe wie in ZIP-13 */
+            color: white;
+            border: none;
+            padding: 15px 20px; /* Padding wie in ZIP-13 */
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px; /* Reduzierte Font-Size für feineren Look */
+            transition: background-color 0.3s ease;
+            width: 100%;
+            max-width: 300px; /* Max-Breite für Buttons */
+            display: block;
+            box-sizing: border-box;
+            font-weight: normal; /* "Filigraner" Font-Weight */
+            margin-top: 30px; /* Abstand zum Feedback-Feld */
+            margin-left: auto; /* Zentrierung */
+            margin-right: auto; /* Zentrierung */
         }
 
-        .solution-section .correct-answer-content p {
-            margin-bottom: 10px;
+        button.btn-toggle-musterloesung:hover {
+            background-color: #1a3e7a; /* Dunkleres Blau beim Hover */
+        }
+
+        /* Musterlösung-Inhaltscontainer (direkt aus ZIP-13.html's .solution-section) */
+        .correct-answer-content-container {
+            margin-top: 20px; /* Wie in ZIP-13 */
+            padding: 15px; /* Wie in ZIP-13 */
+            background-color: #e6eff9; /* Hintergrundfarbe wie in ZIP-13 */
+            border-left: 5px solid #1a4e8a; /* Blauer Balken links wie in ZIP-13 */
+            border-radius: 5px; /* Leichte Rundung */
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05); /* Leichter Schatten */
+            display: none; /* Initial ausgeblendet */
+        }
+
+        .correct-answer-content-container p {
+            margin-bottom: 8px; /* Reduzierter Zeilenabstand für Absätze */
             line-height: 1.6;
         }
 
-        .solution-section .correct-answer-content strong {
-            font-weight: bold;
-            color: #333;
+        .correct-answer-content-container p:last-child {
+            margin-bottom: 0;
         }
 
-        /* Symbole für Feedback */
-        .icon.positive { color: #28a745; } /* Grün */
-        .icon.neutral { color: #ffc107; }  /* Orange */
-        .icon.negative { color: #dc3545; } /* Rot */
-
-        .recheck-info-text {
-            color: #6c757d;
-            font-size: 0.95em;
-            margin-top: 10px;
-            display: none; /* Standardmäßig versteckt */
-        }
-
-        /* Responsive Design (falls benötigt, hier nur Basis) */
+        /* Responsives Design */
         @media (max-width: 768px) {
             .container {
-                padding: 20px;
+                padding: 30px 20px;
             }
-            body {
-                padding: 20px 10px;
+
+            .question-navigation-bar button,
+            button.btn-check-answer,
+            button.btn-toggle-musterloesung {
+                font-size: 1em; /* Anpassung für kleinere Bildschirme */
+                padding: 12px 15px;
             }
-            .btn {
-                width: 100%;
-                margin-left: 0;
-                margin-top: 10px;
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            h2 {
+                font-size: 1.2em;
+            }
+
+            textarea.user-answer {
+                height: 150px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px 15px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container" id="question-container">
-        <h1>Der Personalentwicklungsprozess</h1>
+    <div class="container">
+        <h1>MIKP - Personalentwicklung</h1>
+        <h2 id="thema-sub-titel">Personalentwicklungsprozess</h2>
+
+        <div class="question-navigation-bar" id="questionNavigationBar">
+            <!-- Dynamisch generierte Fragen-Buttons -->
         </div>
 
-    <template id="question-template">
-        <div class="question-section" data-question-id="">
-            <h2 class="question-title"></h2>
-            <p class="question-text"></p>
-            <textarea class="user-answer" placeholder="Ihre Antwort hier eingeben..."></textarea>
-            <div style="display: flex; align-items: center; flex-wrap: wrap;">
-                <button class="btn btn-check-answer">Antwort überprüfen</button>
-                <button class="btn btn-solution" style="display: none;">Musterlösung anzeigen</button>
-            </div>
-            <p class="recheck-info-text">Um eine Antwort erneut zu prüfen, können Sie Änderungen vornehmen und den Button erneut klicken.</p>
+        <div id="questionSectionContainer">
+            <!-- Hier wird die aktuelle Frage gerendert -->
+        </div>
 
-            <div class="feedback-section" style="display: none;">
-                <h3>Ihr Feedback:</h3>
-                <ul class="feedback-list">
-                    </ul>
-                <p class="total-score"></p>
-            </div>
-
-            <div class="solution-section" style="display: none;">
-                <h3>Musterlösung:</h3>
-                <div class="correct-answer-content">
+        <!-- Template für die Fragen -->
+        <template id="questionTemplate">
+            <div class="question-section">
+                <h3 class="question-title"></h3>
+                <p class="question-text"></p>
+                <p class="input-hint-text">Bitte gib deine Antwort im folgenden Feld ein:</p>
+                <textarea class="user-answer" rows="8" placeholder="Deine Antwort hier..."></textarea>
+                <div class="recheck-info-text">Möchtest du deine Antwort noch einmal überarbeiten und erneut prüfen?</div>
+                <div class="button-group">
+                    <button class="btn-check-answer">Antwort überprüfen</button>
+                </div>
+                <div class="feedback-section">
+                    <div class="feedback-header">Feedback zu Ihrer Antwort:</div>
+                    <div class="feedback-details">
+                        <!-- Dynamisch generiertes Feedback -->
                     </div>
+                    <div class="score"></div>
+                </div>
+                <!-- Musterlösung-Button ist jetzt außerhalb der Button-Group und nach dem Feedback-Bereich -->
+                <button class="btn-toggle-musterloesung">Musterlösung anzeigen</button>
+                <div class="correct-answer-content-container">
+                    <div class="feedback-header">Musterlösung:</div>
+                    <div class="correct-answer-content">
+                        <!-- Dynamisch generierte Musterlösung -->
+                    </div>
+                </div>
             </div>
-        </div>
-    </template>
+        </template>
+    </div>
 
-    <script>
-        let questions = []; // Hier werden die geladenen Fragen gespeichert
+let questions = []; // Hier werden die geladenen Fragen gespeichert
         const defaultThemaId = 'pe-prozess'; // Die Standard-Themen-ID für diese Seite
 
         async function loadQuestions() {
@@ -284,6 +400,9 @@
             const template = document.getElementById('question-template');
 
             // Überschrift nicht erneut hinzufügen, wenn sie schon da ist
+            // Diese Logik ist aus der vorherigen Version und müsste evtl. angepasst werden,
+            // falls die Überschrift von der Hauptseite kommt.
+            // Für jetzt belassen wir sie so, wie sie in der letzten Version war.
             if (container.querySelector('h1') === null) {
                  const h1 = document.createElement('h1');
                  h1.textContent = 'Der Personalentwicklungsprozess';
@@ -329,7 +448,7 @@
             });
         }
 
-        // VERBESSERTER SIMPLE STEMMER (TEIL A)
+        // VERBESSERTER SIMPLE STEMMER
         function simpleStemmer(word) {
             // Umwandlung in Kleinbuchstaben und Entfernen aller nicht-alphanumerischen Zeichen
             // Behält Umlaute bei (äöüß)
@@ -382,7 +501,8 @@
             const toggleSolutionButton = document.getElementById('toggle-solution-button-' + currentQuestion.id);
             const recheckInfoText = document.getElementById('recheck-info-text-' + currentQuestion.id);
             const checkButton = document.getElementById('check-answer-button-' + currentQuestion.id);
-            const solutionTextElement = document.getElementById('solution-text-' + currentQuestion.id); // Nicht verwendet, kann entfernt werden wenn nicht gebraucht
+            // solutionTextElement ist hier deklariert, aber nicht direkt verwendet.
+            // const solutionTextElement = document.getElementById('solution-text-' + currentQuestion.id); 
 
             feedbackList.innerHTML = ''; // Vorheriges Feedback leeren
 
@@ -401,7 +521,7 @@
                 for (const userWord of userWords) {
                     const stemmedUserWord = simpleStemmer(userWord);
                     for (const stemmedKeyword of stemmedKeywords) {
-                        // PRÜFUNG AUF EXAKTEN MATCH DES GESTEMMTEN WORTES (TEIL B)
+                        // PRÜFUNG AUF EXAKTEN MATCH DES GESTEMMTEN WORTES
                         if (stemmedUserWord === stemmedKeyword) {
                             hasKeyword = true;
                             break; // Keyword gefunden, Schleife für dieses Kriterium beenden
@@ -474,6 +594,5 @@
 
         // Start der Anwendung
         document.addEventListener('DOMContentLoaded', loadQuestions);
-    </script>
 </body>
 </html>
