@@ -25,538 +25,426 @@
             padding: 40px;
             border-radius: 10px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Schatten wie in ZIP-13 */
-            max-width: 900px; /* Max-Breite wie in ZIP-13 */
-            width: 100%;
-            box-sizing: border-box;
+            max-width: 900px; /* Max-Breite für bessere Lesbarkeit */
+            width: 100%; /* Breite anpassen */
+            margin-top: 20px; /* Abstand nach oben */
         }
 
-        /* Überschriftenstile (direkt aus ZIP-13.html übernommen) */
+        /* Titel des Tests (direkt aus ZIP-13.html übernommen) */
         h1 {
-            color: #1a4e8a; /* Dunkelblau, wie in ZIP-13 */
+            color: #2c3e50;
             text-align: center;
-            font-size: 2.2em;
-            margin-top: 0;
-            margin-bottom: 5px;
-            font-weight: bold; /* Explizit bold wie in ZIP-13 */
-        }
-
-        h2 {
-            color: #1a4e8a; /* Konsistent mit H1, wie in ZIP-13 */
-            text-align: center;
-            font-size: 1.5em; /* Wie in ZIP-13 */
-            font-weight: normal; /* Normal für Subtitel wie in ZIP-13 */
-            margin-top: 0;
-            margin-bottom: 30px; /* Wie in ZIP-13 */
-        }
-
-        h3 {
-            color: #1a4e8a; /* Farbe wie in ZIP-13 */
-            font-size: 1.2em;
-            margin-top: 0;
-            margin-bottom: 10px;
-            font-weight: bold; /* Standardmäßig fett für H3 wie in ZIP-13 */
-        }
-
-        /* Fragen-Navigationsleiste */
-        .question-navigation-bar {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px; /* Abstand wie in ZIP-13 */
-            margin-bottom: 30px; /* Abstand nach unten wie in ZIP-13 */
-            justify-content: center;
-        }
-
-        .question-navigation-bar button {
-            /* Exakte Maße und Farben aus ZIP-13.html */
-            padding: 10px 20px; /* Einheitliche Höhe durch Padding wie in ZIP-13 */
-            font-size: 14px; /* Reduzierte Font-Size für feineren Look */
-            cursor: pointer;
-            background-color: #666; /* Standardfarbe wie in ZIP-13 */
-            color: white;
-            border: 1px solid #444; /* Rahmenfarbe wie in ZIP-13 */
-            border-radius: 5px;
-            transition: background-color 0.2s ease, border-color 0.2s ease;
-            line-height: 1; /* Wichtig für konsistente Button-Höhen */
-            box-sizing: border-box;
-            min-width: 80px;
-            font-weight: normal; /* "Filigraner" Font-Weight */
-        }
-
-        .question-navigation-bar button:hover:not(.active) {
-            background-color: #555; /* Leichte Abdunklung beim Hover */
-            border-color: #333;
-        }
-
-        .question-navigation-bar button.active {
-            /* Exakte Maße und Farben aus ZIP-13.html */
-            background-color: #1a4e8a; /* Aktive Farbe wie in ZIP-13 */
-            color: white;
-            border-color: #1a4e8a;
-            box-shadow: none; /* Kein Schatten im aktiven Zustand wie in ZIP-13 */
-        }
-
-        .question-navigation-bar button.active:hover {
-            background-color: #1a3e7a; /* Dunklerer Ton beim Hover im aktiven Zustand */
-            border-color: #1a3e7a;
-        }
-
-        /* Fragen-Sektion */
-        .question-section {
-            padding: 25px;
-            border: 1px solid #cddff5; /* Rahmenfarbe wie in ZIP-13 */
             margin-bottom: 30px;
+            font-size: 2.2em;
+        }
+
+        /* Styling für einzelne Fragen-Sektionen */
+        .question-section {
+            background-color: #ffffff;
+            border: 1px solid #ddd;
             border-radius: 8px;
-            background-color: #ffffff; /* Hintergrundfarbe wie in ZIP-13 */
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Schatten wie in ZIP-13 */
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
         }
 
-        .question-text {
-            font-size: 1.1em;
+        .question-section h2 {
+            color: #34495e;
+            margin-top: 0;
+            font-size: 1.6em;
+            margin-bottom: 15px;
+        }
+
+        .question-section p {
+            line-height: 1.8;
             margin-bottom: 20px;
-            line-height: 1.6;
-            font-weight: bold; /* Frage in Bold, wie gewünscht */
-        }
-
-        /* Hinweis-Text über der Textarea */
-        .input-hint-text {
-            font-size: 0.95em;
+            font-size: 1.1em;
             color: #555;
-            margin-top: -10px; /* Etwas näher an die Frage rücken */
-            margin-bottom: 10px; /* Abstand zur Textarea */
         }
 
-        /* Textarea für Benutzerantwort */
-        textarea.user-answer {
-            width: 100%;
-            height: 200px; /* Höhe wie in ZIP-13 */
-            font-size: 1.05em; /* Leicht erhöhte Font-Size */
+        /* Textarea für die Antwort */
+        textarea {
+            width: calc(100% - 20px);
             padding: 15px;
-            margin-bottom: 20px; /* Abstand zum nächsten Element */
-            border: 1px solid #cddff5; /* Rahmenfarbe wie in ZIP-13 */
-            border-left: 5px solid #1a4e8a; /* Blauer Balken links wie in ZIP-13 */
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
             border-radius: 5px;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Schriftart wie Body */
-            box-sizing: border-box;
-            resize: vertical; /* Nur vertikal skalierbar */
-            transition: border-color 0.3s;
+            font-family: inherit;
+            font-size: 1.05em;
+            min-height: 150px;
+            resize: vertical; /* Ermöglicht vertikales Resizing */
+            box-sizing: border-box; /* Padding und Border sind Teil der Gesamtbreite */
         }
 
-        textarea.user-answer:focus {
-            border-color: #1a4e8a;
-            outline: none;
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            font-size: 1.1em;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            white-space: nowrap; /* Verhindert Zeilenumbruch bei langen Texten */
         }
 
-        /* Button-Gruppe für Überprüfen */
-        .button-group {
-            display: flex;
-            flex-direction: column; /* Buttons untereinander */
-            gap: 15px; /* Abstand zwischen den Buttons */
-            align-items: center; /* Zentrierung */
-            margin-bottom: 20px; /* Abstand zum dynamischen Text */
-        }
-
-        /* "Antwort überprüfen" Button */
-        button.btn-check-answer {
-            /* Exakte Maße und Farben aus ZIP-13.html */
-            padding: 15px 20px; /* Padding wie in ZIP-13 */
-            background-color: #28a745; /* Grüne Farbe wie in ZIP-13 */
+        .btn-check-answer {
+            background-color: #28a745; /* Grün für "Antwort überprüfen" */
             color: white;
             border: none;
-            border-radius: 5px;
-            font-size: 16px; /* Reduzierte Font-Size für feineren Look */
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            width: 100%;
-            max-width: 300px; /* Max-Breite für Buttons */
-            box-sizing: border-box;
-            font-weight: normal; /* "Filigraner" Font-Weight */
         }
 
-        button.btn-check-answer:hover {
+        .btn-check-answer:hover {
             background-color: #218838;
+            transform: translateY(-2px);
         }
 
-        button.btn-check-answer.recheck-button {
-            /* Exakte Maße und Farben aus ZIP-13.html */
-            background-color: #d4ac0d; /* Gelbe Farbe wie in ZIP-13 */
+        .recheck-button {
+            background-color: #ffc107; /* Orange für "Antwort erneut prüfen" */
+            color: #333;
+            border: none;
         }
 
-        button.btn-check-answer.recheck-button:hover {
-            background-color: #c0980e; /* Dunkleres Gelb beim Hover */
+        .recheck-button:hover {
+            background-color: #e0a800;
+            transform: translateY(-2px);
         }
 
-        /* Dynamischer Text "Möchtest du..." */
-        .recheck-info-text {
-            text-align: center;
-            font-style: italic;
-            color: #555;
-            margin-top: -10px; /* Etwas näher an Textarea rücken */
-            margin-bottom: 20px; /* Abstand zum Button */
-            display: none; /* Standardmäßig ausgeblendet */
+        .btn-solution {
+            background-color: #007bff; /* Blau für "Musterlösung anzeigen" */
+            color: white;
+            border: none;
+            margin-left: 15px; /* Abstand zum Check-Button */
         }
 
-        /* Feedback-Bereich (direkt aus ZIP-13.html's .feedback-section) */
+        .btn-solution:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        /* Feedback Sektion */
         .feedback-section {
-            margin-top: 20px; /* Wie in ZIP-13 */
-            padding: 15px; /* Wie in ZIP-13 */
-            background-color: #e6eff9; /* Hintergrundfarbe wie in ZIP-13 */
-            border-left: 5px solid #1a4e8a; /* Blauer Balken links wie in ZIP-13 */
-            border-radius: 5px; /* Leichte Rundung */
-            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05); /* Leichter Schatten */
-            display: none; /* Initial ausgeblendet */
+            background-color: #e9f7ef; /* Helles Grün */
+            border: 1px solid #c3e6cb;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 25px;
+            display: none; /* Standardmäßig versteckt */
         }
 
-        .feedback-header {
-            font-weight: bold;
+        .feedback-section h3 {
+            color: #28a745; /* Dunkelgrün */
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+
+        .feedback-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .feedback-section ul li {
             margin-bottom: 10px;
-            font-size: 1.1em;
-            color: #1a4e8a;
-        }
-
-        .feedback-details {
-            margin-top: 10px;
-        }
-
-        .feedback-item {
-            margin-bottom: 8px;
-            padding: 2px 0;
+            font-size: 1.05em;
             display: flex;
             align-items: flex-start;
-            line-height: 1.4;
         }
 
-        .feedback-item:last-child {
-            margin-bottom: 0;
-        }
-
-        .feedback-icon {
-            font-size: 1.2em;
+        .feedback-section ul li .icon {
             margin-right: 10px;
-            flex-shrink: 0;
-            padding-top: 1px;
+            font-size: 1.2em;
+            min-width: 20px; /* Für konsistente Ausrichtung */
         }
 
-        .feedback-item strong {
+        .feedback-section ul li .text {
+            flex-grow: 1;
+        }
+
+        .total-score {
             font-weight: bold;
+            margin-top: 15px;
+            font-size: 1.2em;
+            color: #34495e;
+            text-align: right;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
         }
 
-        /* Farben für Feedback-Icons und Text */
-        .feedback-item.ok { color: green; } /* Exakt Grün wie in ZIP-13 */
-        .feedback-item.hinweis { color: #d17b00; } /* Orange wie in ZIP-13 */
-        .feedback-item.error { color: red; } /* Rot wie in ZIP-13 */
-
-        /* Punktestand-Anzeige */
-        .score {
+        /* Musterlösung Sektion */
+        .solution-section {
+            background-color: #f0f8ff; /* Helles Blau */
+            border: 1px solid #b3d9ff;
+            border-radius: 8px;
+            padding: 20px;
             margin-top: 20px;
-            font-weight: bold;
-            font-size: 1.1em;
-            color: #1a4e8a;
-            border-top: 1px solid #dcdcdc;
-            padding-top: 12px;
-            text-align: right; /* Rechtsbündig für den Score */
+            display: none; /* Standardmäßig versteckt */
         }
 
-        /* Musterlösung-Anzeige Button (unter dem Feedback-Feld platziert) */
-        button.btn-toggle-musterloesung {
-            /* Exakte Maße und Farben aus ZIP-13.html */
-            background-color: #1a4e8a; /* Blaue Farbe wie in ZIP-13 */
-            color: white;
-            border: none;
-            padding: 15px 20px; /* Padding wie in ZIP-13 */
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px; /* Reduzierte Font-Size für feineren Look */
-            transition: background-color 0.3s ease;
-            width: 100%;
-            max-width: 300px; /* Max-Breite für Buttons */
-            display: block;
-            box-sizing: border-box;
-            font-weight: normal; /* "Filigraner" Font-Weight */
-            margin-top: 30px; /* Abstand zum Feedback-Feld */
-            margin-left: auto; /* Zentrierung */
-            margin-right: auto; /* Zentrierung */
+        .solution-section h3 {
+            color: #007bff; /* Dunkelblau */
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 1.4em;
         }
 
-        button.btn-toggle-musterloesung:hover {
-            background-color: #1a3e7a; /* Dunkleres Blau beim Hover */
-        }
-
-        /* Musterlösung-Inhaltscontainer (direkt aus ZIP-13.html's .solution-section) */
-        .correct-answer-content-container {
-            margin-top: 20px; /* Wie in ZIP-13 */
-            padding: 15px; /* Wie in ZIP-13 */
-            background-color: #e6eff9; /* Hintergrundfarbe wie in ZIP-13 */
-            border-left: 5px solid #1a4e8a; /* Blauer Balken links wie in ZIP-13 */
-            border-radius: 5px; /* Leichte Rundung */
-            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05); /* Leichter Schatten */
-            display: none; /* Initial ausgeblendet */
-        }
-
-        .correct-answer-content-container p {
-            margin-bottom: 8px; /* Reduzierter Zeilenabstand für Absätze */
+        .solution-section .correct-answer-content p {
+            margin-bottom: 10px;
             line-height: 1.6;
         }
 
-        .correct-answer-content-container p:last-child {
-            margin-bottom: 0;
+        .solution-section .correct-answer-content strong {
+            font-weight: bold;
+            color: #333;
         }
 
-        /* Responsives Design */
+        /* Symbole für Feedback */
+        .icon.positive { color: #28a745; } /* Grün */
+        .icon.neutral { color: #ffc107; }  /* Orange */
+        .icon.negative { color: #dc3545; } /* Rot */
+
+        .recheck-info-text {
+            color: #6c757d;
+            font-size: 0.95em;
+            margin-top: 10px;
+            display: none; /* Standardmäßig versteckt */
+        }
+
+        /* Responsive Design (falls benötigt, hier nur Basis) */
         @media (max-width: 768px) {
             .container {
-                padding: 30px 20px;
+                padding: 20px;
             }
-
-            .question-navigation-bar button,
-            button.btn-check-answer,
-            button.btn-toggle-musterloesung {
-                font-size: 1em; /* Anpassung für kleinere Bildschirme */
-                padding: 12px 15px;
+            body {
+                padding: 20px 10px;
             }
-
-            h1 {
-                font-size: 1.8em;
-            }
-
-            h2 {
-                font-size: 1.2em;
-            }
-
-            textarea.user-answer {
-                height: 150px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .container {
-                padding: 20px 15px;
+            .btn {
+                width: 100%;
+                margin-left: 0;
+                margin-top: 10px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>MIKP - Personalentwicklung</h1>
-        <h2 id="thema-sub-titel">Personalentwicklungsprozess</h2>
-
-        <div class="question-navigation-bar" id="questionNavigationBar">
-            <!-- Dynamisch generierte Fragen-Buttons -->
+    <div class="container" id="question-container">
+        <h1>Der Personalentwicklungsprozess</h1>
         </div>
 
-        <div id="questionSectionContainer">
-            <!-- Hier wird die aktuelle Frage gerendert -->
-        </div>
-
-        <!-- Template für die Fragen -->
-        <template id="questionTemplate">
-            <div class="question-section">
-                <h3 class="question-title"></h3>
-                <p class="question-text"></p>
-                <p class="input-hint-text">Bitte gib deine Antwort im folgenden Feld ein:</p>
-                <textarea class="user-answer" rows="8" placeholder="Deine Antwort hier..."></textarea>
-                <div class="recheck-info-text">Möchtest du deine Antwort noch einmal überarbeiten und erneut prüfen?</div>
-                <div class="button-group">
-                    <button class="btn-check-answer">Antwort überprüfen</button>
-                </div>
-                <div class="feedback-section">
-                    <div class="feedback-header">Feedback zu Ihrer Antwort:</div>
-                    <div class="feedback-details">
-                        <!-- Dynamisch generiertes Feedback -->
-                    </div>
-                    <div class="score"></div>
-                </div>
-                <!-- Musterlösung-Button ist jetzt außerhalb der Button-Group und nach dem Feedback-Bereich -->
-                <button class="btn-toggle-musterloesung">Musterlösung anzeigen</button>
-                <div class="correct-answer-content-container">
-                    <div class="feedback-header">Musterlösung:</div>
-                    <div class="correct-answer-content">
-                        <!-- Dynamisch generierte Musterlösung -->
-                    </div>
-                </div>
+    <template id="question-template">
+        <div class="question-section" data-question-id="">
+            <h2 class="question-title"></h2>
+            <p class="question-text"></p>
+            <textarea class="user-answer" placeholder="Ihre Antwort hier eingeben..."></textarea>
+            <div style="display: flex; align-items: center; flex-wrap: wrap;">
+                <button class="btn btn-check-answer">Antwort überprüfen</button>
+                <button class="btn btn-solution" style="display: none;">Musterlösung anzeigen</button>
             </div>
-        </template>
-    </div>
+            <p class="recheck-info-text">Um eine Antwort erneut zu prüfen, können Sie Änderungen vornehmen und den Button erneut klicken.</p>
+
+            <div class="feedback-section" style="display: none;">
+                <h3>Ihr Feedback:</h3>
+                <ul class="feedback-list">
+                    </ul>
+                <p class="total-score"></p>
+            </div>
+
+            <div class="solution-section" style="display: none;">
+                <h3>Musterlösung:</h3>
+                <div class="correct-answer-content">
+                    </div>
+            </div>
+        </div>
+    </template>
 
     <script>
-        let questions = [];
-        let currentQuestionIndex = 0;
-        const defaultThemaId = "pe-prozess"; // Festgelegte ThemaID
-
-        // Rudimentärer Snowball Stemmer (für eine robustere Anwendung wird eine externe Bibliothek empfohlen)
-        function simpleStemmer(word) {
-            word = word.toLowerCase();
-            // Entfernen von Satzzeichen
-            word = word.replace(/[.,!?;:()"]/g, '');
-            // Sehr einfache Stemming-Regeln für Deutsch
-            if (word.endsWith('en')) return word.slice(0, -2);
-            if (word.endsWith('n')) return word.slice(0, -1);
-            if (word.endsWith('ung')) return word.slice(0, -3);
-            if (word.endsWith('lich')) return word.slice(0, -4);
-            if (word.endsWith('keit')) return word.slice(0, -4);
-            if (word.endsWith('schaft')) return word.slice(0, -6);
-            if (word.endsWith('er')) return word.slice(0, -2); // z.B. Manager -> Manag
-            return word;
-        }
+        let questions = []; // Hier werden die geladenen Fragen gespeichert
+        const defaultThemaId = 'pe-prozess'; // Die Standard-Themen-ID für diese Seite
 
         async function loadQuestions() {
             try {
                 const response = await fetch('fragen_pe-prozess.json');
                 if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
+                    throw new Error(`HTTP-Fehler! Status: ${response.status}`);
                 }
                 const data = await response.json();
-                questions = data.filter(q => q.themaID === defaultThemaId);
-                // Fragen nach frageNummer sortieren, um die korrekte Reihenfolge zu gewährleisten
-                questions.sort((a, b) => a.frageNummer - b.frageNummer);
-
-                if (questions.length === 0) {
-                    document.getElementById('questionSectionContainer').innerHTML = '<p>Keine Fragen für dieses Thema gefunden.</p>';
-                    return;
-                }
-                renderNavigationBar();
-                zeigeFrage(0); // Zeigt die erste Frage beim Start
+                questions = data.filter(q => q.themaID === defaultThemaId).sort((a, b) => a.frageNummer - b.frageNummer);
+                displayQuestions();
             } catch (error) {
                 console.error("Fehler beim Laden der Fragen:", error);
-                document.getElementById('questionSectionContainer').innerHTML = `<p>Fehler beim Laden der Fragen: ${error.message}. Bitte überprüfen Sie die Konsolenmeldung.</p>`;
+                document.getElementById('question-container').innerHTML = '<p style="color: red; text-align: center;">Fehler beim Laden der Fragen. Bitte versuchen Sie es später erneut.</p>';
             }
         }
 
-        function renderNavigationBar() {
-            const navBar = document.getElementById('questionNavigationBar');
-            navBar.innerHTML = '';
-            questions.forEach((q, index) => {
-                const button = document.createElement('button');
-                button.textContent = `Frage ${q.frageNummer}`; // Nutze frageNummer für den Button-Text
-                button.onclick = () => zeigeFrage(index);
-                if (index === currentQuestionIndex) {
-                    button.classList.add('active');
-                }
-                navBar.appendChild(button);
+        function displayQuestions() {
+            const container = document.getElementById('question-container');
+            const template = document.getElementById('question-template');
+
+            // Überschrift nicht erneut hinzufügen, wenn sie schon da ist
+            if (container.querySelector('h1') === null) {
+                 const h1 = document.createElement('h1');
+                 h1.textContent = 'Der Personalentwicklungsprozess';
+                 container.appendChild(h1);
+            } else {
+                 // Vorhandene Fragen entfernen, falls bereits geladen
+                 container.querySelectorAll('.question-section').forEach(section => section.remove());
+            }
+
+            questions.forEach((question, index) => {
+                const clone = document.importNode(template.content, true);
+                const questionSection = clone.querySelector('.question-section');
+                questionSection.dataset.questionId = question.id; // Speichern der ID im Dataset
+
+                clone.querySelector('.question-title').textContent = question.titel;
+                clone.querySelector('.question-text').textContent = question.frageText;
+
+                const answerInput = clone.querySelector('.user-answer');
+                answerInput.id = 'answer-input-' + question.id; // Eindeutige ID vergeben
+                answerInput.value = question.userAnswer || ''; // Laden der vorherigen Antwort, falls vorhanden
+
+                const checkButton = clone.querySelector('.btn-check-answer');
+                checkButton.id = 'check-answer-button-' + question.id; // Eindeutige ID
+                checkButton.addEventListener('click', () => evaluateAnswer(index));
+
+                const toggleSolutionButton = clone.querySelector('.btn-solution');
+                toggleSolutionButton.id = 'toggle-solution-button-' + question.id; // Eindeutige ID
+                const solutionContainer = clone.querySelector('.solution-section');
+                solutionContainer.id = 'solution-section-' + question.id; // Eindeutige ID
+                toggleSolutionButton.addEventListener('click', () => toggleMusterloesung(question, toggleSolutionButton, solutionContainer));
+
+                const feedbackSection = clone.querySelector('.feedback-section');
+                feedbackSection.id = 'feedback-section-' + question.id; // Eindeutige ID
+                const feedbackList = clone.querySelector('.feedback-list');
+                feedbackList.id = 'feedback-list-' + question.id; // Eindeutige ID
+                const totalScoreElement = clone.querySelector('.total-score');
+                totalScoreElement.id = 'total-score-' + question.id; // Eindeutige ID
+
+                const recheckInfoText = clone.querySelector('.recheck-info-text');
+                recheckInfoText.id = 'recheck-info-text-' + question.id; // Eindeutige ID
+
+                container.appendChild(clone);
             });
         }
 
-        function zeigeFrage(index) {
-            if (index < 0 || index >= questions.length) return;
+        // VERBESSERTER SIMPLE STEMMER (TEIL A)
+        function simpleStemmer(word) {
+            // Umwandlung in Kleinbuchstaben und Entfernen aller nicht-alphanumerischen Zeichen
+            // Behält Umlaute bei (äöüß)
+            word = word.toLowerCase().replace(/[^a-zäöüß]/g, ''); 
 
-            currentQuestionIndex = index;
-            const question = questions[currentQuestionIndex];
-            const container = document.getElementById('questionSectionContainer');
-            const template = document.getElementById('questionTemplate');
-            const clone = document.importNode(template.content, true);
-
-            clone.querySelector('.question-title').textContent = question.titel;
-            clone.querySelector('.question-text').textContent = question.frageText;
-
-            const answerInput = clone.querySelector('.user-answer');
-            const checkAnswerButton = clone.querySelector('.btn-check-answer');
-            const toggleSolutionButton = clone.querySelector('.btn-toggle-musterloesung');
-            const feedbackSection = clone.querySelector('.feedback-section');
-            const solutionContainer = clone.querySelector('.correct-answer-content-container');
-            const recheckInfoText = clone.querySelector('.recheck-info-text');
-
-            // Setzt den Zustand der Buttons und Textfelder zurück
-            answerInput.value = question.userAnswer || ''; // Lädt gespeicherte Antwort
-            checkAnswerButton.textContent = 'Antwort überprüfen';
-            checkAnswerButton.classList.remove('recheck-button');
-            toggleSolutionButton.style.display = 'none'; // Musterlösungsbutton verstecken
-            feedbackSection.style.display = 'none';      // Feedback-Sektion verstecken
-            solutionContainer.style.display = 'none';     // Musterlösung-Container verstecken
-            recheckInfoText.style.display = 'none';       // Dynamischen Text beim Fragenwechsel ausblenden
-
-            checkAnswerButton.onclick = () => evaluateAnswer(question, answerInput, checkAnswerButton, toggleSolutionButton, feedbackSection, solutionContainer, recheckInfoText);
-            toggleSolutionButton.onclick = () => toggleMusterloesung(question, toggleSolutionButton, solutionContainer);
-
-            container.innerHTML = ''; // Vorherige Frage entfernen
-            container.appendChild(clone);
-
-            renderNavigationBar(); // Aktualisiert den aktiven Button in der Navigation
+            // Ein etwas verbesserter, aber immer noch einfacher Stemmer für Deutsch
+            // Längere Endungen zuerst prüfen
+            if (word.length > 3) { // Nur bei längeren Wörtern stemmen, um Kernwörter nicht zu verstümmeln
+                if (word.endsWith('schaften')) {
+                    word = word.slice(0, -7);
+                } else if (word.endsWith('ungen')) {
+                    word = word.slice(0, -5);
+                } else if (word.endsWith('ieren')) {
+                    word = word.slice(0, -5);
+                } else if (word.endsWith('ismus')) {
+                    word = word.slice(0, -5);
+                } else if (word.endsWith('erung')) {
+                    word = word.slice(0, -5);
+                } else if (word.endsWith('en')) {
+                    word = word.slice(0, -2);
+                } else if (word.endsWith('ern')) {
+                    word = word.slice(0, -3);
+                } else if (word.endsWith('es')) {
+                    word = word.slice(0, -2);
+                } else if (word.endsWith('e')) {
+                    word = word.slice(0, -1);
+                } else if (word.endsWith('n')) {
+                    word = word.slice(0, -1);
+                } else if (word.endsWith('s')) {
+                    word = word.slice(0, -1);
+                } else if (word.endsWith('st')) {
+                    word = word.slice(0, -2);
+                } else if (word.endsWith('est')) {
+                    word = word.slice(0, -3);
+                }
+            }
+            return word;
         }
 
-        function evaluateAnswer(question, answerInput, checkAnswerButton, toggleSolutionButton, feedbackSection, solutionContainer, recheckInfoText) {
+        async function evaluateAnswer(questionIndex) {
+            const currentQuestion = questions[questionIndex];
+            const answerInput = document.getElementById('answer-input-' + currentQuestion.id);
             const userAnswer = answerInput.value;
-            // Speichern der Benutzerantwort
-            question.userAnswer = userAnswer;
+            // Speichere die aktuelle Antwort temporär im Fragenobjekt (nur im Browser-Speicher)
+            currentQuestion.userAnswer = userAnswer; 
 
-            const stemmedUserAnswer = userAnswer.split(/\s+/)
-                                                .map(word => simpleStemmer(word))
-                                                .filter(word => word.length > 0);
+            const feedbackSection = document.getElementById('feedback-section-' + currentQuestion.id);
+            const feedbackList = document.getElementById('feedback-list-' + currentQuestion.id);
+            const totalScoreElement = document.getElementById('total-score-' + currentQuestion.id);
+            const toggleSolutionButton = document.getElementById('toggle-solution-button-' + currentQuestion.id);
+            const recheckInfoText = document.getElementById('recheck-info-text-' + currentQuestion.id);
+            const checkButton = document.getElementById('check-answer-button-' + currentQuestion.id);
+            const solutionTextElement = document.getElementById('solution-text-' + currentQuestion.id); // Nicht verwendet, kann entfernt werden wenn nicht gebraucht
 
+            feedbackList.innerHTML = ''; // Vorheriges Feedback leeren
+
+            const userWords = userAnswer.split(/\s+/).filter(word => word.length > 0);
             let totalPoints = 0;
             let maxPoints = 0;
-            const feedbackDetails = feedbackSection.querySelector('.feedback-details');
-            feedbackDetails.innerHTML = ''; // Vorheriges Feedback löschen
 
-            question.bewertungskriterien.forEach(kriterium => {
-                maxPoints += 2; // Jedes Kriterium hat max. 2 Punkte
-
+            for (const kriterium of currentQuestion.bewertungskriterien) {
+                let hasKeyword = false;
                 let points = 0;
                 let feedbackText = '';
-                let hasKeyword = false;
-                let meetsMinWords = false;
+                maxPoints += 2; // Jedes Kriterium kann max. 2 Punkte geben
 
-                // Keyword-Matching
-                for (const keyword of kriterium.keywords) {
-                    const stemmedKeyword = simpleStemmer(keyword);
-                    if (stemmedUserAnswer.includes(stemmedKeyword)) {
-                        hasKeyword = true;
-                        break;
+                const stemmedKeywords = kriterium.keywords.map(kw => simpleStemmer(kw));
+
+                for (const userWord of userWords) {
+                    const stemmedUserWord = simpleStemmer(userWord);
+                    for (const stemmedKeyword of stemmedKeywords) {
+                        // PRÜFUNG AUF EXAKTEN MATCH DES GESTEMMTEN WORTES (TEIL B)
+                        if (stemmedUserWord === stemmedKeyword) {
+                            hasKeyword = true;
+                            break; // Keyword gefunden, Schleife für dieses Kriterium beenden
+                        }
                     }
+                    if (hasKeyword) break; // Keyword gefunden, Schleife für dieses Kriterium beenden
                 }
 
-                // Mindestwörter für Beschreibung (optionales Kriterium)
-                const userWordCount = userAnswer.split(/\s+/).filter(word => word.length > 0).length;
-                if (kriterium.minWoerterFuerBeschreibung && kriterium.minWoerterFuerBeschreibung > 0) {
-                    if (userWordCount >= kriterium.minWoerterFuerBeschreibung) {
-                        meetsMinWords = true;
-                    }
-                } else {
-                    meetsMinWords = true; // Wenn keine Mindestwörter definiert, gilt es als erfüllt
-                }
+                const meetsMinWords = userWords.length >= kriterium.minWoerterFuerBeschreibung;
 
+                // Punktevergabe und Feedback-Generierung
+                let iconClass = '';
                 if (hasKeyword && meetsMinWords) {
-                    points = 2; // Volle Punktzahl
+                    points = 2;
                     feedbackText = kriterium.feedback_kurz.positiv || 'Sehr gut! Der Punkt wurde genannt und ausreichend beschrieben.';
+                    iconClass = 'positive';
                 } else if (hasKeyword && !meetsMinWords) {
-                    points = 1; // Teilweise Punktzahl
+                    points = 1;
                     feedbackText = kriterium.feedback_kurz.neutral || 'Der Punkt wurde genannt, aber die Beschreibung ist noch nicht ausreichend.';
+                    iconClass = 'neutral';
                 } else {
-                    points = 0; // Keine Punkte
-                    feedbackText = kriterium.feedback_kurz.negativ || 'Nicht gefunden. Ihre Antwort sollte diesen Punkt behandeln.';
+                    points = 0;
+                    feedbackText = kriterium.feedback_kurz.negativ || 'Der Punkt wurde nicht gefunden. Ihre Antwort sollte diesen Punkt behandeln.';
+                    iconClass = 'negative';
                 }
 
                 totalPoints += points;
 
-                const feedbackItem = document.createElement('div');
-                feedbackItem.classList.add('feedback-item');
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `<span class="icon ${iconClass}">
+                                        ${iconClass === 'positive' ? '✅' : iconClass === 'neutral' ? '⚠️' : '❌'}
+                                      </span>
+                                      <span class="text">${feedbackText}</span>`;
+                feedbackList.appendChild(listItem);
+            }
 
-                let icon = '';
-                let feedbackClass = '';
-                if (points === 2) {
-                    icon = '✅';
-                    feedbackClass = 'ok';
-                } else if (points === 1) {
-                    icon = '⚠️';
-                    feedbackClass = 'hinweis';
-                } else {
-                    icon = '❌';
-                    feedbackClass = 'error';
-                }
-
-                feedbackItem.classList.add(feedbackClass);
-                feedbackItem.innerHTML = `<span class="feedback-icon">${icon}</span> <span><strong>${kriterium.name}:</strong> ${feedbackText}</span>`;
-                feedbackDetails.appendChild(feedbackItem);
-            });
-
-            const percentage = (maxPoints > 0) ? (totalPoints / maxPoints) * 100 : 0;
-            const scoreDisplay = feedbackSection.querySelector('.score');
-            scoreDisplay.textContent = `Gesamterreichung: ${percentage.toFixed(0)}%`;
-
+            totalScoreElement.textContent = `Gesamtpunktzahl: ${totalPoints} von ${maxPoints}`;
             feedbackSection.style.display = 'block';
-            toggleSolutionButton.style.display = 'block';
+            toggleSolutionButton.style.display = 'block'; // Musterlösungs-Button anzeigen
 
-            // Button-Text und -Farbe ändern
-            checkAnswerButton.textContent = 'Antwort erneut prüfen';
-            checkAnswerButton.classList.add('recheck-button');
+            // "Antwort überprüfen" Button anpassen
+            checkButton.textContent = 'Antwort erneut prüfen';
+            checkButton.classList.add('recheck-button');
 
             // Dynamischen Text anzeigen
             recheckInfoText.style.display = 'block';
