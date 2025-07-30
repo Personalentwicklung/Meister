@@ -9,7 +9,7 @@
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       margin: 0;
-      padding: 40px 20px;
+      padding: 40px 20px; /* Einheitlicher Padding wie im Original */
       background-color: #f0f2f5; /* Hintergrundfarbe wie im Original */
       color: #333;
       display: flex;
@@ -21,9 +21,9 @@
     /* Container für den gesamten Test, um ihn zu zentrieren und zu stylen (direkt aus ZIP-13.html übernommen) */
     .container {
       background-color: #ffffff;
-      padding: 40px;
-      border-radius: 10px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      padding: 40px; /* Wie im Original */
+      border-radius: 10px; /* Wie im Original */
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Wie im Original */
       max-width: 900px; /* Exakte Breite wie in ZIP-13.html */
       width: 100%;
       box-sizing: border-box;
@@ -33,8 +33,9 @@
       color: #1a4e8a; /* Dunkelblau, wie im Original */
       text-align: center;
       font-size: 2.2em;
+      margin-top: 0;
       margin-bottom: 5px;
-      font-weight: bold; /* Explizit bold */
+      font-weight: bold; /* Explizit bold wie im Original */
     }
     h2 {
       color: #1a4e8a; /* Konsistent mit H1 */
@@ -42,50 +43,50 @@
       font-size: 1.5em; /* Wie im Original */
       font-weight: normal; /* Normal für Subtitel */
       margin-top: 0;
-      margin-bottom: 25px;
+      margin-bottom: 25px; /* Wie im Original */
     }
     h3 {
       color: #1a4e8a;
       font-size: 1.2em;
       margin-top: 0;
       margin-bottom: 10px;
-      font-weight: bold; /* Standardmäßig fett für H3 */
+      font-weight: bold; /* Standardmäßig fett für H3 wie im Original */
     }
     /* Fragen-Navigationsleiste */
     .question-navigation-bar {
       display: flex;
       flex-wrap: wrap;
       gap: 10px; /* Abstand wie in ZIP-13.html */
-      margin-bottom: 25px; /* Abstand nach unten */
+      margin-bottom: 25px; /* Abstand nach unten wie im Original */
       justify-content: center;
     }
     .question-navigation-bar button {
       padding: 10px 18px; /* Angepasstes Padding für einheitliche Höhe wie im Original */
       font-size: 1em;
       cursor: pointer;
-      background-color: #f0f0f0; /* Hellgrau */
-      color: #333;
-      border: 1px solid #ccc;
-      border-radius: 5px; /* Abgerundet */
+      background-color: #f0f0f0; /* Hellgrau wie im Original */
+      color: #333; /* Textfarbe wie im Original */
+      border: 1px solid #ccc; /* Rand wie im Original */
+      border-radius: 5px; /* Abgerundet wie im Original */
       transition: background-color 0.2s ease, border-color 0.2s ease;
       line-height: 1; /* Wichtig für konsistente Button-Höhen */
       box-sizing: border-box;
       min-width: 80px; /* Mindestbreite, falls Text kurz ist */
-      font-weight: bold; /* Meist fett im Original */
+      font-weight: bold; /* Explizit bold für Nav-Buttons wie im Original */
     }
     .question-navigation-bar button.active {
-      background-color: #007bff; /* Aktiver Button-Hintergrund */
-      color: white;
-      border-color: #007bff;
-      box-shadow: 0 2px 5px rgba(0, 123, 255, 0.2); /* Kleiner Schatten für aktiven Button */
+      background-color: #007bff; /* Aktiver Button-Hintergrund wie im Original */
+      color: white; /* Textfarbe wie im Original */
+      border-color: #007bff; /* Randfarbe wie im Original */
+      box-shadow: 0 2px 5px rgba(0, 123, 255, 0.2); /* Kleiner Schatten für aktiven Button wie im Original */
     }
     .question-navigation-bar button:hover:not(.active) {
-      background-color: #e6e6e6;
-      border-color: #b3b3b3;
+      background-color: #e6e6e6; /* Hover-Farbe wie im Original */
+      border-color: #b3b3b3; /* Hover-Randfarbe wie im Original */
     }
     .question-navigation-bar button.active:hover {
-      background-color: #0056b3;
-      border-color: #0056b3;
+      background-color: #0056b3; /* Dunkleres Blau beim Hover wie im Original */
+      border-color: #0056b3; /* Randfarbe beim Hover wie im Original */
     }
     /* Textarea für Benutzerantwort */
     textarea {
@@ -94,9 +95,9 @@
       font-size: 1em;
       padding: 12px; /* Angepasstes Padding */
       margin-top: 10px;
-      border: 1px solid #cccccc;
-      border-left: 5px solid #007bff; /* Blauer Balken links */
-      border-radius: 5px;
+      border: 1px solid #cccccc; /* Rand wie im Original */
+      border-left: 5px solid #007bff; /* Blauer Balken links wie im Original */
+      border-radius: 5px; /* Wie im Original */
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Schriftart wie Body */
       box-sizing: border-box;
       resize: vertical; /* Nur vertikal skalierbar */
@@ -104,47 +105,47 @@
     /* "Antwort überprüfen" Button */
     .btn-check-answer {
       display: block;
-      padding: 12px 25px; /* Angepasstes Padding */
-      background-color: #28a745; /* Grün */
-      color: white;
+      padding: 12px 25px; /* Angepasstes Padding für Höhe */
+      background-color: #28a745; /* Grün wie im Original */
+      color: white; /* Textfarbe wie im Original */
       border: none;
-      border-radius: 5px;
+      border-radius: 5px; /* Wie im Original */
       font-size: 1.1em;
       cursor: pointer;
       transition: background-color 0.3s ease;
       margin-top: 30px; /* Abstand nach oben */
       width: 100%;
       box-sizing: border-box;
-      font-weight: bold;
+      font-weight: bold; /* Explizit bold wie im Original */
     }
     .btn-check-answer:hover {
-      background-color: #218838;
+      background-color: #218838; /* Dunkleres Grün beim Hover */
     }
     .btn-check-answer.recheck-button {
-        background-color: #ffc107; /* Gelb */
-        color: #333; /* Dunkle Schrift */
+        background-color: #ffc107; /* Gelb wie im Original */
+        color: #333; /* Dunkle Schrift wie im Original */
     }
     .btn-check-answer.recheck-button:hover {
-        background-color: #e0a800; /* Dunkleres Gelb */
+        background-color: #e0a800; /* Dunkleres Gelb beim Hover */
     }
 
     /* Fragen-Sektion */
     .question-section {
       padding: 25px; /* Angepasstes Padding */
-      border: 1px solid #e0e0e0; /* Hellerer Rand */
+      border: 1px solid #e0e0e0; /* Hellerer Rand wie im Original */
       margin-bottom: 30px; /* Abstand nach unten */
-      border-radius: 8px; /* Etwas stärker abgerundet */
-      background-color: #fdfdfd; /* Fast weiß */
-      box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06); /* Subtiler Schatten */
+      border-radius: 8px; /* Etwas stärker abgerundet wie im Original */
+      background-color: #fdfdfd; /* Fast weiß wie im Original */
+      box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06); /* Subtiler Schatten wie im Original */
     }
     /* Feedback- und Musterlösung-Bereiche (direkt aus ZIP-13.html's .feedback-section und .solution-section) */
     .feedback-section,
     .correct-answer-content-container { /* Anpassung des Selektors für correct-answer-content-container */
-      margin-top: 25px;
-      padding: 20px;
+      margin-top: 25px; /* Wie im Original */
+      padding: 20px; /* Wie im Original */
       background-color: #e6eff9; /* Hellblau, exakt wie im Original */
       border-left: 5px solid #1a4e8a; /* Dunkelblauer Balken links, exakt wie im Original */
-      border-radius: 5px;
+      border-radius: 5px; /* Wie im Original */
       box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05); /* Einheitlicher Schatten */
     }
     .feedback-section h4 {
@@ -162,7 +163,7 @@
     .feedback-item {
       margin-bottom: 8px; /* Mehr Abstand */
       padding: 7px 0;
-      border-bottom: 1px dashed #e0e0e0;
+      border-bottom: 1px dashed #e0e0e0; /* Wie im Original */
       display: flex;
       align-items: flex-start; /* Icons und Text oben bündig */
       line-height: 1.4;
@@ -188,29 +189,29 @@
       margin-top: 20px;
       font-weight: bold;
       font-size: 1.1em; /* Etwas größer */
-      color: #1a4e8a;
-      border-top: 1px solid #dcdcdc;
+      color: #1a4e8a; /* Wie im Original */
+      border-top: 1px solid #dcdcdc; /* Trennlinie */
       padding-top: 12px;
     }
 
     /* Musterlösung-Anzeige Button */
     .btn-toggle-musterloesung {
-        background-color: #007bff; /* Blau */
-        color: white;
+        background-color: #007bff; /* Blau wie im Original */
+        color: white; /* Textfarbe wie im Original */
         border: none;
-        padding: 10px 20px; /* Angepasstes Padding */
-        border-radius: 5px;
+        padding: 10px 20px; /* Angepasstes Padding für Höhe */
+        border-radius: 5px; /* Wie im Original */
         cursor: pointer;
         font-size: 1.05em;
         transition: background-color 0.3s ease;
         width: 100%;
         display: block;
         box-sizing: border-box;
-        font-weight: bold;
+        font-weight: bold; /* Explizit bold wie im Original */
         margin-top: 25px; /* Abstand zum oberen Element */
     }
     .btn-toggle-musterloesung:hover {
-        background-color: #0056b3;
+        background-color: #0056b3; /* Dunkleres Blau beim Hover */
     }
 
     /* Responsive Anpassungen */
