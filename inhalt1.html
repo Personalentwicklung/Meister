@@ -7,130 +7,132 @@
   <style>
     /* Allgemeine Einstellungen für den Body */
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: Arial, sans-serif; /* Oft eine Standard-Schriftart in älteren HTMLs */
       margin: 0;
-      padding: 40px 20px;
-      background-color: #f0f2f5;
+      padding: 20px; /* Etwas weniger Padding als zuvor, um näher am Original zu sein */
+      background-color: #e0e6ec; /* Hellerer, neutralerer Hintergrund */
       color: #333;
       display: flex;
       justify-content: center;
       align-items: flex-start;
       min-height: 100vh;
+      box-sizing: border-box; /* Stellt sicher, dass Padding in der Gesamtbreite enthalten ist */
     }
-    /* Container für den gesamten Test, um ihn zu zentrieren und zu stylen */
+    /* Container für den gesamten Test */
     .container {
       background-color: #ffffff;
-      padding: 40px;
-      border-radius: 10px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      max-width: 900px;
+      padding: 30px; /* Angepasstes Padding */
+      border-radius: 5px; /* Leichte Abrundung */
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Weniger aggressiver Schatten */
+      max-width: 800px; /* Etwas schmaler als 900px */
       width: 100%;
       box-sizing: border-box;
     }
     h1 {
-      color: #1a4e8a;
+      color: #0056b3; /* Dunkleres Blau für Überschriften, passend zu ZIP-13 */
       text-align: center;
-      font-size: 2.2em;
-      margin-bottom: 5px; /* Abstand zum Sub-Titel */
+      font-size: 2em;
+      margin-bottom: 5px;
+      font-weight: bold; /* Standard Bold */
     }
     h2 {
-      color: #1a4e8a;
+      color: #0056b3; /* Konsistent mit H1 */
       text-align: center;
-      font-size: 1.5em;
-      font-weight: normal; /* Nicht-bold-Anforderung */
+      font-size: 1.3em; /* Etwas kleiner */
+      font-weight: normal; /* Normal für Subtitel */
       margin-top: 0;
-      margin-bottom: 30px;
+      margin-bottom: 25px; /* Etwas weniger Abstand */
     }
     h3 {
       margin-top: 0;
-      color: #1a4e8a;
+      color: #0056b3; /* Konsistent mit anderen Überschriften */
+      font-size: 1.1em; /* Etwas kleiner */
+      margin-bottom: 10px;
     }
     .question-navigation-bar {
       display: flex;
-      flex-wrap: wrap; /* Ermöglicht Umbruch auf kleineren Bildschirmen */
-      gap: 10px;
+      flex-wrap: wrap;
+      gap: 8px; /* Etwas kleinerer Abstand */
       margin-bottom: 20px;
       justify-content: center;
     }
     .question-navigation-bar button {
-      padding: 10px 20px;
-      font-size: 16px;
+      padding: 8px 15px; /* Etwas kleineres Padding */
+      font-size: 15px; /* Angepasste Schriftgröße */
       cursor: pointer;
-      background-color: #666;
-      color: white;
-      border: 1px solid #444;
-      border-radius: 5px;
-      transition: background-color 0.1s ease;
+      background-color: #f0f0f0; /* Hellgrau */
+      color: #333;
+      border: 1px solid #ccc;
+      border-radius: 4px; /* Leichte Abrundung */
+      transition: background-color 0.1s ease, border-color 0.1s ease;
     }
     .question-navigation-bar button.active {
-      background-color: #1a4e8a;
+      background-color: #007bff; /* Typisches Link-Blau */
       color: white;
-      border-color: #1a4e8a;
+      border-color: #007bff;
     }
-    .question-navigation-bar button:active {
-      transform: scale(0.98);
+    .question-navigation-bar button:hover {
+      background-color: #e0e0e0;
+      border-color: #bbb;
+    }
+    .question-navigation-bar button.active:hover {
+      background-color: #0056b3; /* Dunkleres Blau beim Hover */
+      border-color: #0056b3;
     }
     textarea {
       width: 100%;
-      height: 200px;
-      font-size: 16px;
+      height: 180px; /* Etwas weniger Höhe */
+      font-size: 15px; /* Angepasste Schriftgröße */
       padding: 10px;
       margin-top: 10px;
-      border: 1px solid #cddff5;
-      border-left: 5px solid #1a4e8a; /* Blauer Balken links */
-      border-radius: 5px;
-      font-family: inherit; /* Die Schriftart wird vom body-Element geerbt */
-      box-sizing: border-box; /* Stellt sicher, dass Padding und Border in der Breite enthalten sind */
+      border: 1px solid #cccccc; /* Hellerer Rand */
+      border-left: 5px solid #007bff; /* Blauer Balken links */
+      border-radius: 4px;
+      font-family: inherit;
+      box-sizing: border-box;
+      resize: vertical; /* Nur vertikal skalierbar */
     }
-    .btn-check-answer { /* Style for the check answer button from the template */
+    .btn-check-answer {
       display: block;
-      padding: 15px 20px;
-      background-color: #28a745;
+      padding: 12px 20px; /* Angepasstes Padding */
+      background-color: #28a745; /* Grüner Standard */
       color: white;
       border: none;
-      border-radius: 5px;
-      font-size: 1.2em;
+      border-radius: 4px;
+      font-size: 1.1em; /* Etwas kleiner */
       cursor: pointer;
       transition: background-color 0.3s ease;
-      margin-top: 20px; /* Adjusted margin-top for consistency */
+      margin-top: 25px; /* Angepasster Abstand */
       width: 100%;
       box-sizing: border-box;
     }
     .btn-check-answer:hover {
       background-color: #218838;
     }
-    .btn-check-answer.recheck-button { /* Gelb für "Antwort erneut prüfen" */
-        background-color: #d4ac0d;
+    .btn-check-answer.recheck-button {
+        background-color: #ffc107; /* Helles Gelb für Recheck */
+        color: #333; /* Dunkle Schrift auf hellem Gelb */
     }
     .btn-check-answer.recheck-button:hover {
-        background-color: #b38e0b;
+        background-color: #e0a800; /* Dunkleres Gelb beim Hover */
     }
 
     .question-section {
-      padding: 25px;
-      border: 1px solid #cddff5;
-      margin-bottom: 30px;
-      border-radius: 8px;
-      background-color: #ffffff;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      padding: 20px; /* Etwas weniger Padding */
+      border: 1px solid #dddddd; /* Hellerer Rand */
+      margin-bottom: 25px; /* Angepasster Abstand */
+      border-radius: 5px;
+      background-color: #fcfcfc; /* Leichter Off-White Hintergrund */
+      box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05); /* Sehr leichter Schatten */
     }
-    .feedback-section {
+    .feedback-section,
+    .correct-answer-content-container { /* Punkt 4: Design für beide Bereiche */
       margin-top: 20px;
       padding: 15px;
-      background-color: #e6eff9;
-      border-left: 5px solid #1a4e8a; /* Blauer Balken links */
-      transition: background-color 0.5s ease;
-      border-radius: 5px;
-    }
-    .feedback-section.highlight {
-        background-color: #d8e5f8;
-    }
-    .correct-answer-content-container { /* Neues Styling für Musterlösung */
-      margin-top: 20px;
-      padding: 15px;
-      background-color: #e6eff9;
-      border-left: 5px solid #1a4e8a;
-      border-radius: 5px;
+      background-color: #e9f5ff; /* Hellblau */
+      border-left: 5px solid #007bff; /* Blauer Balken links */
+      border-radius: 4px;
+      box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05); /* Leichter Schatten */
     }
     
     /* New styles for feedback criteria */
@@ -139,26 +141,35 @@
     }
     .feedback-item {
       margin-bottom: 5px;
-      padding: 8px 0;
-      border-bottom: 1px dashed #c0c0c0;
+      padding: 6px 0; /* Etwas weniger Padding */
+      border-bottom: 1px dashed #e0e0e0; /* Hellerer Strich */
+      display: flex; /* Für Logo und Text nebeneinander */
+      align-items: center;
     }
     .feedback-item:last-child {
       border-bottom: none;
     }
+    .feedback-item .icon { /* Style für die Unicode-Symbole */
+        font-size: 1.1em;
+        margin-right: 8px;
+        line-height: 1; /* Vertikale Ausrichtung */
+    }
     .feedback-item.positive {
-      color: #28a745; /* Green */
+      color: #28a745; /* Grün */
     }
     .feedback-item.neutral {
-      color: #d17b00; /* Orange/Yellow */
+      color: #ffc107; /* Gelb */
     }
     .feedback-item.negative {
-      color: #dc3545; /* Red */
+      color: #dc3545; /* Rot */
     }
     .score-display {
       margin-top: 15px;
       font-weight: bold;
-      font-size: 1.1em;
-      color: #1a4e8a;
+      font-size: 1em; /* Etwas kleiner */
+      color: #0056b3;
+      border-top: 1px solid #dcdcdc; /* Trennlinie */
+      padding-top: 10px;
     }
     .correct-answer-toggle {
         margin-top: 20px;
@@ -167,8 +178,8 @@
         background-color: #007bff;
         color: white;
         border: none;
-        padding: 10px 20px;
-        border-radius: 5px;
+        padding: 10px 15px; /* Angepasstes Padding */
+        border-radius: 4px;
         cursor: pointer;
         font-size: 1em;
         transition: background-color 0.3s ease;
@@ -183,23 +194,23 @@
     /* Responsive adjustments */
     @media (max-width: 768px) {
         body {
-            padding: 20px 10px;
+            padding: 15px;
         }
         .container {
             padding: 20px;
         }
         h1 {
-            font-size: 1.8em;
+            font-size: 1.6em;
         }
         h2 {
-            font-size: 1.2em;
+            font-size: 1.1em;
         }
         .question-navigation-bar {
-            flex-direction: column; /* Buttons stack on small screens */
+            flex-direction: column;
             align-items: center;
         }
         .question-navigation-bar button {
-            width: 100%; /* Full width buttons */
+            width: 100%;
         }
     }
 
@@ -234,7 +245,8 @@
       <button class="btn-check-answer">Antwort überprüfen</button>
       
       <div class="feedback-section" style="display:none;">
-        <h4>Feedback:</h4> <div class="criteria-feedback"></div>
+        <h4>Feedback:</h4>
+        <div class="criteria-feedback"></div>
         <div class="score-display">Gesamterreichung: <span class="score-percentage"></span>%</div>
       </div>
 
@@ -275,19 +287,16 @@
       }
 
       await ladeFragen(); // Lade alle Fragen aus der JSON-Datei
-      erstelleThemaNavigation(); // Erstelle die Navigationsbuttons für Themen
+      erstelleThemaNavigation(); // Erstelle die Navigationsbuttons für Themen (jetzt leer)
       initialisiereApp(); // Initialisiere die Anwendung basierend auf URL-Hash oder Standard
     });
 
     function erstelleThemaNavigation() {
+      // Punkt 1: Diese Funktion wurde geändert, um keine Buttons mehr zu erstellen.
+      // Der thema-buttons Container bleibt leer.
       const themaButtonsContainer = document.getElementById('thema-buttons');
-      themaButtonsContainer.innerHTML = ''; // Vorherige Buttons entfernen
-      for (const themaID in themen) {
-        const button = document.createElement('button');
-        button.textContent = themen[themaID].h2Text;
-        button.onclick = () => zeigeThema(themaID);
-        themaButtonsContainer.appendChild(button);
-      }
+      themaButtonsContainer.innerHTML = ''; 
+      // Der Titel (h2Text) wird direkt in initialisiereApp() gesetzt
     }
 
     async function ladeFragen() {
@@ -326,14 +335,14 @@
 
     // Zeigt ein spezifisches Thema an und erstellt dessen Fragen-UI
     function zeigeThema(themaID) {
-      // Aktuellen Themen-Button hervorheben
-      document.querySelectorAll('#thema-buttons button').forEach(btn => {
-        btn.classList.remove('active');
-      });
-      const currentThemaButton = document.querySelector(`#thema-buttons button[onclick="zeigeThema('${themaID}')"]`);
-      if (currentThemaButton) {
-        currentThemaButton.classList.add('active');
-      }
+      // Aktuellen Themen-Button hervorheben (jetzt irrelevant, da keine Buttons mehr existieren)
+      // document.querySelectorAll('#thema-buttons button').forEach(btn => {
+      //   btn.classList.remove('active');
+      // });
+      // const currentThemaButton = document.querySelector(`#thema-buttons button[onclick="zeigeThema('${themaID}')"]`);
+      // if (currentThemaButton) {
+      //   currentThemaButton.classList.add('active');
+      // }
 
       document.getElementById('thema-sub-titel').textContent = themen[themaID].h2Text;
       aktuellesThema = themaID;
@@ -383,28 +392,29 @@
             userAnswerTextarea.id = `user-answer-${frage.id}`; // Eindeutige ID für die Textarea
             clone.querySelector('label').setAttribute('for', userAnswerTextarea.id);
 
-            const checkAnswerButton = clone.querySelector('.btn-check-answer'); // Punkt 3: Button referenzieren
+            const checkAnswerButton = clone.querySelector('.btn-check-answer');
+            const toggleMusterloesungBtn = clone.querySelector('.btn-toggle-musterloesung');
+            const correctAnswerContentContainer = clone.querySelector('.correct-answer-content-container');
+
             checkAnswerButton.addEventListener('click', () => {
                 evaluateAnswer(frage.id, questionSection, frage);
                 // Punkt 3: Button-Text und -Farbe nach Überprüfung ändern
                 checkAnswerButton.textContent = 'Antwort erneut prüfen';
                 checkAnswerButton.classList.add('recheck-button');
                 // Punkt 2: Musterlösungs-Button einblenden
-                clone.querySelector('.btn-toggle-musterloesung').style.display = 'block';
+                toggleMusterloesungBtn.style.display = 'block';
             });
 
             // Punkt 5: Asterisken aus Musterlösung entfernen
             const cleanedMusterloesung = frage.musterloesung.replace(/\*/g, '').replace(/\n/g, '<br>');
             clone.querySelector('.correct-answer-content').innerHTML = cleanedMusterloesung;
             
-            const toggleMusterloesungBtn = clone.querySelector('.btn-toggle-musterloesung');
-            const correctAnswerContentContainer = clone.querySelector('.correct-answer-content-container'); // Punkt 4: Neuer Container
             toggleMusterloesungBtn.addEventListener('click', (event) => {
                 if (correctAnswerContentContainer.style.display === 'none') {
-                    correctAnswerContentContainer.style.display = 'block'; // Punkt 4: Container anzeigen
+                    correctAnswerContentContainer.style.display = 'block';
                     event.target.textContent = 'Musterlösung ausblenden';
                 } else {
-                    correctAnswerContentContainer.style.display = 'none'; // Punkt 4: Container ausblenden
+                    correctAnswerContentContainer.style.display = 'none';
                     event.target.textContent = 'Musterlösung anzeigen';
                 }
             });
@@ -463,7 +473,7 @@
             const feedbackItem = document.createElement('div');
             feedbackItem.classList.add('feedback-item');
             let criterionScore = 0;
-            let keywordFound = false; // Add a flag to track if any keyword for the criterion is found
+            let keywordFound = false;
 
             totalPossibleScore += 2; // Each criterion is worth 2 points if fully recognized and described
 
@@ -472,7 +482,7 @@
                 const stemmedKeyword = stemWordFunc(keyword.toLowerCase());
                 if (userWords.includes(stemmedKeyword)) {
                     keywordFound = true;
-                    break; // Found a keyword, no need to check further for this criterion
+                    break;
                 }
             }
 
@@ -488,19 +498,16 @@
                 if (sufficientlyDescribed) {
                     criterionScore = 2; // Full points
                     feedbackItem.classList.add('positive');
-                    // Punkt 6: Logo hinzugefügt
-                    feedbackItem.innerHTML = `✔️ <strong>${criterion.name}:</strong> Sehr gut! Der Punkt wurde genannt und ausreichend beschrieben.`;
+                    feedbackItem.innerHTML = `<span class="icon">✅</span> <strong>${criterion.name}:</strong> Sehr gut! Der Punkt wurde genannt und ausreichend beschrieben.`;
                 } else {
                     criterionScore = 1; // Partial points
                     feedbackItem.classList.add('neutral');
-                    // Punkt 6: Logo hinzugefügt
-                    feedbackItem.innerHTML = `⚠️ <strong>${criterion.name}:</strong> ${criterion.feedback_kurz || 'Der Punkt wurde genannt, aber die Beschreibung ist noch nicht ausreichend.'}`;
+                    feedbackItem.innerHTML = `<span class="icon">⚠️</span> <strong>${criterion.name}:</strong> ${criterion.feedback_kurz || 'Der Punkt wurde genannt, aber die Beschreibung ist noch nicht ausreichend.'}`;
                 }
             } else {
                 criterionScore = 0; // No points
                 feedbackItem.classList.add('negative');
-                // Punkt 6: Logo hinzugefügt
-                feedbackItem.innerHTML = `❌ <strong>${criterion.name}:</strong> Nicht gefunden. Ihre Antwort sollte diesen Punkt behandeln.`;
+                feedbackItem.innerHTML = `<span class="icon">❌</span> <strong>${criterion.name}:</strong> Nicht gefunden. Ihre Antwort sollte diesen Punkt behandeln.`;
             }
             userAchievedScore += criterionScore;
             criteriaFeedbackDiv.appendChild(feedbackItem);
