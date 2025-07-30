@@ -56,16 +56,6 @@
           "neutral": "Die Erfolgskontrolle wurde identifiziert, aber die Methoden der Überprüfung oder die Ziele der Kontrolle sind noch nicht ausreichend beschrieben.",
           "negativ": "Der Punkt 'Erfolgskontrolle' wurde in Ihrer Antwort nicht behandelt."
         }
-      },
-      {
-        "name": "Bedeutung",
-        "keywords": ["bedeutung", "praxis", "strategisch", "zielgerichtet", "effizient", "nachhaltig", "strukturierter ablauf", "wichtig", "motiviert", "betriebsklima"],
-        "minWoerterFuerBeschreibung": 25,
-        "feedback_kurz": {
-          "positiv": "Hervorragend! Sie haben die übergeordnete Bedeutung des Personalentwicklungsprozesses für die betriebliche Praxis klar herausgearbeitet.",
-          "neutral": "Die Bedeutung des Prozesses wurde angesprochen, aber eine tiefergehende Erläuterung der Vorteile (z.B. Effizienz, Nachhaltigkeit) fehlt noch.",
-          "negativ": "Die übergreifende Bedeutung des Personalentwicklungsprozesses für die betriebliche Praxis ist in Ihrer Antwort nicht ersichtlich."
-        }
       }
     ]
   }
