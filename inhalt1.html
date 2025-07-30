@@ -5,180 +5,207 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MIKP - Personalentwicklung</title>
   <style>
-    /* Allgemeine Einstellungen für den Body */
-    body {
-      font-family: Arial, sans-serif; /* Oft eine Standard-Schriftart in älteren HTMLs */
+    /* Grundlegende HTML/Body Stile basierend auf ZIP-13.html Analyse */
+    html, body {
+      height: 100%;
       margin: 0;
-      padding: 20px; /* Etwas weniger Padding als zuvor, um näher am Original zu sein */
-      background-color: #e0e6ec; /* Hellerer, neutralerer Hintergrund */
+      padding: 0;
+      font-family: Arial, sans-serif; /* Häufig verwendete Schriftart, die Standard ist */
+      background-color: #f0f0f0; /* Heller grauer Hintergrund */
       color: #333;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      min-height: 100vh;
-      box-sizing: border-box; /* Stellt sicher, dass Padding in der Gesamtbreite enthalten ist */
+      display: flex; /* Für zentrale Ausrichtung des Containers */
+      justify-content: center; /* Horizontale Zentrierung */
+      align-items: flex-start; /* Oben beginnen, nicht in der Mitte */
+      padding: 20px; /* Äußerer Abstand zum Rand */
+      box-sizing: border-box; /* Padding wird in Breite/Höhe inkludiert */
     }
-    /* Container für den gesamten Test */
+
+    /* Hauptcontainer */
     .container {
       background-color: #ffffff;
-      padding: 30px; /* Angepasstes Padding */
+      padding: 25px 30px; /* Angepasstes Padding */
+      border: 1px solid #ccc; /* Feinerer Rand */
       border-radius: 5px; /* Leichte Abrundung */
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Weniger aggressiver Schatten */
-      max-width: 800px; /* Etwas schmaler als 900px */
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtiler Schatten */
+      max-width: 780px; /* Angepasste maximale Breite näher an ZIP-13 */
       width: 100%;
       box-sizing: border-box;
     }
+
+    /* Überschriftenstile */
     h1 {
-      color: #0056b3; /* Dunkleres Blau für Überschriften, passend zu ZIP-13 */
+      color: #0066cc; /* Dunkleres Blau, typisch für Überschriften im Original */
       text-align: center;
-      font-size: 2em;
+      font-size: 2em; /* Angepasste Größe */
+      margin-top: 0;
       margin-bottom: 5px;
-      font-weight: bold; /* Standard Bold */
+      font-weight: bold;
     }
     h2 {
-      color: #0056b3; /* Konsistent mit H1 */
+      color: #0066cc; /* Konsistent mit H1 */
       text-align: center;
-      font-size: 1.3em; /* Etwas kleiner */
-      font-weight: normal; /* Normal für Subtitel */
+      font-size: 1.4em; /* Angepasste Größe */
+      font-weight: normal;
       margin-top: 0;
-      margin-bottom: 25px; /* Etwas weniger Abstand */
+      margin-bottom: 25px; /* Abstand zum Inhalt */
     }
     h3 {
+      color: #0066cc;
+      font-size: 1.1em;
       margin-top: 0;
-      color: #0056b3; /* Konsistent mit anderen Überschriften */
-      font-size: 1.1em; /* Etwas kleiner */
       margin-bottom: 10px;
+      font-weight: bold; /* H3 sind typischerweise fett */
     }
+
+    /* Fragen-Navigationsleiste */
     .question-navigation-bar {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px; /* Etwas kleinerer Abstand */
+      gap: 7px; /* Feinere Abstände */
       margin-bottom: 20px;
       justify-content: center;
     }
     .question-navigation-bar button {
-      padding: 8px 15px; /* Etwas kleineres Padding */
-      font-size: 15px; /* Angepasste Schriftgröße */
+      padding: 7px 14px; /* Angepasstes Padding für einheitliche Höhe */
+      font-size: 0.95em; /* Etwas kleiner */
       cursor: pointer;
-      background-color: #f0f0f0; /* Hellgrau */
-      color: #333;
-      border: 1px solid #ccc;
-      border-radius: 4px; /* Leichte Abrundung */
-      transition: background-color 0.1s ease, border-color 0.1s ease;
+      background-color: #e0e0e0; /* Hellgrau */
+      color: #444;
+      border: 1px solid #c0c0c0; /* Hellerer Rand */
+      border-radius: 4px;
+      transition: background-color 0.15s ease, border-color 0.15s ease;
+      line-height: 1.2; /* Für konsistente Höhen */
+      min-height: 32px; /* Einheitliche Mindesthöhe für Buttons */
+      box-sizing: border-box;
     }
     .question-navigation-bar button.active {
-      background-color: #007bff; /* Typisches Link-Blau */
+      background-color: #007bff; /* Aktiver Button-Hintergrund */
       color: white;
       border-color: #007bff;
     }
-    .question-navigation-bar button:hover {
-      background-color: #e0e0e0;
-      border-color: #bbb;
+    .question-navigation-bar button:hover:not(.active) {
+      background-color: #d0d0d0;
+      border-color: #b0b0b0;
     }
     .question-navigation-bar button.active:hover {
-      background-color: #0056b3; /* Dunkleres Blau beim Hover */
+      background-color: #0056b3;
       border-color: #0056b3;
     }
+
+    /* Textarea für Benutzerantwort */
     textarea {
       width: 100%;
-      height: 180px; /* Etwas weniger Höhe */
-      font-size: 15px; /* Angepasste Schriftgröße */
+      height: 160px; /* Angepasste Höhe */
+      font-size: 1em;
       padding: 10px;
       margin-top: 10px;
-      border: 1px solid #cccccc; /* Hellerer Rand */
-      border-left: 5px solid #007bff; /* Blauer Balken links */
+      border: 1px solid #cccccc;
+      border-left: 5px solid #007bff; /* Blauer Rand links */
       border-radius: 4px;
       font-family: inherit;
       box-sizing: border-box;
-      resize: vertical; /* Nur vertikal skalierbar */
+      resize: vertical; /* Nur vertikale Größenänderung */
     }
+
+    /* "Antwort überprüfen" Button */
     .btn-check-answer {
       display: block;
-      padding: 12px 20px; /* Angepasstes Padding */
-      background-color: #28a745; /* Grüner Standard */
+      padding: 12px 20px;
+      background-color: #28a745; /* Grün */
       color: white;
       border: none;
       border-radius: 4px;
-      font-size: 1.1em; /* Etwas kleiner */
+      font-size: 1.1em;
       cursor: pointer;
       transition: background-color 0.3s ease;
-      margin-top: 25px; /* Angepasster Abstand */
+      margin-top: 25px;
       width: 100%;
       box-sizing: border-box;
+      font-weight: bold; /* Meist fett im Original */
     }
     .btn-check-answer:hover {
       background-color: #218838;
     }
     .btn-check-answer.recheck-button {
-        background-color: #ffc107; /* Helles Gelb für Recheck */
-        color: #333; /* Dunkle Schrift auf hellem Gelb */
+        background-color: #ffc107; /* Gelb */
+        color: #333; /* Dunkle Schrift */
     }
     .btn-check-answer.recheck-button:hover {
-        background-color: #e0a800; /* Dunkleres Gelb beim Hover */
+        background-color: #e0a800; /* Dunkleres Gelb */
     }
 
+    /* Fragen-Sektion */
     .question-section {
-      padding: 20px; /* Etwas weniger Padding */
-      border: 1px solid #dddddd; /* Hellerer Rand */
-      margin-bottom: 25px; /* Angepasster Abstand */
+      padding: 20px;
+      border: 1px solid #ddd; /* Leichterer Rand */
+      margin-bottom: 25px;
       border-radius: 5px;
-      background-color: #fcfcfc; /* Leichter Off-White Hintergrund */
-      box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05); /* Sehr leichter Schatten */
+      background-color: #fdfdfd; /* Fast weiß */
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04); /* Sehr subtiler Schatten */
     }
+
+    /* Feedback- und Musterlösung-Bereiche */
     .feedback-section,
-    .correct-answer-content-container { /* Punkt 4: Design für beide Bereiche */
+    .correct-answer-content-container {
       margin-top: 20px;
       padding: 15px;
-      background-color: #e9f5ff; /* Hellblau */
+      background-color: #e6f2ff; /* Hellblau, wie im Original */
       border-left: 5px solid #007bff; /* Blauer Balken links */
       border-radius: 4px;
-      box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05); /* Leichter Schatten */
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04); /* Einheitlicher Schatten */
     }
-    
-    /* New styles for feedback criteria */
+    .feedback-section h4,
+    .correct-answer-content-container h4 {
+        color: #0066cc; /* Überschriftenfarbe */
+        margin-top: 0;
+        margin-bottom: 10px;
+        font-size: 1.1em;
+        font-weight: bold;
+    }
+    /* Kriterien-Feedback */
     .criteria-feedback {
       margin-top: 10px;
     }
     .feedback-item {
       margin-bottom: 5px;
-      padding: 6px 0; /* Etwas weniger Padding */
-      border-bottom: 1px dashed #e0e0e0; /* Hellerer Strich */
-      display: flex; /* Für Logo und Text nebeneinander */
-      align-items: center;
+      padding: 6px 0;
+      border-bottom: 1px dashed #e0e0e0;
+      display: flex;
+      align-items: flex-start; /* Icons und Text oben bündig */
+      line-height: 1.4; /* Für bessere Lesbarkeit */
     }
     .feedback-item:last-child {
       border-bottom: none;
     }
-    .feedback-item .icon { /* Style für die Unicode-Symbole */
+    .feedback-item .icon {
         font-size: 1.1em;
         margin-right: 8px;
-        line-height: 1; /* Vertikale Ausrichtung */
+        flex-shrink: 0; /* Verhindert Schrumpfen des Icons */
+        padding-top: 2px; /* Leichte Anpassung für vertikale Ausrichtung */
     }
-    .feedback-item.positive {
-      color: #28a745; /* Grün */
+    .feedback-item strong {
+        font-weight: bold;
     }
-    .feedback-item.neutral {
-      color: #ffc107; /* Gelb */
-    }
-    .feedback-item.negative {
-      color: #dc3545; /* Rot */
-    }
+    .feedback-item.positive { color: #28a745; } /* Grün */
+    .feedback-item.neutral { color: #ffc107; } /* Gelb */
+    .feedback-item.negative { color: #dc3545; } /* Rot */
+
+    /* Punktestand-Anzeige */
     .score-display {
       margin-top: 15px;
       font-weight: bold;
-      font-size: 1em; /* Etwas kleiner */
-      color: #0056b3;
+      font-size: 1em;
+      color: #0066cc;
       border-top: 1px solid #dcdcdc; /* Trennlinie */
       padding-top: 10px;
     }
-    .correct-answer-toggle {
-        margin-top: 20px;
-    }
+
+    /* Musterlösung-Anzeige Button */
     .btn-toggle-musterloesung {
-        background-color: #007bff;
+        background-color: #007bff; /* Blau */
         color: white;
         border: none;
-        padding: 10px 15px; /* Angepasstes Padding */
+        padding: 10px 15px;
         border-radius: 4px;
         cursor: pointer;
         font-size: 1em;
@@ -186,34 +213,31 @@
         width: 100%;
         display: block;
         box-sizing: border-box;
+        font-weight: bold;
     }
     .btn-toggle-musterloesung:hover {
         background-color: #0056b3;
     }
-    
-    /* Responsive adjustments */
+
+    /* Responsive Anpassungen */
     @media (max-width: 768px) {
         body {
-            padding: 15px;
+            padding: 10px;
         }
         .container {
-            padding: 20px;
+            padding: 15px;
         }
         h1 {
-            font-size: 1.6em;
+            font-size: 1.8em;
         }
         h2 {
-            font-size: 1.1em;
+            font-size: 1.2em;
         }
         .question-navigation-bar {
             flex-direction: column;
-            align-items: center;
-        }
-        .question-navigation-bar button {
-            width: 100%;
+            align-items: stretch; /* Buttons füllen die Breite */
         }
     }
-
   </style>
 </head>
 <body>
@@ -293,7 +317,7 @@
 
     function erstelleThemaNavigation() {
       // Punkt 1: Diese Funktion wurde geändert, um keine Buttons mehr zu erstellen.
-      // Der thema-buttons Container bleibt leer.
+      // Der thema-buttons Container bleibt leer, da keine Navigation über Buttons gewünscht ist.
       const themaButtonsContainer = document.getElementById('thema-buttons');
       themaButtonsContainer.innerHTML = ''; 
       // Der Titel (h2Text) wird direkt in initialisiereApp() gesetzt
@@ -324,7 +348,7 @@
           alleGeladeneFragen[themaID].sort((a, b) => a.frageNummer - b.frageNummer);
           // Aktualisiere die Reihenfolge der Fragen-IDs im themen-Objekt basierend auf Sortierung
           if (themen[themaID]) { // Prüfen, ob Thema existiert, bevor es aktualisiert wird
-            themen[themaID].fragen = alleGeladeneFragen[themaID].map(f => f.id);
+            themen[themaID].fragen = alleGeladeneFragene[themaID].map(f => f.id);
           }
         }
 
@@ -335,15 +359,6 @@
 
     // Zeigt ein spezifisches Thema an und erstellt dessen Fragen-UI
     function zeigeThema(themaID) {
-      // Aktuellen Themen-Button hervorheben (jetzt irrelevant, da keine Buttons mehr existieren)
-      // document.querySelectorAll('#thema-buttons button').forEach(btn => {
-      //   btn.classList.remove('active');
-      // });
-      // const currentThemaButton = document.querySelector(`#thema-buttons button[onclick="zeigeThema('${themaID}')"]`);
-      // if (currentThemaButton) {
-      //   currentThemaButton.classList.add('active');
-      // }
-
       document.getElementById('thema-sub-titel').textContent = themen[themaID].h2Text;
       aktuellesThema = themaID;
 
@@ -398,16 +413,17 @@
 
             checkAnswerButton.addEventListener('click', () => {
                 evaluateAnswer(frage.id, questionSection, frage);
-                // Punkt 3: Button-Text und -Farbe nach Überprüfung ändern
+                // Button-Text und -Farbe nach Überprüfung ändern
                 checkAnswerButton.textContent = 'Antwort erneut prüfen';
                 checkAnswerButton.classList.add('recheck-button');
-                // Punkt 2: Musterlösungs-Button einblenden
+                // Musterlösungs-Button einblenden
                 toggleMusterloesungBtn.style.display = 'block';
             });
 
-            // Punkt 5: Asterisken aus Musterlösung entfernen
-            const cleanedMusterloesung = frage.musterloesung.replace(/\*/g, '').replace(/\n/g, '<br>');
-            clone.querySelector('.correct-answer-content').innerHTML = cleanedMusterloesung;
+            // Musterlösung: Sternchen durch <strong> ersetzen
+            let formattedMusterloesung = frage.musterloesung.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            formattedMusterloesung = formattedMusterloesung.replace(/\n/g, '<br>'); // Zeilenumbrüche beibehalten
+            clone.querySelector('.correct-answer-content').innerHTML = formattedMusterloesung;
             
             toggleMusterloesungBtn.addEventListener('click', (event) => {
                 if (correctAnswerContentContainer.style.display === 'none') {
@@ -498,7 +514,7 @@
                 if (sufficientlyDescribed) {
                     criterionScore = 2; // Full points
                     feedbackItem.classList.add('positive');
-                    feedbackItem.innerHTML = `<span class="icon">✅</span> <strong>${criterion.name}:</strong> Sehr gut! Der Punkt wurde genannt und ausreichend beschrieben.`;
+                    feedbackItem.innerHTML = `<span class="icon">✔️</span> <strong>${criterion.name}:</strong> Sehr gut! Der Punkt wurde genannt und ausreichend beschrieben.`;
                 } else {
                     criterionScore = 1; // Partial points
                     feedbackItem.classList.add('neutral');
