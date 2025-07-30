@@ -490,14 +490,16 @@
             renderNavigationBar(); // Aktualisiert den aktiven Button in der Navigation
         }
 
-        function evaluateAnswer(question, answerInput, checkAnswerButton, toggleSolutionButton, feedbackSection, solutionContainer, recheckInfoText) {
+    function evaluateAnswer(question, answerInput, checkAnswerButton, toggleSolutionButton, feedbackSection, solutionContainer, recheckInfoText) {
     const userAnswer = answerInput.value;
     question.userAnswer = userAnswer;
 
-    const stemmedUserAnswerWords = userAnswer.split(/\s+/)
-                                        .map(word => simpleStemmer(word))
-                                        .filter(word => word.length > 0);
-    console.log("Gestemmte Benutzerwörter:", stemmedUserAnswerWords); // <--- DIESE ZEILE HIER EINFÜGEN
+    const cleanedUserAnswer = userAnswer.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "").replace(/\s{2,}/g, " "); // Entfernt Satzzeichen und ersetzt mehrfache Leerzeichen
+
+    const stemmedUserAnswerWords = cleanedUserAnswer.split(/\s+/)
+                                            .map(word => simpleStemmer(word))
+                                            .filter(word => word.length > 0);
+    console.log("Gestemmte Benutzerwörter (nach Satzzeichenentfernung):", stemmedUserAnswerWords); // console.log angepasst
 
     let totalPoints = 0;
     let maxPoints = 0;
