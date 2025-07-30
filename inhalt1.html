@@ -340,14 +340,11 @@
         <h2 id="thema-sub-titel">Personalentwicklungsprozess</h2>
 
         <div class="question-navigation-bar" id="questionNavigationBar">
-            <!-- Dynamisch generierte Fragen-Buttons -->
-        </div>
+            </div>
 
         <div id="questionSectionContainer">
-            <!-- Hier wird die aktuelle Frage gerendert -->
-        </div>
+            </div>
 
-        <!-- Template für die Fragen -->
         <template id="questionTemplate">
             <div class="question-section">
                 <h3 class="question-title"></h3>
@@ -361,98 +358,29 @@
                 <div class="feedback-section">
                     <div class="feedback-header">Feedback zu Ihrer Antwort:</div>
                     <div class="feedback-details">
-                        <!-- Dynamisch generiertes Feedback -->
-                    </div>
+                        </div>
                     <div class="score"></div>
                 </div>
-                <!-- Musterlösung-Button ist jetzt außerhalb der Button-Group und nach dem Feedback-Bereich -->
                 <button class="btn-toggle-musterloesung">Musterlösung anzeigen</button>
                 <div class="correct-answer-content-container">
                     <div class="feedback-header">Musterlösung:</div>
                     <div class="correct-answer-content">
-                        <!-- Dynamisch generierte Musterlösung -->
-                    </div>
+                        </div>
                 </div>
             </div>
         </template>
     </div>
 
-let questions = []; // Hier werden die geladenen Fragen gespeichert
-        const defaultThemaId = 'pe-prozess'; // Die Standard-Themen-ID für diese Seite
+    <script>
+        let questions = [];
+        let currentQuestionIndex = 0;
+        const defaultThemaId = "pe-prozess"; // Festgelegte ThemaID
 
-        async function loadQuestions() {
-            try {
-                const response = await fetch('fragen_pe-prozess.json');
-                if (!response.ok) {
-                    throw new Error(`HTTP-Fehler! Status: ${response.status}`);
-                }
-                const data = await response.json();
-                questions = data.filter(q => q.themaID === defaultThemaId).sort((a, b) => a.frageNummer - b.frageNummer);
-                displayQuestions();
-            } catch (error) {
-                console.error("Fehler beim Laden der Fragen:", error);
-                document.getElementById('question-container').innerHTML = '<p style="color: red; text-align: center;">Fehler beim Laden der Fragen. Bitte versuchen Sie es später erneut.</p>';
-            }
-        }
-
-        function displayQuestions() {
-            const container = document.getElementById('question-container');
-            const template = document.getElementById('question-template');
-
-            // Überschrift nicht erneut hinzufügen, wenn sie schon da ist
-            // Diese Logik ist aus der vorherigen Version und müsste evtl. angepasst werden,
-            // falls die Überschrift von der Hauptseite kommt.
-            // Für jetzt belassen wir sie so, wie sie in der letzten Version war.
-            if (container.querySelector('h1') === null) {
-                 const h1 = document.createElement('h1');
-                 h1.textContent = 'Der Personalentwicklungsprozess';
-                 container.appendChild(h1);
-            } else {
-                 // Vorhandene Fragen entfernen, falls bereits geladen
-                 container.querySelectorAll('.question-section').forEach(section => section.remove());
-            }
-
-            questions.forEach((question, index) => {
-                const clone = document.importNode(template.content, true);
-                const questionSection = clone.querySelector('.question-section');
-                questionSection.dataset.questionId = question.id; // Speichern der ID im Dataset
-
-                clone.querySelector('.question-title').textContent = question.titel;
-                clone.querySelector('.question-text').textContent = question.frageText;
-
-                const answerInput = clone.querySelector('.user-answer');
-                answerInput.id = 'answer-input-' + question.id; // Eindeutige ID vergeben
-                answerInput.value = question.userAnswer || ''; // Laden der vorherigen Antwort, falls vorhanden
-
-                const checkButton = clone.querySelector('.btn-check-answer');
-                checkButton.id = 'check-answer-button-' + question.id; // Eindeutige ID
-                checkButton.addEventListener('click', () => evaluateAnswer(index));
-
-                const toggleSolutionButton = clone.querySelector('.btn-solution');
-                toggleSolutionButton.id = 'toggle-solution-button-' + question.id; // Eindeutige ID
-                const solutionContainer = clone.querySelector('.solution-section');
-                solutionContainer.id = 'solution-section-' + question.id; // Eindeutige ID
-                toggleSolutionButton.addEventListener('click', () => toggleMusterloesung(question, toggleSolutionButton, solutionContainer));
-
-                const feedbackSection = clone.querySelector('.feedback-section');
-                feedbackSection.id = 'feedback-section-' + question.id; // Eindeutige ID
-                const feedbackList = clone.querySelector('.feedback-list');
-                feedbackList.id = 'feedback-list-' + question.id; // Eindeutige ID
-                const totalScoreElement = clone.querySelector('.total-score');
-                totalScoreElement.id = 'total-score-' + question.id; // Eindeutige ID
-
-                const recheckInfoText = clone.querySelector('.recheck-info-text');
-                recheckInfoText.id = 'recheck-info-text-' + question.id; // Eindeutige ID
-
-                container.appendChild(clone);
-            });
-        }
-
-        // VERBESSERTER SIMPLE STEMMER
+        // NEUER UND VERBESSERTER SIMPLE STEMMER (Teil A)
         function simpleStemmer(word) {
-            // Umwandlung in Kleinbuchstaben und Entfernen aller nicht-alphanumerischen Zeichen
-            // Behält Umlaute bei (äöüß)
-            word = word.toLowerCase().replace(/[^a-zäöüß]/g, ''); 
+            word = word.toLowerCase();
+            // Entfernen von Satzzeichen und Sonderzeichen (außer Umlaute und ß)
+            word = word.replace(/[^a-zäöüß]/g, ''); 
 
             // Ein etwas verbesserter, aber immer noch einfacher Stemmer für Deutsch
             // Längere Endungen zuerst prüfen
@@ -488,83 +416,166 @@ let questions = []; // Hier werden die geladenen Fragen gespeichert
             return word;
         }
 
-        async function evaluateAnswer(questionIndex) {
-            const currentQuestion = questions[questionIndex];
-            const answerInput = document.getElementById('answer-input-' + currentQuestion.id);
+        async function loadQuestions() {
+            try {
+                const response = await fetch('fragen_pe-prozess.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                questions = data.filter(q => q.themaID === defaultThemaId);
+                // Fragen nach frageNummer sortieren, um die korrekte Reihenfolge zu gewährleisten
+                questions.sort((a, b) => a.frageNummer - b.frageNummer);
+
+                if (questions.length === 0) {
+                    document.getElementById('questionSectionContainer').innerHTML = '<p>Keine Fragen für dieses Thema gefunden.</p>';
+                    return;
+                }
+                renderNavigationBar();
+                zeigeFrage(0); // Zeigt die erste Frage beim Start
+            } catch (error) {
+                console.error("Fehler beim Laden der Fragen:", error);
+                document.getElementById('questionSectionContainer').innerHTML = `<p>Fehler beim Laden der Fragen: ${error.message}. Bitte überprüfen Sie die Konsolenmeldung.</p>`;
+            }
+        }
+
+        function renderNavigationBar() {
+            const navBar = document.getElementById('questionNavigationBar');
+            navBar.innerHTML = '';
+            questions.forEach((q, index) => {
+                const button = document.createElement('button');
+                button.textContent = `Frage ${q.frageNummer}`; // Nutze frageNummer für den Button-Text
+                button.onclick = () => zeigeFrage(index);
+                if (index === currentQuestionIndex) {
+                    button.classList.add('active');
+                }
+                navBar.appendChild(button);
+            });
+        }
+
+        function zeigeFrage(index) {
+            if (index < 0 || index >= questions.length) return;
+
+            currentQuestionIndex = index;
+            const question = questions[currentQuestionIndex];
+            const container = document.getElementById('questionSectionContainer');
+            const template = document.getElementById('questionTemplate');
+            const clone = document.importNode(template.content, true);
+
+            clone.querySelector('.question-title').textContent = question.titel;
+            clone.querySelector('.question-text').textContent = question.frageText;
+
+            const answerInput = clone.querySelector('.user-answer');
+            const checkAnswerButton = clone.querySelector('.btn-check-answer');
+            const toggleSolutionButton = clone.querySelector('.btn-toggle-musterloesung');
+            const feedbackSection = clone.querySelector('.feedback-section');
+            const solutionContainer = clone.querySelector('.correct-answer-content-container');
+            const recheckInfoText = clone.querySelector('.recheck-info-text');
+
+            // Setzt den Zustand der Buttons und Textfelder zurück
+            answerInput.value = question.userAnswer || ''; // Lädt gespeicherte Antwort
+            checkAnswerButton.textContent = 'Antwort überprüfen';
+            checkAnswerButton.classList.remove('recheck-button');
+            toggleSolutionButton.style.display = 'none'; // Musterlösungsbutton verstecken
+            feedbackSection.style.display = 'none';      // Feedback-Sektion verstecken
+            solutionContainer.style.display = 'none';     // Musterlösung-Container verstecken
+            recheckInfoText.style.display = 'none';       // Dynamischen Text beim Fragenwechsel ausblenden
+
+            checkAnswerButton.onclick = () => evaluateAnswer(question, answerInput, checkAnswerButton, toggleSolutionButton, feedbackSection, solutionContainer, recheckInfoText);
+            toggleSolutionButton.onclick = () => toggleMusterloesung(question, toggleSolutionButton, solutionContainer);
+
+            container.innerHTML = ''; // Vorherige Frage entfernen
+            container.appendChild(clone);
+
+            renderNavigationBar(); // Aktualisiert den aktiven Button in der Navigation
+        }
+
+        function evaluateAnswer(question, answerInput, checkAnswerButton, toggleSolutionButton, feedbackSection, solutionContainer, recheckInfoText) {
             const userAnswer = answerInput.value;
-            // Speichere die aktuelle Antwort temporär im Fragenobjekt (nur im Browser-Speicher)
-            currentQuestion.userAnswer = userAnswer; 
+            // Speichern der Benutzerantwort
+            question.userAnswer = userAnswer;
 
-            const feedbackSection = document.getElementById('feedback-section-' + currentQuestion.id);
-            const feedbackList = document.getElementById('feedback-list-' + currentQuestion.id);
-            const totalScoreElement = document.getElementById('total-score-' + currentQuestion.id);
-            const toggleSolutionButton = document.getElementById('toggle-solution-button-' + currentQuestion.id);
-            const recheckInfoText = document.getElementById('recheck-info-text-' + currentQuestion.id);
-            const checkButton = document.getElementById('check-answer-button-' + currentQuestion.id);
-            // solutionTextElement ist hier deklariert, aber nicht direkt verwendet.
-            // const solutionTextElement = document.getElementById('solution-text-' + currentQuestion.id); 
+            const stemmedUserAnswerWords = userAnswer.split(/\s+/)
+                                                .map(word => simpleStemmer(word))
+                                                .filter(word => word.length > 0);
 
-            feedbackList.innerHTML = ''; // Vorheriges Feedback leeren
-
-            const userWords = userAnswer.split(/\s+/).filter(word => word.length > 0);
             let totalPoints = 0;
             let maxPoints = 0;
+            const feedbackDetails = feedbackSection.querySelector('.feedback-details');
+            feedbackDetails.innerHTML = ''; // Vorheriges Feedback löschen
 
-            for (const kriterium of currentQuestion.bewertungskriterien) {
-                let hasKeyword = false;
+            question.bewertungskriterien.forEach(kriterium => {
+                maxPoints += 2; // Jedes Kriterium hat max. 2 Punkte
+
                 let points = 0;
                 let feedbackText = '';
-                maxPoints += 2; // Jedes Kriterium kann max. 2 Punkte geben
+                let hasKeyword = false;
+                let meetsMinWords = false;
 
-                const stemmedKeywords = kriterium.keywords.map(kw => simpleStemmer(kw));
-
-                for (const userWord of userWords) {
-                    const stemmedUserWord = simpleStemmer(userWord);
-                    for (const stemmedKeyword of stemmedKeywords) {
-                        // PRÜFUNG AUF EXAKTEN MATCH DES GESTEMMTEN WORTES
-                        if (stemmedUserWord === stemmedKeyword) {
-                            hasKeyword = true;
-                            break; // Keyword gefunden, Schleife für dieses Kriterium beenden
-                        }
+                // Keyword-Matching
+                for (const keyword of kriterium.keywords) {
+                    const stemmedKeyword = simpleStemmer(keyword);
+                    // PRÜFUNG AUF EXAKTEN MATCH DES GESTEMMTEN WORTES (Teil B)
+                    if (stemmedUserAnswerWords.includes(stemmedKeyword)) {
+                        hasKeyword = true;
+                        break;
                     }
-                    if (hasKeyword) break; // Keyword gefunden, Schleife für dieses Kriterium beenden
                 }
 
-                const meetsMinWords = userWords.length >= kriterium.minWoerterFuerBeschreibung;
-
-                // Punktevergabe und Feedback-Generierung
-                let iconClass = '';
-                if (hasKeyword && meetsMinWords) {
-                    points = 2;
-                    feedbackText = kriterium.feedback_kurz.positiv || 'Sehr gut! Der Punkt wurde genannt und ausreichend beschrieben.';
-                    iconClass = 'positive';
-                } else if (hasKeyword && !meetsMinWords) {
-                    points = 1;
-                    feedbackText = kriterium.feedback_kurz.neutral || 'Der Punkt wurde genannt, aber die Beschreibung ist noch nicht ausreichend.';
-                    iconClass = 'neutral';
+                // Mindestwörter für Beschreibung (optionales Kriterium)
+                const userWordCount = userAnswer.split(/\s+/).filter(word => word.length > 0).length;
+                if (kriterium.minWoerterFuerBeschreibung && kriterium.minWoerterFuerBeschreibung > 0) {
+                    if (userWordCount >= kriterium.minWoerterFuerBeschreibung) {
+                        meetsMinWords = true;
+                    }
                 } else {
-                    points = 0;
-                    feedbackText = kriterium.feedback_kurz.negativ || 'Der Punkt wurde nicht gefunden. Ihre Antwort sollte diesen Punkt behandeln.';
-                    iconClass = 'negative';
+                    meetsMinWords = true; // Wenn keine Mindestwörter definiert, gilt es als erfüllt
+                }
+
+                if (hasKeyword && meetsMinWords) {
+                    points = 2; // Volle Punktzahl
+                    feedbackText = kriterium.feedback_kurz.positiv || 'Sehr gut! Der Punkt wurde genannt und ausreichend beschrieben.';
+                } else if (hasKeyword && !meetsMinWords) {
+                    points = 1; // Teilweise Punktzahl
+                    feedbackText = kriterium.feedback_kurz.neutral || 'Der Punkt wurde genannt, aber die Beschreibung ist noch nicht ausreichend.';
+                } else {
+                    points = 0; // Keine Punkte
+                    feedbackText = kriterium.feedback_kurz.negativ || 'Nicht gefunden. Ihre Antwort sollte diesen Punkt behandeln.';
                 }
 
                 totalPoints += points;
 
-                const listItem = document.createElement('li');
-                listItem.innerHTML = `<span class="icon ${iconClass}">
-                                        ${iconClass === 'positive' ? '✅' : iconClass === 'neutral' ? '⚠️' : '❌'}
-                                      </span>
-                                      <span class="text">${feedbackText}</span>`;
-                feedbackList.appendChild(listItem);
-            }
+                const feedbackItem = document.createElement('div');
+                feedbackItem.classList.add('feedback-item');
 
-            totalScoreElement.textContent = `Gesamtpunktzahl: ${totalPoints} von ${maxPoints}`;
+                let icon = '';
+                let feedbackClass = '';
+                if (points === 2) {
+                    icon = '✅';
+                    feedbackClass = 'ok';
+                } else if (points === 1) {
+                    icon = '⚠️';
+                    feedbackClass = 'hinweis';
+                } else {
+                    icon = '❌';
+                    feedbackClass = 'error';
+                }
+
+                feedbackItem.classList.add(feedbackClass);
+                feedbackItem.innerHTML = `<span class="feedback-icon">${icon}</span> <span><strong>${kriterium.name}:</strong> ${feedbackText}</span>`;
+                feedbackDetails.appendChild(feedbackItem);
+            });
+
+            const percentage = (maxPoints > 0) ? (totalPoints / maxPoints) * 100 : 0;
+            const scoreDisplay = feedbackSection.querySelector('.score');
+            scoreDisplay.textContent = `Gesamterreichung: ${percentage.toFixed(0)}%`;
+
             feedbackSection.style.display = 'block';
-            toggleSolutionButton.style.display = 'block'; // Musterlösungs-Button anzeigen
+            toggleSolutionButton.style.display = 'block';
 
-            // "Antwort überprüfen" Button anpassen
-            checkButton.textContent = 'Antwort erneut prüfen';
-            checkButton.classList.add('recheck-button');
+            // Button-Text und -Farbe ändern
+            checkAnswerButton.textContent = 'Antwort erneut prüfen';
+            checkAnswerButton.classList.add('recheck-button');
 
             // Dynamischen Text anzeigen
             recheckInfoText.style.display = 'block';
@@ -594,5 +605,6 @@ let questions = []; // Hier werden die geladenen Fragen gespeichert
 
         // Start der Anwendung
         document.addEventListener('DOMContentLoaded', loadQuestions);
+    </script>
 </body>
 </html>
