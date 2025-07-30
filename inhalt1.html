@@ -114,7 +114,7 @@
             font-size: 1.1em;
             margin-bottom: 20px;
             line-height: 1.6;
-            font-weight: normal; /* Fragetext bleibt normal */
+            font-weight: bold; /* Frage in Bold, wie gewünscht */
         }
 
         /* Hinweis-Text über der Textarea */
@@ -293,7 +293,7 @@
         }
 
         .correct-answer-content-container p {
-            margin-bottom: 10px;
+            margin-bottom: 8px; /* Reduzierter Zeilenabstand für Absätze */
             line-height: 1.6;
         }
 
@@ -340,11 +340,14 @@
         <h2 id="thema-sub-titel">Personalentwicklungsprozess</h2>
 
         <div class="question-navigation-bar" id="questionNavigationBar">
-            </div>
+            <!-- Dynamisch generierte Fragen-Buttons -->
+        </div>
 
         <div id="questionSectionContainer">
-            </div>
+            <!-- Hier wird die aktuelle Frage gerendert -->
+        </div>
 
+        <!-- Template für die Fragen -->
         <template id="questionTemplate">
             <div class="question-section">
                 <h3 class="question-title"></h3>
@@ -358,14 +361,17 @@
                 <div class="feedback-section">
                     <div class="feedback-header">Feedback zu Ihrer Antwort:</div>
                     <div class="feedback-details">
-                        </div>
+                        <!-- Dynamisch generiertes Feedback -->
+                    </div>
                     <div class="score"></div>
                 </div>
+                <!-- Musterlösung-Button ist jetzt außerhalb der Button-Group und nach dem Feedback-Bereich -->
                 <button class="btn-toggle-musterloesung">Musterlösung anzeigen</button>
                 <div class="correct-answer-content-container">
                     <div class="feedback-header">Musterlösung:</div>
                     <div class="correct-answer-content">
-                        </div>
+                        <!-- Dynamisch generierte Musterlösung -->
+                    </div>
                 </div>
             </div>
         </template>
@@ -561,11 +567,18 @@
                 solutionContainer.style.display = 'none';
                 button.textContent = 'Musterlösung anzeigen';
             } else {
-                // Ersetze **Text** durch <strong>Text</strong> und Zeilenumbrüche durch <br>
+                // Ersetze **Text** durch <strong>Text</strong>
                 let formattedSolution = question.musterloesung.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-                formattedSolution = formattedSolution.replace(/\n/g, '<br>'); // Zeilenumbrüche in HTML-Zeilenumbrüche umwandeln
+                
+                // Teile den Text an doppelten Zeilenumbrüchen in Absätze auf
+                const paragraphs = formattedSolution.split(/\n\s*\n/).filter(p => p.trim() !== '');
+                let htmlContent = '';
+                paragraphs.forEach(p => {
+                    // Ersetze einzelne Zeilenumbrüche innerhalb eines Absatzes durch <br>
+                    htmlContent += `<p>${p.replace(/\n/g, '<br>')}</p>`;
+                });
 
-                solutionContainer.querySelector('.correct-answer-content').innerHTML = `<p>${formattedSolution}</p>`;
+                solutionContainer.querySelector('.correct-answer-content').innerHTML = htmlContent;
                 solutionContainer.style.display = 'block';
                 button.textContent = 'Musterlösung ausblenden';
             }
@@ -576,4 +589,3 @@
     </script>
 </body>
 </html>
-
