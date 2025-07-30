@@ -9,8 +9,8 @@
     "bewertungskriterien": [
       {
         "name": "Bedarfsanalyse",
-        "keywords": ["bedarf", "bedarfsanalyse", "ermittlung", "qualifikationen", "befragung", "beobachtung", "dokumentenanalyse"],
-        "minWoerterFuerBeschreibung": 25,
+        "keywords": ["bedarf", "bedarfsanalyse", "ermittlung", "qualifikationen", "befragung", "beobachtung", "dokumentenanalyse", "ermittelt", "fähigkeiten", "benötigt"],
+        "minWoerterFuerBeschreibung": 999,
         "feedback_kurz": {
           "positiv": "Sehr gut! Die Bedarfsanalyse wurde präzise benannt und ausführlich beschrieben.",
           "neutral": "Die Bedarfsanalyse wurde genannt, aber die Beschreibung (z.B. der Methoden zur Ermittlung von Qualifikationen) ist noch nicht ausreichend.",
@@ -19,8 +19,8 @@
       },
       {
         "name": "Zielplanung",
-        "keywords": ["ziel", "ziele", "zielplanung", "entwicklungsziele", "individuell", "unternehmerisch", "abstimmung"],
-        "minWoerterFuerBeschreibung": 18,
+        "keywords": ["ziel", "ziele", "zielplanung", "entwicklungsziele", "individuell", "unternehmerisch", "abstimmung", "lernziele", "richtung", "festgelegt", "erreicht"],
+        "minWoerterFuerBeschreibung": 999,
         "feedback_kurz": {
           "positiv": "Ausgezeichnet! Die Zielplanung wurde korrekt identifiziert und deren Bedeutung für die Zieldefinition erläutert.",
           "neutral": "Die Zielplanung wurde erkannt, aber die Erläuterung der Abstimmung auf individuelle und unternehmerische Ziele ist noch nicht ausreichend.",
@@ -29,8 +29,8 @@
       },
       {
         "name": "Maßnahmengestaltung",
-        "keywords": ["maßnahme", "maßnahmen", "gestaltung", "gestalten", "auswählen", "pädagogisch", "wirtschaftlich", "planen"],
-        "minWoerterFuerBeschreibung": 18,
+        "keywords": ["maßnahme", "maßnahmen", "gestaltung", "gestalten", "auswählen", "pädagogisch", "wirtschaftlich", "planen", "fortbildungen", "angebote", "vorbereitet"],
+        "minWoerterFuerBeschreibung": 999,
         "feedback_kurz": {
           "positiv": "Sehr gut! Sie haben die Maßnahmengestaltung treffend beschrieben und auf die Auswahlkriterien hingewiesen.",
           "neutral": "Die Maßnahmengestaltung wurde erwähnt, jedoch fehlt eine ausreichende Beschreibung der Kriterien für die Auswahl passender Maßnahmen.",
@@ -39,8 +39,8 @@
       },
       {
         "name": "Durchführung",
-        "keywords": ["durchführung", "umsetzung", "umsetzen", "schulung", "coaching", "training-on-the-job"],
-        "minWoerterFuerBeschreibung": 15,
+        "keywords": ["durchführung", "umsetzung", "umsetzen", "schulung", "coaching", "training-on-the-job", "durchgeführt", "umgesetzt", "implementiert"],
+        "minWoerterFuerBeschreibung": 999,
         "feedback_kurz": {
           "positiv": "Perfekt! Die Durchführung wurde klar benannt und mit passenden Beispielen untermauert.",
           "neutral": "Die Durchführung wurde zwar genannt, aber die Beschreibung (z.B. mit konkreten Beispielen von Maßnahmen) ist noch nicht detailliert genug.",
@@ -49,8 +49,8 @@
       },
       {
         "name": "Erfolgskontrolle",
-        "keywords": ["erfolgskontrolle", "kontrolle", "überprüfung", "feedback", "tests", "leistungsbeurteilung", "erfolg erzielt"],
-        "minWoerterFuerBeschreibung": 20,
+        "keywords": ["erfolgskontrolle", "kontrolle", "überprüfung", "feedback", "tests", "leistungsbeurteilung", "erfolg erzielt", "überprüft", "wirksamkeit", "gebracht", "beurteilt"],
+        "minWoerterFuerBeschreibung": 999,
         "feedback_kurz": {
           "positiv": "Sehr gut! Sie haben die Bedeutung der Erfolgskontrolle und deren Methoden umfassend dargestellt.",
           "neutral": "Die Erfolgskontrolle wurde identifiziert, aber die Methoden der Überprüfung oder die Ziele der Kontrolle sind noch nicht ausreichend beschrieben.",
@@ -59,8 +59,8 @@
       },
       {
         "name": "Bedeutung",
-        "keywords": ["bedeutung", "praxis", "strategisch", "zielgerichtet", "effizient", "nachhaltig", "strukturierter ablauf"],
-        "minWoerterFuerBeschreibung": 25,
+        "keywords": ["bedeutung", "praxis", "strategisch", "zielgerichtet", "effizient", "nachhaltig", "strukturierter ablauf", "wichtig", "motiviert", "betriebsklima"],
+        "minWoerterFuerBeschreibung": 999,
         "feedback_kurz": {
           "positiv": "Hervorragend! Sie haben die übergeordnete Bedeutung des Personalentwicklungsprozesses für die betriebliche Praxis klar herausgearbeitet.",
           "neutral": "Die Bedeutung des Prozesses wurde angesprochen, aber eine tiefergehende Erläuterung der Vorteile (z.B. Effizienz, Nachhaltigkeit) fehlt noch.",
