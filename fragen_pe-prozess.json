@@ -10,7 +10,7 @@
       {
         "name": "Bedarfsanalyse",
         "keywords": ["bedarf", "bedarfsanalyse", "ermittlung", "qualifikationen", "befragung", "beobachtung", "dokumentenanalyse", "ermittelt", "fähigkeiten", "benötigt", "können", "brauchen"],
-        "minWoerterFuerBeschreibung": 25,
+        "minWoerterFuerBeschreibung": 22,
         "feedback_kurz": {
           "positiv": "Sehr gut! Die Bedarfsanalyse wurde präzise benannt und ausführlich beschrieben.",
           "neutral": "Die Bedarfsanalyse wurde genannt, aber die Beschreibung (z.B. der Methoden zur Ermittlung von Qualifikationen) ist noch nicht ausreichend.",
@@ -20,7 +20,7 @@
       {
         "name": "Zielplanung",
         "keywords": ["ziel", "ziele", "zielplanung", "entwicklungsziele", "individuell", "unternehmerisch", "abstimmung", "lernziele", "richtung", "festgelegt", "erreicht", "definiert"],
-        "minWoerterFuerBeschreibung": 18,
+        "minWoerterFuerBeschreibung": 22,
         "feedback_kurz": {
           "positiv": "Ausgezeichnet! Die Zielplanung wurde korrekt identifiziert und deren Bedeutung für die Zieldefinition erläutert.",
           "neutral": "Die Zielplanung wurde erkannt, aber die Erläuterung der Abstimmung auf individuelle und unternehmerische Ziele ist noch nicht ausreichend.",
@@ -30,7 +30,7 @@
       {
         "name": "Maßnahmengestaltung",
         "keywords": ["maßnahme", "maßnahmen", "gestaltung", "gestalten", "auswählen", "pädagogisch", "wirtschaftlich", "planen", "fortbildungen", "angebote", "vorbereitet", "lernmaßnahmen", "massnahmen", "maßnahmengestaltung"],
-        "minWoerterFuerBeschreibung": 18,
+        "minWoerterFuerBeschreibung": 22,
         "feedback_kurz": {
           "positiv": "Sehr gut! Sie haben die Maßnahmengestaltung treffend beschrieben und auf die Auswahlkriterien hingewiesen.",
           "neutral": "Die Maßnahmengestaltung wurde erwähnt, jedoch fehlt eine ausreichende Beschreibung der Kriterien für die Auswahl passender Maßnahmen.",
@@ -40,7 +40,7 @@
       {
         "name": "Durchführung",
         "keywords": ["durchführung", "umsetzung", "umsetzen", "schulung", "coaching", "training-on-the-job", "durchgeführt", "umgesetzt", "implementiert", "betrieb", "umgesetzt", "durchführen"],
-        "minWoerterFuerBeschreibung": 15,
+        "minWoerterFuerBeschreibung": 22,
         "feedback_kurz": {
           "positiv": "Perfekt! Die Durchführung wurde klar benannt und mit passenden Beispielen untermauert.",
           "neutral": "Die Durchführung wurde zwar genannt, aber die Beschreibung (z.B. mit konkreten Beispielen von Maßnahmen) ist noch nicht detailliert genug.",
@@ -50,10 +50,10 @@
       {
         "name": "Erfolgskontrolle",
         "keywords": ["erfolgskontrolle", "kontrolle", "überprüfung", "feedback", "tests", "leistungsbeurteilung", "erfolg erzielt", "überprüft", "wirksamkeit", "gebracht", "beurteilt", "schaut"],
-        "minWoerterFuerBeschreibung": 20,
+        "minWoerterFuerBeschreibung": 22,
         "feedback_kurz": {
           "positiv": "Sehr gut! Sie haben die Bedeutung der Erfolgskontrolle und deren Methoden umfassend dargestellt.",
-          "neutral": "Die Erfolgskontrolle wurde identifiziert, aber die Methoden der Überprüfung oder die Ziele der Kontrolle sind noch nicht ausreichend beschrieben.",
+          "neutral": "Die Erfolgskontrolle wurde identifiziert, aber die Methoden der Überprüfung oder die Ziele der Kontrolle ist noch nicht ausreichend beschrieben.",
           "negativ": "Der Punkt 'Erfolgskontrolle' wurde in Ihrer Antwort nicht behandelt."
         }
       }
