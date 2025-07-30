@@ -491,16 +491,16 @@
         }
 
         function evaluateAnswer(question, answerInput, checkAnswerButton, toggleSolutionButton, feedbackSection, solutionContainer, recheckInfoText) {
-            const userAnswer = answerInput.value;
-            // Speichern der Benutzerantwort
-            question.userAnswer = userAnswer;
+    const userAnswer = answerInput.value;
+    question.userAnswer = userAnswer;
 
-            const stemmedUserAnswerWords = userAnswer.split(/\s+/)
-                                                .map(word => simpleStemmer(word))
-                                                .filter(word => word.length > 0);
+    const stemmedUserAnswerWords = userAnswer.split(/\s+/)
+                                        .map(word => simpleStemmer(word))
+                                        .filter(word => word.length > 0);
+    console.log("Gestemmte Benutzerwörter:", stemmedUserAnswerWords); // <--- DIESE ZEILE HIER EINFÜGEN
 
-            let totalPoints = 0;
-            let maxPoints = 0;
+    let totalPoints = 0;
+    let maxPoints = 0;
             const feedbackDetails = feedbackSection.querySelector('.feedback-details');
             feedbackDetails.innerHTML = ''; // Vorheriges Feedback löschen
 
