@@ -5,123 +5,117 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MIKP - Personalentwicklung</title>
   <style>
-    /* Grundlegende HTML/Body Stile basierend auf ZIP-13.html Analyse */
-    html, body {
-      height: 100%;
+    /* Allgemeine Einstellungen für den Body (direkt aus ZIP-13.html übernommen) */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif; /* Häufig verwendete Schriftart, die Standard ist */
-      background-color: #f0f0f0; /* Heller grauer Hintergrund */
+      padding: 40px 20px;
+      background-color: #f0f2f5; /* Hintergrundfarbe wie im Original */
       color: #333;
-      display: flex; /* Für zentrale Ausrichtung des Containers */
-      justify-content: center; /* Horizontale Zentrierung */
-      align-items: flex-start; /* Oben beginnen, nicht in der Mitte */
-      padding: 20px; /* Äußerer Abstand zum Rand */
-      box-sizing: border-box; /* Padding wird in Breite/Höhe inkludiert */
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      box-sizing: border-box; /* Sicherstellen, dass Padding zur Gesamtbreite gehört */
     }
-
-    /* Hauptcontainer */
+    /* Container für den gesamten Test, um ihn zu zentrieren und zu stylen (direkt aus ZIP-13.html übernommen) */
     .container {
       background-color: #ffffff;
-      padding: 25px 30px; /* Angepasstes Padding */
-      border: 1px solid #ccc; /* Feinerer Rand */
-      border-radius: 5px; /* Leichte Abrundung */
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtiler Schatten */
-      max-width: 780px; /* Angepasste maximale Breite näher an ZIP-13 */
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      max-width: 900px; /* Exakte Breite wie in ZIP-13.html */
       width: 100%;
       box-sizing: border-box;
     }
-
-    /* Überschriftenstile */
+    /* Überschriftenstile (direkt aus ZIP-13.html übernommen) */
     h1 {
-      color: #0066cc; /* Dunkleres Blau, typisch für Überschriften im Original */
+      color: #1a4e8a; /* Dunkelblau, wie im Original */
       text-align: center;
-      font-size: 2em; /* Angepasste Größe */
-      margin-top: 0;
+      font-size: 2.2em;
       margin-bottom: 5px;
-      font-weight: bold;
+      font-weight: bold; /* Explizit bold */
     }
     h2 {
-      color: #0066cc; /* Konsistent mit H1 */
+      color: #1a4e8a; /* Konsistent mit H1 */
       text-align: center;
-      font-size: 1.4em; /* Angepasste Größe */
-      font-weight: normal;
+      font-size: 1.5em; /* Wie im Original */
+      font-weight: normal; /* Normal für Subtitel */
       margin-top: 0;
-      margin-bottom: 25px; /* Abstand zum Inhalt */
+      margin-bottom: 25px;
     }
     h3 {
-      color: #0066cc;
-      font-size: 1.1em;
+      color: #1a4e8a;
+      font-size: 1.2em;
       margin-top: 0;
       margin-bottom: 10px;
-      font-weight: bold; /* H3 sind typischerweise fett */
+      font-weight: bold; /* Standardmäßig fett für H3 */
     }
-
     /* Fragen-Navigationsleiste */
     .question-navigation-bar {
       display: flex;
       flex-wrap: wrap;
-      gap: 7px; /* Feinere Abstände */
-      margin-bottom: 20px;
+      gap: 10px; /* Abstand wie in ZIP-13.html */
+      margin-bottom: 25px; /* Abstand nach unten */
       justify-content: center;
     }
     .question-navigation-bar button {
-      padding: 7px 14px; /* Angepasstes Padding für einheitliche Höhe */
-      font-size: 0.95em; /* Etwas kleiner */
+      padding: 10px 18px; /* Angepasstes Padding für einheitliche Höhe wie im Original */
+      font-size: 1em;
       cursor: pointer;
-      background-color: #e0e0e0; /* Hellgrau */
-      color: #444;
-      border: 1px solid #c0c0c0; /* Hellerer Rand */
-      border-radius: 4px;
-      transition: background-color 0.15s ease, border-color 0.15s ease;
-      line-height: 1.2; /* Für konsistente Höhen */
-      min-height: 32px; /* Einheitliche Mindesthöhe für Buttons */
+      background-color: #f0f0f0; /* Hellgrau */
+      color: #333;
+      border: 1px solid #ccc;
+      border-radius: 5px; /* Abgerundet */
+      transition: background-color 0.2s ease, border-color 0.2s ease;
+      line-height: 1; /* Wichtig für konsistente Button-Höhen */
       box-sizing: border-box;
+      min-width: 80px; /* Mindestbreite, falls Text kurz ist */
+      font-weight: bold; /* Meist fett im Original */
     }
     .question-navigation-bar button.active {
       background-color: #007bff; /* Aktiver Button-Hintergrund */
       color: white;
       border-color: #007bff;
+      box-shadow: 0 2px 5px rgba(0, 123, 255, 0.2); /* Kleiner Schatten für aktiven Button */
     }
     .question-navigation-bar button:hover:not(.active) {
-      background-color: #d0d0d0;
-      border-color: #b0b0b0;
+      background-color: #e6e6e6;
+      border-color: #b3b3b3;
     }
     .question-navigation-bar button.active:hover {
       background-color: #0056b3;
       border-color: #0056b3;
     }
-
     /* Textarea für Benutzerantwort */
     textarea {
       width: 100%;
-      height: 160px; /* Angepasste Höhe */
+      height: 180px; /* Wie in ZIP-13.html */
       font-size: 1em;
-      padding: 10px;
+      padding: 12px; /* Angepasstes Padding */
       margin-top: 10px;
       border: 1px solid #cccccc;
-      border-left: 5px solid #007bff; /* Blauer Rand links */
-      border-radius: 4px;
-      font-family: inherit;
+      border-left: 5px solid #007bff; /* Blauer Balken links */
+      border-radius: 5px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Schriftart wie Body */
       box-sizing: border-box;
-      resize: vertical; /* Nur vertikale Größenänderung */
+      resize: vertical; /* Nur vertikal skalierbar */
     }
-
     /* "Antwort überprüfen" Button */
     .btn-check-answer {
       display: block;
-      padding: 12px 20px;
+      padding: 12px 25px; /* Angepasstes Padding */
       background-color: #28a745; /* Grün */
       color: white;
       border: none;
-      border-radius: 4px;
+      border-radius: 5px;
       font-size: 1.1em;
       cursor: pointer;
       transition: background-color 0.3s ease;
-      margin-top: 25px;
+      margin-top: 30px; /* Abstand nach oben */
       width: 100%;
       box-sizing: border-box;
-      font-weight: bold; /* Meist fett im Original */
+      font-weight: bold;
     }
     .btn-check-answer:hover {
       background-color: #218838;
@@ -136,52 +130,51 @@
 
     /* Fragen-Sektion */
     .question-section {
-      padding: 20px;
-      border: 1px solid #ddd; /* Leichterer Rand */
-      margin-bottom: 25px;
-      border-radius: 5px;
+      padding: 25px; /* Angepasstes Padding */
+      border: 1px solid #e0e0e0; /* Hellerer Rand */
+      margin-bottom: 30px; /* Abstand nach unten */
+      border-radius: 8px; /* Etwas stärker abgerundet */
       background-color: #fdfdfd; /* Fast weiß */
-      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04); /* Sehr subtiler Schatten */
+      box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06); /* Subtiler Schatten */
     }
-
-    /* Feedback- und Musterlösung-Bereiche */
+    /* Feedback- und Musterlösung-Bereiche (direkt aus ZIP-13.html's .feedback-section und .solution-section) */
     .feedback-section,
-    .correct-answer-content-container {
-      margin-top: 20px;
-      padding: 15px;
-      background-color: #e6f2ff; /* Hellblau, wie im Original */
-      border-left: 5px solid #007bff; /* Blauer Balken links */
-      border-radius: 4px;
-      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04); /* Einheitlicher Schatten */
+    .correct-answer-content-container { /* Anpassung des Selektors für correct-answer-content-container */
+      margin-top: 25px;
+      padding: 20px;
+      background-color: #e6eff9; /* Hellblau, exakt wie im Original */
+      border-left: 5px solid #1a4e8a; /* Dunkelblauer Balken links, exakt wie im Original */
+      border-radius: 5px;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05); /* Einheitlicher Schatten */
     }
-    .feedback-section h4,
-    .correct-answer-content-container h4 {
-        color: #0066cc; /* Überschriftenfarbe */
+    .feedback-section h4 {
+        color: #1a4e8a; /* Überschriftenfarbe wie in ZIP-13.html */
         margin-top: 0;
         margin-bottom: 10px;
         font-size: 1.1em;
         font-weight: bold;
     }
+
     /* Kriterien-Feedback */
     .criteria-feedback {
       margin-top: 10px;
     }
     .feedback-item {
-      margin-bottom: 5px;
-      padding: 6px 0;
+      margin-bottom: 8px; /* Mehr Abstand */
+      padding: 7px 0;
       border-bottom: 1px dashed #e0e0e0;
       display: flex;
       align-items: flex-start; /* Icons und Text oben bündig */
-      line-height: 1.4; /* Für bessere Lesbarkeit */
+      line-height: 1.4;
     }
     .feedback-item:last-child {
       border-bottom: none;
     }
     .feedback-item .icon {
-        font-size: 1.1em;
-        margin-right: 8px;
-        flex-shrink: 0; /* Verhindert Schrumpfen des Icons */
-        padding-top: 2px; /* Leichte Anpassung für vertikale Ausrichtung */
+        font-size: 1.2em; /* Etwas größere Icons */
+        margin-right: 10px;
+        flex-shrink: 0;
+        padding-top: 1px; /* Feinanpassung */
     }
     .feedback-item strong {
         font-weight: bold;
@@ -192,12 +185,12 @@
 
     /* Punktestand-Anzeige */
     .score-display {
-      margin-top: 15px;
+      margin-top: 20px;
       font-weight: bold;
-      font-size: 1em;
-      color: #0066cc;
-      border-top: 1px solid #dcdcdc; /* Trennlinie */
-      padding-top: 10px;
+      font-size: 1.1em; /* Etwas größer */
+      color: #1a4e8a;
+      border-top: 1px solid #dcdcdc;
+      padding-top: 12px;
     }
 
     /* Musterlösung-Anzeige Button */
@@ -205,15 +198,16 @@
         background-color: #007bff; /* Blau */
         color: white;
         border: none;
-        padding: 10px 15px;
-        border-radius: 4px;
+        padding: 10px 20px; /* Angepasstes Padding */
+        border-radius: 5px;
         cursor: pointer;
-        font-size: 1em;
+        font-size: 1.05em;
         transition: background-color 0.3s ease;
         width: 100%;
         display: block;
         box-sizing: border-box;
         font-weight: bold;
+        margin-top: 25px; /* Abstand zum oberen Element */
     }
     .btn-toggle-musterloesung:hover {
         background-color: #0056b3;
@@ -235,7 +229,11 @@
         }
         .question-navigation-bar {
             flex-direction: column;
-            align-items: stretch; /* Buttons füllen die Breite */
+            align-items: stretch;
+            gap: 8px;
+        }
+        .question-navigation-bar button {
+            width: auto; /* Flex-Item verhält sich besser mit stretch */
         }
     }
   </style>
@@ -348,7 +346,7 @@
           alleGeladeneFragen[themaID].sort((a, b) => a.frageNummer - b.frageNummer);
           // Aktualisiere die Reihenfolge der Fragen-IDs im themen-Objekt basierend auf Sortierung
           if (themen[themaID]) { // Prüfen, ob Thema existiert, bevor es aktualisiert wird
-            themen[themaID].fragen = alleGeladeneFragene[themaID].map(f => f.id);
+            themen[themaID].fragen = alleGeladeneFragen[themaID].map(f => f.id);
           }
         }
 
