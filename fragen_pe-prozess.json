@@ -29,7 +29,7 @@
       },
       {
         "name": "Maßnahmengestaltung",
-        "keywords": ["maßnahme", "maßnahmen", "gestaltung", "gestalten", "auswählen", "pädagogisch", "wirtschaftlich", "planen", "fortbildungen", "angebote", "vorbereitet", "lernmaßnahmen", "massnahmen"],
+        "keywords": ["maßnahme", "maßnahmen", "gestaltung", "gestalten", "auswählen", "pädagogisch", "wirtschaftlich", "planen", "fortbildungen", "angebote", "vorbereitet", "lernmaßnahmen", "massnahmen", "maßnahmengestaltung"],
         "minWoerterFuerBeschreibung": 18,
         "feedback_kurz": {
           "positiv": "Sehr gut! Sie haben die Maßnahmengestaltung treffend beschrieben und auf die Auswahlkriterien hingewiesen.",
@@ -39,7 +39,7 @@
       },
       {
         "name": "Durchführung",
-        "keywords": ["durchführung", "umsetzung", "umsetzen", "schulung", "coaching", "training-on-the-job", "durchgeführt", "umgesetzt", "implementiert", "betrieb", "umgesetzt"],
+        "keywords": ["durchführung", "umsetzung", "umsetzen", "schulung", "coaching", "training-on-the-job", "durchgeführt", "umgesetzt", "implementiert", "betrieb", "umgesetzt", "durchführen"],
         "minWoerterFuerBeschreibung": 15,
         "feedback_kurz": {
           "positiv": "Perfekt! Die Durchführung wurde klar benannt und mit passenden Beispielen untermauert.",
