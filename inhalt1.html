@@ -47,6 +47,7 @@
     }
     .question-navigation-bar {
       display: flex;
+      flex-wrap: wrap; /* Ermöglicht Umbruch auf kleineren Bildschirmen */
       gap: 10px;
       margin-bottom: 20px;
       justify-content: center;
@@ -79,8 +80,9 @@
       border-left: 5px solid #1a4e8a; /* Blauer Balken links */
       border-radius: 5px;
       font-family: inherit; /* Die Schriftart wird vom body-Element geerbt */
+      box-sizing: border-box; /* Stellt sicher, dass Padding und Border in der Breite enthalten sind */
     }
-    button.check-button {
+    button.check-button { /* Legacy-Klasse, wird durch btn-check-answer ersetzt */
       display: block;
       padding: 15px 20px;
       background-color: #28a745;
@@ -105,7 +107,7 @@
     button.recheck-button:hover {
       background-color: #b38e0b;
     }
-    button.solution-button {
+    button.solution-button { /* Legacy-Klasse, wird durch btn-toggle-musterloesung ersetzt */
       display: block;
       padding: 15px 20px;
       background-color: #1a4e8a;
@@ -138,15 +140,17 @@
       background-color: #e6eff9;
       border-left: 5px solid #1a4e8a; /* Blauer Balken links */
       transition: background-color 0.5s ease;
+      border-radius: 5px;
     }
     .feedback-section.highlight {
         background-color: #d8e5f8;
     }
-    .solution-section {
+    .solution-section { /* Für Musterlösung, wird durch correct-answer-content ersetzt */
       margin-top: 20px;
       padding: 15px;
       background-color: #e6eff9;
       border-left: 5px solid #1a4e8a;
+      border-radius: 5px;
     }
     .ok { color: green; }
     .hinweis { color: #d17b00; }
@@ -215,12 +219,36 @@
     .btn-check-answer:hover {
       background-color: #218838;
     }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        body {
+            padding: 20px 10px;
+        }
+        .container {
+            padding: 20px;
+        }
+        h1 {
+            font-size: 1.8em;
+        }
+        h2 {
+            font-size: 1.2em;
+        }
+        .question-navigation-bar {
+            flex-direction: column; /* Buttons stack on small screens */
+            align-items: center;
+        }
+        .question-navigation-bar button {
+            width: 100%; /* Full width buttons */
+        }
+    }
+
   </style>
 </head>
 <body>
 
   <div class="container">
-    <h1>MIKP - Personalentwicklung 2</h1>
+    <h1>MIKP - Personalentwicklung</h1>
     <h2 id="thema-sub-titel"></h2>
 
     <div class="thema-selector">
@@ -261,38 +289,38 @@
   <script src="./index.js"></script>
 
   <script>
-    let alleGeladeneFragen = {}; // Speichert alle Fragen nach ThemaID 
-    let aktuellesThema = ''; // Speichert das aktuell ausgewählte Thema 
-    let aktuelleFrageIndex = 0; // Speichert den Index der aktuell angezeigten Frage im Thema 
+    let alleGeladeneFragen = {}; // Speichert alle Fragen nach ThemaID
+    let aktuellesThema = ''; // Speichert das aktuell ausgewählte Thema
+    let aktuelleFrageIndex = 0; // Speichert den Index der aktuell angezeigten Frage im Thema
 
-    // Definition der Themen und ihrer Fragen (Angepasst, um Fragen-IDs dynamisch zu füllen) 
+    // Definition der Themen und ihrer Fragen (Angepasst, um Fragen-IDs dynamisch zu füllen)
     const themen = {
       'pe-prozess': {
         h2Text: 'Personalentwicklungsprozess',
-        fragen: [] // Wird nach dem Laden der JSON-Fragen dynamisch mit Fragen-IDs gefüllt 
+        fragen: [] // Wird nach dem Laden der JSON-Fragen dynamisch mit Fragen-IDs gefüllt
       }
-      // Weitere Themen können hier hinzugefügt werden, falls Ihre JSON weitere themaIDs enthält 
+      // Weitere Themen können hier hinzugefügt werden, falls Ihre JSON weitere themaIDs enthält
     };
-    let stemWordFunc; // Variable für die Stemming-Funktion 
+    let stemWordFunc; // Variable für die Stemming-Funktion
 
     document.addEventListener('DOMContentLoaded', async () => {
-      // Initialisiere den Stemmer 
+      // Initialisiere den Stemmer
       if (typeof snowballFactory !== 'undefined') {
         const germanStemmer = snowballFactory.newStemmer('German');
         stemWordFunc = (word) => germanStemmer.stem(word);
       } else {
-        console.error('Snowball Stemmer (index.js) wurde nicht korrekt geladen oder snowballFactory ist nicht verfügbar. Stemming wird deaktiviert.'); [cite: 2]
-        stemWordFunc = (word) => word; // Fallback: gebe das Wort unverändert zurück 
+        console.error('Snowball Stemmer (index.js) wurde nicht korrekt geladen oder snowballFactory ist nicht verfügbar. Stemming wird deaktiviert.');
+        stemWordFunc = (word) => word; // Fallback: gebe das Wort unverändert zurück
       }
 
-      await ladeFragen(); // Lade alle Fragen aus der JSON-Datei 
-      erstelleThemaNavigation(); // Erstelle die Navigationsbuttons für Themen 
-      initialisiereApp(); // Initialisiere die Anwendung basierend auf URL-Hash oder Standard 
+      await ladeFragen(); // Lade alle Fragen aus der JSON-Datei
+      erstelleThemaNavigation(); // Erstelle die Navigationsbuttons für Themen
+      initialisiereApp(); // Initialisiere die Anwendung basierend auf URL-Hash oder Standard
     });
 
     function erstelleThemaNavigation() {
       const themaButtonsContainer = document.getElementById('thema-buttons');
-      themaButtonsContainer.innerHTML = ''; // Vorherige Buttons entfernen 
+      themaButtonsContainer.innerHTML = ''; // Vorherige Buttons entfernen
       for (const themaID in themen) {
         const button = document.createElement('button');
         button.textContent = themen[themaID].h2Text;
@@ -303,12 +331,12 @@
 
     async function ladeFragen() {
       try {
-        const response = await fetch('./fragen_pe-prozess.json'); [cite: 2]
+        const response = await fetch('./fragen_pe-prozess.json');
         if (!response.ok) {
-          throw new Error(`HTTP-Fehler! Status: ${response.status}`); [cite: 2]
+          throw new Error(`HTTP-Fehler! Status: ${response.status}`);
         }
-        const data = await response.json(); [cite: 2]
-        // Gruppiere Fragen nach ihrer themaID und fülle das themen-Objekt 
+        const data = await response.json();
+        // Gruppiere Fragen nach ihrer themaID und fülle das themen-Objekt
         data.forEach(frage => {
           if (!alleGeladeneFragen[frage.themaID]) {
             alleGeladeneFragen[frage.themaID] = [];
@@ -316,26 +344,26 @@
           alleGeladeneFragen[frage.themaID].push(frage);
           
           // Stelle sicher, dass themen[themaID].fragen die IDs der Fragen enthält,
-          // aber nur wenn das Thema bereits im 'themen'-Objekt existiert. 
+          // aber nur wenn das Thema bereits im 'themen'-Objekt existiert.
           if (themen[frage.themaID] && !themen[frage.themaID].fragen.includes(frage.id)) {
             themen[frage.themaID].fragen.push(frage.id);
           }
         });
-        // Fragen innerhalb jedes Themas nach frageNummer sortieren 
+        // Fragen innerhalb jedes Themas nach frageNummer sortieren
         for (const themaID in alleGeladeneFragen) {
           alleGeladeneFragen[themaID].sort((a, b) => a.frageNummer - b.frageNummer);
-          // Aktualisiere die Reihenfolge der Fragen-IDs im themen-Objekt basierend auf Sortierung 
-          if (themen[themaID]) { // Prüfen, ob Thema existiert, bevor es aktualisiert wird 
+          // Aktualisiere die Reihenfolge der Fragen-IDs im themen-Objekt basierend auf Sortierung
+          if (themen[themaID]) { // Prüfen, ob Thema existiert, bevor es aktualisiert wird
             themen[themaID].fragen = alleGeladeneFragen[themaID].map(f => f.id);
           }
         }
 
       } catch (error) {
-        console.error("Fehler beim Laden der Fragen-JSON-Datei:", error); [cite: 2]
+        console.error("Fehler beim Laden der Fragen-JSON-Datei:", error);
       }
     }
 
-    // Zeigt ein spezifisches Thema an und erstellt dessen Fragen-UI 
+    // Zeigt ein spezifisches Thema an und erstellt dessen Fragen-UI
     function zeigeThema(themaID) {
       // Aktuellen Themen-Button hervorheben
       document.querySelectorAll('#thema-buttons button').forEach(btn => {
@@ -349,24 +377,24 @@
       document.getElementById('thema-sub-titel').textContent = themen[themaID].h2Text;
       aktuellesThema = themaID;
 
-      erstelleFragenUI(themaID); // Fragen-UI für das Thema erstellen 
+      erstelleFragenUI(themaID); // Fragen-UI für das Thema erstellen
 
       // Zeige die erste Frage des Themas, falls vorhanden
       if (alleGeladeneFragen[themaID] && alleGeladeneFragen[themaID].length > 0) {
-        zeigeFrage(themaID, 0); // Zeige die erste Frage (Index 0) 
+        zeigeFrage(themaID, 0); // Zeige die erste Frage (Index 0)
       } else {
-        document.getElementById('questions-container').innerHTML = '<p>Keine Fragen für dieses Thema gefunden.</p>'; [cite: 2]
+        document.getElementById('questions-container').innerHTML = '<p>Keine Fragen für dieses Thema gefunden.</p>';
       }
     }
 
-    // Erstellt die UI für alle Fragen eines Themas mit dem Template 
+    // Erstellt die UI für alle Fragen eines Themas mit dem Template
     function erstelleFragenUI(themaID) {
-        const questionsContainer = document.getElementById('questions-container'); [cite: 2]
-        const questionTemplate = document.getElementById('questionTemplate'); [cite: 2]
-        questionsContainer.innerHTML = ''; // Inhalt leeren, um neue Fragen zu laden 
+        const questionsContainer = document.getElementById('questions-container');
+        const questionTemplate = document.getElementById('questionTemplate');
+        questionsContainer.innerHTML = ''; // Inhalt leeren, um neue Fragen zu laden
 
-        const fragenDesThemas = alleGeladeneFragen[themaID]; [cite: 2]
-        if (!fragenDesThemas) return; [cite: 2]
+        const fragenDesThemas = alleGeladeneFragen[themaID];
+        if (!fragenDesThemas) return;
 
         // Fragen-Navigation (oben im questions-container)
         const questionNavBar = document.createElement('div');
@@ -378,28 +406,28 @@
             navButton.onclick = () => zeigeFrage(themaID, index);
             questionNavBar.appendChild(navButton);
         });
-        questionsContainer.appendChild(questionNavBar); [cite: 2]
+        questionsContainer.appendChild(questionNavBar);
 
         // Füge die Fragen mit dem Template hinzu
         fragenDesThemas.forEach((frage, index) => {
             const clone = document.importNode(questionTemplate.content, true);
             const questionSection = clone.querySelector('.question-section');
-            questionSection.id = frage.id; // Eindeutige ID für die Frage-Sektion 
-            questionSection.setAttribute('data-question-id', frage.id); // data-Attribut ebenfalls setzen 
+            questionSection.id = frage.id; // Eindeutige ID für die Frage-Sektion
+            questionSection.setAttribute('data-question-id', frage.id); // data-Attribut ebenfalls setzen
 
-            clone.querySelector('.question-title').textContent = frage.titel; [cite: 2]
+            clone.querySelector('.question-title').textContent = frage.titel;
             clone.querySelector('.question-text').textContent = frage.frageText;
             
             const userAnswerTextarea = clone.querySelector('.user-answer');
-            userAnswerTextarea.id = `user-answer-${frage.id}`; // Eindeutige ID für die Textarea 
+            userAnswerTextarea.id = `user-answer-${frage.id}`; // Eindeutige ID für die Textarea
             clone.querySelector('label').setAttribute('for', userAnswerTextarea.id);
 
             clone.querySelector('.btn-check-answer').addEventListener('click', () => {
-                evaluateAnswer(frage.id, questionSection, frage); [cite: 2]
+                evaluateAnswer(frage.id, questionSection, frage);
             });
 
             const correctAnswerContentDiv = clone.querySelector('.correct-answer-content');
-            correctAnswerContentDiv.innerHTML = frage.musterloesung.replace(/\n/g, '<br>'); [cite: 2]
+            correctAnswerContentDiv.innerHTML = frage.musterloesung.replace(/\n/g, '<br>');
             const toggleMusterloesungBtn = clone.querySelector('.btn-toggle-musterloesung');
             toggleMusterloesungBtn.addEventListener('click', (event) => {
                 if (correctAnswerContentDiv.style.display === 'none') {
@@ -411,126 +439,123 @@
                 }
             });
             // Feedback-Bereich anpassen
-            const feedbackSection = clone.querySelector('.feedback-section'); [cite: 2]
-            feedbackSection.id = `feedback-${frage.id}`; [cite: 2]
+            const feedbackSection = clone.querySelector('.feedback-section');
+            feedbackSection.id = `feedback-${frage.id}`;
 
             questionsContainer.appendChild(clone);
         });
     }
 
-    // Zeigt eine spezifische Frage innerhalb eines Themas an 
+    // Zeigt eine spezifische Frage innerhalb eines Themas an
     function zeigeFrage(themaID, frageIndex) {
-      const fragenArray = alleGeladeneFragen[themaID]; [cite: 2]
+      const fragenArray = alleGeladeneFragen[themaID];
       if (!fragenArray || fragenArray.length <= frageIndex) {
-        console.error(`Frage mit Index ${frageIndex} für Thema ${themaID} nicht gefunden.`); [cite: 2]
+        console.error(`Frage mit Index ${frageIndex} für Thema ${themaID} nicht gefunden.`);
         return;
       }
-      const frageID = fragenArray[frageIndex].id; // Die eindeutige ID der Frage 
+      const frageID = fragenArray[frageIndex].id; // Die eindeutige ID der Frage
 
       // Alle Fragen im aktuellen Thema ausblenden
       document.querySelectorAll(`#questions-container .question-section`).forEach(section => {
         section.style.display = 'none';
       });
       // Die gewünschte Frage anzeigen
-      document.getElementById(frageID).style.display = 'block'; [cite: 2]
+      document.getElementById(frageID).style.display = 'block';
 
       // Aktiven Navigations-Button hervorheben
       document.querySelectorAll(`#questions-container .question-navigation-bar button`).forEach(btn => {
         btn.classList.remove('active');
       });
-      // Sicherstellen, dass der Button existiert, bevor .classList.add() aufgerufen wird 
+      // Sicherstellen, dass der Button existiert, bevor .classList.add() aufgerufen wird
       const navButtonToActivate = document.getElementById(`nav-${frageID}`);
       if (navButtonToActivate) {
         navButtonToActivate.classList.add('active');
       }
 
-      aktuelleFrageIndex = frageIndex; // Aktualisiere den globalen Index 
+      aktuelleFrageIndex = frageIndex; // Aktualisiere den globalen Index
     }
 
-    // Bewertungslogik 
+    // Bewertungslogik
     function evaluateAnswer(frageId, sectionElement, frageData) {
-        const userAnswer = sectionElement.querySelector(`#user-answer-${frageId}`).value; [cite: 2]
-        const feedbackSection = sectionElement.querySelector(`#feedback-${frageId}`); [cite: 2]
-        const criteriaFeedbackDiv = feedbackSection.querySelector('.criteria-feedback'); [cite: 2]
-        const scorePercentageSpan = feedbackSection.querySelector('.score-percentage'); [cite: 2]
-        criteriaFeedbackDiv.innerHTML = ''; // Alten Feedback löschen 
-        feedbackSection.style.display = 'block'; [cite: 2]
+        const userAnswer = sectionElement.querySelector(`#user-answer-${frageId}`).value;
+        const feedbackSection = sectionElement.querySelector(`#feedback-${frageId}`);
+        const criteriaFeedbackDiv = feedbackSection.querySelector('.criteria-feedback');
+        const scorePercentageSpan = feedbackSection.querySelector('.score-percentage');
+        criteriaFeedbackDiv.innerHTML = ''; // Alten Feedback löschen
+        feedbackSection.style.display = 'block';
 
-        let totalPossibleScore = 0; [cite: 2]
-        let userAchievedScore = 0; [cite: 2]
+        let totalPossibleScore = 0;
+        let userAchievedScore = 0;
 
-        const userWords = cleanAndStemText(userAnswer, stemWordFunc); [cite: 2]
+        const userWords = cleanAndStemText(userAnswer, stemWordFunc);
 
-        frageData.bewertungskriterien.forEach(criterion => { [cite: 2]
-            const feedbackItem = document.createElement('div'); [cite: 2]
-            feedbackItem.classList.add('feedback-item'); [cite: 2]
-            let criterionScore = 0; [cite: 2]
-            let keywordFound = false; // Add a flag to track if any keyword for the criterion is found 
+        frageData.bewertungskriterien.forEach(criterion => {
+            const feedbackItem = document.createElement('div');
+            feedbackItem.classList.add('feedback-item');
+            let criterionScore = 0;
+            let keywordFound = false; // Add a flag to track if any keyword for the criterion is found
 
-            totalPossibleScore += 2; // Each criterion is worth 2 points if fully recognized and described 
+            totalPossibleScore += 2; // Each criterion is worth 2 points if fully recognized and described
 
-            // Check for keywords 
-            for (const keyword of criterion.keywords) { [cite: 2]
-                const stemmedKeyword = stemWordFunc(keyword.toLowerCase()); [cite: 2]
+            // Check for keywords
+            for (const keyword of criterion.keywords) {
+                const stemmedKeyword = stemWordFunc(keyword.toLowerCase());
                 if (userWords.includes(stemmedKeyword)) {
-                    keywordFound = true; [cite: 2]
-                    break; // Found a keyword, no need to check further for this criterion 
+                    keywordFound = true;
+                    break; // Found a keyword, no need to check further for this criterion
                 }
             }
 
             if (keywordFound) {
-                // Check word count for sufficient description 
+                // Check word count for sufficient description
                 const cleanUserAnswer = userAnswer.toLowerCase().replace(/[.,!?;:()"]/g, '');
-                const sentences = cleanUserAnswer.split(/[.!?\n]/).filter(s => s.trim().length > 0);
+                // Split by spaces and filter out empty strings to count words
+                const wordsInUserAnswer = cleanUserAnswer.split(/\s+/).filter(word => word.length > 0);
                 let sufficientlyDescribed = false;
 
-                for (const sentence of sentences) {
-                    const stemmedSentenceWords = cleanAndStemText(sentence, stemWordFunc);
-                    const sentenceWordCount = sentence.split(/\s+/).filter(word => word.length > 0).length;
-
-                    // Check if any of the criterion's keywords are in the sentence
-                    const criterionKeywordsStemmed = criterion.keywords.map(kw => stemWordFunc(kw.toLowerCase()));
-                    const hasCriterionKeywordInSentence = criterionKeywordsStemmed.some(skw => stemmedSentenceWords.includes(skw));
-
-                    if (hasCriterionKeywordInSentence && sentenceWordCount >= criterion.minWoerterFuerBeschreibung) {
-                        sufficientlyDescribed = true;
-                        break;
-                    }
+                // Simple check for sufficient description: total words in answer
+                if (wordsInUserAnswer.length >= criterion.minWoerterFuerBeschreibung) {
+                    sufficientlyDescribed = true;
                 }
+                
+                // Refined check: Ensure a keyword is within a sufficient sentence context
+                // Iterate through sentences if a more granular check is needed.
+                // For now, we'll stick to overall word count if a keyword is found.
+                // This part could be made more sophisticated if needed.
 
                 if (sufficientlyDescribed) {
-                    criterionScore = 2; // Full points 
-                    feedbackItem.classList.add('positive'); [cite: 2]
-                    feedbackItem.innerHTML = `<strong>${criterion.name}:</strong> Sehr gut! Der Punkt wurde genannt und ausreichend beschrieben.`; [cite: 2]
+                    criterionScore = 2; // Full points
+                    feedbackItem.classList.add('positive');
+                    feedbackItem.innerHTML = `<strong>${criterion.name}:</strong> Sehr gut! Der Punkt wurde genannt und ausreichend beschrieben.`;
                 } else {
-                    criterionScore = 1; // Partial points 
-                    feedbackItem.classList.add('neutral'); [cite: 2]
-                    feedbackItem.innerHTML = `<strong>${criterion.name}:</strong> ${criterion.feedback_kurz || 'Der Punkt wurde genannt, aber die Beschreibung ist noch nicht ausreichend.'}`; [cite: 2]
+                    criterionScore = 1; // Partial points
+                    feedbackItem.classList.add('neutral');
+                    feedbackItem.innerHTML = `<strong>${criterion.name}:</strong> ${criterion.feedback_kurz || 'Der Punkt wurde genannt, aber die Beschreibung ist noch nicht ausreichend.'}`;
                 }
             } else {
-                criterionScore = 0; // No points 
-                feedbackItem.classList.add('negative'); [cite: 2]
-                feedbackItem.innerHTML = `<strong>${criterion.name}:</strong> Nicht gefunden. Ihre Antwort sollte diesen Punkt behandeln.`; [cite: 2]
+                criterionScore = 0; // No points
+                feedbackItem.classList.add('negative');
+                feedbackItem.innerHTML = `<strong>${criterion.name}:</strong> Nicht gefunden. Ihre Antwort sollte diesen Punkt behandeln.`;
             }
-            userAchievedScore += criterionScore; [cite: 2]
-            criteriaFeedbackDiv.appendChild(feedbackItem); [cite: 2]
+            userAchievedScore += criterionScore;
+            criteriaFeedbackDiv.appendChild(feedbackItem);
         });
 
-        const overallPercentage = totalPossibleScore > 0 ? ((userAchievedScore / totalPossibleScore) * 100).toFixed(0) : 0; [cite: 2]
-        scorePercentageSpan.textContent = overallPercentage; [cite: 2]
+        const overallPercentage = totalPossibleScore > 0 ? ((userAchievedScore / totalPossibleScore) * 100).toFixed(0) : 0;
+        scorePercentageSpan.textContent = overallPercentage;
     }
 
-    // Hilfsfunktion zum Bereinigen und Stemmen des Textes 
+    // Hilfsfunktion zum Bereinigen und Stemmen des Textes
     function cleanAndStemText(text, stemmer) {
-        const cleanedText = text.toLowerCase().replace(/[.,!?;:()"]/g, ''); [cite: 2]
-        return cleanedText.split(/\s+/).filter(word => word.length > 0).map(word => stemmer(word)); [cite: 2]
+        const cleanedText = text.toLowerCase().replace(/[.,!?;:()"]/g, '');
+        return cleanedText.split(/\s+/).filter(word => word.length > 0).map(word => stemmer(word));
     }
 
-    // Initialisierung beim Laden der Seite 
+    // Initialisierung beim Laden der Seite
     async function initialisiereApp() {
       const hash = window.location.hash.substring(1);
       const startThemaID = hash || 'pe-prozess'; // Standardthema 'pe-prozess' oder aus URL-Hash
-      zeigeThema(startThemaID); // Zeige das Startthema 
+      zeigeThema(startThemaID); // Zeige das Startthema
     }
   </script>
 
