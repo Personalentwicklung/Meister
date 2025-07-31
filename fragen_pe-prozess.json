@@ -5,7 +5,7 @@
     "frageNummer": 1,
     "titel": "Frage 1:",
     "frageText": "Beschreiben Sie die fünf Phasen des Personalentwicklungsprozesses und erläutern Sie deren Bedeutung für die betriebliche Praxis.",
-    "musterloesung": "Der Personalentwicklungsprozess gliedert sich in fünf aufeinanderfolgende Phasen:\n\nBedarfsanalyse: Hier wird ermittelt, welche Qualifikationen im Unternehmen fehlen oder künftig benötigt werden. Dies geschieht durch Methoden wie Befragungen, Beobachtungen oder Dokumentenanalysen.\n\nZielplanung: In dieser Phase werden konkrete Entwicklungsziele definiert, die sowohl auf individuelle als auch auf unternehmerische Anforderungen abgestimmt sind.\n\nMaßnahmengestaltung: Es werden geeignete Entwicklungsmaßnahmen ausgewählt, die sowohl pädagogisch sinnvoll als auch wirtschaftlich tragfähig sind.\n\nDurchführung: Die geplanten Maßnahmen werden umgesetzt – z. B. durch Schulungen, Coaching oder Training-on-the-Job.\n\nErfolgskontrolle: Abschließend wird überprüft, ob die Maßnahmen die gewünschten Effekte erzielt haben. Dies kann durch Feedback, Tests oder Leistungsbeurteilungen erfolgen.\n\nDer strukturierte Ablauf stellt sicher, dass Personalentwicklung zielgerichtet, effizient und nachhaltig erfolgt.",
+    "musterloesung": "Der Personalentwicklungsprozess gliedert sich in fünf aufeinanderfolgende Phasen:\n\n**Bedarfsanalyse:** Hier wird ermittelt, welche Qualifikationen im Unternehmen fehlen oder künftig benötigt werden. Dies geschieht durch Methoden wie Befragungen, Beobachtungen oder Dokumentenanalysen.\n\n**Zielplanung:** In dieser Phase werden konkrete Entwicklungsziele definiert, die sowohl auf individuelle als auch auf unternehmerische Anforderungen abgestimmt sind.\n\n**Maßnahmengestaltung:** Es werden geeignete Entwicklungsmaßnahmen ausgewählt, die sowohl pädagogisch sinnvoll als auch wirtschaftlich tragfähig sind.\n\n**Durchführung:** Die geplanten Maßnahmen werden umgesetzt – z. B. durch Schulungen, Coaching oder Training-on-the-Job.\n\n**Erfolgskontrolle:** Abschließend wird überprüft, ob die Maßnahmen die gewünschten Effekte erzielt haben. Dies kann durch Feedback, Tests oder Leistungsbeurteilungen erfolgen.\n\nDer strukturierte Ablauf stellt sicher, dass Personalentwicklung zielgerichtet, effizient und nachhaltig erfolgt.",
     "bewertungskriterien": [
       {
         "name": "Bedarfsanalyse",
@@ -16,9 +16,9 @@
           "dokumentenanalyse", "ermittelt", "fähigkeiten", "benötigt", "können", "brauchen", "analyse des bedarfs"
         ],
         "feedback_kurz": {
-          "positiv": "✅ Bedarfsanalyse: Sehr gut! Der Aspekt wurde umfassend erkannt.",
-          "neutral": "⚠️ Bedarfsanalyse: Der Begriff wurde erkannt, die Beschreibung könnte ausführlicher sein.",
-          "negativ": "❌ Bedarfsanalyse: Der Begriff wurde nicht erwähnt."
+          "positiv": "Sehr gut! Der Aspekt wurde umfassend erkannt (Phrase).",
+          "neutral": "Der Aspekt wurde erkannt (Keyword), die Beschreibung könnte ausführlicher sein.",
+          "negativ": "Der Aspekt wurde nicht gefunden."
         }
       },
       {
@@ -30,9 +30,9 @@
           "abstimmung", "lernziele", "richtung", "festgelegt", "erreicht", "definiert"
         ],
         "feedback_kurz": {
-          "positiv": "✅ Zielplanung: Sehr gut! Der Aspekt wurde umfassend erkannt.",
-          "neutral": "⚠️ Zielplanung: Der Begriff wurde erkannt, die Beschreibung könnte ausführlicher sein.",
-          "negativ": "❌ Zielplanung: Der Begriff wurde nicht erwähnt."
+          "positiv": "Sehr gut! Der Aspekt wurde umfassend erkannt (Phrase).",
+          "neutral": "Der Aspekt wurde erkannt (Keyword), die Beschreibung könnte ausführlicher sein.",
+          "negativ": "Der Aspekt wurde nicht gefunden."
         }
       },
       {
@@ -44,9 +44,9 @@
           "wirtschaftlich", "planen", "fortbildungen", "angebote", "vorbereitet", "lernmaßnahmen", "massnahmen", "maßnahmen erstellen"
         ],
         "feedback_kurz": {
-          "positiv": "✅ Maßnahmengestaltung: Sehr gut! Der Aspekt wurde umfassend erkannt.",
-          "neutral": "⚠️ Maßnahmengestaltung: Der Begriff wurde erkannt, die Beschreibung könnte ausführlicher sein.",
-          "negativ": "❌ Maßnahmengestaltung: Der Begriff wurde nicht erwähnt."
+          "positiv": "Sehr gut! Der Aspekt wurde umfassend erkannt (Phrase).",
+          "neutral": "Der Aspekt wurde erkannt (Keyword), die Beschreibung könnte ausführlicher sein.",
+          "negativ": "Der Aspekt wurde nicht gefunden."
         }
       },
       {
@@ -58,9 +58,9 @@
           "durchgeführt", "umgesetzt", "implementiert", "betrieb", "durchführen"
         ],
         "feedback_kurz": {
-          "positiv": "✅ Durchführung: Sehr gut! Der Aspekt wurde umfassend erkannt.",
-          "neutral": "⚠️ Durchführung: Der Begriff wurde erkannt, die Beschreibung könnte ausführlicher sein.",
-          "negativ": "❌ Durchführung: Der Begriff wurde nicht erwähnt."
+          "positiv": "Sehr gut! Der Aspekt wurde umfassend erkannt (Phrase).",
+          "neutral": "Der Aspekt wurde erkannt (Keyword), die Beschreibung könnte ausführlicher sein.",
+          "negativ": "Der Aspekt wurde nicht gefunden."
         }
       },
       {
@@ -72,9 +72,9 @@
           "erfolg erzielt", "überprüft", "wirksamkeit", "gebracht", "beurteilt", "schaut", "auswertung", "messung"
         ],
         "feedback_kurz": {
-          "positiv": "✅ Erfolgskontrolle: Sehr gut! Der Aspekt wurde umfassend erkannt.",
-          "neutral": "⚠️ Erfolgskontrolle: Der Begriff wurde erkannt, die Beschreibung könnte ausführlicher sein.",
-          "negativ": "❌ Erfolgskontrolle: Der Begriff wurde nicht erwähnt."
+          "positiv": "Sehr gut! Der Aspekt wurde umfassend erkannt (Phrase).",
+          "neutral": "Der Aspekt wurde erkannt (Keyword), die Beschreibung könnte ausführlicher sein.",
+          "negativ": "Der Aspekt wurde nicht gefunden."
         }
       }
     ]
