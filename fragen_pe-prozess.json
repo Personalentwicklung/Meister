@@ -6,6 +6,11 @@
     "titel": "Frage 1:",
     "frageText": "Beschreiben Sie die fünf Phasen des Personalentwicklungsprozesses und erläutern Sie deren Bedeutung für die betriebliche Praxis.",
     "musterloesung": "Der Personalentwicklungsprozess gliedert sich in fünf aufeinanderfolgende Phasen:\n\n**Bedarfsanalyse:** Hier wird ermittelt, welche Qualifikationen im Unternehmen fehlen oder künftig benötigt werden. Dies geschieht durch Methoden wie Befragungen, Beobachtungen oder Dokumentenanalysen.\n\n**Zielplanung:** In dieser Phase werden konkrete Entwicklungsziele definiert, die sowohl auf individuelle als auch auf unternehmerische Anforderungen abgestimmt sind.\n\n**Maßnahmengestaltung:** Es werden geeignete Entwicklungsmaßnahmen ausgewählt, die sowohl pädagogisch sinnvoll als auch wirtschaftlich tragfähig sind.\n\n**Durchführung:** Die geplanten Maßnahmen werden umgesetzt – z. B. durch Schulungen, Coaching oder Training-on-the-Job.\n\n**Erfolgskontrolle:** Abschließend wird überprüft, ob die Maßnahmen die gewünschten Effekte erzielt haben. Dies kann durch Feedback, Tests oder Leistungsbeurteilungen erfolgen.\n\nDer strukturierte Ablauf stellt sicher, dass Personalentwicklung zielgerichtet, effizient und nachhaltig erfolgt.",
+    "commonFeedback": {
+      "positiv": "Sehr gut! Der Aspekt wurde umfassend erkannt.",
+      "neutral": "Der Begriff wurde erkannt, die Beschreibung könnte ausführlicher sein.",
+      "negativ": "Der Begriff wurde nicht erwähnt."
+    },
     "bewertungskriterien": [
       {
         "name": "Bedarfsanalyse",
@@ -14,12 +19,7 @@
           "was mitarbeiter können oder brauchen", "was mitarbeiter können", "was mitarbeiter brauchen",
           "bedarf", "bedarfsanalyse", "ermittlung", "qualifikationen", "befragung", "beobachtung",
           "dokumentenanalyse", "ermittelt", "fähigkeiten", "benötigt", "können", "brauchen", "analyse des bedarfs"
-        ],
-        "feedback_kurz": {
-          "positiv": "Sehr gut! Der Aspekt wurde umfassend erkannt.",
-          "neutral": "Der Begriff wurde erkannt, die Beschreibung könnte ausführlicher sein.",
-          "negativ": "Der Begriff wurde nicht erwähnt."
-        }
+        ]
       },
       {
         "name": "Zielplanung",
@@ -28,12 +28,7 @@
           "ziele gesetzt", "klare ziele", "ziele setzen",
           "ziel", "ziele", "zielplanung", "entwicklungsziele", "individuell", "unternehmerisch",
           "abstimmung", "lernziele", "richtung", "festgelegt", "erreicht", "definiert"
-        ],
-        "feedback_kurz": {
-          "positiv": "Sehr gut! Der Aspekt wurde umfassend erkannt.",
-          "neutral": "Der Begriff wurde erkannt, die Beschreibung könnte ausführlicher sein.",
-          "negativ": "Der Begriff wurde nicht erwähnt."
-        }
+        ]
       },
       {
         "name": "Maßnahmengestaltung",
@@ -42,12 +37,7 @@
           "geplante maßnahmen", "maßnahmen zur umsetzung", "planung von angeboten", "maßnahmen zur umsetzung",
           "maßnahme", "maßnahmen", "gestaltung", "gestalten", "auswählen", "pädagogisch",
           "wirtschaftlich", "planen", "fortbildungen", "angebote", "vorbereitet", "lernmaßnahmen", "massnahmen", "maßnahmen erstellen"
-        ],
-        "feedback_kurz": {
-          "positiv": "Sehr gut! Der Aspekt wurde umfassend erkannt.",
-          "neutral": "Der Begriff wurde erkannt, die Beschreibung könnte ausführlicher sein.",
-          "negativ": "Der Begriff wurde nicht erwähnt."
-        }
+        ]
       },
       {
         "name": "Durchführung",
@@ -55,12 +45,7 @@
           "die durchführung", "maßnahmen umsetzen", "im betrieb umgesetzt", "coaching durchführen",
           "durchführung", "umsetzung", "umsetzen", "schulung", "coaching", "training-on-the-job",
           "durchgeführt", "umgesetzt", "implementiert", "betrieb", "durchführen"
-        ],
-        "feedback_kurz": {
-          "positiv": "Sehr gut! Der Aspekt wurde umfassend erkannt.",
-          "neutral": "Der Begriff wurde erkannt, die Beschreibung könnte ausführlicher sein.",
-          "negativ": "Der Begriff wurde nicht erwähnt."
-        }
+        ]
       },
       {
         "name": "Erfolgskontrolle",
@@ -69,12 +54,7 @@
           "erfolg überprüfen", "abschließende kontrolle", "was es gebracht hat", "ob es funktioniert hat", "auswertung habe ich nicht genannt", "bewertung machen",
           "kontrolle", "überprüfung", "feedback", "tests", "leistungsbeurteilung",
           "erfolg erzielt", "überprüft", "wirksamkeit", "gebracht", "beurteilt", "schaut", "auswertung", "messung"
-        ],
-        "feedback_kurz": {
-          "positiv": "Sehr gut! Der Aspekt wurde umfassend erkannt.",
-          "neutral": "Der Begriff wurde erkannt, die Beschreibung könnte ausführlicher sein.",
-          "negativ": "Der Begriff wurde nicht erwähnt."
-        }
+        ]
       }
     ]
   }
