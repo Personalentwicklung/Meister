@@ -15,37 +15,49 @@
       {
         "name": "Bedarfsanalyse",
         "keywords": [
-          "bedarfsanalyse", "bedarf ermitteln", "qualifikationen fehlen", "künftig benötigt", "befragungen", "beobachtungen", "dokumentenanalysen", "ermittelt", "analyse"
+          "die bedarfsanalyse", "bedarf ermitteln", "qualifikationen fehlen", "was gebraucht wird",
+          "was mitarbeiter können oder brauchen", "was mitarbeiter können", "was mitarbeiter brauchen",
+          "bedarf", "bedarfsanalyse", "ermittlung", "qualifikationen", "befragung", "beobachtung",
+          "dokumentenanalyse", "ermittelt", "fähigkeiten", "benötigt", "können", "brauchen", "analyse des bedarfs"
         ],
         "phrases": [
           "bedarfsanalyse hier wird ermittelt welche qualifikationen im unternehmen fehlen oder künftig benötigt werden",
-          "durch methoden wie befragungen beobachtungen oder dokumentenanalysen"
+          "dies geschieht durch methoden wie befragungen beobachtungen oder dokumentenanalysen"
         ]
       },
       {
         "name": "Zielplanung",
         "keywords": [
-          "zielplanung", "entwicklungsziele", "definiert", "individuelle anforderungen", "unternehmerische anforderungen", "ziele"
+          "die zielplanung", "ziele festlegen", "ziele definieren", "richtung festgelegt",
+          "ziele gesetzt", "klare ziele", "ziele setzen",
+          "ziel", "ziele", "zielplanung", "entwicklungsziele", "individuell", "unternehmerisch",
+          "abstimmung", "lernziele", "richtung", "festgelegt", "erreicht", "definiert"
         ],
         "phrases": [
           "zielplanung in dieser phase werden konkrete entwicklungsziele definiert",
-          "individuelle als auch auf unternehmerische anforderungen abgestimmt sind"
+          "die sowohl auf individuelle als auch auf unternehmerische anforderungen abgestimmt sind"
         ]
       },
       {
         "name": "Maßnahmengestaltung",
         "keywords": [
-          "maßnahmengestaltung", "entwicklungsmaßnahmen", "ausgewählt", "pädagogisch sinnvoll", "wirtschaftlich tragfähig"
+          "maßnahmengestaltung", "maßnahmen planen", "angebote vorbereiten", "passende angebote",
+          "geplante maßnahmen", "maßnahmen zur umsetzung", "planung von angeboten", "maßnahmen zur umsetzung",
+          "maßnahme", "maßnahmen", "gestaltung", "gestalten", "auswählen", "pädagogisch",
+          "wirtschaftlich", "planen", "fortbildungen", "angebote", "vorbereitet", "lernmaßnahmen", "massnahmen", "maßnahmen erstellen"
         ],
         "phrases": [
           "maßnahmengestaltung es werden geeignete entwicklungsmaßnahmen ausgewählt",
-          "pädagogisch sinnvoll als auch wirtschaftlich tragfähig sind"
+          "die sowohl pädagogisch sinnvoll als auch wirtschaftlich tragfähig sind"
         ]
       },
       {
         "name": "Durchführung",
         "keywords": [
-          "durchführung", "maßnahmen umgesetzt", "schulungen", "coaching", "training-on-the-job"
+          "maßnahmen umsetzen", "im betrieb umgesetzt", "coaching durchführen",
+          "durchführung des prozesses", "umsetzung muss begleitet werden", "tatsächliche umsetzung", "umsetzung ist teil davon",
+          "durchführung", "umsetzung", "umsetzen", "schulung", "coaching", "training-on-the-job",
+          "durchgeführt", "umgesetzt", "implementiert", "betrieb", "durchführen"
         ],
         "phrases": [
           "durchführung die geplanten maßnahmen werden umgesetzt",
@@ -55,7 +67,10 @@
       {
         "name": "Erfolgskontrolle",
         "keywords": [
-          "erfolgskontrolle", "überprüft", "ergebnisse", "feedback", "tests", "leistungsbeurteilungen"
+          "erfolgskontrolle", "wirksamkeit überprüfen", "ob es was gebracht hat", "erfolg prüfen",
+          "erfolg überprüfen", "abschließende kontrolle", "was es gebracht hat", "ob es funktioniert hat", "auswertung habe ich nicht genannt", "bewertung machen",
+          "kontrolle", "überprüfung", "feedback", "tests", "leistungsbeurteilung",
+          "erfolg erzielt", "überprüft", "wirksamkeit", "gebracht", "beurteilt", "schaut", "auswertung", "messung"
         ],
         "phrases": [
           "erfolgskontrolle abschließend wird überprüft ob die maßnahmen die gewünschten effekte erzielt haben",
