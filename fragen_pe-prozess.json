@@ -10,60 +10,65 @@
       {
         "name": "Bedarfsanalyse",
         "keywords": [
-          "bedarf", "bedarfsanalyse", "ermittlung", "qualifikationen", "befragung", "beobachtung", "dokumentenanalyse", "ermittelt", "fähigkeiten", "benötigt", "können", "brauchen",
-          "die bedarfsanalyse", "bedarf ermitteln", "qualifikationen fehlen", "was gebraucht wird", "was mitarbeiter können oder brauchen"
+          "die bedarfsanalyse", "bedarf ermitteln", "qualifikationen fehlen", "was gebraucht wird",
+          "bedarf", "bedarfsanalyse", "ermittlung", "qualifikationen", "befragung", "beobachtung",
+          "dokumentenanalyse", "ermittelt", "fähigkeiten", "benötigt", "können", "brauchen"
         ],
         "feedback_kurz": {
-          "positiv": "✅ Bedarfsanalyse: Sehr gut, der Aspekt wurde präzise erkannt.",
-          "neutral": "⚠️ Bedarfsanalyse: Der Aspekt wurde erkannt, die Formulierung könnte präziser sein.",
+          "positiv": "✅ Bedarfsanalyse: Sehr gut! Der Aspekt wurde umfassend erkannt (Phrase).",
+          "neutral": "⚠️ Bedarfsanalyse: Der Aspekt wurde erkannt (Keyword), die Beschreibung könnte ausführlicher sein.",
           "negativ": "❌ Bedarfsanalyse: Der Aspekt wurde nicht gefunden."
         }
       },
       {
         "name": "Zielplanung",
         "keywords": [
-          "ziel", "ziele", "zielplanung", "entwicklungsziele", "individuell", "unternehmerisch", "abstimmung", "lernziele", "richtung", "festgelegt", "erreicht", "definiert",
-          "die zielplanung", "ziele festlegen", "ziele definieren", "richtung festgelegt", "was erreicht werden soll", "es werden ziele gesetzt"
+          "die zielplanung", "ziele festlegen", "ziele definieren", "richtung festgelegt",
+          "ziel", "ziele", "zielplanung", "entwicklungsziele", "individuell", "unternehmerisch",
+          "abstimmung", "lernziele", "richtung", "festgelegt", "erreicht", "definiert"
         ],
         "feedback_kurz": {
-          "positiv": "✅ Zielplanung: Sehr gut, der Aspekt wurde präzise erkannt.",
-          "neutral": "⚠️ Zielplanung: Der Aspekt wurde erkannt, die Formulierung könnte präziser sein.",
+          "positiv": "✅ Zielplanung: Sehr gut! Der Aspekt wurde umfassend erkannt (Phrase).",
+          "neutral": "⚠️ Zielplanung: Der Aspekt wurde erkannt (Keyword), die Beschreibung könnte ausführlicher sein.",
           "negativ": "❌ Zielplanung: Der Aspekt wurde nicht gefunden."
         }
       },
       {
         "name": "Maßnahmengestaltung",
         "keywords": [
-          "maßnahme", "maßnahmen", "gestaltung", "gestalten", "auswählen", "pädagogisch", "wirtschaftlich", "planen", "fortbildungen", "angebote", "vorbereitet", "lernmaßnahmen", "massnahmen", "maßnahmengestaltung",
-          "maßnahmengestaltung", "maßnahmen planen", "angebote vorbereiten", "passende angebote", "passende lernmaßnahmen", "coaching werden vorbereitet"
+          "maßnahmengestaltung", "maßnahmen planen", "angebote vorbereiten", "passende angebote",
+          "maßnahme", "maßnahmen", "gestaltung", "gestalten", "auswählen", "pädagogisch",
+          "wirtschaftlich", "planen", "fortbildungen", "angebote", "vorbereitet", "lernmaßnahmen", "massnahmen"
         ],
         "feedback_kurz": {
-          "positiv": "✅ Maßnahmengestaltung: Sehr gut, der Aspekt wurde präzise erkannt.",
-          "neutral": "⚠️ Maßnahmengestaltung: Der Aspekt wurde erkannt, die Formulierung könnte präziser sein.",
+          "positiv": "✅ Maßnahmengestaltung: Sehr gut! Der Aspekt wurde umfassend erkannt (Phrase).",
+          "neutral": "⚠️ Maßnahmengestaltung: Der Aspekt wurde erkannt (Keyword), die Beschreibung könnte ausführlicher sein.",
           "negativ": "❌ Maßnahmengestaltung: Der Aspekt wurde nicht gefunden."
         }
       },
       {
         "name": "Durchführung",
         "keywords": [
-          "durchführung", "umsetzung", "umsetzen", "schulung", "coaching", "training-on-the-job", "durchgeführt", "umgesetzt", "implementiert", "betrieb", "durchführen",
-          "die durchführung", "maßnahmen umsetzen", "im betrieb umgesetzt", "coaching durchführen", "werden durchgeführt"
+          "die durchführung", "maßnahmen umsetzen", "im betrieb umgesetzt", "coaching durchführen",
+          "durchführung", "umsetzung", "umsetzen", "schulung", "coaching", "training-on-the-job",
+          "durchgeführt", "umgesetzt", "implementiert", "betrieb", "durchführen"
         ],
         "feedback_kurz": {
-          "positiv": "✅ Durchführung: Sehr gut, der Aspekt wurde präzise erkannt.",
-          "neutral": "⚠️ Durchführung: Der Aspekt wurde erkannt, die Formulierung könnte präziser sein.",
+          "positiv": "✅ Durchführung: Sehr gut! Der Aspekt wurde umfassend erkannt (Phrase).",
+          "neutral": "⚠️ Durchführung: Der Aspekt wurde erkannt (Keyword), die Beschreibung könnte ausführlicher sein.",
           "negativ": "❌ Durchführung: Der Aspekt wurde nicht gefunden."
         }
       },
       {
         "name": "Erfolgskontrolle",
         "keywords": [
-          "erfolgskontrolle", "kontrolle", "überprüfung", "feedback", "tests", "leistungsbeurteilung", "erfolg erzielt", "überprüft", "wirksamkeit", "gebracht", "beurteilt", "schaut",
-          "erfolgskontrolle", "wirksamkeit überprüfen", "ob es was gebracht hat", "erfolg prüfen", "zuletzt wird beurteilt"
+          "erfolgskontrolle", "wirksamkeit überprüfen", "ob es was gebracht hat", "erfolg prüfen",
+          "kontrolle", "überprüfung", "feedback", "tests", "leistungsbeurteilung",
+          "erfolg erzielt", "überprüft", "wirksamkeit", "gebracht", "beurteilt", "schaut"
         ],
         "feedback_kurz": {
-          "positiv": "✅ Erfolgskontrolle: Sehr gut, der Aspekt wurde präzise erkannt.",
-          "neutral": "⚠️ Erfolgskontrolle: Der Aspekt wurde erkannt, die Formulierung könnte präziser sein.",
+          "positiv": "✅ Erfolgskontrolle: Sehr gut! Der Aspekt wurde umfassend erkannt (Phrase).",
+          "neutral": "⚠️ Erfolgskontrolle: Der Aspekt wurde erkannt (Keyword), die Beschreibung könnte ausführlicher sein.",
           "negativ": "❌ Erfolgskontrolle: Der Aspekt wurde nicht gefunden."
         }
       }
