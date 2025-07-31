@@ -16,9 +16,9 @@
           "dokumentenanalyse", "ermittelt", "fähigkeiten", "benötigt", "können", "brauchen", "analyse des bedarfs"
         ],
         "feedback_kurz": {
-          "positiv": "Sehr gut! Der Aspekt wurde umfassend erkannt (Phrase).",
-          "neutral": "Der Aspekt wurde erkannt (Keyword), die Beschreibung könnte ausführlicher sein.",
-          "negativ": "Der Aspekt wurde nicht gefunden."
+          "positiv": "Sehr gut! Der Aspekt wurde umfassend erkannt.",
+          "neutral": "Der Begriff wurde erkannt, die Beschreibung könnte ausführlicher sein.",
+          "negativ": "Der Begriff wurde nicht erwähnt."
         }
       },
       {
@@ -30,9 +30,9 @@
           "abstimmung", "lernziele", "richtung", "festgelegt", "erreicht", "definiert"
         ],
         "feedback_kurz": {
-          "positiv": "Sehr gut! Der Aspekt wurde umfassend erkannt (Phrase).",
-          "neutral": "Der Aspekt wurde erkannt (Keyword), die Beschreibung könnte ausführlicher sein.",
-          "negativ": "Der Aspekt wurde nicht gefunden."
+          "positiv": "Sehr gut! Der Aspekt wurde umfassend erkannt.",
+          "neutral": "Der Begriff wurde erkannt, die Beschreibung könnte ausführlicher sein.",
+          "negativ": "Der Begriff wurde nicht erwähnt."
         }
       },
       {
@@ -44,23 +44,22 @@
           "wirtschaftlich", "planen", "fortbildungen", "angebote", "vorbereitet", "lernmaßnahmen", "massnahmen", "maßnahmen erstellen"
         ],
         "feedback_kurz": {
-          "positiv": "Sehr gut! Der Aspekt wurde umfassend erkannt (Phrase).",
-          "neutral": "Der Aspekt wurde erkannt (Keyword), die Beschreibung könnte ausführlicher sein.",
-          "negativ": "Der Aspekt wurde nicht gefunden."
+          "positiv": "Sehr gut! Der Aspekt wurde umfassend erkannt.",
+          "neutral": "Der Begriff wurde erkannt, die Beschreibung könnte ausführlicher sein.",
+          "negativ": "Der Begriff wurde nicht erwähnt."
         }
       },
       {
         "name": "Durchführung",
         "keywords": [
-          "maßnahmen umsetzen", "im betrieb umgesetzt", "coaching durchführen",
-          "durchführung des prozesses", "umsetzung muss begleitet werden", "tatsächliche umsetzung", "umsetzung ist teil davon",
+          "die durchführung", "maßnahmen umsetzen", "im betrieb umgesetzt", "coaching durchführen",
           "durchführung", "umsetzung", "umsetzen", "schulung", "coaching", "training-on-the-job",
           "durchgeführt", "umgesetzt", "implementiert", "betrieb", "durchführen"
         ],
         "feedback_kurz": {
-          "positiv": "Sehr gut! Der Aspekt wurde umfassend erkannt (Phrase).",
-          "neutral": "Der Aspekt wurde erkannt (Keyword), die Beschreibung könnte ausführlicher sein.",
-          "negativ": "Der Aspekt wurde nicht gefunden."
+          "positiv": "Sehr gut! Der Aspekt wurde umfassend erkannt.",
+          "neutral": "Der Begriff wurde erkannt, die Beschreibung könnte ausführlicher sein.",
+          "negativ": "Der Begriff wurde nicht erwähnt."
         }
       },
       {
@@ -72,9 +71,9 @@
           "erfolg erzielt", "überprüft", "wirksamkeit", "gebracht", "beurteilt", "schaut", "auswertung", "messung"
         ],
         "feedback_kurz": {
-          "positiv": "Sehr gut! Der Aspekt wurde umfassend erkannt (Phrase).",
-          "neutral": "Der Aspekt wurde erkannt (Keyword), die Beschreibung könnte ausführlicher sein.",
-          "negativ": "Der Aspekt wurde nicht gefunden."
+          "positiv": "Sehr gut! Der Aspekt wurde umfassend erkannt.",
+          "neutral": "Der Begriff wurde erkannt, die Beschreibung könnte ausführlicher sein.",
+          "negativ": "Der Begriff wurde nicht erwähnt."
         }
       }
     ]
