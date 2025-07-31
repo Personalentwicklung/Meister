@@ -399,6 +399,7 @@
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 const data = await response.json();
+                // Speichern der Fragen und des gemeinsamen Feedbacks
                 questions = data.filter(q => q.themaID === defaultThemaId);
                 // Fragen nach frageNummer sortieren, um die korrekte Reihenfolge zu gewährleisten
                 questions.sort((a, b) => a.frageNummer - b.frageNummer);
@@ -486,6 +487,8 @@
             const feedbackDetails = feedbackSection.querySelector('.feedback-details');
             feedbackDetails.innerHTML = ''; // Vorheriges Feedback löschen
 
+            const commonFeedback = question.commonFeedback; // Zugriff auf das ausgelagerte Feedback
+
             question.bewertungskriterien.forEach(criterion => {
                 let points = 0;
                 let feedbackText = '';
@@ -513,16 +516,16 @@
                     }
                 }
                 
-                // Determine points and feedback text based on matchedType
+                // Determine points and feedback text based on matchedType, using commonFeedback
                 if (matchedType === 'phrase') {
                     points = maxPointsPerCriterion; // 2 Punkte für Phrasentreffer
-                    feedbackText = criterion.feedback_kurz.positiv;
+                    feedbackText = commonFeedback.positiv;
                 } else if (matchedType === 'single') {
                     points = 1; // 1 Punkt für Einzelworttreffer
-                    feedbackText = criterion.feedback_kurz.neutral;
+                    feedbackText = commonFeedback.neutral;
                 } else {
                     points = 0; // Nichts gefunden
-                    feedbackText = criterion.feedback_kurz.negativ;
+                    feedbackText = commonFeedback.negativ;
                 }
 
                 totalPoints += points;
