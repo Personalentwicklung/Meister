@@ -494,24 +494,34 @@
                 let feedbackText = '';
                 let matchedType = 'none'; // 'phrase', 'single', 'none'
 
-                // Sort keywords by length in descending order to prioritize phrases
-                const sortedKeywords = criterion.keywords
-                    .map(kw => ({ original: kw, stemmed: simpleStemmer(kw) }))
-                    .sort((a, b) => b.stemmed.length - a.stemmed.length);
+                // NEUE LOGIK STARTET HIER: Priorität 1 - Phrasen prüfen (2 Punkte)
+                // Sicherstellen, dass criterion.phrases existiert und ein Array ist
+                if (criterion.phrases && Array.isArray(criterion.phrases)) {
+                    // Sortieren der Phrasen nach Länge absteigend, um längere/spezifischere Treffer zu bevorzugen
+                    const sortedPhrases = criterion.phrases
+                        .map(ph => simpleStemmer(ph))
+                        .sort((a, b) => b.length - a.length);
 
-                for (const kwObj of sortedKeywords) {
-                    const stemmedTerm = kwObj.stemmed; // This can be a phrase or a single keyword
-
-                    // Check if the stemmed user answer text contains the stemmed term
-                    if (stemmedUserAnswerText.includes(stemmedTerm)) {
-                        if (stemmedTerm.includes(' ')) {
-                            // Found a phrase (multi-word match)
+                    for (const stemmedPhrase of sortedPhrases) {
+                        if (stemmedUserAnswerText.includes(stemmedPhrase)) {
                             matchedType = 'phrase';
-                            break; // Phrase found, no need to check further for this criterion
-                        } else if (matchedType === 'none') {
-                            // Found a single keyword, and no phrase has been found yet
+                            break; // Phrase gefunden, direkt 2 Punkte vergeben
+                        }
+                    }
+                }
+
+                // NEUE LOGIK: Priorität 2 - Keywords prüfen (1 Punkt), NUR wenn noch keine Phrase gefunden wurde
+                if (matchedType === 'none' && criterion.keywords && Array.isArray(criterion.keywords)) {
+                    // Keywords müssen nicht sortiert werden, da jeder Treffer 1 Punkt gibt und wir nur einen brauchen
+                    const stemmedKeywords = criterion.keywords.map(kw => simpleStemmer(kw));
+
+                    for (const stemmedKeyword of stemmedKeywords) {
+                        // Prüfen, ob der gestemmte Benutzertext das gestemmte Keyword enthält
+                        // Dies ist eine einfachere Überprüfung, die auch Teilwörter oder einzelne Begriffe erkennt.
+                        // Für genauere Einzelworttreffer müsste man Wortgrenzen berücksichtigen.
+                        if (stemmedUserAnswerText.includes(stemmedKeyword)) {
                             matchedType = 'single';
-                            // Do NOT break, as a longer phrase might still be found later in the sorted list
+                            break; // Keyword gefunden, 1 Punkt vergeben
                         }
                     }
                 }
@@ -519,13 +529,13 @@
                 // Determine points and feedback text based on matchedType, using commonFeedback
                 if (matchedType === 'phrase') {
                     points = maxPointsPerCriterion; // 2 Punkte für Phrasentreffer
-                    feedbackText = commonFeedback.positiv;
+                    feedbackText = commonFeedback.positiv; // Korrigiert: commonFeedback.positiv
                 } else if (matchedType === 'single') {
                     points = 1; // 1 Punkt für Einzelworttreffer
-                    feedbackText = commonFeedback.neutral;
+                    feedbackText = commonFeedback.neutral; // Korrigiert: commonFeedback.neutral
                 } else {
                     points = 0; // Nichts gefunden
-                    feedbackText = commonFeedback.negativ;
+                    feedbackText = commonFeedback.negativ; // Korrigiert: commonFeedback.negativ
                 }
 
                 totalPoints += points;
@@ -546,6 +556,26 @@
                     feedbackClass = 'error';
                 }
 
+                feedbackItem.classList.add(feedbackClass);
+                // HTML-Struktur fügt Icon und Bolding des Kriteriumsnamens hinzu. feedbackText ist nur der reine Text aus JSON.
+                feedbackItem.innerHTML = `<span class="feedback-icon">${icon}</span> <span><strong>${criterion.name}:</strong> ${feedbackText}</span>`;
+                feedbackDetails.appendChild(feedbackItem);
+            });
+
+            const percentage = (totalPossibleScore > 0) ? (totalPoints / totalPossibleScore) * 100 : 0;
+            const scoreDisplay = feedbackSection.querySelector('.score');
+            scoreDisplay.textContent = `Ergebnis in Prozent: ${percentage.toFixed(0)}%`;
+            
+            feedbackSection.style.display = 'block';
+            toggleSolutionButton.style.display = 'block'; // Musterlösungsbutton anzeigen
+
+            // Button-Text und -Farbe ändern
+            checkAnswerButton.textContent = 'Antwort erneut prüfen';
+            checkAnswerButton.classList.add('recheck-button');
+
+            // Dynamischen Text anzeigen
+            recheckInfoText.style.display = 'block';
+        }
                 feedbackItem.classList.add(feedbackClass);
                 // HTML-Struktur fügt Icon und Bolding des Kriteriumsnamens hinzu. feedbackText ist nur der reine Text aus JSON.
                 feedbackItem.innerHTML = `<span class="feedback-icon">${icon}</span> <span><strong>${criterion.name}:</strong> ${feedbackText}</span>`;
