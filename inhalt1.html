@@ -554,8 +554,8 @@
 
             const percentage = (totalPossibleScore > 0) ? (totalPoints / totalPossibleScore) * 100 : 0;
             const scoreDisplay = feedbackSection.querySelector('.score');
-            scoreDisplay.textContent = `Gesamterreichung: ${percentage.toFixed(0)}%`;
-
+            scoreDisplay.textContent = `Ergebnis in Prozent: ${percentage.toFixed(0)}%`; // HIER GEÄNDERT
+            
             feedbackSection.style.display = 'block';
             toggleSolutionButton.style.display = 'block'; // Musterlösungsbutton anzeigen
 
