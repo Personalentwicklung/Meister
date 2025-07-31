@@ -530,7 +530,7 @@
                 const feedbackItem = document.createElement('div');
                 feedbackItem.classList.add('feedback-item');
 
-                let icon = '';
+                let icon = ''; // Icon wird hier im HTML generiert
                 let feedbackClass = '';
                 if (points === 2) {
                     icon = '✅';
@@ -544,7 +544,7 @@
                 }
 
                 feedbackItem.classList.add(feedbackClass);
-                // HTML-Struktur fügt Icon und Bolding des Kriteriumsnamens hinzu. feedbackText ist nur der reine Text.
+                // HTML-Struktur fügt Icon und Bolding des Kriteriumsnamens hinzu. feedbackText ist nur der reine Text aus JSON.
                 feedbackItem.innerHTML = `<span class="feedback-icon">${icon}</span> <span><strong>${criterion.name}:</strong> ${feedbackText}</span>`;
                 feedbackDetails.appendChild(feedbackItem);
             });
