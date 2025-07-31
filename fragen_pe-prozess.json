@@ -51,7 +51,7 @@
     "id": "pep2",
     "themaID": "pe-prozess",
     "frageNummer": 2,
-    "titel": "Warum ist die Personalentwicklung ein strategisches Instrument zur Sicherung der Wettbewerbsfähigkeit?",
+    "titel": "Frage 2:",
     "frageText": "Warum ist die Personalentwicklung ein strategisches Instrument zur Sicherung der Wettbewerbsfähigkeit?",
     "musterloesung": "Personalentwicklung trägt wesentlich zur langfristigen Wettbewerbsfähigkeit eines Unternehmens bei. In Zeiten des Fachkräftemangels und des raschen technologischen Wandels ist es entscheidend, Mitarbeitende kontinuierlich weiterzubilden. Durch gezielte Entwicklung können Kompetenzen aufgebaut, Motivation gesteigert und die Mitarbeiterbindung erhöht werden. Unternehmen, die in ihre Belegschaft investieren, sichern sich nicht nur Know-how, sondern auch Innovationskraft und Anpassungsfähigkeit. Personalentwicklung ist somit kein „Nice-to-have“, sondern ein zentraler Bestandteil der Unternehmensstrategie.",
     "commonFeedback": {
@@ -63,25 +63,31 @@
       {
         "name": "Bedeutung im Kontext von Fachkräftemangel & Wandel",
         "keywords": [
-          "fachkräftemangel", "wandel", "technologisch", "weiterbilden", "kontinuierlich", "zeiten des fachkräftemangels", "raschen technologischen wandels", "mitarbeitende kontinuierlich weiterzubilden", "entscheidend", "zeiten", "raschen", "mitarbeitende"
-        ]
+          "fachkräftemangel", "wandel", "technologisch", "weiterbilden", "kontinuierlich", "zeiten", "raschen", "entscheidend", "mitarbeitende", "raschen technologischen wandels", "mitarbeitende kontinuierlich weiterbilden"
+        ],
+        "phrases": []
       },
       {
         "name": "Vorteile für Mitarbeitende (Kompetenz, Motivation, Bindung)",
         "keywords": [
-          "kompetenzen", "motivation", "mitarbeiterbindung", "aufgebaut", "gesteigert", "erhöht", "kompetenzen aufgebaut", "motivation gesteigert", "mitarbeiterbindung erhöht", "gezielte entwicklung", "entwicklung", "gezielte"
-        ]
+          "kompetenzen", "motivation", "mitarbeiterbindung", "aufgebaut", "gesteigert", "erhöht", "entwicklung", "gezielte", "kompetenzen aufgebaut", "motivation gesteigert", "mitarbeiterbindung erhöht", "gezielte entwicklung"
+        ],
+        "phrases": []
       },
       {
         "name": "Nutzen für das Unternehmen (Know-how, Innovation, Anpassung)",
         "keywords": [
-          "know-how", "innovationskraft", "anpassungsfähigkeit", "belegschaft investieren", "unternehmen investieren", "know how", "innovation", "anpassung", "sichern sich", "sichern", "belegschaft", "investieren", "sichern sich know-how", "sichern sich innovationskraft", "sichern sich anpassungsfähigkeit"
-        ]
+          "know-how", "innovationskraft", "anpassungsfähigkeit", "belegschaft", "investieren", "unternehmen", "sichern", "innovation", "anpassung", "know how", "belegschaft investieren", "sichern sich know-how", "sichern sich innovationskraft", "sichern sich anpassungsfähigkeit"
+        ],
+        "phrases": []
       },
       {
         "name": "Strategische Bedeutung / Integration in die Unternehmensstrategie",
         "keywords": [
-          "strategisch", "instrument", "unternehmensstrategie", "bestandteil", "zentraler bestandteil", "strategisches instrument", "langfristigen wettbewerbsfähigkeit", "wettbewerbsfähigkeit", "langfristigen", "wesentlich", "zentraler", "nice-to-have", "kein nice-to-have", "zentraler bestandteil der unternehmensstrategie"
+          "strategisch", "instrument", "unternehmensstrategie", "bestandteil", "wettbewerbsfähigkeit", "langfristigen", "wesentlich", "zentraler", "nice-to-have"
+        ],
+        "phrases": [
+          "strategisches instrument", "zentraler bestandteil der unternehmensstrategie", "langfristigen wettbewerbsfähigkeit", "kein nice-to-have"
         ]
       }
     ]
