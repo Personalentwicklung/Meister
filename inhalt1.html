@@ -371,17 +371,50 @@
         </template>
     </div>
 
-    <script>
-    // Deine vorhandenen Funktionen wie simpleStemmer, loadFragenDaten etc. bleiben hier bestehen.
-    // Suche die Funktion "evaluateAnswer" in deiner inhalt1.html und ersetze sie komplett
-    // durch den folgenden Codeblock.
+<script>
+    let fragenDaten; // Globale Variable, um die geladenen Fragedaten zu speichern
 
+    // --- 1. simpleStemmer Funktion (aus früheren Versionen) ---
+    function simpleStemmer(word) {
+        if (!word || word.length < 3) return word;
+        word = word.toLowerCase();
+        // Häufige deutsche Endungen entfernen
+        if (word.endsWith('en')) return word.slice(0, -2);
+        if (word.endsWith('er')) return word.slice(0, -2);
+        if (word.endsWith('es')) return word.slice(0, -2);
+        if (word.endsWith('n')) return word.slice(0, -1);
+        if (word.endsWith('e')) return word.slice(0, -1);
+        if (word.endsWith('s')) return word.slice(0, -1);
+        return word;
+    }
+
+    // --- 2. loadFragenDaten Funktion (zum Laden der JSON-Datei) ---
+    async function loadFragenDaten() {
+        try {
+            const response = await fetch('fragen_pe-prozess.json'); // Pfad ggf. anpassen
+            if (!response.ok) {
+                throw new Error(`HTTP-Fehler! Status: ${response.status}`);
+            }
+            fragenDaten = await response.json();
+            console.log("Fragen-Daten erfolgreich geladen:", fragenDaten);
+        } catch (error) {
+            console.error("Fehler beim Laden der Fragen-Daten:", error);
+            // Fehlermeldung auf der Seite anzeigen
+            document.getElementById('questionSectionContainer').innerHTML = "<p>Fehler beim Laden der Fragen. Bitte versuchen Sie es später erneut.</p>";
+        }
+    }
+
+    // --- 3. evaluateAnswer Funktion (Deine Bewertungslogik) ---
     function evaluateAnswer(userAnswer) {
-        const questions = fragenDaten; // Annahme: fragenDaten ist global verfügbar und geladen
-        const currentQuestion = questions[0]; // Wir arbeiten immer noch mit der ersten (und einzigen) Frage im Array
+        // Sicherstellen, dass fragenDaten geladen ist und Fragen enthält
+        if (!fragenDaten || fragenDaten.length === 0) {
+            console.error("Fragen-Daten nicht geladen oder leer.");
+            return;
+        }
+        
+        const currentQuestion = fragenDaten[0]; // Wir arbeiten weiterhin mit der ersten Frage
 
-        // Den Benutzertext für die Keyword-Prüfung vorbereiten
-        // Alles klein schreiben, Satzzeichen entfernen und in gestemmte Wörter zerlegen
+        // Benutzertext für die Keyword-Prüfung vorbereiten
         const stemmedUserAnswerText = simpleStemmer(userAnswer).toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").replace(/\s{2,}/g," ");
 
         let userScore = 0;
@@ -390,73 +423,152 @@
         let totalPossibleScore = currentQuestion.bewertungskriterien.length * maxScorePerCriterion;
 
         currentQuestion.bewertungskriterien.forEach(criterion => {
-            let criterionMatched = false;
             let matchedType = 'none'; // 'phrase' oder 'single'
 
-            // Keywords des Kriteriums nach Länge absteigend sortieren.
-            // Das stellt sicher, dass längere Phrasen zuerst geprüft werden.
-            // Wir stemmen die Keywords hier, um sie mit dem gestemmten Benutzertext zu vergleichen.
+            // Keywords des Kriteriums nach Länge absteigend sortieren
             const sortedStemmedKeywords = criterion.keywords
                 .map(kw => ({ original: kw, stemmed: simpleStemmer(kw) }))
                 .sort((a, b) => b.stemmed.length - a.stemmed.length);
 
             for (const kwObj of sortedStemmedKeywords) {
-                const stemmedKeyword = kwObj.stemmed; // Die gestemmte Phrase oder das gestemmte Einzelwort
+                const stemmedKeyword = kwObj.stemmed;
 
-                // Überprüfen, ob die gestemmte Phrase/das gestemmte Einzelwort
-                // im gestemmten Benutzertext enthalten ist.
                 if (stemmedUserAnswerText.includes(stemmedKeyword)) {
-                    criterionMatched = true;
-
-                    // Ist es eine Mehrwort-Phrase (enthält ein Leerzeichen nach dem Stemming)?
-                    if (stemmedKeyword.includes(' ')) {
+                    if (stemmedKeyword.includes(' ')) { // Ist es eine Mehrwort-Phrase?
                         matchedType = 'phrase'; // Phrase gefunden
-                        break; // Sobald eine Phrase gefunden wurde, ist dies der beste Treffer, wir können aufhören
+                        break; // Bester Treffer, wir können aufhören
                     } else if (matchedType === 'none') {
-                        // Wenn es ein Einzelwort ist und noch keine Phrase gefunden wurde
-                        matchedType = 'single'; // Einzelwort gefunden
-                        // Hier NICHT break; machen, da eine längere Phrase noch gefunden werden könnte
+                        matchedType = 'single'; // Einzelwort gefunden (aber noch keine Phrase)
                     }
                 }
             }
 
             // Feedback basierend auf dem gefundenen Match-Typ generieren
             if (matchedType === 'phrase') {
-                userScore += maxScorePerCriterion; // 2 Punkte für Phrasentreffer
+                userScore += maxScorePerCriterion; // 2 Punkte
                 feedbackHTML += `<p>${criterion.feedback_kurz.positiv}</p>`;
             } else if (matchedType === 'single') {
-                userScore += 1; // 1 Punkt für Einzelworttreffer
+                userScore += 1; // 1 Punkt
                 feedbackHTML += `<p>${criterion.feedback_kurz.neutral}</p>`;
             } else {
-                // Nichts gefunden
                 feedbackHTML += `<p>${criterion.feedback_kurz.negativ}</p>`;
             }
         });
 
         const percentage = (userScore / totalPossibleScore) * 100;
 
-        document.getElementById('feedbackContent').innerHTML = feedbackHTML;
-        document.getElementById('overallScore').textContent = `Gesamterreichung: ${percentage.toFixed(0)}%`;
+        // Feedback-Bereiche aktualisieren.
+        // Diese Elemente müssen im aktuell geladenen Frage-Abschnitt (nicht global im Dokument) gefunden werden!
+        const currentQuestionSection = document.querySelector('.question-section'); // Aktuelle Frage finden
+        if (currentQuestionSection) {
+            currentQuestionSection.querySelector('.feedback-details').innerHTML = feedbackHTML;
+            currentQuestionSection.querySelector('.score').textContent = `Gesamterreichung: ${percentage.toFixed(0)}%`;
+        } else {
+            console.error("Aktuelle Fragen-Sektion für Feedback nicht gefunden.");
+        }
     }
 
-document.addEventListener('DOMContentLoaded', function() {
-    // Sicherstellen, dass der Button existiert, bevor wir einen Event Listener hinzufügen
-    const checkAnswerButton = document.getElementById('checkAnswerButton');
-    if (checkAnswerButton) {
-        checkAnswerButton.addEventListener('click', function() {
-            const userAnswerInput = document.getElementById('userAnswerInput');
-            if (userAnswerInput) {
+    // --- 4. loadQuestion Funktion (zum Anzeigen einer Frage aus dem Template) ---
+    function loadQuestion(question) {
+        const template = document.getElementById('questionTemplate');
+        const container = document.getElementById('questionSectionContainer');
+
+        if (!template || !container) {
+            console.error("HTML-Template oder Container für Fragen nicht gefunden!");
+            return;
+        }
+
+        container.innerHTML = ''; // Vorherige Inhalte leeren
+
+        const clone = document.importNode(template.content, true);
+
+        // Frage-Details im Klon aktualisieren
+        clone.querySelector('.question-title').textContent = question.titel;
+        clone.querySelector('.question-text').textContent = question.frageText;
+
+        // Musterlösung hinzufügen (Zeilenumbrüche für HTML anpassen)
+        const correctAnswerContentDiv = clone.querySelector('.correct-answer-content');
+        if (correctAnswerContentDiv) {
+            correctAnswerContentDiv.innerHTML = `<p>${question.musterloesung.replace(/\n/g, '<br>')}</p>`;
+        }
+
+        // --- Event Listener für den Button im GEKLONTEN Inhalt anhängen ---
+        const checkAnswerButton = clone.querySelector('.btn-check-answer'); // Hier nach der KLASSE suchen!
+        const userAnswerInput = clone.querySelector('.user-answer');
+        const feedbackSection = clone.querySelector('.feedback-section');
+        const toggleMusterloesungBtn = clone.querySelector('.btn-toggle-musterloesung');
+        const musterloesungContainer = clone.querySelector('.correct-answer-content-container');
+        const recheckInfoText = clone.querySelector('.recheck-info-text');
+
+
+        if (checkAnswerButton && userAnswerInput && feedbackSection && toggleMusterloesungBtn && musterloesungContainer && recheckInfoText) {
+            // Event Listener für "Antwort überprüfen"
+            checkAnswerButton.addEventListener('click', function() {
                 evaluateAnswer(userAnswerInput.value);
-            } else {
-                console.error("Input field 'userAnswerInput' not found!");
-            }
-        });
-    } else {
-        console.error("Button 'checkAnswerButton' not found!");
+                feedbackSection.style.display = 'block'; // Feedback anzeigen
+                this.textContent = "Antwort erneut prüfen"; // Button-Text ändern
+                this.classList.add('recheck-button'); // Klasse für gelben Button hinzufügen
+                recheckInfoText.style.display = 'block'; // Hinweis-Text anzeigen
+            });
+
+            // Event Listener für "Musterlösung anzeigen/ausblenden"
+            toggleMusterloesungBtn.addEventListener('click', function() {
+                if (musterloesungContainer.style.display === 'block') {
+                    musterloesungContainer.style.display = 'none';
+                    this.textContent = 'Musterlösung anzeigen';
+                } else {
+                    musterloesungContainer.style.display = 'block';
+                    this.textContent = 'Musterlösung ausblenden';
+                }
+            });
+
+            // Event Listener für Änderungen im Eingabefeld (Feedback zurücksetzen)
+            userAnswerInput.addEventListener('input', function() {
+                feedbackSection.style.display = 'none';
+                musterloesungContainer.style.display = 'none';
+                checkAnswerButton.textContent = "Antwort überprüfen";
+                checkAnswerButton.classList.remove('recheck-button');
+                recheckInfoText.style.display = 'none';
+            });
+
+        } else {
+            console.error("Fehler: Mindestens ein Element im geklonten Template wurde nicht gefunden. (Button, Input, Feedback-Sektion, etc.)");
+        }
+
+        container.appendChild(clone); // Geklonten Inhalt zur Seite hinzufügen
     }
-   
- });        
-       
+
+
+    // --- 5. DOMContentLoaded Listener (startet alles, sobald die Seite geladen ist) ---
+    document.addEventListener('DOMContentLoaded', async function() {
+        await loadFragenDaten(); // Zuerst die Daten laden
+
+        if (fragenDaten && fragenDaten.length > 0) {
+            loadQuestion(fragenDaten[0]); // Dann die erste Frage laden und anzeigen
+        } else {
+            document.getElementById('questionSectionContainer').innerHTML = "<p>Keine Fragen zum Anzeigen vorhanden.</p>";
+        }
+
+        // Optional: Navigationsleiste für zukünftige Fragen (Platzhalter)
+        const navBar = document.getElementById('questionNavigationBar');
+        if (navBar && fragenDaten) {
+            fragenDaten.forEach((q, index) => {
+                const button = document.createElement('button');
+                button.textContent = `Frage ${index + 1}`;
+                button.classList.add('question-nav-button');
+                if (index === 0) {
+                    button.classList.add('active'); // Erste Frage standardmäßig aktiv
+                }
+                button.addEventListener('click', function() {
+                    // Hier würde die Logik für das Umschalten zu anderen Fragen hinkommen
+                    console.log(`Navigiere zu Frage ${index + 1}`);
+                    // Beispiel: loadQuestion(fragenDaten[index]); // Wenn du mehrere Fragen hast
+                });
+                navBar.appendChild(button);
+            });
+        }
+    });
+
 </script>
 </body>
 </html>
