@@ -372,241 +372,91 @@
     </div>
 
     <script>
-        let questions = [];
-        let currentQuestionIndex = 0;
-        const defaultThemaId = "pe-prozess"; // Festgelegte ThemaID
+    // Deine vorhandenen Funktionen wie simpleStemmer, loadFragenDaten etc. bleiben hier bestehen.
+    // Suche die Funktion "evaluateAnswer" in deiner inhalt1.html und ersetze sie komplett
+    // durch den folgenden Codeblock.
 
-        // NEUER UND VERBESSERTER SIMPLE STEMMER (Teil A)
-        function simpleStemmer(word) {
-            word = word.toLowerCase();
-            // Entfernen von Satzzeichen und Sonderzeichen (außer Umlaute und ß)
-            word = word.replace(/[^a-zäöüß]/g, ''); 
+    function evaluateAnswer(userAnswer) {
+        const questions = fragenDaten; // Annahme: fragenDaten ist global verfügbar und geladen
+        const currentQuestion = questions[0]; // Wir arbeiten immer noch mit der ersten (und einzigen) Frage im Array
 
-            // Ein etwas verbesserter, aber immer noch einfacher Stemmer für Deutsch
-            // Längere Endungen zuerst prüfen
-            if (word.length > 3) { // Nur bei längeren Wörtern stemmen, um Kernwörter nicht zu verstümmeln
-                if (word.endsWith('schaften')) {
-                    word = word.slice(0, -7);
-                } else if (word.endsWith('ungen')) {
-                    word = word.slice(0, -5);
-                } else if (word.endsWith('ieren')) {
-                    word = word.slice(0, -5);
-                } else if (word.endsWith('ismus')) {
-                    word = word.slice(0, -5);
-                } else if (word.endsWith('erung')) {
-                    word = word.slice(0, -5);
-                } else if (word.endsWith('en')) {
-                    word = word.slice(0, -2);
-                } else if (word.endsWith('ern')) {
-                    word = word.slice(0, -3);
-                } else if (word.endsWith('es')) {
-                    word = word.slice(0, -2);
-                } else if (word.endsWith('e')) {
-                    word = word.slice(0, -1);
-                } else if (word.endsWith('n')) {
-                    word = word.slice(0, -1);
-                } else if (word.endsWith('s')) {
-                    word = word.slice(0, -1);
-                } else if (word.endsWith('st')) {
-                    word = word.slice(0, -2);
-                } else if (word.endsWith('est')) {
-                    word = word.slice(0, -3);
-                }
-            }
-            return word;
-        }
+        // Den Benutzertext für die Keyword-Prüfung vorbereiten
+        // Alles klein schreiben, Satzzeichen entfernen und in gestemmte Wörter zerlegen
+        const stemmedUserAnswerText = simpleStemmer(userAnswer).toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").replace(/\s{2,}/g," ");
 
-        async function loadQuestions() {
-            try {
-                const response = await fetch('fragen_pe-prozess.json');
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                const data = await response.json();
-                questions = data.filter(q => q.themaID === defaultThemaId);
-                // Fragen nach frageNummer sortieren, um die korrekte Reihenfolge zu gewährleisten
-                questions.sort((a, b) => a.frageNummer - b.frageNummer);
+        let userScore = 0;
+        let feedbackHTML = '';
+        const maxScorePerCriterion = 2; // ✅ = 2 Punkte, ⚠️ = 1 Punkt, ❌ = 0 Punkte
+        let totalPossibleScore = currentQuestion.bewertungskriterien.length * maxScorePerCriterion;
 
-                if (questions.length === 0) {
-                    document.getElementById('questionSectionContainer').innerHTML = '<p>Keine Fragen für dieses Thema gefunden.</p>';
-                    return;
-                }
-                renderNavigationBar();
-                zeigeFrage(0); // Zeigt die erste Frage beim Start
-            } catch (error) {
-                console.error("Fehler beim Laden der Fragen:", error);
-                document.getElementById('questionSectionContainer').innerHTML = `<p>Fehler beim Laden der Fragen: ${error.message}. Bitte überprüfen Sie die Konsolenmeldung.</p>`;
-            }
-        }
+        currentQuestion.bewertungskriterien.forEach(criterion => {
+            let criterionMatched = false;
+            let matchedType = 'none'; // 'phrase' oder 'single'
 
-        function renderNavigationBar() {
-            const navBar = document.getElementById('questionNavigationBar');
-            navBar.innerHTML = '';
-            questions.forEach((q, index) => {
-                const button = document.createElement('button');
-                button.textContent = `Frage ${q.frageNummer}`; // Nutze frageNummer für den Button-Text
-                button.onclick = () => zeigeFrage(index);
-                if (index === currentQuestionIndex) {
-                    button.classList.add('active');
-                }
-                navBar.appendChild(button);
-            });
-        }
+            // Keywords des Kriteriums nach Länge absteigend sortieren.
+            // Das stellt sicher, dass längere Phrasen zuerst geprüft werden.
+            // Wir stemmen die Keywords hier, um sie mit dem gestemmten Benutzertext zu vergleichen.
+            const sortedStemmedKeywords = criterion.keywords
+                .map(kw => ({ original: kw, stemmed: simpleStemmer(kw) }))
+                .sort((a, b) => b.stemmed.length - a.stemmed.length);
 
-        function zeigeFrage(index) {
-            if (index < 0 || index >= questions.length) return;
+            for (const kwObj of sortedStemmedKeywords) {
+                const stemmedKeyword = kwObj.stemmed; // Die gestemmte Phrase oder das gestemmte Einzelwort
 
-            currentQuestionIndex = index;
-            const question = questions[currentQuestionIndex];
-            const container = document.getElementById('questionSectionContainer');
-            const template = document.getElementById('questionTemplate');
-            const clone = document.importNode(template.content, true);
+                // Überprüfen, ob die gestemmte Phrase/das gestemmte Einzelwort
+                // im gestemmten Benutzertext enthalten ist.
+                if (stemmedUserAnswerText.includes(stemmedKeyword)) {
+                    criterionMatched = true;
 
-            clone.querySelector('.question-title').textContent = question.titel;
-            clone.querySelector('.question-text').textContent = question.frageText;
-
-            const answerInput = clone.querySelector('.user-answer');
-            const checkAnswerButton = clone.querySelector('.btn-check-answer');
-            const toggleSolutionButton = clone.querySelector('.btn-toggle-musterloesung');
-            const feedbackSection = clone.querySelector('.feedback-section');
-            const solutionContainer = clone.querySelector('.correct-answer-content-container');
-            const recheckInfoText = clone.querySelector('.recheck-info-text');
-
-            // Setzt den Zustand der Buttons und Textfelder zurück
-            answerInput.value = question.userAnswer || ''; // Lädt gespeicherte Antwort
-            checkAnswerButton.textContent = 'Antwort überprüfen';
-            checkAnswerButton.classList.remove('recheck-button');
-            toggleSolutionButton.style.display = 'none'; // Musterlösungsbutton verstecken
-            feedbackSection.style.display = 'none';      // Feedback-Sektion verstecken
-            solutionContainer.style.display = 'none';     // Musterlösung-Container verstecken
-            recheckInfoText.style.display = 'none';       // Dynamischen Text beim Fragenwechsel ausblenden
-
-            checkAnswerButton.onclick = () => evaluateAnswer(question, answerInput, checkAnswerButton, toggleSolutionButton, feedbackSection, solutionContainer, recheckInfoText);
-            toggleSolutionButton.onclick = () => toggleMusterloesung(question, toggleSolutionButton, solutionContainer);
-
-            container.innerHTML = ''; // Vorherige Frage entfernen
-            container.appendChild(clone);
-
-            renderNavigationBar(); // Aktualisiert den aktiven Button in der Navigation
-        }
-
-    function evaluateAnswer(question, answerInput, checkAnswerButton, toggleSolutionButton, feedbackSection, solutionContainer, recheckInfoText) {
-    const userAnswer = answerInput.value;
-    question.userAnswer = userAnswer;
-
-    const cleanedUserAnswer = userAnswer.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "").replace(/\s{2,}/g, " "); // Entfernt Satzzeichen und ersetzt mehrfache Leerzeichen
-
-    const stemmedUserAnswerWords = cleanedUserAnswer.split(/\s+/)
-                                            .map(word => simpleStemmer(word))
-                                            .filter(word => word.length > 0);
-    console.log("Gestemmte Benutzerwörter (nach Satzzeichenentfernung):", stemmedUserAnswerWords); // console.log angepasst
-
-    let totalPoints = 0;
-    let maxPoints = 0;
-            const feedbackDetails = feedbackSection.querySelector('.feedback-details');
-            feedbackDetails.innerHTML = ''; // Vorheriges Feedback löschen
-
-            question.bewertungskriterien.forEach(kriterium => {
-                maxPoints += 2; // Jedes Kriterium hat max. 2 Punkte
-
-                let points = 0;
-                let feedbackText = '';
-                let hasKeyword = false;
-                let meetsMinWords = false;
-
-                // Keyword-Matching
-                for (const keyword of kriterium.keywords) {
-                    const stemmedKeyword = simpleStemmer(keyword);
-                    // PRÜFUNG AUF EXAKTEN MATCH DES GESTEMMTEN WORTES (Teil B)
-                    if (stemmedUserAnswerWords.includes(stemmedKeyword)) {
-                        hasKeyword = true;
-                        break;
+                    // Ist es eine Mehrwort-Phrase (enthält ein Leerzeichen nach dem Stemming)?
+                    if (stemmedKeyword.includes(' ')) {
+                        matchedType = 'phrase'; // Phrase gefunden
+                        break; // Sobald eine Phrase gefunden wurde, ist dies der beste Treffer, wir können aufhören
+                    } else if (matchedType === 'none') {
+                        // Wenn es ein Einzelwort ist und noch keine Phrase gefunden wurde
+                        matchedType = 'single'; // Einzelwort gefunden
+                        // Hier NICHT break; machen, da eine längere Phrase noch gefunden werden könnte
                     }
                 }
+            }
 
-                // Mindestwörter für Beschreibung (optionales Kriterium)
-                const userWordCount = userAnswer.split(/\s+/).filter(word => word.length > 0).length;
-                if (kriterium.minWoerterFuerBeschreibung && kriterium.minWoerterFuerBeschreibung > 0) {
-                    if (userWordCount >= kriterium.minWoerterFuerBeschreibung) {
-                        meetsMinWords = true;
-                    }
-                } else {
-                    meetsMinWords = true; // Wenn keine Mindestwörter definiert, gilt es als erfüllt
-                }
-
-                if (hasKeyword && meetsMinWords) {
-                    points = 2; // Volle Punktzahl
-                    feedbackText = kriterium.feedback_kurz.positiv || 'Sehr gut! Der Punkt wurde genannt und ausreichend beschrieben.';
-                } else if (hasKeyword && !meetsMinWords) {
-                    points = 1; // Teilweise Punktzahl
-                    feedbackText = kriterium.feedback_kurz.neutral || 'Der Punkt wurde genannt, aber die Beschreibung ist noch nicht ausreichend.';
-                } else {
-                    points = 0; // Keine Punkte
-                    feedbackText = kriterium.feedback_kurz.negativ || 'Nicht gefunden. Ihre Antwort sollte diesen Punkt behandeln.';
-                }
-
-                totalPoints += points;
-
-                const feedbackItem = document.createElement('div');
-                feedbackItem.classList.add('feedback-item');
-
-                let icon = '';
-                let feedbackClass = '';
-                if (points === 2) {
-                    icon = '✅';
-                    feedbackClass = 'ok';
-                } else if (points === 1) {
-                    icon = '⚠️';
-                    feedbackClass = 'hinweis';
-                } else {
-                    icon = '❌';
-                    feedbackClass = 'error';
-                }
-
-                feedbackItem.classList.add(feedbackClass);
-                feedbackItem.innerHTML = `<span class="feedback-icon">${icon}</span> <span><strong>${kriterium.name}:</strong> ${feedbackText}</span>`;
-                feedbackDetails.appendChild(feedbackItem);
-            });
-
-            const percentage = (maxPoints > 0) ? (totalPoints / maxPoints) * 100 : 0;
-            const scoreDisplay = feedbackSection.querySelector('.score');
-            scoreDisplay.textContent = `Gesamterreichung: ${percentage.toFixed(0)}%`;
-
-            feedbackSection.style.display = 'block';
-            toggleSolutionButton.style.display = 'block';
-
-            // Button-Text und -Farbe ändern
-            checkAnswerButton.textContent = 'Antwort erneut prüfen';
-            checkAnswerButton.classList.add('recheck-button');
-
-            // Dynamischen Text anzeigen
-            recheckInfoText.style.display = 'block';
-        }
-
-        function toggleMusterloesung(question, button, solutionContainer) {
-            if (solutionContainer.style.display === 'block') {
-                solutionContainer.style.display = 'none';
-                button.textContent = 'Musterlösung anzeigen';
+            // Feedback basierend auf dem gefundenen Match-Typ generieren
+            if (matchedType === 'phrase') {
+                userScore += maxScorePerCriterion; // 2 Punkte für Phrasentreffer
+                feedbackHTML += `<p>${criterion.feedback_kurz.positiv}</p>`;
+            } else if (matchedType === 'single') {
+                userScore += 1; // 1 Punkt für Einzelworttreffer
+                feedbackHTML += `<p>${criterion.feedback_kurz.neutral}</p>`;
             } else {
-                // Ersetze **Text** durch <strong>Text</strong>
-                let formattedSolution = question.musterloesung.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-                
-                // Teile den Text an doppelten Zeilenumbrüchen in Absätze auf
-                const paragraphs = formattedSolution.split(/\n\s*\n/).filter(p => p.trim() !== '');
-                let htmlContent = '';
-                paragraphs.forEach(p => {
-                    // Ersetze einzelne Zeilenumbrüche innerhalb eines Absatzes durch <br>
-                    htmlContent += `<p>${p.replace(/\n/g, '<br>')}</p>`;
-                });
-
-                solutionContainer.querySelector('.correct-answer-content').innerHTML = htmlContent;
-                solutionContainer.style.display = 'block';
-                button.textContent = 'Musterlösung ausblenden';
+                // Nichts gefunden
+                feedbackHTML += `<p>${criterion.feedback_kurz.negativ}</p>`;
             }
-        }
+        });
 
-        // Start der Anwendung
-        document.addEventListener('DOMContentLoaded', loadQuestions);
-    </script>
+        const percentage = (userScore / totalPossibleScore) * 100;
+
+        document.getElementById('feedbackContent').innerHTML = feedbackHTML;
+        document.getElementById('overallScore').textContent = `Gesamterreichung: ${percentage.toFixed(0)}%`;
+    }
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Sicherstellen, dass der Button existiert, bevor wir einen Event Listener hinzufügen
+    const checkAnswerButton = document.getElementById('checkAnswerButton');
+    if (checkAnswerButton) {
+        checkAnswerButton.addEventListener('click', function() {
+            const userAnswerInput = document.getElementById('userAnswerInput');
+            if (userAnswerInput) {
+                evaluateAnswer(userAnswerInput.value);
+            } else {
+                console.error("Input field 'userAnswerInput' not found!");
+            }
+        });
+    } else {
+        console.error("Button 'checkAnswerButton' not found!");
+    }
+});        
+ });        
+       
+</script>
 </body>
 </html>
