@@ -394,4 +394,200 @@
 
         async function loadQuestions() {
             try {
-                const response = await fetch('
+                const response = await fetch('fragen_pe-prozess.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                questions = data.filter(q => q.themaID === defaultThemaId);
+                // Fragen nach frageNummer sortieren, um die korrekte Reihenfolge zu gewährleisten
+                questions.sort((a, b) => a.frageNummer - b.frageNummer);
+
+                if (questions.length === 0) {
+                    document.getElementById('questionSectionContainer').innerHTML = '<p>Keine Fragen für dieses Thema gefunden.</p>';
+                    return;
+                }
+                renderNavigationBar();
+                zeigeFrage(0); // Zeigt die erste Frage beim Start
+            } catch (error) {
+                console.error("Fehler beim Laden der Fragen:", error);
+                document.getElementById('questionSectionContainer').innerHTML = `<p>Fehler beim Laden der Fragen: ${error.message}. Bitte überprüfen Sie die Konsolenmeldung.</p>`;
+            }
+        }
+
+        function renderNavigationBar() {
+            const navBar = document.getElementById('questionNavigationBar');
+            navBar.innerHTML = '';
+            questions.forEach((q, index) => {
+                const button = document.createElement('button');
+                button.textContent = `Frage ${q.frageNummer}`; // Nutze frageNummer für den Button-Text
+                button.onclick = () => zeigeFrage(index);
+                if (index === currentQuestionIndex) {
+                    button.classList.add('active');
+                }
+                navBar.appendChild(button);
+            });
+        }
+
+        function zeigeFrage(index) {
+            if (index < 0 || index >= questions.length) return;
+
+            currentQuestionIndex = index;
+            const question = questions[currentQuestionIndex];
+            const container = document.getElementById('questionSectionContainer');
+            const template = document.getElementById('questionTemplate');
+            const clone = document.importNode(template.content, true);
+
+            clone.querySelector('.question-title').textContent = question.titel;
+            clone.querySelector('.question-text').textContent = question.frageText;
+
+            const answerInput = clone.querySelector('.user-answer');
+            const checkAnswerButton = clone.querySelector('.btn-check-answer');
+            const toggleSolutionButton = clone.querySelector('.btn-toggle-musterloesung');
+            const feedbackSection = clone.querySelector('.feedback-section');
+            const solutionContainer = clone.querySelector('.correct-answer-content-container');
+            const recheckInfoText = clone.querySelector('.recheck-info-text');
+
+            // Setzt den Zustand der Buttons und Textfelder zurück
+            answerInput.value = question.userAnswer || ''; // Lädt gespeicherte Antwort
+            checkAnswerButton.textContent = 'Antwort überprüfen';
+            checkAnswerButton.classList.remove('recheck-button');
+            toggleSolutionButton.style.display = 'none'; // Musterlösungsbutton verstecken
+            feedbackSection.style.display = 'none';      // Feedback-Sektion verstecken
+            solutionContainer.style.display = 'none';     // Musterlösung-Container verstecken
+            recheckInfoText.style.display = 'none';       // Dynamischen Text beim Fragenwechsel ausblenden
+
+            checkAnswerButton.onclick = () => evaluateAnswer(question, answerInput, checkAnswerButton, toggleSolutionButton, feedbackSection, solutionContainer, recheckInfoText);
+            toggleSolutionButton.onclick = () => toggleMusterloesung(question, toggleSolutionButton, solutionContainer);
+
+            container.innerHTML = ''; // Vorherige Frage entfernen
+            container.appendChild(clone);
+
+            renderNavigationBar(); // Aktualisiert den aktiven Button in der Navigation
+        }
+
+        function evaluateAnswer(question, answerInput, checkAnswerButton, toggleSolutionButton, feedbackSection, solutionContainer, recheckInfoText) {
+            const userAnswer = answerInput.value;
+            // Speichern der Benutzerantwort
+            question.userAnswer = userAnswer;
+
+            // Prepare the user answer: lowercase, remove punctuation, then stem each word
+            const stemmedUserAnswerWords = userAnswer.split(/\s+/)
+                                                .map(word => simpleStemmer(word))
+                                                .filter(word => word.length > 0);
+            
+            // Reconstruct stemmedUserAnswerText for includes() check on phrases (which might span multiple stemmed words)
+            const stemmedUserAnswerText = stemmedUserAnswerWords.join(' ');
+
+            let totalPoints = 0;
+            const maxPointsPerCriterion = 2; // ✅ = 2 Punkte, ⚠️ = 1 Punkt, ❌ = 0 Punkte
+            let totalPossibleScore = question.bewertungskriterien.length * maxPointsPerCriterion;
+
+            const feedbackDetails = feedbackSection.querySelector('.feedback-details');
+            feedbackDetails.innerHTML = ''; // Vorheriges Feedback löschen
+
+            question.bewertungskriterien.forEach(criterion => {
+                let points = 0;
+                let feedbackText = '';
+                let matchedType = 'none'; // 'phrase', 'single', 'none'
+
+                // Sort keywords by length in descending order to prioritize phrases
+                const sortedKeywords = criterion.keywords
+                    .map(kw => ({ original: kw, stemmed: simpleStemmer(kw) }))
+                    .sort((a, b) => b.stemmed.length - a.stemmed.length);
+
+                for (const kwObj of sortedKeywords) {
+                    const stemmedTerm = kwObj.stemmed; // This can be a phrase or a single keyword
+
+                    // Check if the stemmed user answer text contains the stemmed term
+                    if (stemmedUserAnswerText.includes(stemmedTerm)) {
+                        if (stemmedTerm.includes(' ')) {
+                            // Found a phrase (multi-word match)
+                            matchedType = 'phrase';
+                            break; // Phrase found, no need to check further for this criterion
+                        } else if (matchedType === 'none') {
+                            // Found a single keyword, and no phrase has been found yet
+                            matchedType = 'single';
+                            // Do NOT break, as a longer phrase might still be found later in the sorted list
+                        }
+                    }
+                }
+                
+                // Determine points and feedback text based on matchedType
+                if (matchedType === 'phrase') {
+                    points = maxPointsPerCriterion; // 2 Punkte für Phrasentreffer
+                    feedbackText = criterion.feedback_kurz.positiv;
+                } else if (matchedType === 'single') {
+                    points = 1; // 1 Punkt für Einzelworttreffer
+                    feedbackText = criterion.feedback_kurz.neutral;
+                } else {
+                    points = 0; // Nichts gefunden
+                    feedbackText = criterion.feedback_kurz.negativ;
+                }
+
+                totalPoints += points;
+
+                const feedbackItem = document.createElement('div');
+                feedbackItem.classList.add('feedback-item');
+
+                let icon = '';
+                let feedbackClass = '';
+                if (points === 2) {
+                    icon = '✅';
+                    feedbackClass = 'ok';
+                } else if (points === 1) {
+                    icon = '⚠️';
+                    feedbackClass = 'hinweis';
+                } else {
+                    icon = '❌';
+                    feedbackClass = 'error';
+                }
+
+                feedbackItem.classList.add(feedbackClass);
+                // HTML-Struktur fügt Icon und Bolding des Kriteriumsnamens hinzu. feedbackText ist nur der reine Text.
+                feedbackItem.innerHTML = `<span class="feedback-icon">${icon}</span> <span><strong>${criterion.name}:</strong> ${feedbackText}</span>`;
+                feedbackDetails.appendChild(feedbackItem);
+            });
+
+            const percentage = (totalPossibleScore > 0) ? (totalPoints / totalPossibleScore) * 100 : 0;
+            const scoreDisplay = feedbackSection.querySelector('.score');
+            scoreDisplay.textContent = `Gesamterreichung: ${percentage.toFixed(0)}%`;
+
+            feedbackSection.style.display = 'block';
+            toggleSolutionButton.style.display = 'block'; // Musterlösungsbutton anzeigen
+
+            // Button-Text und -Farbe ändern
+            checkAnswerButton.textContent = 'Antwort erneut prüfen';
+            checkAnswerButton.classList.add('recheck-button');
+
+            // Dynamischen Text anzeigen
+            recheckInfoText.style.display = 'block';
+        }
+
+        function toggleMusterloesung(question, button, solutionContainer) {
+            if (solutionContainer.style.display === 'block') {
+                solutionContainer.style.display = 'none';
+                button.textContent = 'Musterlösung anzeigen';
+            } else {
+                // Ersetze **Text** durch <strong>Text</strong>
+                let formattedSolution = question.musterloesung.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                
+                // Teile den Text an doppelten Zeilenumbrüchen in Absätze auf
+                const paragraphs = formattedSolution.split(/\n\s*\n/).filter(p => p.trim() !== '');
+                let htmlContent = '';
+                paragraphs.forEach(p => {
+                    // Ersetze einzelne Zeilenumbrüche innerhalb eines Absatzes durch <br>
+                    htmlContent += `<p>${p.replace(/\n/g, '<br>')}</p>`;
+                });
+
+                solutionContainer.querySelector('.correct-answer-content').innerHTML = htmlContent;
+                solutionContainer.style.display = 'block';
+                button.textContent = 'Musterlösung ausblenden';
+            }
+        }
+
+        // Start der Anwendung
+        document.addEventListener('DOMContentLoaded', loadQuestions);
+    </script>
+</body>
+</html>
