@@ -107,7 +107,7 @@
             margin-bottom: 30px;
             border-radius: 8px;
             background-color: #ffffff; /* Hintergrundfarbe wie in ZIP-13 */
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Schatten wie in ZIP-13 */
+            box-shadow: 0 2px 8px rgba: (0, 0, 0, 0.05); /* Schatten wie in ZIP-13 */
         }
 
         .question-text {
@@ -376,21 +376,53 @@
         let currentQuestionIndex = 0;
         const defaultThemaId = "pe-prozess"; // Festgelegte ThemaID
 
-        // Rudimentärer Snowball Stemmer (für eine robustere Anwendung wird eine externe Bibliothek empfohlen)
+        // Stark verbesserter Stemmer für Deutsch (für robustere Anwendung)
         function simpleStemmer(word) {
             word = word.toLowerCase();
-            // Entfernen von Satzzeichen
-            word = word.replace(/[.,!?;:()"]/g, '');
-            // Sehr einfache Stemming-Regeln für Deutsch
-            if (word.endsWith('en')) return word.slice(0, -2);
-            if (word.endsWith('n')) return word.slice(0, -1);
-            if (word.endsWith('ung')) return word.slice(0, -3);
-            if (word.endsWith('lich')) return word.slice(0, -4);
-            if (word.endsWith('keit')) return word.slice(0, -4);
-            if (word.endsWith('schaft')) return word.slice(0, -6);
-            if (word.endsWith('er')) return word.slice(0, -2); // z.B. Manager -> Manag
+            // Entfernen von Satzzeichen und spezifischen Sonderzeichen
+            word = word.replace(/[.,!?;:()"\-]/g, '');
+
+            // 1. Spezifische Suffixe für Nomen/Adjektive, länger zuerst
+            if (word.endsWith('schaften')) return word.slice(0, -7); // Gemeinschaft -> Gemein
+            if (word.endsWith('lichkeiten')) return word.slice(0, -10); // Möglichkeiten -> Möglich
+            if (word.endsWith('erungen')) return word.slice(0, -7); // Bewertungen -> Bewert
+            if (word.endsWith('itäten')) return word.slice(0, -5); // Qualitäten -> Qualit
+            if (word.endsWith('ition')) return word.slice(0, -4); // Motivation, Innovation -> Motiv, Innov
+            if (word.endsWith('ierung')) return word.slice(0, -6); // Steigerung -> Steiger
+            if (word.endsWith('bindung')) return word.slice(0, -7); // Mitarbeiterbindung -> Mitarbeiter
+            if (word.endsWith('kompetenzen')) return word.slice(0, -11) + 'enz'; // Kompetenzen -> Kompetenz
+            if (word.endsWith('kraft')) return word.slice(0, -5); // Innovationskraft -> Innovation
+
+            // 2. Allgemeine Nomen-/Adjektiv-Endungen und Plurale
+            if (word.endsWith('ung')) return word.slice(0, -3); // Achtung: muss nach "ierungen" kommen
+            if (word.endsWith('keit')) return word.slice(0, -4); // Möglichkeit -> Möglich
+            if (word.endsWith('haft')) return word.slice(0, -4); // lebhaft -> leb
+            if (word.endsWith('lich')) return word.slice(0, -4); // persönlich -> persönlich
+            if (word.endsWith('bar')) return word.slice(0, -3); // sichtbar -> sicht
+            if (word.endsWith('isch')) return word.slice(0, -4); // praktisch -> prakt
+            if (word.endsWith('en')) return word.slice(0, -2); // Gedanken -> Gedank
+            if (word.endsWith('er')) return word.slice(0, -2); // besser -> bess
+            if (word.endsWith('es')) return word.slice(0, -2); // neues -> neu
+            if (word.endsWith('s')) return word.slice(0, -1); // Wandelns -> Wandel
+
+            // 3. Verb-Endungen (oft nach Endungen wie '-ieren', '-t')
+            if (word.endsWith('iert')) return word.slice(0, -3); // motiviert -> motiv
+            if (word.endsWith('tet')) return word.slice(0, -3); // arbeitet -> arbeit
+            if (word.endsWith('t')) { // allgemeines 't' am Ende, nach spezifischeren Regeln
+                // Sicherstellen, dass nicht zu aggressive Kürzung stattfindet (z.B. 'ist' bleibt 'is')
+                if (word.length > 3) return word.slice(0, -1);
+            }
+            if (word.endsWith('n') && word.length > 2 && !['a', 'e', 'i', 'o', 'u'].includes(word.charAt(word.length - 2))) {
+                return word.slice(0, -1); // finden -> find (nur wenn Konsonant vor 'n')
+            }
+            if (word.endsWith('e') && word.length > 2) {
+                // Nur 'e' entfernen, wenn es keine Wurzel bildet (z.B. 'frage' bleibt 'frag')
+                return word.slice(0, -1);
+            }
+            
             return word;
         }
+
 
         async function loadQuestions() {
             try {
