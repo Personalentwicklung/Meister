@@ -1,226 +1,628 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Prüfungsvorbereitung – Meisterschule</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f2f4f8;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MIKP - Personalentwicklung</title>
+    <style>
+        /* Allgemeine Einstellungen für den Body (direkt aus ZIP-13.html übernommen) */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 40px 20px; /* Einheitlicher Padding wie in ZIP-13 */
+            background-color: #f0f2f5; /* Hintergrundfarbe wie in ZIP-13 */
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Startpunkt des Containers anpassen */
+            min-height: 100vh;
+            box-sizing: border-box; /* Wichtig für konsistentes Box-Modell */
+        }
 
-    .container {
-      background-color: #fff;
-      padding: 2.5rem;
-      border-radius: 12px;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-      width: 100%;
-      max-width: 400px;
-      box-sizing: border-box;
-      text-align: center;
-    }
+        /* Container für den gesamten Test, um ihn zu zentrieren und zu stylen (direkt aus ZIP-13.html übernommen) */
+        .container {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Schatten wie in ZIP-13 */
+            max-width: 900px; /* Max-Breite wie in ZIP-13 */
+            width: 100%;
+            box-sizing: border-box;
+        }
 
-    h1 {
-      font-size: 1rem;
-      color: #333;
-      margin-bottom: 0.5rem;
-    }
+        /* Überschriftenstile (direkt aus ZIP-13.html übernommen) */
+        h1 {
+            color: #1a4e8a; /* Dunkelblau, wie in ZIP-13 */
+            text-align: center;
+            font-size: 2.2em;
+            margin-top: 0;
+            margin-bottom: 5px;
+            font-weight: bold; /* Explizit bold wie in ZIP-13 */
+        }
 
-    h2 {
-      color: #0b3d91;
-      margin-bottom: 1.5rem;
-    }
+        h2 {
+            color: #1a4e8a; /* Konsistent mit H1, wie in ZIP-13 */
+            text-align: center;
+            font-size: 1.5em; /* Wie in ZIP-13 */
+            font-weight: normal; /* Normal für Subtitel wie in ZIP-13 */
+            margin-top: 0;
+            margin-bottom: 30px; /* Wie in ZIP-13 */
+        }
 
-    input {
-      width: 100%;
-      padding: 0.75rem;
-      margin: 0.5rem 0;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      font-size: 1rem;
-    }
+        h3 {
+            color: #1a4e8a; /* Farbe wie in ZIP-13 */
+            font-size: 1.2em;
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-weight: bold; /* Standardmäßig fett für H3 wie in ZIP-13 */
+        }
 
-    .password-wrapper {
-      position: relative;
-    }
+        /* Fragen-Navigationsleiste */
+        .question-navigation-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px; /* Abstand wie in ZIP-13 */
+            margin-bottom: 30px; /* Abstand nach unten wie in ZIP-13 */
+            justify-content: center;
+        }
 
-    .toggle-password {
-      position: absolute;
-      right: 12px;
-      top: 50%;
-      transform: translateY(-50%);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-    }
+        .question-navigation-bar button {
+            /* Exakte Maße und Farben aus ZIP-13.html */
+            padding: 10px 20px; /* Einheitliche Höhe durch Padding wie in ZIP-13 */
+            font-size: 14px; /* Reduzierte Font-Size für feineren Look */
+            cursor: pointer;
+            background-color: #666; /* Standardfarbe wie in ZIP-13 */
+            color: white;
+            border: 1px solid #444; /* Rahmenfarbe wie in ZIP-13 */
+            border-radius: 5px;
+            transition: background-color 0.2s ease, border-color 0.2s ease;
+            line-height: 1; /* Wichtig für konsistente Button-Höhen */
+            box-sizing: border-box;
+            min-width: 80px;
+            font-weight: normal; /* "Filigraner" Font-Weight */
+        }
 
-    .toggle-password svg {
-      width: 20px;
-      height: 20px;
-      fill: #333;
-    }
+        .question-navigation-bar button:hover:not(.active) {
+            background-color: #555; /* Leichte Abdunklung beim Hover */
+            border-color: #333;
+        }
 
-    button {
-      width: 100%;
-      padding: 0.75rem;
-      background-color: #123c7b;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      font-size: 1rem;
-      cursor: pointer;
-      margin-top: 1rem;
-    }
+        .question-navigation-bar button.active {
+            /* Exakte Maße und Farben aus ZIP-13.html */
+            background-color: #1a4e8a; /* Aktive Farbe wie in ZIP-13 */
+            color: white;
+            border-color: #1a4e8a;
+            box-shadow: none; /* Kein Schatten im aktiven Zustand wie in ZIP-13 */
+        }
 
-    button:hover {
-      background-color: #0f2f5d;
-    }
+        .question-navigation-bar button.active:hover {
+            background-color: #1a3e7a; /* Dunklerer Ton beim Hover im aktiven Zustand */
+            border-color: #1a3e7a;
+        }
 
-    a {
-      display: inline-block;
-      margin-top: 1rem;
-      color: #0b3d91;
-      text-decoration: underline;
-      cursor: pointer;
-    }
+        /* Fragen-Sektion */
+        .question-section {
+            padding: 25px;
+            border: 1px solid #cddff5; /* Rahmenfarbe wie in ZIP-13 */
+            margin-bottom: 30px;
+            border-radius: 8px;
+            background-color: #ffffff; /* Hintergrundfarbe wie in ZIP-13 */
+            box-shadow: 0 2px 8px rgba: (0, 0, 0, 0.05); /* Schatten wie in ZIP-13 */
+        }
 
-    a:hover {
-      color: #062a63;
-    }
+        .question-text {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            font-weight: bold; /* Frage in Bold, wie gewünscht */
+        }
 
-    .hidden {
-      display: none;
-    }
+        /* Hinweis-Text über der Textarea */
+        .input-hint-text {
+            font-size: 0.95em;
+            color: #555;
+            margin-top: -10px; /* Etwas näher an die Frage rücken */
+            margin-bottom: 10px; /* Abstand zur Textarea */
+        }
 
-    #resetEmailContainer {
-      margin-top: 1rem;
-    }
+        /* Textarea für Benutzerantwort */
+        textarea.user-answer {
+            width: 100%;
+            height: 200px; /* Höhe wie in ZIP-13 */
+            font-size: 1.05em; /* Leicht erhöhte Font-Size */
+            padding: 15px;
+            margin-bottom: 20px; /* Abstand zum nächsten Element */
+            border: 1px solid #cddff5; /* Rahmenfarbe wie in ZIP-13 */
+            border-left: 5px solid #1a4e8a; /* Blauer Balken links wie in ZIP-13 */
+            border-radius: 5px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Schriftart wie Body */
+            box-sizing: border-box;
+            resize: vertical; /* Nur vertikal skalierbar */
+            transition: border-color 0.3s;
+        }
 
-    #resetEmailContainer input {
-      margin-bottom: 0.5rem;
-    }
+        textarea.user-answer:focus {
+            border-color: #1a4e8a;
+            outline: none;
+        }
 
-    .password-hint {
-      font-size: 0.85rem;
-      color: #666;
-      margin-top: -0.5rem;
-      margin-bottom: 0.5rem;
-    }
-  </style>
+        /* Button-Gruppe für Überprüfen */
+        .button-group {
+            display: flex;
+            flex-direction: column; /* Buttons untereinander */
+            gap: 15px; /* Abstand zwischen den Buttons */
+            align-items: center; /* Zentrierung */
+            margin-bottom: 20px; /* Abstand zum dynamischen Text */
+        }
+
+        /* "Antwort überprüfen" Button */
+        button.btn-check-answer {
+            /* Exakte Maße und Farben aus ZIP-13.html */
+            padding: 15px 20px; /* Padding wie in ZIP-13 */
+            background-color: #28a745; /* Grüne Farbe wie in ZIP-13 */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px; /* Reduzierte Font-Size für feineren Look */
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+            max-width: 300px; /* Max-Breite für Buttons */
+            box-sizing: border-box;
+            font-weight: normal; /* "Filigraner" Font-Weight */
+        }
+
+        button.btn-check-answer:hover {
+            background-color: #218838;
+        }
+
+        button.btn-check-answer.recheck-button {
+            /* Exakte Maße und Farben aus ZIP-13.html */
+            background-color: #d4ac0d; /* Gelbe Farbe wie in ZIP-13 */
+        }
+
+        button.btn-check-answer.recheck-button:hover {
+            background-color: #c0980e; /* Dunkleres Gelb beim Hover */
+        }
+
+        /* Dynamischer Text "Möchtest du..." */
+        .recheck-info-text {
+            text-align: center;
+            font-style: italic;
+            color: #555;
+            margin-top: -10px; /* Etwas näher an Textarea rücken */
+            margin-bottom: 20px; /* Abstand zum Button */
+            display: none; /* Standardmäßig ausgeblendet */
+        }
+
+        /* Feedback-Bereich (direkt aus ZIP-13.html's .feedback-section) */
+        .feedback-section {
+            margin-top: 20px; /* Wie in ZIP-13 */
+            padding: 15px; /* Wie in ZIP-13 */
+            background-color: #e6eff9; /* Hintergrundfarbe wie in ZIP-13 */
+            border-left: 5px solid #1a4e8a; /* Blauer Balken links wie in ZIP-13 */
+            border-radius: 5px; /* Leichte Rundung */
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05); /* Leichter Schatten */
+            display: none; /* Initial ausgeblendet */
+        }
+
+        .feedback-header {
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+            color: #1a4e8a;
+        }
+
+        .feedback-details {
+            margin-top: 10px;
+        }
+
+        .feedback-item {
+            margin-bottom: 8px;
+            padding: 2px 0;
+            display: flex;
+            align-items: flex-start;
+            line-height: 1.4;
+        }
+
+        .feedback-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .feedback-icon {
+            font-size: 1.2em;
+            margin-right: 10px;
+            flex-shrink: 0;
+            padding-top: 1px;
+        }
+
+        .feedback-item strong {
+            font-weight: bold;
+        }
+
+        /* Farben für Feedback-Icons und Text */
+        .feedback-item.ok { color: green; } /* Exakt Grün wie in ZIP-13 */
+        .feedback-item.hinweis { color: #d17b00; } /* Orange wie in ZIP-13 */
+        .feedback-item.error { color: red; } /* Rot wie in ZIP-13 */
+
+        /* Punktestand-Anzeige */
+        .score {
+            margin-top: 20px;
+            font-weight: bold;
+            font-size: 1.1em;
+            color: #1a4e8a;
+            border-top: 1px solid #dcdcdc;
+            padding-top: 12px;
+            text-align: right; /* Rechtsbündig für den Score */
+        }
+
+        /* Musterlösung-Anzeige Button (unter dem Feedback-Feld platziert) */
+        button.btn-toggle-musterloesung {
+            /* Exakte Maße und Farben aus ZIP-13.html */
+            background-color: #1a4e8a; /* Blaue Farbe wie in ZIP-13 */
+            color: white;
+            border: none;
+            padding: 15px 20px; /* Padding wie in ZIP-13 */
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px; /* Reduzierte Font-Size für feineren Look */
+            transition: background-color 0.3s ease;
+            width: 100%;
+            max-width: 300px; /* Max-Breite für Buttons */
+            display: block;
+            box-sizing: border-box;
+            font-weight: normal; /* "Filigraner" Font-Weight */
+            margin-top: 30px; /* Abstand zum Feedback-Feld */
+            margin-left: auto; /* Zentrierung */
+            margin-right: auto; /* Zentrierung */
+        }
+
+        button.btn-toggle-musterloesung:hover {
+            background-color: #1a3e7a; /* Dunkleres Blau beim Hover */
+        }
+
+        /* Musterlösung-Inhaltscontainer (direkt aus ZIP-13.html's .solution-section) */
+        .correct-answer-content-container {
+            margin-top: 20px; /* Wie in ZIP-13 */
+            padding: 15px; /* Wie in ZIP-13 */
+            background-color: #e6eff9; /* Hintergrundfarbe wie in ZIP-13 */
+            border-left: 5px solid #1a4e8a; /* Blauer Balken links wie in ZIP-13 */
+            border-radius: 5px; /* Leichte Rundung */
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05); /* Leichter Schatten */
+            display: none; /* Initial ausgeblendet */
+        }
+
+        .correct-answer-content-container p {
+            margin-bottom: 8px; /* Reduzierter Zeilenabstand für Absätze */
+            line-height: 1.6;
+        }
+
+        .correct-answer-content-container p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Responsives Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            .question-navigation-bar button,
+            button.btn-check-answer,
+            button.btn-toggle-musterloesung {
+                font-size: 1em; /* Anpassung für kleinere Bildschirme */
+                padding: 12px 15px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            h2 {
+                font-size: 1.2em;
+            }
+
+            textarea.user-answer {
+                height: 150px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px 15px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Prüfungsvorbereitung – Meisterschule</h1>
-    <h2 id="formTitle">Anmelden</h2>
+    <div class="container">
+        <h1>MIKP - Personalentwicklung</h1>
+        <h2 id="thema-sub-titel">Personalentwicklungsprozess</h2>
 
-    <input type="email" id="email" placeholder="E-Mail" />
-    
-    <div class="password-wrapper">
-      <input type="password" id="password" placeholder="Passwort" />
-      <span class="toggle-password" onclick="togglePassword()">
-        <svg viewBox="0 0 24 24">
-          <path d="M12 4.5C7 4.5 2.7 8 1 12c1.7 4 6 7.5 11 7.5s9.3-3.5 11-7.5c-1.7-4-6-7.5-11-7.5zm0 13a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11zm0-9a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7z"/>
-        </svg>
-      </span>
+        <div class="question-navigation-bar" id="questionNavigationBar">
+            </div>
+
+        <div id="questionSectionContainer">
+            </div>
+
+        <template id="questionTemplate">
+            <div class="question-section">
+                <h3 class="question-title"></h3>
+                <p class="question-text"></p>
+                <p class="input-hint-text">Bitte gib deine Antwort im folgenden Feld ein:</p>
+                <textarea class="user-answer" rows="8" placeholder="Deine Antwort hier..."></textarea>
+                <div class="recheck-info-text">Möchtest du deine Antwort noch einmal überarbeiten und erneut prüfen?</div>
+                <div class="button-group">
+                    <button class="btn-check-answer">Antwort überprüfen</button>
+                </div>
+                <div class="feedback-section">
+                    <div class="feedback-header">Feedback zu Ihrer Antwort:</div>
+                    <div class="feedback-details">
+                        </div>
+                    <div class="score"></div>
+                </div>
+                <button class="btn-toggle-musterloesung">Musterlösung anzeigen</button>
+                <div class="correct-answer-content-container">
+                    <div class="feedback-header">Musterlösung:</div>
+                    <div class="correct-answer-content">
+                        </div>
+                </div>
+            </div>
+        </template>
     </div>
 
-    <!-- Passwort-Hinweis (nur sichtbar im Registriermodus) -->
-    <p id="pwHint" class="hidden password-hint" style="margin-top: 10px; margin-bottom: 18px;">
-  Das Passwort muss mind. 6 Zeichen lang sein!
-</p>
+    <script>
+        let questions = [];
+        let currentQuestionIndex = 0;
+        const defaultThemaId = "pe-prozess"; // Festgelegte ThemaID
 
-    <button id="mainButton" onclick="handleAction()">Anmelden</button>
+        // Verbesserter Stemmer für Deutsch (für robustere Anwendung)
+        function simpleStemmer(word) {
+            word = word.toLowerCase();
+            // Entfernen von Satzzeichen und spezifischen Sonderzeichen
+            word = word.replace(/[.,!?;:()"\-]/g, '');
 
-    <a id="forgotPassword" onclick="showReset()">Passwort vergessen?</a>
-    <a id="switchToRegister" onclick="switchMode('register')">Noch kein Konto? Jetzt registrieren</a>
-    <a class="hidden" id="backToLogin" onclick="switchMode('login')">Zurück zur Anmeldung</a>
+            // Liste von Suffixen, absteigend nach Länge sortiert
+            const suffixes = [
+                'ungen', 'itäten', 'schaften', 'lichkeiten', 'erung', 'ungen', // Längere Plurale und Derivate
+                'arbeit', // Spezialfall für "Mitarbeitende" vs. "Mitarbeiter"
+                'ende', 'enden', 'haft', 'keit', 'lich', 'schaft', // Adjektiv- und Nomen-Endungen
+                'fach', 'isch', // Adjektiv-Endungen
+                'ern', 'ung', 'ier', // Verb- und Nomen-Endungen
+                'est', 'en', 'er', 'es', 'et', 'em', // Verb- und Adjektiv-Endungen
+                'eln', 'eln', 'eln', // Verb-Endungen (z.B. sammeln -> sammel)
+                'e', 's', 'n' // Allgemeine Endungen
+            ];
 
-    <div class="hidden" id="resetEmailContainer">
-      <input type="email" id="resetEmail" placeholder="E-Mail für Passwort-Reset" />
-      <button onclick="sendResetEmail()">Zurücksetzen</button>
-    </div>
-  </div>
+            // Iteriere über die Suffixe und entferne sie, wenn sie am Wortende gefunden werden
+            for (const suffix of suffixes) {
+                if (word.endsWith(suffix)) {
+                    word = word.slice(0, -suffix.length);
+                    // Optional: Weitere Stemming-Runden, wenn ein Suffix entfernt wurde
+                    // Hier belassen wir es einfach, um nicht zu aggressiv zu stemmen
+                    break; // Nur das längste passende Suffix entfernen
+                }
+            }
+            // Spezialfall für Partizipien und Infinitive, die zu einem gemeinsamen Stamm führen sollen
+            if (word.endsWith('t')) { // z.B. gebaut -> bau
+                return word.slice(0, -1);
+            }
+            // Spezialfall für Infinitiv-Endungen nach Konsonanten (z.B. finden -> find)
+            if (word.endsWith('n') && word.length > 2) {
+                 if (!['a', 'e', 'i', 'o', 'u'].includes(word.charAt(word.length - 2))) {
+                    return word.slice(0, -1);
+                 }
+            }
 
-  <!-- Firebase CDN -->
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 
-  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyDMaR8xOtpRLPIvLg45OWWD9daFzaw6drY",
-      authDomain: "meister-cb996.firebaseapp.com",
-      projectId: "meister-cb996"
-    };
+            return word;
+        }
 
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
 
-    let mode = "login";
+        async function loadQuestions() {
+            try {
+                const response = await fetch('fragen_pe-prozess.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                // Speichern der Fragen und des gemeinsamen Feedbacks
+                questions = data.filter(q => q.themaID === defaultThemaId);
+                // Fragen nach frageNummer sortieren, um die korrekte Reihenfolge zu gewährleisten
+                questions.sort((a, b) => a.frageNummer - b.frageNummer);
 
-    function togglePassword() {
-      const pw = document.getElementById("password");
-      pw.type = pw.type === "password" ? "text" : "password";
-    }
+                if (questions.length === 0) {
+                    document.getElementById('questionSectionContainer').innerHTML = '<p>Keine Fragen für dieses Thema gefunden.</p>';
+                    return;
+                }
+                renderNavigationBar();
+                zeigeFrage(0); // Zeigt die erste Frage beim Start
+            } catch (error) {
+                console.error("Fehler beim Laden der Fragen:", error);
+                document.getElementById('questionSectionContainer').innerHTML = `<p>Fehler beim Laden der Fragen: ${error.message}. Bitte überprüfen Sie die Konsolenmeldung.</p>`;
+            }
+        }
 
-    function switchMode(newMode) {
-      mode = newMode;
+        function renderNavigationBar() {
+            const navBar = document.getElementById('questionNavigationBar');
+            navBar.innerHTML = '';
+            questions.forEach((q, index) => {
+                const button = document.createElement('button');
+                button.textContent = `Frage ${q.frageNummer}`; // Nutze frageNummer für den Button-Text
+                button.onclick = () => zeigeFrage(index);
+                if (index === currentQuestionIndex) {
+                    button.classList.add('active');
+                }
+                navBar.appendChild(button);
+            });
+        }
 
-      document.getElementById("formTitle").innerText = mode === "login" ? "Anmelden" : "Registrieren";
-      document.getElementById("mainButton").innerText = mode === "login" ? "Anmelden" : "Konto erstellen";
-      document.getElementById("forgotPassword").classList.toggle("hidden", mode !== "login");
-      document.getElementById("switchToRegister").classList.toggle("hidden", mode !== "login");
-      document.getElementById("backToLogin").classList.toggle("hidden", mode === "login");
-      document.getElementById("resetEmailContainer").classList.add("hidden");
-      document.getElementById("pwHint").classList.toggle("hidden", mode !== "register");
+        function zeigeFrage(index) {
+            if (index < 0 || index >= questions.length) return;
 
-      document.getElementById("email").value = "";
-      document.getElementById("password").value = "";
-    }
+            currentQuestionIndex = index;
+            const question = questions[currentQuestionIndex];
+            const container = document.getElementById('questionSectionContainer');
+            const template = document.getElementById('questionTemplate');
+            const clone = document.importNode(template.content, true);
 
-    function handleAction() {
-      const email = document.getElementById("email").value.trim();
-      const password = document.getElementById("password").value.trim();
+            clone.querySelector('.question-title').textContent = question.titel;
+            clone.querySelector('.question-text').textContent = question.frageText;
 
-      if (!email || (mode !== "reset" && password.length < 6)) {
-        alert("Bitte gültige E-Mail und Passwort (mind. 6 Zeichen) eingeben.");
-        return;
-      }
+            const answerInput = clone.querySelector('.user-answer');
+            const checkAnswerButton = clone.querySelector('.btn-check-answer');
+            const toggleSolutionButton = clone.querySelector('.btn-toggle-musterloesung');
+            const feedbackSection = clone.querySelector('.feedback-section');
+            const solutionContainer = clone.querySelector('.correct-answer-content-container');
+            const recheckInfoText = clone.querySelector('.recheck-info-text');
 
-      if (mode === "login") {
-        auth.signInWithEmailAndPassword(email, password)
-          .then(() => window.location.href = "main.html")
-          .catch(err => alert("Fehler: " + err.message));
-      } else if (mode === "register") {
-        auth.createUserWithEmailAndPassword(email, password)
-          .then(() => {
-            alert("Registrierung erfolgreich!");
-            switchMode("login");
-          })
-          .catch(err => alert("Fehler: " + err.message));
-      }
-    }
+            // Setzt den Zustand der Buttons und Textfelder zurück
+            answerInput.value = question.userAnswer || ''; // Lädt gespeicherte Antwort
+            checkAnswerButton.textContent = 'Antwort überprüfen';
+            checkAnswerButton.classList.remove('recheck-button');
+            toggleSolutionButton.style.display = 'none'; // Musterlösungsbutton verstecken
+            feedbackSection.style.display = 'none';      // Feedback-Sektion verstecken
+            solutionContainer.style.display = 'none';     // Musterlösung-Container verstecken
+            recheckInfoText.style.display = 'none';       // Dynamischen Text beim Fragenwechsel ausblenden
 
-    function showReset() {
-      document.getElementById("resetEmailContainer").classList.remove("hidden");
-    }
+            checkAnswerButton.onclick = () => evaluateAnswer(question, answerInput, checkAnswerButton, toggleSolutionButton, feedbackSection, solutionContainer, recheckInfoText);
+            toggleSolutionButton.onclick = () => toggleMusterloesung(question, toggleSolutionButton, solutionContainer);
 
-    function sendResetEmail() {
-      const email = document.getElementById("resetEmail").value.trim();
-      if (!email) return alert("Bitte E-Mail eingeben.");
+            container.innerHTML = ''; // Vorherige Frage entfernen
+            container.appendChild(clone);
 
-      auth.sendPasswordResetEmail(email)
-        .then(() => alert("E-Mail zum Zurücksetzen wurde gesendet."))
-        .catch(err => alert("Fehler: " + err.message));
-    }
+            renderNavigationBar(); // Aktualisiert den aktiven Button in der Navigation
+        }
 
-    document.addEventListener("DOMContentLoaded", () => switchMode("login"));
-  </script>
+        function evaluateAnswer(question, answerInput, checkAnswerButton, toggleSolutionButton, feedbackSection, solutionContainer, recheckInfoText) {
+            const userAnswer = answerInput.value;
+            // Speichern der Benutzerantwort
+            question.userAnswer = userAnswer;
+
+            // Prepare the user answer: lowercase, remove punctuation, then stem each word
+            const stemmedUserAnswerWords = userAnswer.split(/\s+/)
+                                                .map(word => simpleStemmer(word))
+                                                .filter(word => word.length > 0);
+            
+            // Reconstruct stemmedUserAnswerText for includes() check on phrases (which might span multiple stemmed words)
+            const stemmedUserAnswerText = stemmedUserAnswerWords.join(' ');
+
+            let totalPoints = 0;
+            const maxPointsPerCriterion = 2; // ✅ = 2 Punkte, ⚠️ = 1 Punkt, ❌ = 0 Punkte
+            let totalPossibleScore = question.bewertungskriterien.length * maxPointsPerCriterion;
+
+            const feedbackDetails = feedbackSection.querySelector('.feedback-details');
+            feedbackDetails.innerHTML = ''; // Vorheriges Feedback löschen
+
+            const commonFeedback = question.commonFeedback; // Zugriff auf das ausgelagerte Feedback
+
+            question.bewertungskriterien.forEach(criterion => {
+                let points = 0;
+                let feedbackText = '';
+                let matchedType = 'none'; // 'phrase', 'single', 'none'
+
+                // Priorität 1: Phrasen prüfen (2 Punkte)
+                if (criterion.phrases && Array.isArray(criterion.phrases)) {
+                    // Sortieren der Phrasen nach Länge absteigend, um längere/spezifischere Treffer zu bevorzugen
+                    const sortedPhrases = criterion.phrases
+                        .map(ph => simpleStemmer(ph))
+                        .sort((a, b) => b.length - a.length);
+
+                    for (const stemmedPhrase of sortedPhrases) {
+                        if (stemmedUserAnswerText.includes(stemmedPhrase)) {
+                            matchedType = 'phrase';
+                            break; // Phrase gefunden, direkt 2 Punkte vergeben
+                        }
+                    }
+                }
+
+                // Priorität 2: Keywords prüfen (1 Punkt), NUR wenn noch keine Phrase gefunden wurde
+                if (matchedType === 'none' && criterion.keywords && Array.isArray(criterion.keywords)) {
+                    const stemmedKeywords = criterion.keywords.map(kw => simpleStemmer(kw));
+
+                    for (const stemmedKeyword of stemmedKeywords) {
+                        if (stemmedUserAnswerText.includes(stemmedKeyword)) {
+                            matchedType = 'single';
+                            break; // Keyword gefunden, 1 Punkt vergeben
+                        }
+                    }
+                }
+                
+                // Punkte und Feedback-Text basierend auf matchedType und commonFeedback festlegen
+                if (matchedType === 'phrase') {
+                    points = maxPointsPerCriterion; // 2 Punkte für Phrasentreffer
+                    feedbackText = commonFeedback.positiv;
+                } else if (matchedType === 'single') {
+                    points = 1; // 1 Punkt für Einzelworttreffer
+                    feedbackText = commonFeedback.neutral;
+                } else {
+                    points = 0; // Nichts gefunden
+                    feedbackText = commonFeedback.negativ;
+                }
+
+                totalPoints += points;
+
+                const feedbackItem = document.createElement('div');
+                feedbackItem.classList.add('feedback-item');
+
+                let icon = ''; // Icon wird hier im HTML generiert
+                let feedbackClass = '';
+                if (points === 2) {
+                    icon = '✅';
+                    feedbackClass = 'ok';
+                } else if (points === 1) {
+                    icon = '⚠️';
+                    feedbackClass = 'hinweis';
+                } else {
+                    icon = '❌';
+                    feedbackClass = 'error';
+                }
+
+                feedbackItem.classList.add(feedbackClass);
+                // HTML-Struktur fügt Icon und Bolding des Kriteriumsnamens hinzu. feedbackText ist nur der reine Text aus JSON.
+                feedbackItem.innerHTML = `<span class="feedback-icon">${icon}</span> <span><strong>${criterion.name}:</strong> ${feedbackText}</span>`;
+                feedbackDetails.appendChild(feedbackItem);
+            });
+
+            const percentage = (totalPossibleScore > 0) ? (totalPoints / totalPossibleScore) * 100 : 0;
+            const scoreDisplay = feedbackSection.querySelector('.score');
+            scoreDisplay.textContent = `Ergebnis in Prozent: ${percentage.toFixed(0)}%`;
+            
+            feedbackSection.style.display = 'block';
+            toggleSolutionButton.style.display = 'block'; // Musterlösungsbutton anzeigen
+
+            // Button-Text und -Farbe ändern
+            checkAnswerButton.textContent = 'Antwort erneut prüfen';
+            checkAnswerButton.classList.add('recheck-button');
+
+            // Dynamischen Text anzeigen
+            recheckInfoText.style.display = 'block';
+        }
+
+        function toggleMusterloesung(question, button, solutionContainer) {
+            if (solutionContainer.style.display === 'block') {
+                solutionContainer.style.display = 'none';
+                button.textContent = 'Musterlösung anzeigen';
+            } else {
+                // Ersetze **Text** durch <strong>Text</strong>
+                let formattedSolution = question.musterloesung.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                
+                // Teile den Text an doppelten Zeilenumbrüchen in Absätze auf
+                const paragraphs = formattedSolution.split(/\n\s*\n/).filter(p => p.trim() !== '');
+                let htmlContent = '';
+                paragraphs.forEach(p => {
+                    // Ersetze einzelne Zeilenumbrüche innerhalb eines Absatzes durch <br>
+                    htmlContent += `<p>${p.replace(/\n/g, '<br>')}</p>`;
+                });
+
+                solutionContainer.querySelector('.correct-answer-content').innerHTML = htmlContent;
+                solutionContainer.style.display = 'block';
+                button.textContent = 'Musterlösung ausblenden';
+            }
+        }
+
+        // Start der Anwendung
+        document.addEventListener('DOMContentLoaded', loadQuestions);
+    </script>
 </body>
 </html>
-
