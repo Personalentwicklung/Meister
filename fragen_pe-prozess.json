@@ -111,50 +111,51 @@
       {
         "name": "Bedeutung im Kontext von Fachkräftemangel & Wandel",
         "keywords": [
-          "fachkräftemangel", "wandel", "technologisch", "weiterbilden", "kontinuierlich", "zeiten", "raschen", "entscheidend", "mitarbeitende"
+          "fachkräftemangel", "technologisch wandel", "weiterbilden", "mitarbeitende"
         ],
         "phrases": [
           "fachkräftemangel",
-          "raschem technologischem wandel",
-          "mitarbeitende kontinuierlich weiterbildet",
-          "zentral bei fachkräftemangel und raschem technologischem wandel indem sie mitarbeitende kontinuierlich weiterbildet"
+          "technischem wandel",
+          "mitarbeitende weiterbildet",
+          "bildet mitarbeitende weiter"
         ]
       },
       {
         "name": "Vorteile für Mitarbeitende (Kompetenz, Motivation, Bindung)",
         "keywords": [
-          "kompetenzen", "motivation", "mitarbeiterbindung", "aufgebaut", "gesteigert", "erhöht", "entwicklung", "gezielte"
+          "kompetenzen", "motivation", "mitarbeiterbindung", "aufbauen", "steigern", "erhöhen"
         ],
         "phrases": [
-          "kompetenzen werden aufgebaut",
-          "motivation gesteigert",
+          "kompetenzen aufbaut",
+          "baut kompetenzen auf",
+          "motivation steigert",
+          "steigert motivation",
           "mitarbeiterbindung erhöht",
-          "kompetenzen aufgebaut motivation gesteigert und mitarbeiterbindung erhöht"
+          "erhöht mitarbeiterbindung"
         ]
       },
       {
         "name": "Nutzen für das Unternehmen (Know-how, Innovation, Anpassung)",
         "keywords": [
-          "know-how", "innovationskraft", "anpassungsfähigkeit", "belegschaft", "investieren", "unternehmen", "sichern", "innovation", "anpassung", "know how"
+          "know-how", "innovationskraft", "anpassungsfähigkeit", "sichern"
         ],
         "phrases": [
-          "unternehmen investiert so in know-how innovationskraft und anpassungsfähigkeit",
-          "sichern sich know-how",
-          "sichern sich innovationskraft",
-          "sichern sich anpassungsfähigkeit"
+          "sichert know-how",
+          "sichert innovation",
+          "sichert anpassungsfähigkeit",
+          "sichert know-how innovation anpassungsfähigkeit"
         ]
       },
       {
         "name": "Strategische Bedeutung / Integration in die Unternehmensstrategie",
         "keywords": [
-          "strategisch", "instrument", "unternehmensstrategie", "bestandteil", "wettbewerbsfähigkeit", "langfristigen", "wesentlich", "zentraler", "nice-to-have"
+          "strategisch", "instrument", "unternehmensstrategie", "wettbewerbsfähigkeit", "zentral"
         ],
         "phrases": [
           "strategisches instrument",
-          "langfristigen wettbewerbsfähigkeit",
-          "strategisches instrument zur sicherung der langfristigen wettbewerbsfähigkeit",
-          "zentraler bestandteil der unternehmensstrategie",
-          "kein nice-to-have"
+          "strategisches instrument der unternehmensstrategie",
+          "unternehmensstrategie",
+          "langfristigen wettbewerbsfähigkeit"
         ]
       }
     ]
