@@ -114,8 +114,9 @@
           "mitarbeitende"
         ],
         "phrases": [
-          "fachkräftemangels und des raschen technologischen wandels",
-          "mitarbeitende kontinuierlich weiterzubilden"
+          "fachkräftemangel technologisch wandel",
+          "mitarbeitende weiterbildet",
+          "bildet mitarbeitende weiter"
         ]
       },
       {
@@ -124,14 +125,14 @@
           "kompetenzen",
           "motivation",
           "mitarbeiterbindung",
-          "aufgebaut",
-          "gesteigert",
-          "erhöht"
+          "aufbauen",
+          "steigern",
+          "erhöhen"
         ],
         "phrases": [
-          "kompetenzen aufgebaut",
-          "motivation gesteigert",
-          "mitarbeiterbindung erhöht"
+          "baut kompetenzen auf",
+          "steigert motivation",
+          "erhöht mitarbeiterbindung"
         ]
       },
       {
@@ -140,14 +141,12 @@
           "know-how",
           "innovationskraft",
           "anpassungsfähigkeit",
-          "investieren",
           "sichern"
         ],
         "phrases": [
-          "sichern sich know-how",
-          "sichern sich innovationskraft",
-          "sichern sich anpassungsfähigkeit",
-          "sichern sich nicht nur know-how sondern auch innovationskraft und anpassungsfähigkeit"
+          "sichert know-how",
+          "sichert innov anpassungsfähig",
+          "sichert know-how innov anpassungsfähig"
         ]
       },
       {
@@ -157,13 +156,13 @@
           "instrument",
           "unternehmensstrategie",
           "wettbewerbsfähigkeit",
-          "zentral",
-          "nice-to-have"
+          "zentral"
         ],
         "phrases": [
-          "langfristigen wettbewerbsfähigkeit",
           "strategisches instrument",
-          "zentraler bestandteil der unternehmensstrategie"
+          "strategisches instrument der unternehmensstrategie",
+          "unternehmensstrategie",
+          "langfristigen wettbewerbsfähigkeit"
         ]
       }
     ]
