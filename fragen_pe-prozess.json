@@ -10,88 +10,32 @@
       "neutral": "Dieser Begriff wurde erkannt, die Beschreibung könnte ausführlicher sein.",
       "negativ": "Dieser Begriff wurde nicht erwähnt."
     },
-    "musterloesung": "Der Personalentwicklungsprozess gliedert sich in fünf aufeinanderfolgende Phasen:\n\n<strong>Bedarfsanalyse:</strong> Hier wird ermittelt, welche Qualifikationen im Unternehmen fehlen oder künftig benötigt werden. Dies geschieht durch Methoden wie Befragungen, Beobachtungen oder Dokumentenanalysen.\n\n<strong>Zielplanung:</strong> In dieser Phase werden konkrete Entwicklungsziele definiert, die sowohl auf individuelle als auch auf unternehmerische Anforderungen abgestimmt sind.\n\n<strong>Maßnahmengestaltung:</strong> Es werden geeignete Entwicklungsmaßnahmen ausgewählt, die sowohl pädagogisch sinnvoll als auch wirtschaftlich tragfähig sind.\n\n<strong>Durchführung:</strong> Die geplanten Maßnahmen werden umgesetzt – z. B. durch Schulungen, Coaching oder Training-on-the-Job.\n\n<strong>Erfolgskontrolle:</strong> Abschließend wird überprüft, ob die Maßnahmen die gewünschten Effekte erzielt haben. Dies kann durch Feedback, Tests oder Leistungsbeurteilungen erfolgen.\n\nDer strukturierte Ablauf stellt sicher, dass Personalentwicklung zielgerichtet, effizient und nachhaltig erfolgt.",
+    "musterloesung": "Der Personalentwicklungsprozess gliedert sich in fünf aufeinanderfolgende Phasen:\n\n**Bedarfsanalyse:** Hier wird ermittelt, welche Qualifikationen im Unternehmen fehlen oder künftig benötigt werden. Dies geschieht durch Methoden wie Befragungen, Beobachtungen oder Dokumentenanalysen.\n\n**Zielplanung:** In dieser Phase werden konkrete Entwicklungsziele definiert, die sowohl auf individuelle als auch auf unternehmerische Anforderungen abgestimmt sind.\n\n**Maßnahmengestaltung:** Es werden geeignete Entwicklungsmaßnahmen ausgewählt, die sowohl pädagogisch sinnvoll als auch wirtschaftlich tragfähig sind.\n\n**Durchführung:** Die geplanten Maßnahmen werden umgesetzt – z. B. durch Schulungen, Coaching oder Training-on-the-Job.\n\n**Erfolgskontrolle:** Abschließend wird überprüft, ob die Maßnahmen die gewünschten Effekte erzielt haben. Dies kann durch Feedback, Tests oder Leistungsbeurteilungen erfolgen.\n\nDer strukturierte Ablauf stellt sicher, dass Personalentwicklungsmaßnahmen effektiv und effizient sind und einen direkten Beitrag zum Unternehmenserfolg leisten. Er fördert die Mitarbeiterbindung durch gezielte Weiterentwicklung und sichert das langfristige Know-how im Unternehmen, um es an veränderte Marktbedingungen anzupassen und wettbewerbsfähig zu bleiben.",
     "bewertungskriterien": [
       {
         "name": "Bedarfsanalyse",
-        "keywords": [
-          "die bedarfsanalyse", "bedarf ermitteln", "qualifikationen fehlen", "was gebraucht wird",
-          "was mitarbeiter können oder brauchen", "was mitarbeiter können", "was mitarbeiter brauchen",
-          "bedarf", "bedarfsanalyse", "ermittlung", "qualifikationen", "befragung", "beobachtung",
-          "dokumentenanalyse", "ermittelt", "fähigkeiten", "benötigt", "können", "brauchen", "analyse des bedarfs", "bedarfs ermitteln"
-        ],
-        "phrases": [
-            "bedarfsanalyse",
-            "bedarf ermitteln",
-            "qualifikationen fehlen",
-            "was gebraucht wird",
-            "was mitarbeiter können oder brauchen",
-            "analyse des bedarfs",
-            "personalbedarfsanalyse"
-        ]
+        "keywords": ["bedarfsanalyse", "ermitteln", "ermittlung", "qualifikationen", "kompetenzen", "analyse", "identifizieren"],
+        "phrases": ["bedarfsanalyse ermitteln", "ermittlung des bedarfs", "qualifikationen ermitteln", "kompetenzen ermitteln", "bedarfsanalyse durchführen"]
       },
       {
         "name": "Zielplanung",
-        "keywords": [
-          "die zielplanung", "ziele festlegen", "ziele definieren", "richtung festgelegt",
-          "ziele gesetzt", "klare ziele", "ziele setzen",
-          "ziel", "ziele", "zielplanung", "entwicklungsziele", "individuell", "unternehmerisch",
-          "abstimmung", "lernziele", "richtung", "festgelegt", "erreicht", "definiert", "zielplanung"
-        ],
-        "phrases": [
-            "zielplanung",
-            "ziele festlegen",
-            "entwicklungsziele definieren",
-            "konkrete ziele",
-            "zielplanung festlegen"
-        ]
+        "keywords": ["zielplanung", "ziele", "definieren", "planung", "entwicklungsziele", "festlegen"],
+        "phrases": ["ziele definieren", "entwicklungsziele definieren", "zielplanung erfolgt", "ziele festlegen"]
       },
       {
         "name": "Maßnahmengestaltung",
-        "keywords": [
-          "maßnahmengestaltung", "maßnahmen planen", "angebote vorbereiten", "passende angebote",
-          "geplante maßnahmen", "maßnahmen zur umsetzung", "planung von angeboten", "maßnahmen zur umsetzung",
-          "maßnahme", "maßnahmen", "gestaltung", "gestalten", "auswählen", "pädagogisch",
-          "wirtschaftlich", "planen", "fortbildungen", "angebote", "vorbereitet", "lernmaßnahmen", "massnahmen", "maßnahmen erstellen", "maßnahmen gestalten"
-        ],
-        "phrases": [
-            "maßnahmengestaltung",
-            "maßnahmen planen",
-            "entwicklungsmaßnahmen auswählen",
-            "maßnahmen gestalten",
-            "gestaltung von maßnahmen"
-        ]
+        "keywords": ["maßnahmengestaltung", "maßnahmen", "gestalten", "auswählen", "konzipieren", "entwicklungsprogramme"],
+        "phrases": ["maßnahmen gestalten", "maßnahmen auswählen", "entwicklungsprogramme gestalten"]
       },
       {
         "name": "Durchführung",
-        "keywords": [
-          "maßnahmen umsetzen", "im betrieb umgesetzt", "coaching durchführen",
-          "durchführung des prozesses", "umsetzung muss begleitet werden", "tatsächliche umsetzung", "umsetzung ist teil davon",
-          "durchführung", "umsetzung", "umsetzen", "schulung", "coaching", "training-on-the-job",
-          "durchgeführt", "umgesetzt", "implementiert", "betrieb", "durchführen", "maßnahmen durchführen"
-        ],
-        "phrases": [
-            "durchführung der maßnahmen",
-            "maßnahmen umsetzen",
-            "durchführung der entwicklung",
-            "umsetzung der maßnahmen"
-        ]
+        "keywords": ["durchführung", "umsetzen", "implementieren", "schulungen", "coaching", "training-on-the-job"],
+        "phrases": ["maßnahmen umsetzen", "schulungen durchführen", "coaching anbieten", "training-on-the-job durchführen"]
       },
       {
         "name": "Erfolgskontrolle",
-        "keywords": [
-          "erfolgskontrolle", "wirksamkeit überprüfen", "ob es was gebracht hat", "erfolg prüfen",
-          "erfolg überprüfen", "abschließende kontrolle", "was es gebracht hat", "ob es funktioniert hat", "auswertung habe ich nicht genannt", "bewertung machen",
-          "kontrolle", "überprüfung", "feedback", "tests", "leistungsbeurteilung",
-          "erfolg erzielt", "überprüft", "wirksamkeit", "gebracht", "beurteilt", "schaut", "auswertung", "messung", "erfolg kontrollieren"
-        ],
-        "phrases": [
-            "erfolgskontrolle",
-            "wirksamkeit überprüfen",
-            "erfolg überprüfen",
-            "kontrolle des erfolgs",
-            "überprüfung der wirksamkeit"
-        ]
+        "keywords": ["erfolgskontrolle", "kontrollieren", "überprüfen", "evaluieren", "feedback", "ergebnisse", "wirkung"],
+        "phrases": ["erfolgskontrolle durchführen", "ergebnisse überprüfen", "wirksamkeit evaluieren", "feedback einholen"]
       }
     ]
   },
@@ -100,24 +44,31 @@
     "themaID": "pe-prozess",
     "frageNummer": 2,
     "titel": "Frage 2:",
-    "frageText": "Warum ist die Personalentwicklung ein strategisches Instrument zur Sicherung der Wettbewerbsfähigkeit?",
+    "frageText": "Warum ist Personalentwicklung in Zeiten von Fachkräftemangel und technologischem Wandel von strategischer Bedeutung für Unternehmen? Nennen Sie mindestens drei Gründe.",
     "commonFeedback": {
       "positiv": "Sehr gut! Dieser Aspekt wurde umfassend erkannt.",
       "neutral": "Dieser Begriff wurde erkannt, die Beschreibung könnte ausführlicher sein.",
       "negativ": "Dieser Begriff wurde nicht erwähnt."
     },
-    "musterloesung": "Personalentwicklung trägt wesentlich zur <strong>langfristigen Wettbewerbsfähigkeit eines Unternehmens</strong> bei. \n\n<strong>Bedeutung im Kontext von Fachkräftemangel & Wandel:</strong> In Zeiten des Fachkräftemangels und des raschen technologischen Wandels ist es entscheidend, Mitarbeitende kontinuierlich weiterzubilden.\n\n<strong>Vorteile für Mitarbeitende:</strong> Durch gezielte Entwicklung können Kompetenzen aufgebaut, Motivation gesteigert und die Mitarbeiterbindung erhöht werden. \n\n<strong>Nutzen für das Unternehmen:</strong> Unternehmen, die in ihre Belegschaft investieren, sichern sich nicht nur Know-how, sondern auch Innovationskraft und Anpassungsfähigkeit. \n\n<strong>Strategische Integration:</strong> Personalentwicklung ist somit kein „Nice-to-have“, sondern ein zentraler Bestandteil der Unternehmensstrategie.",
+    "musterloesung": "Personalentwicklung ist in Zeiten von Fachkräftemangel und technologischem Wandel aus mehreren Gründen von strategischer Bedeutung:\n\n**1. Fachkräftemangel entgegenwirken / Anpassung an Wandel:** Durch gezielte Weiterbildung und Qualifizierung werden bestehende Mitarbeiter fit für neue Anforderungen gemacht. Dies reduziert die Abhängigkeit vom externen Arbeitsmarkt und hilft, Wissenslücken zu schließen, die durch den technologischen Fortschritt entstehen.\n\n**2. Vorteile für Mitarbeitende (Kompetenz, Motivation, Bindung):** Die Investition in Personalentwicklung signalisiert Wertschätzung. Dies steigert die Motivation, fördert die Mitarbeiterbindung und erhöht die Attraktivität des Unternehmens als Arbeitgeber. Mitarbeiter, die sich weiterentwickeln können, sind zufriedener und loyaler. Es baut ihre Kompetenzen auf und bereitet sie auf zukünftige Herausforderungen vor.\n\n**3. Nutzen für das Unternehmen (Know-how, Innovation, Anpassung):** Personalentwicklung sichert und erweitert das unternehmenseigene Know-how. Sie fördert Innovationen, da neue Fähigkeiten und Perspektiven ins Unternehmen gelangen. Das Unternehmen bleibt anpassungsfähig und wettbewerbsfähig, indem es neue Technologien und Marktbedingungen schnell integrieren kann.\n\n**4. Strategische Bedeutung / Integration in die Unternehmensstrategie:** Personalentwicklung ist kein isoliertes Instrument, sondern ein zentraler Bestandteil der Unternehmensstrategie. Sie sichert die langfristige Wettbewerbsfähigkeit, indem sie die Verfügbarkeit der benötigten Qualifikationen gewährleistet und das Unternehmen zukunftsfähig macht.",
     "bewertungskriterien": [
       {
         "name": "Bedeutung im Kontext von Fachkräftemangel & Wandel",
         "keywords": [
-          "fachkräftemangel", "wandel", "technologisch", "weiterbilden", "mitarbeitende"
+          "fachkräftemangel",
+          "wandel",
+          "technologisch",
+          "demografisch",
+          "digitalisierung",
+          "reduziert",
+          "abhängigkeit"
         ],
         "phrases": [
-          "fachkräftemangel technischem wandel",
+          "fachkräftemangel entgegenwirken",
+          "anpassung an wandel",
+          "technischem wandel",
           "mitarbeitende weiterbildet",
-          "bildet mitarbeitende weiter",
-          "raschen technologischen wandel"
+          "bildet mitarbeitende weiter"
         ]
       },
       {
@@ -126,12 +77,12 @@
           "kompetenzen", "motivation", "mitarbeiterbindung", "aufbauen", "steigern", "erhöhen"
         ],
         "phrases": [
+          "kompetenzen aufbaut",
           "baut kompetenzen auf",
+          "motivation steigert",
           "steigert motivation",
-          "erhöht mitarbeiterbindung",
-          "kompetenzen aufgebaut",
-          "motivation gesteigert",
-          "mitarbeiterbindung erhöht"
+          "mitarbeiterbindung erhöht",
+          "erhöht mitarbeiterbindung"
         ]
       },
       {
@@ -143,10 +94,7 @@
           "sichert know-how",
           "sichert innovation",
           "sichert anpassungsfähigkeit",
-          "sichert know-how innovation anpassungsfähigkeit",
-          "sichert sich know-how",
-          "sichert sich innovationskraft",
-          "sichert sich anpassungsfähigkeit"
+          "sichert know-how innovation anpassungsfähigkeit"
         ]
       },
       {
@@ -156,9 +104,9 @@
         ],
         "phrases": [
           "strategisches instrument",
-          "strategisches instrument der unternehmensstrategie",
-          "unternehmensstrategie",
-          "langfristigen wettbewerbsfähigkeit"
+          "strategischer bestandteil",
+          "integration unternehmensstrategie",
+          "wettbewerbsfähigkeit sichern"
         ]
       }
     ]
