@@ -15,14 +15,17 @@
       {
         "name": "Bedarfsanalyse",
         "keywords": [
-          "bedarf ermitteln", "qualifikationen fehlen", "was gebraucht wird",
+          "die bedarfsanalyse", "bedarf ermitteln", "qualifikationen fehlen", "was gebraucht wird",
           "was mitarbeiter können oder brauchen", "was mitarbeiter können", "was mitarbeiter brauchen",
-          "bedarf", "ermittlung", "qualifikationen", "befragung", "beobachtung",
-          "dokumentenanalyse", "ermittelt", "fähigkeiten", "benötigt", "können", "brauchen", "bedarfs ermitteln"
+          "bedarf", "bedarfsanalyse", "ermittlung", "qualifikationen", "befragung", "beobachtung",
+          "dokumentenanalyse", "ermittelt", "fähigkeiten", "benötigt", "können", "brauchen", "analyse des bedarfs", "bedarfs ermitteln"
         ],
         "phrases": [
             "bedarfsanalyse",
-            "die bedarfsanalyse",
+            "bedarf ermitteln",
+            "qualifikationen fehlen",
+            "was gebraucht wird",
+            "was mitarbeiter können oder brauchen",
             "analyse des bedarfs",
             "personalbedarfsanalyse"
         ]
@@ -30,14 +33,14 @@
       {
         "name": "Zielplanung",
         "keywords": [
-          "ziele festlegen", "ziele definieren", "richtung festgelegt",
+          "die zielplanung", "ziele festlegen", "ziele definieren", "richtung festgelegt",
           "ziele gesetzt", "klare ziele", "ziele setzen",
-          "ziel", "ziele", "entwicklungsziele", "individuell", "unternehmerisch",
-          "abstimmung", "lernziele", "richtung", "festgelegt", "erreicht", "definiert"
+          "ziel", "ziele", "zielplanung", "entwicklungsziele", "individuell", "unternehmerisch",
+          "abstimmung", "lernziele", "richtung", "festgelegt", "erreicht", "definiert", "zielplanung"
         ],
         "phrases": [
             "zielplanung",
-            "die zielplanung",
+            "ziele festlegen",
             "entwicklungsziele definieren",
             "konkrete ziele",
             "zielplanung festlegen"
@@ -46,15 +49,16 @@
       {
         "name": "Maßnahmengestaltung",
         "keywords": [
-          "maßnahmen planen", "angebote vorbereiten", "passende angebote",
-          "geplante maßnahmen", "maßnahmen zur umsetzung", "planung von angeboten",
+          "maßnahmengestaltung", "maßnahmen planen", "angebote vorbereiten", "passende angebote",
+          "geplante maßnahmen", "maßnahmen zur umsetzung", "planung von angeboten", "maßnahmen zur umsetzung",
           "maßnahme", "maßnahmen", "gestaltung", "gestalten", "auswählen", "pädagogisch",
-          "wirtschaftlich", "planen", "fortbildungen", "angebote", "vorbereitet", "lernmaßnahmen", "massnahmen", "maßnahmen erstellen"
+          "wirtschaftlich", "planen", "fortbildungen", "angebote", "vorbereitet", "lernmaßnahmen", "massnahmen", "maßnahmen erstellen", "maßnahmen gestalten"
         ],
         "phrases": [
             "maßnahmengestaltung",
-            "maßnahmen gestalten",
+            "maßnahmen planen",
             "entwicklungsmaßnahmen auswählen",
+            "maßnahmen gestalten",
             "gestaltung von maßnahmen"
         ]
       },
@@ -63,28 +67,28 @@
         "keywords": [
           "maßnahmen umsetzen", "im betrieb umgesetzt", "coaching durchführen",
           "durchführung des prozesses", "umsetzung muss begleitet werden", "tatsächliche umsetzung", "umsetzung ist teil davon",
-          "umsetzung", "umsetzen", "schulung", "coaching", "training-on-the-job",
-          "durchgeführt", "umgesetzt", "implementiert", "betrieb", "durchführen"
+          "durchführung", "umsetzung", "umsetzen", "schulung", "coaching", "training-on-the-job",
+          "durchgeführt", "umgesetzt", "implementiert", "betrieb", "durchführen", "maßnahmen durchführen"
         ],
         "phrases": [
-            "durchführung",
             "durchführung der maßnahmen",
+            "maßnahmen umsetzen",
             "durchführung der entwicklung",
-            "umsetzung der maßnahmen",
-            "maßnahmen durchführen"
+            "umsetzung der maßnahmen"
         ]
       },
       {
         "name": "Erfolgskontrolle",
         "keywords": [
-          "wirksamkeit überprüfen", "ob es was gebracht hat", "erfolg prüfen",
+          "erfolgskontrolle", "wirksamkeit überprüfen", "ob es was gebracht hat", "erfolg prüfen",
           "erfolg überprüfen", "abschließende kontrolle", "was es gebracht hat", "ob es funktioniert hat", "auswertung habe ich nicht genannt", "bewertung machen",
           "kontrolle", "überprüfung", "feedback", "tests", "leistungsbeurteilung",
-          "erfolg erzielt", "überprüft", "wirksamkeit", "gebracht", "beurteilt", "schaut", "auswertung", "messung"
+          "erfolg erzielt", "überprüft", "wirksamkeit", "gebracht", "beurteilt", "schaut", "auswertung", "messung", "erfolg kontrollieren"
         ],
         "phrases": [
             "erfolgskontrolle",
-            "erfolg kontrollieren",
+            "wirksamkeit überprüfen",
+            "erfolg überprüfen",
             "kontrolle des erfolgs",
             "überprüfung der wirksamkeit"
         ]
@@ -102,61 +106,53 @@
       "neutral": "Dieser Begriff wurde erkannt, die Beschreibung könnte ausführlicher sein.",
       "negativ": "Dieser Begriff wurde nicht erwähnt."
     },
-    "musterloesung": "Personalentwicklung trägt wesentlich zur <strong>langfristigen Wettbewerbsfähigkeit eines Unternehmens</strong> bei. \n\n<strong>Bedeutung im Kontext von Fachkräftemangel & Wandel:</strong> In Zeiten des <strong>Fachkräftemangels</strong> und des <strong>raschen technologischen Wandels</strong> ist es entscheidend, <strong>Mitarbeitende kontinuierlich weiterzubilden</strong>.\n\n<strong>Vorteile für Mitarbeitende:</strong> Durch gezielte Entwicklung können <strong>Kompetenzen aufgebaut</strong>, <strong>Motivation gesteigert</strong> und die <strong>Mitarbeiterbindung erhöht</strong> werden. \n\n<strong>Nutzen für das Unternehmen:</strong> Unternehmen, die in ihre Belegschaft investieren, sichern sich nicht nur <strong>Know-how</strong>, sondern auch <strong>Innovationskraft</strong> und <strong>Anpassungsfähigkeit</strong>. \n\n<strong>Strategische Integration:</strong> Personalentwicklung ist somit kein „Nice-to-have“, sondern ein <strong>zentraler Bestandteil der Unternehmensstrategie</strong>.",
+    "musterloesung": "Personalentwicklung trägt wesentlich zur <strong>langfristigen Wettbewerbsfähigkeit eines Unternehmens</strong> bei. \n\n<strong>Bedeutung im Kontext von Fachkräftemangel & Wandel:</strong> In Zeiten des Fachkräftemangels und des raschen technologischen Wandels ist es entscheidend, Mitarbeitende kontinuierlich weiterzubilden.\n\n<strong>Vorteile für Mitarbeitende:</strong> Durch gezielte Entwicklung können Kompetenzen aufgebaut, Motivation gesteigert und die Mitarbeiterbindung erhöht werden. \n\n<strong>Nutzen für das Unternehmen:</strong> Unternehmen, die in ihre Belegschaft investieren, sichern sich nicht nur Know-how, sondern auch Innovationskraft und Anpassungsfähigkeit. \n\n<strong>Strategische Integration:</strong> Personalentwicklung ist somit kein „Nice-to-have“, sondern ein zentraler Bestandteil der Unternehmensstrategie.",
     "bewertungskriterien": [
       {
         "name": "Bedeutung im Kontext von Fachkräftemangel & Wandel",
         "keywords": [
-          "fachkräftemangel",
-          "wandel",
-          "technologisch",
-          "weiterbilden",
-          "mitarbeitende"
+          "fachkräftemangel", "wandel", "technologisch", "weiterbilden", "mitarbeitende"
         ],
         "phrases": [
-          "fachkräftemangel technologisch wandel",
+          "fachkräftemangel technischem wandel",
           "mitarbeitende weiterbildet",
-          "bildet mitarbeitende weiter"
+          "bildet mitarbeitende weiter",
+          "raschen technologischen wandel"
         ]
       },
       {
         "name": "Vorteile für Mitarbeitende (Kompetenz, Motivation, Bindung)",
         "keywords": [
-          "kompetenzen",
-          "motivation",
-          "mitarbeiterbindung",
-          "aufbauen",
-          "steigern",
-          "erhöhen"
+          "kompetenzen", "motivation", "mitarbeiterbindung", "aufbauen", "steigern", "erhöhen"
         ],
         "phrases": [
           "baut kompetenzen auf",
           "steigert motivation",
-          "erhöht mitarbeiterbindung"
+          "erhöht mitarbeiterbindung",
+          "kompetenzen aufgebaut",
+          "motivation gesteigert",
+          "mitarbeiterbindung erhöht"
         ]
       },
       {
         "name": "Nutzen für das Unternehmen (Know-how, Innovation, Anpassung)",
         "keywords": [
-          "know-how",
-          "innovationskraft",
-          "anpassungsfähigkeit",
-          "sichern"
+          "know-how", "innovationskraft", "anpassungsfähigkeit", "sichern"
         ],
         "phrases": [
           "sichert know-how",
-          "sichert innov anpassungsfähig",
-          "sichert know-how innov anpassungsfähig"
+          "sichert innovation",
+          "sichert anpassungsfähigkeit",
+          "sichert know-how innovation anpassungsfähigkeit",
+          "sichert sich know-how",
+          "sichert sich innovationskraft",
+          "sichert sich anpassungsfähigkeit"
         ]
       },
       {
         "name": "Strategische Bedeutung / Integration in die Unternehmensstrategie",
         "keywords": [
-          "strategisch",
-          "instrument",
-          "unternehmensstrategie",
-          "wettbewerbsfähigkeit",
-          "zentral"
+          "strategisch", "instrument", "unternehmensstrategie", "wettbewerbsfähigkeit", "zentral"
         ],
         "phrases": [
           "strategisches instrument",
