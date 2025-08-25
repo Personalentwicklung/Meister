@@ -3,112 +3,152 @@
     "id": "pep1",
     "themaID": "pe-prozess",
     "frageNummer": 1,
-    "titel": "Frage 1:",
-    "frageText": "Beschreiben Sie die fünf Phasen des Personalentwicklungsprozesses und erläutern Sie deren Bedeutung für die betriebliche Praxis.",
+    "titel": "Personalentwicklungsprozess",
+    "frageText": "Beschreibe die 5 Phasen des Personalentwicklungsprozesses.",
     "commonFeedback": {
-      "positiv": "Sehr gut! Dieser Aspekt wurde umfassend erkannt.",
-      "neutral": "Dieser Begriff wurde erkannt, die Beschreibung könnte ausführlicher sein.",
+      "positiv": "Dieser Begriff wurde korrekt erwähnt.",
+      "neutral": "Dieser Begriff wurde erwähnt, die Beschreibung könnte jedoch ausführlicher sein.",
       "negativ": "Dieser Begriff wurde nicht erwähnt."
     },
-    "musterloesung": "Der Personalentwicklungsprozess gliedert sich in fünf aufeinanderfolgende Phasen:\n\n**Bedarfsanalyse:** Hier wird ermittelt, welche Qualifikationen im Unternehmen fehlen oder künftig benötigt werden. Dies geschieht durch Methoden wie Befragungen, Beobachtungen oder Dokumentenanalysen.\n\n**Zielplanung:** In dieser Phase werden konkrete Entwicklungsziele definiert, die sowohl auf individuelle als auch auf unternehmerische Anforderungen abgestimmt sind.\n\n**Maßnahmengestaltung:** Es werden geeignete Entwicklungsmaßnahmen ausgewählt, die sowohl pädagogisch sinnvoll als auch wirtschaftlich tragfähig sind.\n\n**Durchführung:** Die geplanten Maßnahmen werden umgesetzt – z. B. durch Schulungen, Coaching oder Training-on-the-Job.\n\n**Erfolgskontrolle:** Abschließend wird überprüft, ob die Maßnahmen die gewünschten Effekte erzielt haben. Dies kann durch Feedback, Tests oder Leistungsbeurteilungen erfolgen.\n\nDer strukturierte Ablauf stellt sicher, dass Personalentwicklungsmaßnahmen effektiv und effizient sind und einen direkten Beitrag zum Unternehmenserfolg leisten. Er fördert die Mitarbeiterbindung durch gezielte Weiterentwicklung und sichert das langfristige Know-how im Unternehmen, um es an veränderte Marktbedingungen anzupassen und wettbewerbsfähig zu bleiben.",
     "bewertungskriterien": [
       {
         "name": "Bedarfsanalyse",
-        "keywords": ["bedarfsanalyse", "ermitteln", "ermittlung", "qualifikationen", "kompetenzen", "analyse", "identifizieren"],
-        "phrases": ["bedarfsanalyse ermitteln", "ermittlung des bedarfs", "qualifikationen ermitteln", "kompetenzen ermitteln", "bedarfsanalyse durchführen"]
+        "phrases": [
+          "Bedarfsanalyse",
+          "Analyse des Bedarfs",
+          "Analyse",
+          "Analyse der Bedarfe",
+          "Bedarf analysieren"
+        ],
+        "keywords": [
+          "bedarf",
+          "analyse",
+          "ermittlung",
+          "feststellung"
+        ]
       },
       {
         "name": "Zielplanung",
-        "keywords": ["zielplanung", "ziele", "definieren", "planung", "entwicklungsziele", "festlegen"],
-        "phrases": ["ziele definieren", "entwicklungsziele definieren", "zielplanung erfolgt", "ziele festlegen"]
+        "phrases": [
+          "Zielplanung",
+          "Ziele planen",
+          "Planung von Zielen"
+        ],
+        "keywords": [
+          "ziel",
+          "planung",
+          "ziele"
+        ]
       },
       {
         "name": "Maßnahmengestaltung",
-        "keywords": ["maßnahmengestaltung", "maßnahmen", "gestalten", "auswählen", "konzipieren", "entwicklungsprogramme"],
-        "phrases": ["maßnahmen gestalten", "maßnahmen auswählen", "entwicklungsprogramme gestalten"]
+        "phrases": [
+          "Maßnahmengestaltung",
+          "Gestaltung der Maßnahmen",
+          "Massnahmen gestalten"
+        ],
+        "keywords": [
+          "massnahme",
+          "gestaltung",
+          "gestalten",
+          "entwicklung"
+        ]
       },
       {
         "name": "Durchführung",
-        "keywords": ["durchführung", "umsetzen", "implementieren", "schulungen", "coaching", "training-on-the-job"],
-        "phrases": ["maßnahmen umsetzen", "schulungen durchführen", "coaching anbieten", "training-on-the-job durchführen"]
+        "phrases": [
+          "Durchführung der Maßnahmen",
+          "Durchführung",
+          "Massnahmen durchführen"
+        ],
+        "keywords": [
+          "durchfuehrung",
+          "durchführen",
+          "umsetzung",
+          "realisierung"
+        ]
       },
       {
         "name": "Erfolgskontrolle",
-        "keywords": ["erfolgskontrolle", "kontrollieren", "überprüfen", "evaluieren", "feedback", "ergebnisse", "wirkung"],
-        "phrases": ["erfolgskontrolle durchführen", "ergebnisse überprüfen", "wirksamkeit evaluieren", "feedback einholen"]
+        "phrases": [
+          "Erfolgskontrolle",
+          "Kontrolle des Erfolges",
+          "Wirksamkeitskontrolle"
+        ],
+        "keywords": [
+          "erfolgskontrolle",
+          "kontrolle",
+          "erfolg",
+          "ueberpruefen",
+          "evaluierung"
+        ]
       }
-    ]
+    ],
+    "musterloesung": "Die 5 Phasen des Personalentwicklungsprozesses sind:\n\n1. **Bedarfsanalyse**\n2. **Zielplanung**\n3. **Maßnahmengestaltung**\n4. **Durchführung**\n5. **Erfolgskontrolle**"
   },
   {
     "id": "pep2",
     "themaID": "pe-prozess",
     "frageNummer": 2,
-    "titel": "Frage 2:",
-    "frageText": "Warum ist Personalentwicklung in Zeiten von Fachkräftemangel und technologischem Wandel von strategischer Bedeutung für Unternehmen? Nennen Sie mindestens drei Gründe.",
+    "titel": "Aktuelle Herausforderungen",
+    "frageText": "Welche Herausforderungen im Bereich Personalentwicklung kennst du?",
     "commonFeedback": {
-      "positiv": "Sehr gut! Dieser Aspekt wurde umfassend erkannt.",
-      "neutral": "Dieser Begriff wurde erkannt, die Beschreibung könnte ausführlicher sein.",
+      "positiv": "Dieser Begriff wurde korrekt erwähnt.",
+      "neutral": "Dieser Begriff wurde erwähnt, die Beschreibung könnte jedoch ausführlicher sein.",
       "negativ": "Dieser Begriff wurde nicht erwähnt."
     },
-    "musterloesung": "Personalentwicklung ist in Zeiten von Fachkräftemangel und technologischem Wandel aus mehreren Gründen von strategischer Bedeutung:\n\n**1. Fachkräftemangel entgegenwirken / Anpassung an Wandel:** Durch gezielte Weiterbildung und Qualifizierung werden bestehende Mitarbeiter fit für neue Anforderungen gemacht. Dies reduziert die Abhängigkeit vom externen Arbeitsmarkt und hilft, Wissenslücken zu schließen, die durch den technologischen Fortschritt entstehen.\n\n**2. Vorteile für Mitarbeitende (Kompetenz, Motivation, Bindung):** Die Investition in Personalentwicklung signalisiert Wertschätzung. Dies steigert die Motivation, fördert die Mitarbeiterbindung und erhöht die Attraktivität des Unternehmens als Arbeitgeber. Mitarbeiter, die sich weiterentwickeln können, sind zufriedener und loyaler. Es baut ihre Kompetenzen auf und bereitet sie auf zukünftige Herausforderungen vor.\n\n**3. Nutzen für das Unternehmen (Know-how, Innovation, Anpassung):** Personalentwicklung sichert und erweitert das unternehmenseigene Know-how. Sie fördert Innovationen, da neue Fähigkeiten und Perspektiven ins Unternehmen gelangen. Das Unternehmen bleibt anpassungsfähig und wettbewerbsfähig, indem es neue Technologien und Marktbedingungen schnell integrieren kann.\n\n**4. Strategische Bedeutung / Integration in die Unternehmensstrategie:** Personalentwicklung ist kein isoliertes Instrument, sondern ein zentraler Bestandteil der Unternehmensstrategie. Sie sichert die langfristige Wettbewerbsfähigkeit, indem sie die Verfügbarkeit der benötigten Qualifikationen gewährleistet und das Unternehmen zukunftsfähig macht.",
     "bewertungskriterien": [
       {
-        "name": "Bedeutung im Kontext von Fachkräftemangel & Wandel",
+        "name": "Fachkräftemangel",
+        "phrases": [
+          "Fachkräftemangel",
+          "Mangel an Fachkräften"
+        ],
         "keywords": [
           "fachkräftemangel",
+          "fachkräfte",
+          "mangel"
+        ]
+      },
+      {
+        "name": "Mitarbeiterbindung",
+        "phrases": [
+          "Mitarbeiterbindung",
+          "Mitarbeitermotivation und Bindung"
+        ],
+        "keywords": [
+          "mitarbeiterbindung",
+          "bindung",
+          "motivation"
+        ]
+      },
+      {
+        "name": "Wandel",
+        "phrases": [
+          "Technologischer Wandel",
+          "Digitaler Wandel",
+          "Wandel"
+        ],
+        "keywords": [
           "wandel",
-          "technologisch",
-          "demografisch",
           "digitalisierung",
-          "reduziert",
-          "abhängigkeit"
-        ],
-        "phrases": [
-          "fachkräftemangel entgegenwirken",
-          "anpassung an wandel",
-          "technischem wandel",
-          "mitarbeitende weiterbildet",
-          "bildet mitarbeitende weiter"
+          "anpassung",
+          "technologie"
         ]
       },
       {
-        "name": "Vorteile für Mitarbeitende (Kompetenz, Motivation, Bindung)",
-        "keywords": [
-          "kompetenzen", "motivation", "mitarbeiterbindung", "aufbauen", "steigern", "erhöhen"
-        ],
+        "name": "Wettbewerbsfähigkeit",
         "phrases": [
-          "kompetenzen aufbaut",
-          "baut kompetenzen auf",
-          "motivation steigert",
-          "steigert motivation",
-          "mitarbeiterbindung erhöht",
-          "erhöht mitarbeiterbindung"
-        ]
-      },
-      {
-        "name": "Nutzen für das Unternehmen (Know-how, Innovation, Anpassung)",
-        "keywords": [
-          "know-how", "innovationskraft", "anpassungsfähigkeit", "sichern"
+          "Wettbewerbsfähigkeit sichern",
+          "Wettbewerbsfähigkeit erhöhen"
         ],
-        "phrases": [
-          "sichert know-how",
-          "sichert innovation",
-          "sichert anpassungsfähigkeit",
-          "sichert know-how innovation anpassungsfähigkeit"
-        ]
-      },
-      {
-        "name": "Strategische Bedeutung / Integration in die Unternehmensstrategie",
         "keywords": [
-          "strategisch", "instrument", "unternehmensstrategie", "wettbewerbsfähigkeit", "zentral"
-        ],
-        "phrases": [
-          "strategisches instrument",
-          "strategischer bestandteil",
-          "integration unternehmensstrategie",
-          "wettbewerbsfähigkeit sichern"
+          "wettbewerbsfähigkeit",
+          "wettbewerb",
+          "innovation"
         ]
       }
-    ]
+    ],
+    "musterloesung": "Einige der wichtigsten Herausforderungen sind:\n\n* **Fachkräftemangel:** Die Personalentwicklung muss sicherstellen, dass das Unternehmen die benötigten Qualifikationen hat.\n* **Technologischer Wandel:** Es ist entscheidend, Mitarbeiter kontinuierlich weiterzubilden, um mit der Digitalisierung Schritt zu halten.\n* **Mitarbeiterbindung:** Talentierte Mitarbeiter müssen durch gezielte Entwicklungsmöglichkeiten im Unternehmen gehalten werden.\n* **Wettbewerbsfähigkeit:** Durch die Investition in Personalentwicklung bleibt das Unternehmen innovativ und wettbewerbsfähig."
   }
 ]
