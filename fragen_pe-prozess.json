@@ -83,3 +83,79 @@
         ],
         "keywords": [
           "erfolgskontrolle",
+          "kontrolle",
+          "erfolg",
+          "ueberpruefen",
+          "evaluierung",
+          "evaluation"
+        ]
+      }
+    ],
+    "musterloesung": "Die 5 Phasen des Personalentwicklungsprozesses sind:\n\n1. **Bedarfsanalyse**\n2. **Zielplanung**\n3. **Maßnahmengestaltung**\n4. **Durchführung**\n5. **Erfolgskontrolle**"
+  },
+  {
+    "id": "pep2",
+    "themaID": "pe-prozess",
+    "frageNummer": 2,
+    "titel": "Aktuelle Herausforderungen",
+    "frageText": "Welche Herausforderungen im Bereich Personalentwicklung kennst du?",
+    "commonFeedback": {
+      "positiv": "Dieser Begriff wurde korrekt erwähnt.",
+      "neutral": "Dieser Begriff wurde erwähnt, die Beschreibung könnte jedoch ausführlicher sein.",
+      "negativ": "Dieser Begriff wurde nicht erwähnt."
+    },
+    "bewertungskriterien": [
+      {
+        "name": "Fachkräftemangel",
+        "phrases": [
+          "Fachkräftemangel",
+          "Mangel an Fachkräften"
+        ],
+        "keywords": [
+          "fachkräftemangel",
+          "fachkräfte",
+          "mangel"
+        ]
+      },
+      {
+        "name": "Mitarbeiterbindung",
+        "phrases": [
+          "Mitarbeiterbindung",
+          "Mitarbeitermotivation und Bindung"
+        ],
+        "keywords": [
+          "mitarbeiterbindung",
+          "bindung",
+          "motivation"
+        ]
+      },
+      {
+        "name": "Wandel",
+        "phrases": [
+          "Technologischer Wandel",
+          "Digitaler Wandel",
+          "Wandel"
+        ],
+        "keywords": [
+          "wandel",
+          "digitalisierung",
+          "anpassung",
+          "technologie"
+        ]
+      },
+      {
+        "name": "Wettbewerbsfähigkeit",
+        "phrases": [
+          "Wettbewerbsfähigkeit sichern",
+          "Wettbewerbsfähigkeit erhöhen"
+        ],
+        "keywords": [
+          "wettbewerbsfähigkeit",
+          "wettbewerb",
+          "innovation"
+        ]
+      }
+    ],
+    "musterloesung": "Einige der wichtigsten Herausforderungen sind:\n\n* **Fachkräftemangel:** Die Personalentwicklung muss sicherstellen, dass das Unternehmen die benötigten Qualifikationen hat.\n* **Technologischer Wandel:** Es ist entscheidend, Mitarbeiter kontinuierlich weiterzubilden, um mit der Digitalisierung Schritt zu halten.\n* **Mitarbeiterbindung:** Talentierte Mitarbeiter müssen durch gezielte Entwicklungsmöglichkeiten im Unternehmen gehalten werden.\n* **Wettbewerbsfähigkeit:** Durch die Investition in Personalentwicklung bleibt das Unternehmen innovativ und wettbewerbsfähig."
+  }
+]
