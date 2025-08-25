@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MIKP - Personalentwicklung</title>
+    <style>
+        :root {
+            --primary-color: #1a4e8a;
+            --secondary-color: #f0f2f5;
+            --container-bg-color: #ffffff;
+            --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            --border-color: #ced4da;
+            --button-bg-color: #666;
+            --button-hover-bg-color: #555;
+            --button-active-bg-color: var(--primary-color);
+            --button-text-color: white;
+            --feedback-ok-color: green;
+            --feedback-neutral-color: #d17b00;
+            --feedback-error-color: red;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 40px 20px;
+            background-color: var(--secondary-color);
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        .container {
+            background-color: var(--container-bg-color);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            max-width: 900px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        h1, h2, h3 {
+            color: var(--primary-color);
+            text-align: center;
+            font-weight: bold;
+        }
+
+        h1 {
+            font-size: 2.2em;
+            margin-bottom: 5px;
+        }
+
+        h2 {
+            font-size: 1.5em;
+            font-weight: normal;
+            margin-top: 0;
+            margin-bottom: 30px;
+        }
+
+        h3 {
+            font-size: 1.2em;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .question-navigation-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+            justify-content: center;
+        }
+
+        .question-navigation-bar button {
+            padding: 10px 20px;
+            font-size: 14px;
+            cursor: pointer;
+            background-color: var(--button-bg-color);
+            color: var(--button-text-color);
+            border: 1px solid #444;
+            border-radius: 5px;
+            transition: background-color 0.2s ease, border-color 0.2s ease;
+            line-height: 1;
+            box-sizing: border-box;
+            min-width: 80px;
+            font-weight: normal;
+        }
+
+        .question-navigation-bar button:hover:not(.active) {
+            background-color: var(--button-hover-bg-color);
+            border-color: #333;
+        }
+
+        .question-navigation-bar button.active {
+            background-color: var(--button-active-bg-color);
+            color: var(--button-text-color);
+            border-color: var(--button-active-bg-color);
+            box-shadow: none;
+        }
+
+        .question-navigation-bar button.active:hover {
+            background-color: #1a3e7a;
+            border-color: #1a3e7a;
+        }
+
+        .question-section {
+            padding: 25px;
+            border: 1px solid #cddff5;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            background-color: var(--container-bg-color);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .question-text {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            font-weight: bold;
+        }
+
+        .input-hint-text {
+            font-size: 0.95em;
+            color: #555;
+            margin-top: -10px;
+            margin-bottom: 10px;
+        }
+
+        textarea.user-answer {
+            width: 100%;
+            height: 200px;
+            font-size: 1.05em;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid #cddff5;
+            border-left: 5px solid var(--primary-color);
+            border-radius: 5px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            box-sizing: border-box;
+            resize: vertical;
+            transition: border-color 0.3s;
+        }
+
+        textarea.user-answer:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+
+        .button-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        button.btn-check-answer {
+            padding: 15px 20px;
+            background-color: #28a745;
+            color: var(--button-text-color);
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+            max-width: 300px;
+            box-sizing: border-box;
+            font-weight: normal;
+        }
+
+        button.btn-check-answer:hover {
+            background-color: #218838;
+        }
+
+        button.btn-check-answer.recheck-button {
+            background-color: #d4ac0d;
+        }
+
+        button.btn-check-answer.recheck-button:hover {
+            background-color: #c0980e;
+        }
+
+        .recheck-info-text {
+            text-align: center;
+            font-style: italic;
+            color: #555;
+            margin-top: -10px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .feedback-section {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e6eff9;
+            border-left: 5px solid var(--primary-color);
+            border-radius: 5px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+            display: none;
+        }
+
+        .feedback-header {
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+            color: var(--primary-color);
+        }
+
+        .feedback-details {
+            margin-top: 10px;
+        }
+
+        .feedback-item {
+            margin-bottom: 8px;
+            padding: 2px 0;
+            display: flex;
+            align-items: flex-start;
+            line-height: 1.4;
+        }
+
+        .feedback-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .feedback-icon {
+            font-size: 1.2em;
+            margin-right: 10px;
+            flex-shrink: 0;
+            padding-top: 1px;
+        }
+
+        .feedback-item strong {
+            font-weight: bold;
+        }
+
+        .feedback-item.ok { color: var(--feedback-ok-color); }
+        .feedback-item.hinweis { color: var(--feedback-neutral-color); }
+        .feedback-item.error { color: var(--feedback-error-color); }
+
+        .score {
+            margin-top: 20px;
+            font-weight: bold;
+            font-size: 1.1em;
+            color: var(--primary-color);
+            border-top: 1px solid #dcdcdc;
+            padding-top: 12px;
+            text-align: right;
+        }
+
+        button.btn-toggle-musterloesung {
+            background-color: var(--primary-color);
+            color: var(--button-text-color);
+            border: none;
+            padding: 15px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            width: 100%;
+            max-width: 300px;
+            display: block;
+            box-sizing: border-box;
+            font-weight: normal;
+            margin-top: 30px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        button.btn-toggle-musterloesung:hover {
+            background-color: #1a3e7a;
+        }
+
+        .correct-answer-content-container {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e6eff9;
+            border-left: 5px solid var(--primary-color);
+            border-radius: 5px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+            display: none;
+        }
+
+        .correct-answer-content-container p {
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+
+        .correct-answer-content-container p:last-child {
+            margin-bottom: 0;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+            }
+            .question-navigation-bar button,
+            button.btn-check-answer,
+            button.btn-toggle-musterloesung {
+                font-size: 1em;
+                padding: 12px 15px;
+            }
+            h1 { font-size: 1.8em; }
+            h2 { font-size: 1.2em; }
+            textarea.user-answer { height: 150px; }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>MIKP - Personalentwicklung</h1>
+        <h2 id="thema-sub-titel">Personalentwicklungsprozess</h2>
+
+        <div class="question-navigation-bar" id="questionNavigationBar">
+        </div>
+
+        <div id="questionSectionContainer">
+        </div>
+
+        <template id="questionTemplate">
+            <div class="question-section">
+                <h3 class="question-title"></h3>
+                <p class="question-text"></p>
+                <p class="input-hint-text">Bitte gib deine Antwort im folgenden Feld ein:</p>
+                <textarea class="user-answer" rows="8" placeholder="Deine Antwort hier..."></textarea>
+                <div class="recheck-info-text">Möchtest du deine Antwort noch einmal überarbeiten und erneut prüfen?</div>
+                <div class="button-group">
+                    <button class="btn-check-answer">Antwort überprüfen</button>
+                </div>
+                <div class="feedback-section">
+                    <div class="feedback-header">Feedback zu Ihrer Antwort:</div>
+                    <div class="feedback-details">
+                    </div>
+                    <div class="score"></div>
+                </div>
+                <button class="btn-toggle-musterloesung">Musterlösung anzeigen</button>
+                <div class="correct-answer-content-container">
+                    <div class="feedback-header">Musterlösung:</div>
+                    <div class="correct-answer-content">
+                    </div>
+                </div>
+            </div>
+        </template>
+    </div>
+
+    <script>
+        let questions = [];
+        let currentQuestionIndex = 0;
+        const defaultThemaId = "pe-prozess";
+
+        // Vereinfachter Stemmer, der nur Satzzeichen entfernt und in Kleinbuchstaben umwandelt.
+        // Die semantische Analyse macht Stemming in diesem Fall weniger kritisch.
+        function simpleStemmer(word) {
+            return word.toLowerCase().replace(/[.,!?;:()"\-]/g, '');
+        }
+
+        // Berechnet die Jaccard-Ähnlichkeit zwischen zwei Texten
+        function calculateJaccardSimilarity(text1, text2) {
+            const set1 = new Set(text1.split(/\s+/).map(simpleStemmer).filter(w => w.length > 2));
+            const set2 = new Set(text2.split(/\s+/).map(simpleStemmer).filter(w => w.length > 2));
+            const intersection = new Set([...set1].filter(x => set2.has(x)));
+            const union = new Set([...set1, ...set2]);
+            return intersection.size / union.size;
+        }
+
+        async function loadQuestions() {
+            try {
+                const response = await fetch('fragen_pe-prozess.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                questions = data.filter(q => q.themaID === defaultThemaId);
+                questions.sort((a, b) => a.frageNummer - b.frageNummer);
+                if (questions.length === 0) {
+                    document.getElementById('questionSectionContainer').innerHTML = '<p>Keine Fragen für dieses Thema gefunden.</p>';
+                    return;
+                }
+                renderNavigationBar();
+                zeigeFrage(0);
+            } catch (error) {
+                console.error("Fehler beim Laden der Fragen:", error);
+                document.getElementById('questionSectionContainer').innerHTML = `<p>Fehler beim Laden der Fragen: ${error.message}. Bitte überprüfen Sie die Konsolenmeldung.</p>`;
+            }
+        }
+
+        function renderNavigationBar() {
+            const navBar = document.getElementById('questionNavigationBar');
+            navBar.innerHTML = '';
+            questions.forEach((q, index) => {
+                const button = document.createElement('button');
+                button.textContent = `Frage ${q.frageNummer}`;
+                button.onclick = () => zeigeFrage(index);
+                if (index === currentQuestionIndex) {
+                    button.classList.add('active');
+                }
+                navBar.appendChild(button);
+            });
+        }
+
+        function zeigeFrage(index) {
+            if (index < 0 || index >= questions.length) return;
+            currentQuestionIndex = index;
+            const question = questions[currentQuestionIndex];
+            const container = document.getElementById('questionSectionContainer');
+            const template = document.getElementById('questionTemplate');
+            const clone = document.importNode(template.content, true);
+            clone.querySelector('.question-title').textContent = question.titel;
+            clone.querySelector('.question-text').textContent = question.frageText;
+            const answerInput = clone.querySelector('.user-answer');
+            const checkAnswerButton = clone.querySelector('.btn-check-answer');
+            const toggleSolutionButton = clone.querySelector('.btn-toggle-musterloesung');
+            const feedbackSection = clone.querySelector('.feedback-section');
+            const solutionContainer = clone.querySelector('.correct-answer-content-container');
+            const recheckInfoText = clone.querySelector('.recheck-info-text');
+
+            answerInput.value = question.userAnswer || '';
+            checkAnswerButton.textContent = 'Antwort überprüfen';
+            checkAnswerButton.classList.remove('recheck-button');
+            toggleSolutionButton.style.display = 'none';
+            feedbackSection.style.display = 'none';
+            solutionContainer.style.display = 'none';
+            recheckInfoText.style.display = 'none';
+
+            checkAnswerButton.onclick = () => evaluateAnswer(question, answerInput, checkAnswerButton, toggleSolutionButton, feedbackSection, solutionContainer, recheckInfoText);
+            toggleSolutionButton.onclick = () => toggleMusterloesung(question, toggleSolutionButton, solutionContainer);
+
+            container.innerHTML = '';
+            container.appendChild(clone);
+            renderNavigationBar();
+        }
+
+        function evaluateAnswer(question, answerInput, checkAnswerButton, toggleSolutionButton, feedbackSection, solutionContainer, recheckInfoText) {
+            const userAnswer = answerInput.value;
+            question.userAnswer = userAnswer;
+
+            const feedbackDetails = feedbackSection.querySelector('.feedback-details');
+            feedbackDetails.innerHTML = '';
+            const commonFeedback = question.commonFeedback;
+            let totalPossibleScore = 0;
+            let totalPoints = 0;
+
+            const referenceAnswers = question.bewertungskriterien.map(c => {
+                const phrases = c.phrases || [];
+                const keywords = c.keywords || [];
+                return [...phrases, ...keywords].join(' ');
+            });
+
+            // Semantische Ähnlichkeit berechnen
+            const similarityScores = referenceAnswers.map(ref => calculateJaccardSimilarity(userAnswer, ref));
+
+            // Schwellenwerte für die Bewertung
+            const okThreshold = 0.5;
+            const hintThreshold = 0.25;
+
+            similarityScores.forEach((score, index) => {
+                const criterion = question.bewertungskriterien[index];
+                totalPossibleScore += 2; // Jedes Kriterium zählt maximal 2 Punkte
+
+                let points = 0;
+                let feedbackText = '';
+                let feedbackClass = '';
+                let icon = '';
+
+                if (score >= okThreshold) {
+                    points = 2;
+                    feedbackText = commonFeedback.positiv;
+                    feedbackClass = 'ok';
+                    icon = '✅';
+                } else if (score >= hintThreshold) {
+                    points = 1;
+                    feedbackText = commonFeedback.neutral;
+                    feedbackClass = 'hinweis';
+                    icon = '⚠️';
+                } else {
+                    points = 0;
+                    feedbackText = commonFeedback.negativ;
+                    feedbackClass = 'error';
+                    icon = '❌';
+                }
+
+                totalPoints += points;
+                const feedbackItem = document.createElement('div');
+                feedbackItem.classList.add('feedback-item', feedbackClass);
+                feedbackItem.innerHTML = `<span class="feedback-icon">${icon}</span> <span><strong>${criterion.name}:</strong> ${feedbackText}</span>`;
+                feedbackDetails.appendChild(feedbackItem);
+            });
+
+            const percentage = (totalPossibleScore > 0) ? (totalPoints / totalPossibleScore) * 100 : 0;
+            const scoreDisplay = feedbackSection.querySelector('.score');
+            scoreDisplay.textContent = `Ergebnis in Prozent: ${percentage.toFixed(0)}%`;
+
+            feedbackSection.style.display = 'block';
+            toggleSolutionButton.style.display = 'block';
+            checkAnswerButton.textContent = 'Antwort erneut prüfen';
+            checkAnswerButton.classList.add('recheck-button');
+            recheckInfoText.style.display = 'block';
+        }
+
+        function toggleMusterloesung(question, button, solutionContainer) {
+            if (solutionContainer.style.display === 'block') {
+                solutionContainer.style.display = 'none';
+                button.textContent = 'Musterlösung anzeigen';
+            } else {
+                let formattedSolution = question.musterloesung.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                const paragraphs = formattedSolution.split(/\n\s*\n/).filter(p => p.trim() !== '');
+                let htmlContent = '';
+                paragraphs.forEach(p => {
+                    htmlContent += `<p>${p.replace(/\n/g, '<br>')}</p>`;
+                });
+                solutionContainer.querySelector('.correct-answer-content').innerHTML = htmlContent;
+                solutionContainer.style.display = 'block';
+                button.textContent = 'Musterlösung ausblenden';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadQuestions);
+    </script>
+</body>
+</html>
+
