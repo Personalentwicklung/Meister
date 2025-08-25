@@ -49,14 +49,17 @@
           "Gestaltung der Maßnahmen",
           "Massnahmen gestalten",
           "Maßnahmen entwickeln",
-          "Maßnahmen planen"
+          "Maßnahmen planen",
+          "Maßnahmen entwerfen"
         ],
         "keywords": [
           "massnahme",
           "gestaltung",
           "gestalten",
           "entwicklung",
-          "entwickeln"
+          "entwickeln",
+          "entwurf",
+          "planung"
         ]
       },
       {
@@ -121,7 +124,8 @@
         "name": "Mitarbeiterbindung",
         "phrases": [
           "Mitarbeiterbindung",
-          "Mitarbeitermotivation und Bindung"
+          "Mitarbeitermotivation und Bindung",
+          "Mitarbeiter halten"
         ],
         "keywords": [
           "mitarbeiterbindung",
